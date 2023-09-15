@@ -1,0 +1,138 @@
+@import "./constants";
+body {
+  background-color: var(--neutral-8);
+  color: var(--neutral-1);
+  min-height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  font-family: $sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  font-family: $font-family;
+}
+
+.button {
+  border: 1px solid var(--neutral-1);
+  background-color: var(--neutral-1);
+  color: inherit;
+  border-radius: 23px;
+  height: 46px;
+  font-size: 18px;
+  margin-right: auto;
+  padding: 0 20px;
+  text-decoration: none;
+  line-height: 42px;
+  transition: 0.2s ease;
+  &:hover {
+    border: 1px solid var(--neutral-5);
+    background-color: transparent;
+  }
+}
+
+a {
+  color: inherit;
+  text-transform: none;
+  text-decoration: none;
+}
+.btn {
+  display: inline-flex;
+  font-size: 18px;
+  padding: calc(2rem / #{$r}) calc((2rem / #{$r}) * 2);
+  background: var(--primary);
+  color: var(--neutral-8);
+  transition: 200ms ease;
+  cursor: pointer;
+  line-height: 1;
+  gap: 10px;
+  border-radius: 100px;
+  &:hover {
+    background: var(--secondary);
+    color: var(--neutral-10);
+  }
+}
+
+.btn-link {
+  color: var(--secondary);
+  box-shadow: 0 0 0 1px;
+  padding: 5px 15px;
+  border-radius: 100px;
+  transition: 200ms ease;
+  &:hover {
+    background: var(--secondary);
+    color: var(--neutral-10);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100vw;
+  margin: auto;
+  display: grid;
+  grid-template: auto 1fr / auto 1fr;
+  height: 100vh;
+  @media (max-width: $medium) {
+  }
+
+  .sidebar {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  .page-contents {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: grid;
+    position: relative;
+    // opacity: 0;
+    // transform: translateY(20px);
+    // animation: build-in-up 200ms 10ms ease forwards 1;
+    &.not-loaded {
+      &::after {
+        content: url(/src/assets/img/spinner.svg);
+        height: 100px;
+        width: 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        transform-origin: center;
+        opacity: 0;
+        z-index: -1;
+        animation: spin 10000ms 0ms linear forwards infinite;
+      }
+    }
+  }
+  @keyframes spin {
+    from {
+      opacity: 1;
+      transform: rotate(0deg);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes build-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}

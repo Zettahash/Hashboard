@@ -1,0 +1,17 @@
+$large: 1400px;
+$content: 1200px;
+$medium: 960px;
+$small: 756px;
+$x-small: 500px;
+
+$r:1.62;
+
+$font-large: 60px;
+$font-medium: $font-large / #{$r};
+$font-small: $font-medium / #{$r};
+$title-line-height: 1.1;
+
+
+$title: 'Orbitron', mono;
+$font-family: 'Orbitron', Arial, Helvetica, sans-serif;
+$sans-serif: 'Roboto', Arial, Helvetica, sans-serif;
