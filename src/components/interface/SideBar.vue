@@ -45,6 +45,7 @@ export default {
 
 .sidebar {
   // height: 100vh;
+  padding-top:20px;
   position: sticky;
   top: 0;
   z-index: 300;
@@ -70,8 +71,8 @@ export default {
 
     .shortcut {
       display: flex;
-      gap: 15px;
-      padding: 15px 20px;
+      gap: 10px;
+      padding: 12px 20px;
       margin: 0 15px;
       align-items: center;
       position: relative;
@@ -80,21 +81,21 @@ export default {
       &.router-link-exact-active {
         color: var(--primary);
 
-        &:after {
-          content: "";
-          z-index: -1;
-          height: 100%;
-          width: 100%;
-          background: var(--secondary);
-          left: 0;
-          top: 0;
-          opacity: .1;
-          position: absolute;
-          border-radius: 15px;
-        }
+        // &:after {
+        //   content: "";
+        //   z-index: -1;
+        //   height: 100%;
+        //   width: 100%;
+        //   background: var(--secondary);
+        //   left: 0;
+        //   top: 0;
+        //   opacity: .1;
+        //   position: absolute;
+        //   border-radius: 15px;
+        // }
 
         span {
-          font-weight: 800;
+          // font-weight: 800;
         }
 
         i {
