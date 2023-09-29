@@ -20,6 +20,12 @@ export default {
         item: 'routerLoaded',
         value: true
       })
+      if (window.innerWidth < 800){
+        this.$store.commit('setDynamic', {
+        item: 'sidebarCollapse',
+        value: true
+      })
+      }
     }
   }
 }

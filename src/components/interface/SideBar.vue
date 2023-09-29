@@ -3,13 +3,13 @@
     <template v-if="!application.sidebarCollapse">
     <div class="shortcuts">
       <router-link :to="{name:'overview'}" class="shortcut"><i><svg width="100%" height="100%" viewBox="0 0 1351 1351" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><rect id="Artboard2" x="0" y="0" width="1350.63" height="1350.63" style="fill:none;"/><g><path d="M479.007,835.254l-88.105,419.213l-142.19,-0l58.726,-279.426l-285.528,1.057l28.729,-139.257l428.368,-1.587Zm467.937,-1.733l-88.469,420.946l-142.19,-0l59.09,-281.159l-262.968,0.974l29.268,-139.26l405.269,-1.501Zm63.215,-0.234l-29.268,139.259l224.623,-0.831l28.73,-139.258l-224.085,0.83Zm-434.909,-455.969l-96.243,457.936l-142.301,0.527l66.975,-318.676l-287.299,1.064l28.729,-139.258l430.139,-1.593Zm384.473,-281.159l142.19,-0l-154.969,737.362l-142.301,0.527l155.08,-737.889Zm-328.277,280.951l-29.268,139.259l269.44,-0.997l29.268,-139.26l-269.44,0.998Zm468.484,-1.735l-29.268,139.259l229.324,-0.849l28.73,-139.258l-228.786,0.848Zm-524.68,1.943l-142.301,0.527l59.201,-281.686l142.19,-0l-59.09,281.159Z" style="fill-opacity:0.4;"/><path d="M545.982,516.578l-142.301,0.527l29.268,-139.26l142.301,-0.527l-29.268,139.26Z" style=""/><path d="M1013.92,514.844l-142.301,0.528l29.268,-139.26l142.301,-0.527l-29.268,139.259Z" style=""/><path d="M449.739,974.514l-142.301,0.527l29.268,-139.26l142.301,-0.527l-29.268,139.26Z" style=""/><path d="M917.676,972.781l-142.301,0.527l29.268,-139.26l142.301,-0.527l-29.268,139.26Z" style=""/></g></svg></i><span>Hashboard</span></router-link>
-      <router-link :to="{name:'private-sale'}" class="shortcut"><i class="duotone icon-shield"></i><span>Private Sale</span></router-link>
-      <router-link :to="{name:'community-consensus-forum'}" class="shortcut"><i class="duotone icon-field-group"></i><span>Community Consensus Forum</span></router-link>
-      <router-link :to="{name:'live-hashrate'}" class="shortcut"><i class="duotone icon-logs"></i><span>Live Hash-rate</span></router-link>
-      <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="duotone icon-content"></i><span>Ledger - Wallets and Holdings</span></router-link>
-      <router-link :to="{name:'market'}" class="shortcut"><i class="duotone icon-category"></i><span>Market</span></router-link>
-      <router-link :to="{name:'network'}" class="shortcut"><i class="duotone icon-workflows"></i><span>Network</span></router-link>
-      <router-link :to="{name:'earnings'}" class="shortcut"><i class="duotone icon-table"></i><span>Earnings</span></router-link>
+      <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link>
+      <router-link :to="{name:'community-consensus-forum'}" class="shortcut"><i class="i-users"></i><span>Community Consensus Forum</span></router-link>
+      <router-link :to="{name:'mining'}" class="shortcut"><i class="i-zap"></i><span>Mining</span></router-link>
+      <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link>
+      <router-link :to="{name:'accountability'}" class="shortcut"><i class="i-shield"></i><span>Accountability</span></router-link>
+      <router-link :to="{name:'assets'}" class="shortcut"><i class="i-pie-chart"></i><span>Assets</span></router-link>
+      <router-link :to="{name:'market'}" class="shortcut"><i class="i-trending-up"></i><span>Market</span></router-link>
     </div>
     </template>
   </div>
@@ -65,7 +65,8 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 15px 0px;
-    font-family: $font-family;
+    font-family: $sans-serif;
+    font-size: 16px;
 
     .shortcut {
       display: flex;
@@ -74,6 +75,7 @@ export default {
       margin: 0 15px;
       align-items: center;
       position: relative;
+      font-weight: 400;
 
       &.router-link-exact-active {
         color: var(--primary);
@@ -92,7 +94,7 @@ export default {
         }
 
         span {
-          font-weight: 600;
+          font-weight: 800;
         }
 
         i {
@@ -119,18 +121,18 @@ export default {
 
         }
       }
-
+      --icon-size: 18px;
       img {
-        height: 30px;
-        max-width: 30px;
+        height: var(--icon-size);
+        max-width:  var(--icon-size);
       }
 
       i {
-        font-size: 30px;
+        font-size:  var(--icon-size);
 
         svg {
-          height: 30px;
-          width: 30px;
+          height:  var(--icon-size);
+          width:  var(--icon-size);
           margin: auto;
           display: block;
 
@@ -141,4 +143,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>

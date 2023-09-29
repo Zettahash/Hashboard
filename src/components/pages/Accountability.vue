@@ -5,7 +5,8 @@
 </template>
 <script>
 export default {
-  name:'LiveHashrate',
+  // eslint-disable-next-line vue/multi-word-component-names
+  name:'Accountability',
   mounted() {
     this.routeLoaded() 
   },

@@ -4,11 +4,11 @@ import VueRouter from 'vue-router'
 import Overview from '@/components/pages/Overview'
 import PrivateSale from '@/components/pages/PrivateSale'
 import CommunityConsensusForum from '@/components/pages/CommunityConsensusForum'
-import LiveHashrate from '@/components/pages/LiveHashrate'
+import Mining from '@/components/pages/Mining'
 import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
 import Market from '@/components/pages/Market'
-import Network from '@/components/pages/Network'
-import Earnings from '@/components/pages/Earnings'
+import Accountability from '@/components/pages/Accountability'
+import Assets from '@/components/pages/Assets'
 
 // -Private Sale: will be important so that they can purchase the ZH token. We use the BTCPay that we have hosted on Voltage.
 
@@ -20,9 +20,9 @@ import Earnings from '@/components/pages/Earnings'
 
 // -Market: This is to show realtime ZH exchange trading. We are not creating an exchange though. Just pull data from coinmarketcap or another exchange.
 
-// -Network: Will be the different site locations. Like a world map.
+// -Accountability: Will be the different site locations. Like a world map.
 
-// -Earnings should show historical revenue and profits. This can actually be combined with the Live Hashrate page.
+// -Assets should show historical revenue and profits. This can actually be combined with the Live Hashrate page.
 
 Vue.use(VueRouter)
 
@@ -84,11 +84,11 @@ const routes = [
     }
   },
   {
-    path: '/live-hashrate',
-    name: 'live-hashrate',
-    component: LiveHashrate,
+    path: '/mining',
+    name: 'mining',
+    component: Mining,
     meta: {
-      title: 'Live Hashrate | ' + title,
+      title: 'Mining | ' + title,
       metaTags: [
         {
           name: 'description',
@@ -138,11 +138,11 @@ const routes = [
     }
   },
   {
-    path: '/network',
-    name: 'network',
-    component: Network,
+    path: '/accountability',
+    name: 'accountability',
+    component: Accountability,
     meta: {
-      title: 'Network | ' + title,
+      title: 'Accountability | ' + title,
       metaTags: [
         {
           name: 'description',
@@ -156,11 +156,11 @@ const routes = [
     }
   },
   {
-    path: '/earnings',
-    name: 'earnings',
-    component: Earnings,
+    path: '/assets',
+    name: 'assets',
+    component: Assets,
     meta: {
-      title: 'Earnings | ' + title,
+      title: 'Assets | ' + title,
       metaTags: [
         {
           name: 'description',

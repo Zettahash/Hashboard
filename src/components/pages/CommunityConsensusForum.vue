@@ -1,24 +1,39 @@
 <template lang="">
   <div>
-    
+    <div class="iframe"></div>
   </div>
 </template>
 <script>
 export default {
   name: 'CommunityConsensusForum',
   mounted() {
-    this.routeLoaded() 
+    const self = this
+    const iframe = document.createElement('iframe')
+    iframe.onload = function() { self.frameLoaded() }
+    iframe.src = 'https://zettahash.flarum.cloud';
+    iframe.classList.add("dom-iframe")
+    document.querySelector(".iframe").replaceWith(iframe)
   },
   methods: {
-    routeLoaded() {
+    frameLoaded() {
       this.$store.commit('setDynamic', {
         item: 'routerLoaded',
         value: true
       })
+      if (window.innerWidth < 800){
+        this.$store.commit('setDynamic', {
+        item: 'sidebarCollapse',
+        value: true
+      })
+      }
     }
   }
 }
 </script>
-<style lang="">
-  
+<style lang="scss">
+  .dom-iframe{
+    height: 100%;
+    width: 100%;
+    border: 0;
+  }
 </style>
