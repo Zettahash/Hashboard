@@ -95,6 +95,7 @@ export default {
       font-family:$font-family;
       font-size: 24px;
       font-weight:800;
+      color: var(--secondary);
     }
     .sub{
       opacity:.5;

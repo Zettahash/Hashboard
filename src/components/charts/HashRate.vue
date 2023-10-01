@@ -41,15 +41,15 @@ export default {
         datasets: [
           {
             label: 'SHA256 Hash-rate (PH/s)',
-            // color: '#46CB18',
+            // color: '#0062ff',
             data: [1000, 1000, 790, 800, 890, 900, 900]
           }
         ]
       },
       options: {
         responsive: true,
-        backgroundColor: '#46CB18',
-        borderColor: '#46CB18',
+        backgroundColor: '#0062ff',
+        borderColor: '#0062ff',
         tension: .5,
         maintainAspectRatio: false,
         color: '#fff',

@@ -41,20 +41,20 @@ export default {
         datasets: [
           {
             label: 'SHA256 Pool 1',
-            backgroundColor: '#09815c',
-            borderColor: '#09815c',
+            backgroundColor: '#ff337e',
+            borderColor: '#ff337e',
             data: [1000, 1000, 790, 800, 890, 900, 900]
           },
           {
             label: 'SHA256 Pool 2',
-            backgroundColor: '#586ada',
-            borderColor: '#586ada',
+            backgroundColor: '#f8ba00',
+            borderColor: '#f8ba00',
             data: [500, 500, 300, 300, 450, 450, 500]
           },
           {
             label: 'SHA256 Pool 3',
-            backgroundColor: '#067ab8',
-            borderColor: '#067ab8',
+            backgroundColor: '#3783ff',
+            borderColor: '#3783ff',
             data: [50, 50, 1000, 700, 800, 900, 900]
           }
         ]
