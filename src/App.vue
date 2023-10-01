@@ -48,7 +48,7 @@ export default {
 // REMOVE ALL STYLES AFTER THIS LINE WHEN REMOVING COMING SOON BANNER
 .page-contents{
   grid-template-rows: auto 1fr;
-}
+} 
 .coming-soon {
   padding: 20px;
   display: block;
