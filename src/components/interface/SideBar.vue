@@ -57,7 +57,8 @@ export default {
   z-index: 300;
   overflow-x: hidden;
   overflow-y: auto;
-
+    width: 0px;
+  transition: 400ms ease;
   &.open {
     width: 300px;
     max-width: 90vw;
