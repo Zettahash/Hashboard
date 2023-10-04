@@ -13,8 +13,8 @@
         <i class="i-star star" v-if="item.favourite"></i>
       </div>
       <div class="body">
-        <div class="data">{{item.data}} {{item.currency?item.currency:''}}</div>
-        <div class="sub">{{item.sub}} <span :class="item.change.substring(0,1)=='+'?'good':'bad'">{{item.change?item.change:''}}</span></div>
+        <div class="data">{{item.data}} {{item.displayCurrency?item.displayCurrency:''}}</div>
+        <div class="sub" v-if="item.sub">{{item.sub}} <span :class="item.change.substring(0,1)=='+'?'good':'bad'">{{item.change?item.change:''}}</span></div>
       </div>
         <div class="graph" v-if="item.graph">
           <AssetsStats :dataValues="item.graph.data" :colour="item.graph.colour" />
@@ -41,15 +41,16 @@ export default {
         {
           size: 'asset-complicated small',
           type: 'Token',
-          badge: 'Ethereum',
-          title: 'Tether USD',
-          data: '26,386.77',
-          currency: 'USD-T',
-          sub: '$26,386.77',
-          change: '+0.01%',
+          badge: 'ERC-20',
+          title: 'ZH Foundation',
+          data: '49,500,000',
+          displayCurrency: 'ZH',
+          currency: 'ETH',
+          sub: false,
+          change: '+0.0%',
           graph: {
-            data: [25386, 26186, 26286, 26380, 26380.77, 26386.77],
-            colour: "#4db6ac",
+            data: [49500000, 49500000],
+            colour: "#5c6bc0",
           },
           date: '',
           favourite: false,
@@ -59,15 +60,16 @@ export default {
         {
           size: 'asset-complicated small',
           type: 'Token',
-          badge: 'Ethereum',
-          title: 'Tether USD',
-          data: '26,386.77',
-          currency: 'USD-T',
-          sub: '$26,386.77',
-          change: '+0.01%',
+          badge: 'ERC-20',
+          title: 'ZH Private Sale',
+          data: '46,566,000',
+          displayCurrency: 'ZH',
+          currency: 'ETH',
+          sub: false,
+          change: '+0.0%',
           graph: {
-            data: [26386.77, 26386.77],
-            colour: "#4db6ac",
+            data: [46566000, 46566000],
+            colour: "#5c6bc0",
           },
           date: '',
           favourite: false,
@@ -77,15 +79,113 @@ export default {
         {
           size: 'asset-complicated small',
           type: 'Token',
-          badge: 'Ethereum',
-          title: 'USD Coin',
-          data: '26,386.77',
+          badge: 'ERC-20',
+          title: 'ZH Presale',
+          data: '250,000,000',
+          displayCurrency: 'ZH',
+          currency: 'ETH',
+          sub: false,
+          change: '+0.0%',
+          graph: {
+            data: [250000000, 250000000],
+            colour: "#5c6bc0",
+          },
+          date: '',
+          favourite: false,
+          verified: false,
+          info: ''
+        },
+        {
+          size: 'asset-complicated small',
+          type: 'Token',
+          badge: 'ERC-20',
+          title: 'ZH Holdings Contract',
+          data: '300,000,000',
+          displayCurrency: 'ZH',
+          currency: 'ETH',
+          sub: false,
+          change: '+0.0%',
+          graph: {
+            data: [300000000, 300000000],
+            colour: "#5c6bc0",
+          },
+          date: '',
+          favourite: false,
+          verified: false,
+          info: ''
+        },
+        {
+          size: 'asset-complicated small',
+          type: 'Bitcoin',
+          badge: false,
+          title: 'Zettahash BTC Holdings',
+          data: '58.427652',
+          displayCurrency: 'BTC',
+          currency: 'BTC',
+          sub: '$1,576,482.22 USD',
+          change: '+0.0%',
+          graph: {
+            data: [58.427652, 58.427652, 58.427652],
+            colour: "#d97919",
+          },
+          date: '',
+          favourite: false,
+          verified: false,
+          info: ''
+        },
+
+
+        {
+          size: 'asset-complicated small',
+          type: 'Token',
+          badge: 'ERC-20',
+          title: 'Zettahash USDT Holdings',
+          data: '265,876.76',
+          displayCurrency: 'USDT',
+          currency: 'USD-T',
+          sub: '$265,876.76',
+          change: '+0.0%',
+          graph: {
+            data: [265876.76, 265876.76],
+            colour: "#00acc1",
+          },
+          date: '',
+          favourite: false,
+          verified: false,
+          info: ''
+        },
+        {
+          size: 'asset-complicated small',
+          type: 'Token',
+          badge: 'ERC-20',
+          title: 'Zettahash USDC Holdings',
+          data: '165,736.36',
+          displayCurrency: 'USDC',
           currency: 'USD-C',
-          sub: '$26,386.77',
-          change: '-0.01%',
+          sub: '$165,736.36',
+          change: '+0.0%',
           graph: {
-            data: [25386, 26186, 26286, 26380, 26380.77, 26386.77],
-            colour: "#0062ff",
+            data: [165736.36, 165736.36],
+            colour: "#1e88e5",
+          },
+          date: '',
+          favourite: false,
+          verified: false,
+          info: ''
+        },
+        {
+          size: 'asset-complicated small',
+          type: 'Ethereum',
+          badge: false,
+          title: 'Zettahash ETH Holdings',
+          data: '536.25',
+          displayCurrency: 'ETH',
+          currency: 'ETH',
+          sub: '$897,482.91 USD',
+          change: '+0.0%',
+          graph: {
+            data: [536.25, 536.25],
+            colour: "#5c6bc0",
           },
           date: '',
           favourite: false,
@@ -95,87 +195,16 @@ export default {
         {
           size: 'asset-complicated small',
           type: 'Bitcoin',
-          badge: 'Segwit',
-          title: 'Bitcoin Cold Storage',
-          data: '26,386.77',
+          badge: false,
+          title: 'Zettahash BTC Mining Wallet',
+          data: '92.14234',
+          displayCurrency: 'BTC',
           currency: 'BTC',
-          sub: '$26,386.77',
-          change: '-0.01%',
+          sub: '$2,486,341.29 USD',
+          change: '+0.0%',
           graph: {
-            data: [25386, 26186, 26286, 26380, 26380.77, 26386.77],
-            colour: "#d97919",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Bitcoin',
-          badge: 'Native Segwit',
-          title: 'Bitcoin Hot',
-          data: '26,386.77',
-          currency: 'BTC',
-          sub: '$26,386.77',
-          change: '-0.01%',
-          graph: {
-            data: [253, 253, 253, 26186, 26286, 26380, 26380.77, 26386.77],
-            colour: "#d97919",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Bitcoin',
-          badge: false,
-          title: 'Zettahash',
-          data: '26,386.77',
-          currency: 'ETH',
-          sub: '$26,386.77',
-          change: '+0.01%',
-          graph: {
-            data: [253, 253, 253, 26186, 26286, 26380, 26380.77, 26386.77],
-            colour: "#5c6bc0",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Bitcoin',
-          badge: false,
-          title: 'Zettahash',
-          data: '26,386.77',
-          currency: 'ETH',
-          sub: '$26,386.77',
-          change: '+0.01%',
-          graph: {
-            data: [253, 253, 253, 26186, 26286, 26380, 26380.77, 26386.77],
-            colour: "#5c6bc0",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Bitcoin',
-          badge: false,
-          title: 'Zettahash',
-          data: '26,386.77',
-          currency: 'ETH',
-          sub: '$26,386.77',
-          change: '+0.01%',
-          graph: {
-            data: [253, 253, 253, 26186, 26286, 26380, 26380.77, 26386.77],
-            colour: "#5c6bc0",
+            data: [92.14234, 92.14234],
+            colour: "#ff8f00",
           },
           date: '',
           favourite: false,
@@ -206,7 +235,7 @@ export default {
       try {
         let tokenAlpha = token.replace(/-/g, '')
         return require(`/src/assets/img/tokens/${tokenAlpha}.png`)
-      }catch(e){console.log(e)}
+      } catch (e) { console.log(e) }
     },
   }
 }
