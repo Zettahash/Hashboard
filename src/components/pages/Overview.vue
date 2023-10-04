@@ -83,50 +83,5 @@ export default {
 </script>
 <style lang="scss">
 @import '@/assets/scss/constants';
-.flex-overview {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-  margin-bottom: auto;
-  .block {
-    .data{
-      font-family:$font-family;
-      font-size: 24px;
-      font-weight:800;
-      color: var(--secondary);
-    }
-    .sub{
-      opacity:.5;
-    }
-    .title{
-      // text-transform: uppercase;
-      font-size: calc(24px / 1.62);
-    }
-    &.small {
-      display: grid;
-      align-content: center;
-      // margin-bottom: auto;
-      // width: max-content;
-      // min-width: 200px;
-      width: calc(25% - 15px);
-      gap: 10px;
-      justify-items: center;
-      padding: 20px;
-      border-radius: 30px;
-      background-color: var(--neutral-9);
-      text-align: center;
-      @media (max-width:$content){
-      width: calc(33% - 15px);
-      }
-      @media (max-width:$medium){
-      width: calc(50% - 10px);
-      }
-      @media (max-width:$small){
-      width: 100%;
-      }
-    }
-  }
-}
+@import '@/assets/scss/ui';
 </style>
