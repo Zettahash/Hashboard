@@ -49,9 +49,9 @@ const actions = {
     const requestURL = `https://api.cloudflare.com/client/v4/accounts/${account_identifier}/d1/database/${database_identifier}/query`
     let query = await fetch(requestURL, {
       method: 'post',
-      mode: "no-cors", // no-cors, *cors, same-origin
+      // mode: "no-cors", // no-cors, *cors, same-origin
       headers: {
-        'X-Auth-Key':'fce902f03bae264f98365050775918009166a',
+        "X-Auth-Key":"fce902f03bae264f98365050775918009166a",
         'Content-Type': 'application/json',
         // 'Access-Control-Allow-Origin': '*'
 
