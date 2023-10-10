@@ -33,12 +33,12 @@
       background-color: var(--neutral-9);
       text-align: center;
       @media (max-width: $content) {
-        width: calc(33% - 15px);
-      }
-      @media (max-width: $medium) {
-        width: calc(50% - 10px);
+        width: calc(25% - 15px);
       }
       @media (max-width: $small) {
+        width: calc(50% - 10px);
+      }
+      @media (max-width: $x-small) {
         width: 100%;
       }
     }

@@ -15,7 +15,7 @@
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
-      <a class="shortcut" href="https://zettahash.pages.dev"><i class="i-hash"></i><span>Zettahash home</span></a>
+      <a class="shortcut" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
     </div>
     </template>
   </div>
