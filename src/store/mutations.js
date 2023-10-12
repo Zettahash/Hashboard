@@ -15,5 +15,8 @@ let mutations = {
   test(state, payload) {
     state.metamaskWallet.testParam = payload
   },
+  setData(state, payload) {
+    Vue.set(state.data, [payload.item], payload.value)
+  },
 }
 export default mutations

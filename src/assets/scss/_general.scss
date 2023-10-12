@@ -58,25 +58,6 @@ a {
   }
 }
 
-.sidebar-toggle {
-  background-color: var(--neutral-8);
-  color: var(--neutral-2);
-  display: flex;
-  height: 100%;
-  min-width: 2rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100px;
-  transition: 200ms ease;
-  &:hover {
-    background-color: var(--neutral-6);
-
-  }
-  &.true{
-    background: var(--secondary);
-    color: var(--neutral-10);
-  }
-}
 
 .btn-link {
   color: var(--secondary);

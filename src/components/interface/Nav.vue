@@ -11,16 +11,16 @@
 
   <div></div>
   <div class="nav-links">
+
+    <div :class="'sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin')">
+      <i class="i-refresh-cw"></i>
+      <i class="i-alert-circle"></i>
+      <i class="i-check"></i>
+    </div>
     <div class="menu-container">
     <a class="btn" @click="menu=!menu"><i class="icon-ellipsis-v"></i></a>
     <div class="menu" v-if="menu">
       <ul>
-        <!-- <li>
-          <a @click.stop="dark_(!dark)">
-            <i :class="`fas fa-${dark?'sun':'moon'}`"></i>
-            {{dark?'Light theme':'Dark theme'}}
-          </a>
-        </li> -->
         <li>
           <router-link :to="{ name: 'Profile'}"><i class="duotone icon-user"></i><span>User profile</span></router-link>
         </li>
@@ -50,18 +50,18 @@ export default {
   },
   data() {
     return {
-      sidebarCollapse:false,
+      sidebarCollapse: false,
       menu: false,
     }
   },
   mounted() {
     const self = this
     document.querySelector(".page-contents").addEventListener("click", () => { self.menu = false })
-    document.querySelector(".logo.animated").addEventListener("mouseenter", ()=>{
-    document.querySelector(".logo").classList.remove("animated")
-    setTimeout(()=>{
-    document.querySelector(".logo").classList.add("animated")
-      },100)
+    document.querySelector(".logo.animated").addEventListener("mouseenter", () => {
+      document.querySelector(".logo").classList.remove("animated")
+      setTimeout(() => {
+        document.querySelector(".logo").classList.add("animated")
+      }, 100)
     })
     if (window.innerWidth < 800) {
       this.toggleSidebarCollapse(true)
@@ -70,6 +70,7 @@ export default {
   computed: {
     ...mapGetters({
       application: 'application',
+      data: 'data',
     }),
     dark() {
       return this.application.uiThemeDark
@@ -100,82 +101,89 @@ export default {
   grid-row: 1/2;
   background-color: var(--neutral-10);
   box-shadow: 0 1px 0 0 var(--neutral-6);
-  // @media (max-width:$medium) {
-  //   padding: 10px 10px;
-  //   display: flex;
-  //   flex-direction: row;
-  //   flex-wrap: wrap;
-  //   gap: 10px;
-  // }
 
   .logo {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-  font-weight: 600;
-  transition: 200ms ease;
-  width:170px;
-  @media (max-width: $small) {
-    margin-right: auto;
-  }
-  svg {
-    height: 30px;
-    opacity: 0;
-    transform: scale(0.8);
-    transform-origin: center;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    font-weight: 600;
     transition: 200ms ease;
-    path {
-      stroke: var(--neutral-1);
-    }
-  }
-  span {
-    font-size: 22px;
-  font-family: $font-family;
+    width: 170px;
 
-  }
-  &.animated {
+    @media (max-width: $small) {
+      margin-right: auto;
+    }
+
     svg {
-      transform: scale(1);
-      opacity: 1;
-    }
-    #zed,
-    #vertical_1,
-    #vertical_2,
-    #horizontal_1,
-    #horizontal_2 {
+      height: 30px;
       opacity: 0;
+      transform: scale(0.8);
+      transform-origin: center;
+      transition: 200ms ease;
+
+      path {
+        stroke: var(--neutral-1);
+      }
     }
-    #zed {
-      animation: animateDashLong 1500ms 50ms ease forwards 1;
+
+    span {
+      font-size: 22px;
+      font-family: $font-family;
+
     }
-    #vertical_1 {
-      animation: animateDash 1000ms 750ms linear forwards 1;
-    }
-    #vertical_2 {
-      animation: animateDash 1000ms 1000ms linear forwards 1;
-    }
-    #horizontal_1 {
-      animation: animateDashShort 500ms 750ms linear forwards 1;
-    }
-    #horizontal_2 {
-      animation: animateDashShort 500ms 1000ms linear forwards 1;
+
+    &.animated {
+      svg {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      #zed,
+      #vertical_1,
+      #vertical_2,
+      #horizontal_1,
+      #horizontal_2 {
+        opacity: 0;
+      }
+
+      #zed {
+        animation: animateDashLong 1500ms 50ms ease forwards 1;
+      }
+
+      #vertical_1 {
+        animation: animateDash 1000ms 750ms linear forwards 1;
+      }
+
+      #vertical_2 {
+        animation: animateDash 1000ms 1000ms linear forwards 1;
+      }
+
+      #horizontal_1 {
+        animation: animateDashShort 500ms 750ms linear forwards 1;
+      }
+
+      #horizontal_2 {
+        animation: animateDashShort 500ms 1000ms linear forwards 1;
+      }
     }
   }
-}
 
   .nav-links {
-    display: flex;
+    display: grid;
     gap: 20px;
+    grid-auto-flow: column;
 
     .menu-container {
       position: relative;
-      .btn{
+
+      .btn {
         background-color: var(--neutral-8);
-        color:var(--neutral-2);
+        color: var(--neutral-2);
         padding: calc(1rem / 1.62);
         min-width: 2.75rem;
         justify-content: center;
       }
+
       .menu {
         position: absolute;
         width: 250px;
@@ -192,16 +200,20 @@ export default {
           padding: 0;
           color: var(--neutral-4);
           margin: 0;
+
           li {
             cursor: pointer;
             font-size: 20px;
-            &:not(:first-of-type){
-              padding-top:15px;
+
+            &:not(:first-of-type) {
+              padding-top: 15px;
             }
-            &:not(:last-of-type){
-              padding-bottom:15px;
-            box-shadow: 0 1px 0 0 var(--neutral-5);
+
+            &:not(:last-of-type) {
+              padding-bottom: 15px;
+              box-shadow: 0 1px 0 0 var(--neutral-5);
             }
+
             &:hover {
               color: var(--neutral-2);
 
@@ -231,41 +243,136 @@ export default {
   }
 }
 
+.sync-status {
+  background-color: var(--neutral-8);
+  color: var(--neutral-2);
+  display: flex;
+  height: 100%;
+  min-width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  transition: 200ms ease;
+  cursor: pointer;
+  gap: 10px;
+  padding: 0 calc(2rem / 1.62);
+
+  &:not(.syncing) {
+
+    &:hover {
+      background-color: var(--primary);
+      color: var(--neutral-1);
+
+      &::before {
+        content: 'Refresh now' !important;
+      }
+
+      i.i-alert-circle {
+        display: block;
+      }
+
+      i.i-check {
+        display: none !important;
+      }
+    }
+  }
+
+  i {
+    display: none;
+  }
+
+  &.false {
+    &::before {
+      content: 'Up-to-date';
+    }
+
+    i.i-check {
+      display: block;
+    }
+  }
+
+  &.syncing {
+    pointer-events: none;
+
+    &::before {
+      content: 'Syncing';
+    }
+
+    i.i-refresh-cw {
+      display: block;
+      transform-origin: center;
+      animation: spin 1s linear forwards infinite;
+    }
+  }
+
+  &.true {
+    background: var(--secondary);
+    color: var(--neutral-10);
+  }
+}
+
+.sidebar-toggle {
+  background-color: var(--neutral-8);
+  color: var(--neutral-2);
+  display: flex;
+  height: 100%;
+  min-width: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  transition: 200ms ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--neutral-6);
+
+  }
+
+  &.true {
+    background: var(--secondary);
+    color: var(--neutral-10);
+  }
+}
+
 @keyframes animateDashShort {
   from {
     stroke-dasharray: 500;
     stroke-dashoffset: 500;
     opacity: 0;
   }
+
   to {
     stroke-dasharray: 500;
     stroke-dashoffset: 0;
     opacity: 0.5;
   }
 }
+
 @keyframes animateDash {
   from {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     opacity: 0;
   }
+
   to {
     stroke-dasharray: 1000;
     stroke-dashoffset: 0;
     opacity: 0.5;
   }
 }
+
 @keyframes animateDashLong {
   from {
     stroke-dasharray: 2000;
     stroke-dashoffset: 2000;
     opacity: 0;
   }
+
   to {
     stroke-dasharray: 2000;
     stroke-dashoffset: 0;
     opacity: 1;
   }
 }
-
 </style>

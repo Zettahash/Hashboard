@@ -1,6 +1,6 @@
 <template lang="">
   <div class="flex-overview">
-    <template v-for="(item, index) of samplePayload">
+    <template v-for="(item, index) of dataObjects">
       <div :class="'block ' + item.size" :key="index" :title="item.date">
         <div class="data">{{item.data}}</div>
         <div class="sub" v-if="item.sub.length>0">
@@ -17,6 +17,7 @@
 <script>
 import HashRate from './../charts/HashRate.vue'
 import PoolStats from './../charts/PoolStats.vue'
+import { mapGetters } from 'vuex';
 
 
 export default {
@@ -24,6 +25,7 @@ export default {
   name: 'Overview',
   data() {
     return {
+      dataObjects: false,
       samplePayload: [
         {
           size: 'small',
@@ -63,6 +65,11 @@ export default {
         }
       ],
     }
+  },
+  computed: {
+    ...mapGetters({
+      data: 'data',
+    }),
   },
   components: {
     HashRate,

@@ -8,8 +8,9 @@ let state = {
     sidebarCollapse: false,
     uiListSearchTerm: '',
     uiView: 'grid',
-    uiThemeDark:true,
+    uiThemeDark: true,
   },
+  data: {},
   test: false
 }
 export default state
