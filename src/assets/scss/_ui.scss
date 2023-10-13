@@ -26,7 +26,7 @@
       // width: max-content;
       // min-width: 200px;
       width: calc(25% - 15px);
-      gap: 10px;
+      gap: 20px;
       justify-items: center;
       padding: 20px;
       border-radius: 30px;
@@ -41,6 +41,9 @@
       @media (max-width: $x-small) {
         width: 100%;
       }
+      .head{display:grid;gap:5px;}
+      h3,h4{margin: 0;}
+      h4{color: var(--neutral-4);}
     }
     &.asset-complicated {
       text-align: left;
@@ -144,3 +147,4 @@
 .bad {
   color: var(--crimson);
 }
+

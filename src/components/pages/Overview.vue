@@ -11,11 +11,13 @@
       </div>
     </template>
     <HashRate />
+    <HashRateChart />
     <PoolStats />
   </div>
 </template>
 <script>
-import HashRate from './../charts/HashRate.vue'
+import HashRate from './../tiles/HashRate.vue'
+import HashRateChart from './../charts/HashRate.vue'
 import PoolStats from './../charts/PoolStats.vue'
 import { mapGetters } from 'vuex';
 
@@ -69,10 +71,12 @@ export default {
   computed: {
     ...mapGetters({
       data: 'data',
+      payload: 'payload',
     }),
   },
   components: {
     HashRate,
+    HashRateChart,
     PoolStats,
   },
   mounted() {

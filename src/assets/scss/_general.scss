@@ -15,7 +15,8 @@ body {
 h1,
 h2,
 h3 {
-  font-family: $font-family;
+  font-family: $sans-serif;
+  // font-family: $font-family;
 }
 
 .button {
@@ -56,6 +57,21 @@ a {
     background: var(--secondary);
     color: var(--neutral-10);
   }
+  &.compact{
+    font-size: 14px;
+    padding: 4px 8px;
+    &:not(.active){
+      background: var(--neutral-7);
+      color: var(--neutral-3);
+  &:hover {
+
+      background: transparent;
+      box-shadow: 0 0 0 2px;
+      color: var(--primary);
+    }
+  }
+  }
+  
 }
 
 

@@ -4,6 +4,9 @@ let getters = {
   },
   data: state => {
     return state.data
+  },
+  payload: state => {
+    return state.payload
   }
 }
 export default getters

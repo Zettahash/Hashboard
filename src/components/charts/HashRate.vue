@@ -30,7 +30,7 @@ ChartJS.register(
 )
 
 export default {
-  name: 'HashRate',
+  name: 'HashRateChart',
   components: {
     LineGraph
   },

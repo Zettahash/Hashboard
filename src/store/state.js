@@ -11,6 +11,7 @@ let state = {
     uiThemeDark: true,
   },
   data: {},
+  payload:false,
   test: false
 }
 export default state
