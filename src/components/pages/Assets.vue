@@ -1,7 +1,7 @@
 <template lang="">
   <div class="flex-overview">
-    <template v-for="(item, index) of samplePayload">
-      <div :class="'block ' + item.size" :key="index" :title="item.date">
+    <template v-for="(item, index) of payload">
+      <div :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
       <div class="head">
         <div class="icon-group">
           <img :src="getIcon(item.currency)">
@@ -27,6 +27,7 @@
 <script>
 
 import AssetsStats from './../charts/AssetsStats.vue'
+import { mapGetters } from 'vuex';
 
 
 export default {
@@ -39,7 +40,7 @@ export default {
     return {
       samplePayload: [
         {
-          size: 'asset-complicated small',
+          size: 'asset-complicated wide',
           type: 'Token',
           badge: 'ERC-20',
           title: 'ZH Foundation',
@@ -58,7 +59,7 @@ export default {
           info: ''
         },
         {
-          size: 'asset-complicated small',
+          size: 'asset-complicated wide',
           type: 'Token',
           badge: 'ERC-20',
           title: 'ZH Private Sale',
@@ -77,7 +78,7 @@ export default {
           info: ''
         },
         {
-          size: 'asset-complicated small',
+          size: 'asset-complicated wide',
           type: 'Token',
           badge: 'ERC-20',
           title: 'ZH Presale',
@@ -95,124 +96,18 @@ export default {
           verified: false,
           info: ''
         },
-        {
-          size: 'asset-complicated small',
-          type: 'Token',
-          badge: 'ERC-20',
-          title: 'ZH Holdings Contract',
-          data: '300,000,000',
-          displayCurrency: 'ZH',
-          currency: 'ETH',
-          sub: false,
-          change: '+0.0%',
-          graph: {
-            data: [300000000, 300000000],
-            colour: "#5c6bc0",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Bitcoin',
-          badge: false,
-          title: 'Zettahash BTC Holdings',
-          data: '58.427652',
-          displayCurrency: 'BTC',
-          currency: 'BTC',
-          sub: '$1,576,482.22 USD',
-          change: '+0.0%',
-          graph: {
-            data: [58.427652, 58.427652, 58.427652],
-            colour: "#d97919",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-
-
-        {
-          size: 'asset-complicated small',
-          type: 'Token',
-          badge: 'ERC-20',
-          title: 'Zettahash USDT Holdings',
-          data: '265,876.76',
-          displayCurrency: 'USDT',
-          currency: 'USD-T',
-          sub: '$265,876.76',
-          change: '+0.0%',
-          graph: {
-            data: [265876.76, 265876.76],
-            colour: "#00acc1",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Token',
-          badge: 'ERC-20',
-          title: 'Zettahash USDC Holdings',
-          data: '165,736.36',
-          displayCurrency: 'USDC',
-          currency: 'USD-C',
-          sub: '$165,736.36',
-          change: '+0.0%',
-          graph: {
-            data: [165736.36, 165736.36],
-            colour: "#1e88e5",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Ethereum',
-          badge: false,
-          title: 'Zettahash ETH Holdings',
-          data: '536.25',
-          displayCurrency: 'ETH',
-          currency: 'ETH',
-          sub: '$897,482.91 USD',
-          change: '+0.0%',
-          graph: {
-            data: [536.25, 536.25],
-            colour: "#5c6bc0",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
-        {
-          size: 'asset-complicated small',
-          type: 'Bitcoin',
-          badge: false,
-          title: 'Zettahash BTC Mining Wallet',
-          data: '92.14234',
-          displayCurrency: 'BTC',
-          currency: 'BTC',
-          sub: '$2,486,341.29 USD',
-          change: '+0.0%',
-          graph: {
-            data: [92.14234, 92.14234],
-            colour: "#ff8f00",
-          },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
-        },
       ],
     }
+  },
+  computed: {
+    ...mapGetters({
+      application: 'application',
+      data: 'data',
+    }),
+    payload() {
+      if (this.application.uiDemoValues) { return this.samplePayload }
+      return false
+    },
   },
   mounted() {
     this.routeLoaded()

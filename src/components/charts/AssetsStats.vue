@@ -1,5 +1,5 @@
 <template>
-  <LineGraph :data="data" :options="options" />
+  <LineGraph :data="data" :options="options" class="ui-ele"/>
 </template>
 
 <script>
@@ -37,7 +37,10 @@ export default {
         labels: this.dataValues,
         datasets: [
           {
+            borderWidth: 1,
             data: this.dataValues,
+        fill: true,
+        backgroundColor: this.colour,
           }
         ]
       },
@@ -70,7 +73,7 @@ export default {
         responsive: true,
         backgroundColor: this.colour,
         borderColor: this.colour,
-        tension: 0,
+        tension: .2,
         maintainAspectRatio: false
       }
     }

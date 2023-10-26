@@ -1,5 +1,5 @@
 <template>
-  <div class="line-graph">
+  <div class="line-graph ui-ele">
   <div class="title">SHA256 Hash-rate (PH/s)</div>
   <LineGraph :data="data" :options="options" />
   </div>

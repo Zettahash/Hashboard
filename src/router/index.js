@@ -8,6 +8,7 @@ import Mining from '@/components/pages/Mining'
 import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
 import Market from '@/components/pages/Market'
 import Accountability from '@/components/pages/Accountability'
+import Holdings from '@/components/pages/Holdings'
 import Assets from '@/components/pages/Assets'
 
 // -Private Sale: will be important so that they can purchase the ZH token. We use the BTCPay that we have hosted on Voltage.
@@ -161,6 +162,24 @@ const routes = [
     component: Assets,
     meta: {
       title: 'Assets | ' + title,
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/holdings',
+    name: 'holdings',
+    component: Holdings,
+    meta: {
+      title: 'Holdings | ' + title,
       metaTags: [
         {
           name: 'description',

@@ -1,5 +1,5 @@
 <template>
-  <div class="line-graph">
+  <div class="line-graph ui-ele">
     <div class="title">SHA256 Pool Statistics</div>
     <LineGraph :data="data" :options="options" />
   </div>

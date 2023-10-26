@@ -22,7 +22,7 @@ export default {
       })
       if (window.innerWidth < 800){
         this.$store.commit('setDynamic', {
-        item: 'sidebarCollapse',
+        item: 'uiSidebarCollapse',
         value: true
       })
       }

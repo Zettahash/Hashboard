@@ -1,24 +1,19 @@
 <template lang="">
-<div class="block small" title="hash rate" v-if="hashRate">
+<div class="block small ui-ele" title="hash rate" v-if="payload.hashrate && payload.hashrate.value">
   <div class="head">
   <h3>Average Hashrate</h3>
-  <h4>{{hashRate.active_workers}} of {{hashRate.unactive_workers + hashRate.active_workers}} active worker{{hashRate.active_workers>1?'s':''}}</h4>
+  <h4>{{payload.hashrate.value.active_workers}} of {{payload.hashrate.value.unactive_workers + payload.hashrate.value.active_workers}} active worker{{payload.hashrate.value.active_workers>1?'s':''}}</h4>
   </div>
-  <template v-for="(object, key, index) of hashRate">
+  <template v-for="(object, key, index) of payload.hashrate.value">
     <div :key="index" :data-target="key" v-if="index==activeHashrateIndex">
-      <!-- {{object}} -->
-      <!-- {{key}} -->
       <div class="data">{{object.toFixed(2)}} Th/s</div> 
       <div class="sub">
       <span>Hashrate average {{key.replace("hashrate_", '').replace('hour', 'hr')}}</span>
     </div>
-      <!-- <div class="data">{{item.data}}</div>
-   
-    <div class="title">{{item.title}}</div> -->
     </div>
   </template>
   <div class="button-flex-organiser">
-    <template v-for="(object, key, index) of hashRate">
+    <template v-for="(object, key, index) of payload.hashrate.value">
       <div :key="index" v-if="key.indexOf('hashrate_')==0" :class="`btn compact${index==activeHashrateIndex?' active':''}`" :data-for="key" @click="activeHashrateIndex=index">{{key.replace("hashrate_", '').replace('hour', 'hr')}}</div>
     </template>
   </div>
@@ -42,13 +37,7 @@ export default {
       payload: 'payload',
     }),
     hashRate() {
-      let hash = false
-      for (const obj of this.payload) {
-        if (obj.item === 'hashrate') {
-          hash =  obj.value
-        }
-      }
-      return hash
+      return this.payload.hashrate.value
     }
   },
   methods: {
@@ -59,10 +48,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .button-flex-organiser {
   display: flex;
   gap: 10px;
   justify-content: space-around;
+  width: 100%;
 }
 </style>

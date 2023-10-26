@@ -7,6 +7,15 @@ let getters = {
   },
   payload: state => {
     return state.payload
-  }
+  },
+  wallet: state => {
+    return state.wallet
+  },
+  holdings: state => {
+    return state.holdings
+  },
+  rates: state => {
+    return state.rates
+  },
 }
 export default getters

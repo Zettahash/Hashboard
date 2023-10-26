@@ -5,13 +5,17 @@ let state = {
     name: false,
     //UI States
     routerLoaded: false,
-    sidebarCollapse: false,
+    uiSidebarCollapse: false,
+    uiDemoValues: false,
     uiListSearchTerm: '',
     uiView: 'grid',
     uiThemeDark: true,
   },
   data: {},
-  payload:false,
+  payload: false,
+  wallet: false,
+  holdings: { btc: false, eth: false },
+  rates:false,
   test: false
 }
 export default state

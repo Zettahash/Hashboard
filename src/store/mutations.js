@@ -1,11 +1,11 @@
 import Vue from 'vue'
 let mutations = {
   setDynamic(state, payload) {
-    switch (payload.item) {
-      case "web3":
-      case "ethereum":
-      case "test":
-        case (payload.item.indexOf('ui')==0):
+    switch (true) {
+      case (payload.item === "web3"):
+      case (payload.item === "ethereum"):
+      case (payload.item === "test"):
+      case (payload.item.indexOf('ui') === 0):
         localStorage.setItem(payload.item, payload.value)
         break;
       default:
@@ -18,8 +18,20 @@ let mutations = {
   setPayload(state, payload) {
     state.payload = payload
   },
+  setWallet(state, payload) {
+    state.wallet = payload
+  },
   setData(state, payload) {
     Vue.set(state.data, [payload.item], payload.value)
+  },
+  setHoldingsBTC(state, payload) {
+    state.holdings.btc = payload
+  },
+  setHoldingsETH(state, payload) {
+    state.holdings.eth = payload
+  },
+  setRates(state, payload) {
+    state.rates = payload
   },
 }
 export default mutations
