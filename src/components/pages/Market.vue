@@ -1,12 +1,15 @@
 <template lang="">
-  <div>
-    
+    <div class="flex-overview">
+
+    <MarketCandles />
   </div>
 </template>
 <script>
+import MarketCandles from './../charts/MarketCandles.vue'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name:'Market',
+  name: 'Market',
+  components:{MarketCandles},
   mounted() {
     this.routeLoaded() 
   },

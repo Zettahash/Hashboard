@@ -6,8 +6,8 @@
       </i><span>Hashboard</span></router-link>
       <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
       <router-link :to="{name:'community-consensus-forum'}" class="shortcut"><i class="i-users"></i><span>Community Consensus Forum</span></router-link>
-      <router-link :to="{name:'mining'}" class="shortcut"><i class="i-zap"></i><span>Mining</span></router-link>
-      <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link>
+      <!-- <router-link :to="{name:'mining'}" class="shortcut"><i class="i-zap"></i><span>Mining</span></router-link> -->
+      <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
       <router-link :to="{name:'accountability'}" class="shortcut"><i class="i-shield"></i><span>Accountability</span></router-link>
       <router-link :to="{name:'holdings'}" class="shortcut"><i class="i-pie-chart"></i><span>Holdings</span></router-link>
       <router-link :to="{name:'assets'}" class="shortcut"><i class="i-hard-drive"></i><span>Assets</span></router-link>

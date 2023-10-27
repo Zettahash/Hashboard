@@ -1,13 +1,13 @@
 @keyframes pop-in {
-  to{
+  to {
     opacity: 1;
     transform: scale(1);
   }
 }
 .flex-overview {
-  .ui-ele{
+  .ui-ele {
     opacity: 0;
-    transform: scale(.8);
+    transform: scale(0.8);
     animation: pop-in 300ms cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
     @for $i from 2 through 50 {
       &:nth-of-type(#{$i}) {
@@ -60,39 +60,56 @@
       @media (max-width: $x-small) {
         width: 100%;
       }
-      .head{display:grid;gap:5px;}
-      h3,h4{margin: 0;}
-      h4{color: var(--neutral-4);}
+      .head {
+        display: grid;
+        gap: 5px;
+      }
+      h3,
+      h4 {
+        margin: 0;
+      }
+      h4 {
+        color: var(--neutral-4);
+      }
     }
     &.wide {
-      display: grid;
+      display: flex;
       align-content: center;
       width: 100%;
       gap: 20px;
-      // justify-items: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: start;
       padding: 20px;
       border-radius: 30px;
       background-color: var(--neutral-9);
       // text-align: center;
 
-      .head{display:grid;gap:5px;}
-      h3,h4{margin: 0;}
-      h4{color: var(--neutral-4);}
+      .head {
+        display: grid;
+        gap: 5px;
+      }
+      h3,
+      h4 {
+        margin: 0;
+      }
+      h4 {
+        color: var(--neutral-4);
+      }
     }
     &.asset-complicated {
       text-align: left;
       // justify-items: start;
+      margin-bottom: auto;
       align-content: start;
       gap: 30px;
-      @media (min-width:$large) {
-      width: calc(20% - 20px);
-
+      @media (min-width: $large) {
+        width: calc(20% - 20px);
       }
-      @media (min-width:$x-large) {
+      @media (min-width: $x-large) {
         max-width: 380px;
-
       }
-      
+
       .head {
         display: grid;
         grid-template: 1fr auto / auto auto auto;
@@ -108,7 +125,7 @@
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          gap:5px 10px;
+          gap: 5px 10px;
           .badge {
             box-shadow: 0 0 0 2px;
             padding: 2px 6px;
@@ -138,8 +155,10 @@
         }
       }
       .graph {
-        height: 80px;
+        height: 50px;
         width: calc(100% - 5px);
+        background: var(--neutral-10);
+        border-radius: 10px;
       }
     }
   }
@@ -156,7 +175,7 @@
     border-radius: 40px;
     grid-row: 1/2;
     box-shadow: -5px 0px 12px -1px var(--black);
-    background-color:var(--neutral-5);
+    background-color: var(--neutral-5);
     margin-left: 25px;
     @for $i from 2 through 50 {
       &:nth-of-type(#{$i}) {
@@ -178,8 +197,8 @@
 
 .good {
   color: var(--light-lime);
-  &.plus{
-    &::before{
+  &.plus {
+    &::before {
       content: "+";
     }
   }
@@ -187,11 +206,11 @@
 .bad {
   color: var(--crimson);
 }
-.good,.bad{
-  &.pc{
-    &::after{
+.good,
+.bad {
+  &.pc {
+    &::after {
       content: "%";
     }
   }
 }
-

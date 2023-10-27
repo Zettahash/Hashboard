@@ -3,18 +3,14 @@
     <template v-for="(item, index) of payload">
       <div :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
       <div class="head">
-        <div class="icon-group">
-          <img :src="getIcon(item.currency)">
-          <img :src="getIcon('zh')">
+        <div class="product-icon">
+          <img :src="getIcon(item.url)">
         </div>
-        <div class="type"><span>{{item.type}}</span> <span v-if="item.badge" class="badge">{{item.badge}}</span></div>
-        <div class="title">{{item.title}}</div>
-        <i class="i-check-square good" v-if="item.verified"></i>
-        <i class="i-star star" v-if="item.favourite"></i>
+        <div class="type"><span>{{item.manufacturer}}</span> <span v-if="item.model" class="badge">{{item.model}}</span></div>
+        <div class="title">{{item.rating}}</div>
       </div>
       <div class="body">
-        <div class="data">{{item.data}} {{item.displayCurrency?item.displayCurrency:''}}</div>
-        <div class="sub" v-if="item.sub">{{item.sub}} <span :class="item.change.substring(0,1)=='+'?'good':'bad'">{{item.change?item.change:''}}</span></div>
+        <div class="data">{{Number(item.data).toLocaleString('en-GB')}}</div>
       </div>
         <div class="graph" v-if="item.graph">
           <AssetsStats :dataValues="item.graph.data" :colour="item.graph.colour" />
@@ -38,63 +34,68 @@ export default {
   name: 'Assets',
   data() {
     return {
+      emptyPayload: [
+        {
+          size: 'asset-complicated wide',
+          manufacturer: 'Manufacturer',
+          model: 'mMdel No',
+          rating: '000T',
+          data: '0',
+          graph: {
+            data: [4, 10, 6,2,12,10,22],
+            colour: "#0062ff",
+          },
+          url: 'heatsink'
+        },
+      ],
       samplePayload: [
         {
           size: 'asset-complicated wide',
-          type: 'Token',
-          badge: 'ERC-20',
-          title: 'ZH Foundation',
-          data: '49,500,000',
-          displayCurrency: 'ZH',
-          currency: 'ETH',
-          sub: false,
-          change: '+0.0%',
+          manufacturer: 'Bitmain',
+          model: 'S21',
+          rating: '200T',
+          data: '1582',
           graph: {
-            data: [49500000, 49500000],
-            colour: "#5c6bc0",
+            data: [4, 10, 6,2,12,10,22],
+            colour: "#0062ff",
           },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
+          url: 'heatsink'
         },
         {
           size: 'asset-complicated wide',
-          type: 'Token',
-          badge: 'ERC-20',
-          title: 'ZH Private Sale',
-          data: '46,566,000',
-          displayCurrency: 'ZH',
-          currency: 'ETH',
-          sub: false,
-          change: '+0.0%',
+          manufacturer: 'Bitmain',
+          model: 'S19j XP',
+          rating: '151T',
+          data: '3850',
           graph: {
-            data: [46566000, 46566000],
-            colour: "#5c6bc0",
+            data: [5,2,9,2,12,9,9],
+            colour: "#0062ff",
           },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
+          url: 'heatsink'
         },
         {
           size: 'asset-complicated wide',
-          type: 'Token',
-          badge: 'ERC-20',
-          title: 'ZH Presale',
-          data: '250,000,000',
-          displayCurrency: 'ZH',
-          currency: 'ETH',
-          sub: false,
-          change: '+0.0%',
+          manufacturer: 'Bitmain',
+          model: 'S19 XP',
+          rating: '141T',
+          data: '2892',
           graph: {
-            data: [250000000, 250000000],
-            colour: "#5c6bc0",
+            data: [1,12,1,100,70,100],
+            colour: "#0062ff",
           },
-          date: '',
-          favourite: false,
-          verified: false,
-          info: ''
+          url: 'heatsink'
+        },
+        {
+          size: 'asset-complicated wide',
+          manufacturer: 'Bitmain',
+          model: 'S19k Pro',
+          rating: '120T',
+          data: '1682',
+          graph: {
+            data: [1,12,1,100,70,100],
+            colour: "#0062ff",
+          },
+          url: 'heatsink'
         },
       ],
     }
@@ -106,7 +107,7 @@ export default {
     }),
     payload() {
       if (this.application.uiDemoValues) { return this.samplePayload }
-      return false
+      return this.emptyPayload
     },
   },
   mounted() {
@@ -122,20 +123,39 @@ export default {
     getIcon(str) {
       let token = str.toLowerCase()
       try {
-        return require(`/src/assets/img/tokens/${token}.png`)
+        return require(`/src/assets/img/${token}.png`)
       } catch (e) { console.log(e) }
       try {
-        return require(`/src/assets/img/tokens/${token}.svg`)
+        return require(`/src/assets/img/${token}.svg`)
       } catch (e) { console.log(e) }
       try {
         let tokenAlpha = token.replace(/-/g, '')
-        return require(`/src/assets/img/tokens/${tokenAlpha}.png`)
+        return require(`/src/assets/img/${tokenAlpha}.png`)
       } catch (e) { console.log(e) }
     },
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/constants';
 @import '@/assets/scss/ui';
+.product-icon{
+  grid-row:1/3;
+  img{
+    height: 50px;
+    opacity:.5;
+  }
+}
+.graph{max-width: 300px;margin-left:auto;}
+.data{
+  display:grid;
+  &::after{
+    content: 'units';
+    opacity:.5;
+    font-size: 75%;
+  }
+}
+.head{
+  min-width:250px;
+}
 </style>

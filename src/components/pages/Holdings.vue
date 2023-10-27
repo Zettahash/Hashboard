@@ -14,7 +14,9 @@
       </div>
       <div class="body">
         <div class="data">{{item.data}} {{item.displayCurrency?item.displayCurrency:''}}</div>
-        <div class="sub" v-if="item.sub">{{item.sub}} <span :class="item.change>0?'good plus pc':'bad pc'">{{item.change?item.change:''}}</span></div>
+        <div class="sub" v-if="item.sub">{{item.sub}} 
+          <span :class="item.change>0?'good plus pc':'bad pc'">{{item.change?item.change:''}}</span>
+        </div>
       </div>
         <div class="graph" v-if="item.graph">
           <AssetsStats :dataValues="item.graph.data" :colour="item.graph.colour" />
@@ -231,19 +233,23 @@ export default {
           let balance = value.balance
           let colour = "#fff"
           let type = false
+          let historyBalanceMultiplier = 0
           switch (value.unit) {
             case 'BTC':
+              historyBalanceMultiplier = 1/100000000
               balance = balance > 0 ? Number(balance) / 100000000 : balance
               balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
               colour = "#ff8f00"
               break;
             case 'ETH':
+              historyBalanceMultiplier = 1/1000000000000000000
               balance = balance > 0 ? Number(balance) / 1000000000000000000 : balance
               balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
               colour = "#5c6bc0"
               break;
             case 'USD-T':
             case 'USD-C':
+              historyBalanceMultiplier = 1000000000000
               balance = balance > 0 ? Number(balance) * 1000000000000 : balance
               balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
               colour = value.unit === "USD-C" ? "#1e88e5" : "#00acc1"
@@ -257,21 +263,20 @@ export default {
           childObject.type = value.unit
           childObject.badge = type
           childObject.id = key
-          childObject.data = balance
+          childObject.data = Number(balance).toLocaleString('en-GB')
           childObject.title = value.name
           childObject.graph = { data: [], colour: colour }
 
           if (this.rates && this.rates[childObject.displayCurrency]) {
-            childObject.sub = `$${(balance * Number(this.rates[childObject.displayCurrency].priceUsd)).toFixed(2)} USD`
+            childObject.sub = `$${Number((balance * Number(this.rates[childObject.displayCurrency].priceUsd)).toFixed(2)).toLocaleString('en-GB')} USD`
             childObject.change = Number(this.rates[childObject.displayCurrency].changePercent24Hr).toFixed(2)
           }
 
           let history = value.history
           for (const [key, value] of Object.entries(history)) {
             childObject.graph.key = key
-            if (value.balance) { childObject.graph.data.push(value.balance) }
-
-
+            let formattedBalance = value.balance * historyBalanceMultiplier
+            if (value.balance) { childObject.graph.data.push(formattedBalance) }
           }
           masterPayload.push(childObject)
         }
