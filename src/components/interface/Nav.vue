@@ -1,53 +1,113 @@
 <template lang="">
-  <div class="nav">
-    
-  <a title="Toggle sidebar" :class="'sidebar-toggle ' + !application.uiSidebarCollapse" @click.stop="toggleSidebarCollapse(!application.uiSidebarCollapse)">
+<div class="nav">
+
+  <a title="Toggle sidebar" :class="'sidebar-toggle ' + !application.uiSidebarCollapse" @click.stop="toggleSidebarCollapse(!application.uiSidebarCollapse);menu=false;">
     <i :class="application.uiSidebarCollapse?'i-chevrons-right':'i-chevrons-left'"></i>
   </a>
   <router-link :to="{ name: 'overview'}" class="app-title logo animated">
-    <svg width="100%" height="100%" viewBox="0 0 833 790" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:bevel;stroke-miterlimit:1.5;"><rect id="Artboard1" x="0" y="0" width="832.178" height="789.611" style="fill:none;"/><clipPath id="_logo_clip1"><rect x="0" y="0" width="832.178" height="789.611"/></clipPath><g clip-path="url(#_logo_clip1)"><g id="Layer-1" serif:id="Layer 1"><path d="M91.508,216.009l-16.008,86.258l376.552,-0l-299.045,273.746l602.156,-0l18.331,-83.318l-394.203,-0l301.039,-276.686l-588.822,0Z" style="fill:none;"/><clipPath id="_logo_clip2"><path d="M91.508,216.009l-16.008,86.258l376.552,-0l-299.045,273.746l602.156,-0l18.331,-83.318l-394.203,-0l301.039,-276.686l-588.822,0Z"/></clipPath><g clip-path="url(#_logo_clip2)"><path id="zed" d="M48.777,253.466l648.389,0l-118.62,0l-313.072,283.662l-131.636,0l660.735,0" style="fill:none;stroke-width:100px;"/></g><path d="M815.854,300.051l16.737,-84.042l-115.799,0l-92.888,84.042l191.95,0Z" style="fill:none;"/><clipPath id="_logo_clip3"><path d="M815.854,300.051l16.737,-84.042l-115.799,0l-92.888,84.042l191.95,0Z"/></clipPath><g clip-path="url(#_logo_clip3)"><path id="horizontal_1" d="M578.546,258.03l286.018,0" style="fill:none;stroke-width:100px;"/></g><path d="M17.15,491.971l-16.737,84.042l115.798,-0l92.889,-84.042l-191.95,0Z" style="fill:none;"/><clipPath id="_logo_clip4"><path d="M17.15,491.971l-16.737,84.042l115.798,-0l92.889,-84.042l-191.95,0Z"/></clipPath><g clip-path="url(#_logo_clip4)"><path id="horizontal_2" d="M-31.56,533.992l286.018,-0" style="fill:none;stroke-width:100px;"/></g><path d="M621.318,0.949l94.005,-0l-169.267,789.61l-94.004,0l41.063,-192.217l94.146,-0l27.135,-126.58l-94.119,0l21.053,-97.675l116.441,-104.664l17.009,-79.346l-94.141,0l40.679,-189.128Z" style="fill:none;"/><clipPath id="_logo_clip5"><path d="M621.318,0.949l94.005,-0l-169.267,789.61l-94.004,0l41.063,-192.217l94.146,-0l27.135,-126.58l-94.119,0l21.053,-97.675l116.441,-104.664l17.009,-79.346l-94.141,0l40.679,-189.128Z"/></clipPath><g clip-path="url(#_logo_clip5)"><path id="vertical_2" d="M676.956,-28.386l-187.559,860.148" style="fill:none;stroke-width:100px;stroke-linejoin:round;"/></g><path d="M303.105,0.949l94.004,-0l-169.266,789.61l-94.005,0l41.064,-192.217l94.146,-0l41.649,-194.287l-116.06,101.004l36.025,-184.335l98.084,-0.869l27.82,-129.778l-94.141,0l40.68,-189.128Z" style="fill:none;"/><clipPath id="_logo_clip6"><path d="M303.105,0.949l94.004,-0l-169.266,789.61l-94.005,0l41.064,-192.217l94.146,-0l41.649,-194.287l-116.06,101.004l36.025,-184.335l98.084,-0.869l27.82,-129.778l-94.141,0l40.68,-189.128Z"/></clipPath><g clip-path="url(#_logo_clip6)"><path id="vertical_1" d="M354.313,-28.386l-183.13,860.148" style="fill:none;stroke-width:100px;stroke-linejoin:round;"/></g></g></g></svg>
-  <span>Zettahash</span>
+    <svg width="100%" height="100%" viewBox="0 0 833 790" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:bevel;stroke-miterlimit:1.5;">
+      <rect id="Artboard1" x="0" y="0" width="832.178" height="789.611" style="fill:none;" />
+      <clipPath id="_logo_clip1">
+        <rect x="0" y="0" width="832.178" height="789.611" />
+      </clipPath>
+      <g clip-path="url(#_logo_clip1)">
+        <g id="Layer-1" serif:id="Layer 1">
+          <path d="M91.508,216.009l-16.008,86.258l376.552,-0l-299.045,273.746l602.156,-0l18.331,-83.318l-394.203,-0l301.039,-276.686l-588.822,0Z" style="fill:none;" />
+          <clipPath id="_logo_clip2">
+            <path d="M91.508,216.009l-16.008,86.258l376.552,-0l-299.045,273.746l602.156,-0l18.331,-83.318l-394.203,-0l301.039,-276.686l-588.822,0Z" />
+          </clipPath>
+          <g clip-path="url(#_logo_clip2)">
+            <path id="zed" d="M48.777,253.466l648.389,0l-118.62,0l-313.072,283.662l-131.636,0l660.735,0" style="fill:none;stroke-width:100px;" />
+          </g>
+          <path d="M815.854,300.051l16.737,-84.042l-115.799,0l-92.888,84.042l191.95,0Z" style="fill:none;" />
+          <clipPath id="_logo_clip3">
+            <path d="M815.854,300.051l16.737,-84.042l-115.799,0l-92.888,84.042l191.95,0Z" />
+          </clipPath>
+          <g clip-path="url(#_logo_clip3)">
+            <path id="horizontal_1" d="M578.546,258.03l286.018,0" style="fill:none;stroke-width:100px;" />
+          </g>
+          <path d="M17.15,491.971l-16.737,84.042l115.798,-0l92.889,-84.042l-191.95,0Z" style="fill:none;" />
+          <clipPath id="_logo_clip4">
+            <path d="M17.15,491.971l-16.737,84.042l115.798,-0l92.889,-84.042l-191.95,0Z" />
+          </clipPath>
+          <g clip-path="url(#_logo_clip4)">
+            <path id="horizontal_2" d="M-31.56,533.992l286.018,-0" style="fill:none;stroke-width:100px;" />
+          </g>
+          <path d="M621.318,0.949l94.005,-0l-169.267,789.61l-94.004,0l41.063,-192.217l94.146,-0l27.135,-126.58l-94.119,0l21.053,-97.675l116.441,-104.664l17.009,-79.346l-94.141,0l40.679,-189.128Z" style="fill:none;" />
+          <clipPath id="_logo_clip5">
+            <path d="M621.318,0.949l94.005,-0l-169.267,789.61l-94.004,0l41.063,-192.217l94.146,-0l27.135,-126.58l-94.119,0l21.053,-97.675l116.441,-104.664l17.009,-79.346l-94.141,0l40.679,-189.128Z" />
+          </clipPath>
+          <g clip-path="url(#_logo_clip5)">
+            <path id="vertical_2" d="M676.956,-28.386l-187.559,860.148" style="fill:none;stroke-width:100px;stroke-linejoin:round;" />
+          </g>
+          <path d="M303.105,0.949l94.004,-0l-169.266,789.61l-94.005,0l41.064,-192.217l94.146,-0l41.649,-194.287l-116.06,101.004l36.025,-184.335l98.084,-0.869l27.82,-129.778l-94.141,0l40.68,-189.128Z" style="fill:none;" />
+          <clipPath id="_logo_clip6">
+            <path d="M303.105,0.949l94.004,-0l-169.266,789.61l-94.005,0l41.064,-192.217l94.146,-0l41.649,-194.287l-116.06,101.004l36.025,-184.335l98.084,-0.869l27.82,-129.778l-94.141,0l40.68,-189.128Z" />
+          </clipPath>
+          <g clip-path="url(#_logo_clip6)">
+            <path id="vertical_1" d="M354.313,-28.386l-183.13,860.148" style="fill:none;stroke-width:100px;stroke-linejoin:round;" />
+          </g>
+        </g>
+      </g>
+    </svg>
+    <span>Zettahash</span>
   </router-link>
 
   <div></div>
   <div class="nav-links">
 
-    <div :class="'sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchBalances')">
+    <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchBalances')">
       <i class="i-refresh-cw"></i>
       <i class="i-alert-circle"></i>
       <i class="i-check"></i>
     </div>
     <div class="menu-container">
-    <a class="btn" @click="menu=!menu"><i class="icon-ellipsis-v"></i></a>
-    <div class="menu" v-if="menu">
-      <ul>
-        <!-- <li>
+      <a class="btn" @click="menu=!menu"><i class="icon-ellipsis-v"></i></a>
+      <div class="menu" v-if="menu">
+        <ul>
+          <!-- <li>
           <router-link :to="{ name: 'Profile'}"><i class="duotone icon-user"></i><span>User profile</span></router-link>
         </li> -->
-        <li>
-          <a @click="toggleDemoValues()"><span>Demo Mode</span><i :class="'switch-indicator' + (application.uiDemoValues ? ' on' : ' off')"></i></a>
-        </li>
+          <li>
+            <a @click="toggleDemoValues()"><span>Demo Mode</span><i :class="'switch-indicator' + (application.uiDemoValues ? ' on' : ' off')"></i></a>
+          </li>
 
-        <li>
-        <div class="social-grid">
-          <a href="#"><i class="fab fa-discord"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-telegram"></i></a>
-          <a href="#"><i class="fab fa-github"></i></a>
-        </div>
-          
-        </li>
-      </ul>
+          <li>
+            <a @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchBalances')">
+            <span v-if="data.synchronisationStatus==='syncing'">Syncing</span>
+            <span v-if="String(data.synchronisationStatus)==='false'">Up to date<br>
+              <small>{{new Date(data.synchronisation)}}</small>
+            </span>
+            <span v-if="String(data.synchronisationStatus)==='true'">Error</span>
+              <i v-if="data.synchronisationStatus==='syncing'" class="i-refresh-cw spinning"></i>
+              <i v-if="String(data.synchronisationStatus)==='true'" class="i-alert-circle"></i>
+              <i v-if="String(data.synchronisationStatus)==='false'" class="i-check"></i> 
+            </a>
+          </li>
+
+          <li>
+            <div class="social-grid">
+              <a href="#"><i class="fab fa-discord"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-telegram"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+
+          </li>
+        </ul>
+      </div>
     </div>
-    </div>
-  </div></div>
+  </div>
+</div>
 </template>
+
 <script>
-import { mapGetters } from 'vuex';
+import {
+  mapGetters
+} from 'vuex';
 export default {
   name: "NavBar",
-  components: {
-  },
+  components: {},
   data() {
     return {
       uiSidebarCollapse: false,
@@ -56,7 +116,9 @@ export default {
   },
   mounted() {
     const self = this
-    document.querySelector(".page-contents").addEventListener("click", () => { self.menu = false })
+    document.querySelector(".page-contents").addEventListener("click", () => {
+      self.menu = false
+    })
     document.querySelector(".logo.animated").addEventListener("mouseenter", () => {
       document.querySelector(".logo").classList.remove("animated")
       setTimeout(() => {
@@ -92,6 +154,7 @@ export default {
   },
 }
 </script>
+
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
 
@@ -118,6 +181,11 @@ export default {
 
     @media (max-width: $small) {
       margin-right: auto;
+      width: auto;
+
+      span {
+        display: none;
+      }
     }
 
     svg {
@@ -247,6 +315,11 @@ export default {
 
               }
             }
+
+            small {
+              font-size: 75%;
+              opacity: .5;
+            }
           }
         }
       }
@@ -255,18 +328,35 @@ export default {
 }
 
 .sync-status {
+
   background-color: var(--neutral-8);
   color: var(--neutral-2);
   display: flex;
   height: 100%;
-  min-width: 2rem;
+  min-width: 1rem;
   align-items: center;
   justify-content: center;
   border-radius: 100px;
   transition: 200ms ease;
   cursor: pointer;
-  gap: 10px;
-  padding: 0 calc(2rem / 1.62);
+  // gap: 10px;
+  padding: 0 calc(1.5rem / 1.62);
+
+  @media (max-width:$small) {
+    &::before {
+      display: none;
+    }
+  }
+
+  &::before {
+    margin-right: 0px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    width: 0%;
+    max-width: 0vw;
+    opacity: 0;
+    transition: 100ms ease-in-out;
+  }
 
   &:not(.syncing) {
 
@@ -274,8 +364,15 @@ export default {
       background-color: var(--primary);
       color: var(--neutral-1);
 
+
       &::before {
         content: 'Refresh now' !important;
+        margin-right: 10px !important;
+        overflow: hidden !important;
+        text-wrap: nowrap !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        opacity: 1 !important;
       }
 
       i.i-alert-circle {
@@ -295,6 +392,7 @@ export default {
   &.false {
     &::before {
       content: 'Up-to-date';
+      animation: text-grow-in-out 4000ms ease-in-out forwards 1;
     }
 
     i.i-check {
@@ -306,7 +404,14 @@ export default {
     pointer-events: none;
 
     &::before {
+      transition: 400ms ease-in-out;
       content: 'Syncing';
+      margin-right: 10px;
+      overflow: hidden;
+      text-wrap: nowrap;
+      width: 100%;
+      max-width: 100vw;
+      opacity: 1;
     }
 
     i.i-refresh-cw {
@@ -320,6 +425,15 @@ export default {
     background: var(--secondary);
     color: var(--neutral-10);
   }
+
+
+
+
+}
+
+i.i-refresh-cw.spinning {
+  transform-origin: center;
+  animation: spin 1s linear forwards infinite;
 }
 
 .sidebar-toggle {
@@ -415,4 +529,45 @@ export default {
     opacity: 1;
   }
 }
-</style>
+
+@keyframes text-grow-in-out {
+  0% {
+    white-space: nowrap;
+    margin-right: 0px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    width: 0%;
+    max-width: 0vw;
+    opacity: 0;
+  }
+
+  20% {
+    white-space: nowrap;
+    margin-right: 10px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    width: 100%;
+    max-width: 100vw;
+    opacity: 1;
+  }
+
+  80% {
+    white-space: nowrap;
+    margin-right: 10px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    width: 100%;
+    max-width: 100vw;
+    opacity: 1;
+  }
+
+  100% {
+    white-space: nowrap;
+    margin-right: 0px;
+    overflow: hidden;
+    text-wrap: nowrap;
+    width: 0%;
+    max-width: 0vw;
+    opacity: 0;
+  }
+}</style>

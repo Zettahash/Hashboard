@@ -25,7 +25,7 @@ import {
   mapGetters
 } from 'vuex';
 export default {
-  name: 'HashRate',
+  name: 'BuySell',
   data() {
     return {
       activeHashrateIndex: 1,

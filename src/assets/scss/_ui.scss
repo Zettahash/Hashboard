@@ -72,6 +72,107 @@
         color: var(--neutral-4);
       }
     }
+    &.half {
+      display: grid;
+      align-content: center;
+      width: calc(50% - 10px);
+      gap: 20px;
+      justify-items: center;
+      padding: 20px;
+      border-radius: 30px;
+      background-color: var(--neutral-9);
+      text-align: center;
+      min-width: 240px;
+      margin-bottom: auto;
+      // @media (max-width: $content) {
+      //   width: calc(25% - 20px);
+      // }
+      @media (max-width: $medium) {
+        width: 100%;
+      }
+      @media (max-width: $small) {
+        width: 100%;
+      }
+      @media (max-width: $x-small) {
+        width: 100%;
+      }
+      table{
+        width: 100%;
+        border-collapse: collapse;
+        tr{
+          &:hover{
+            &.good-hover{
+              td{
+                position:relative;
+                &:first-of-type{
+                  &::before{border-radius: 100px 0  0 100px;}
+                }
+                &:last-of-type{
+                  &::before{border-radius: 0 100px 100px 0;}
+                }
+                &::before{
+                  content: '';
+                  background-color: var(--light-moss);
+                  height:100%;
+                  width:100%;
+                  top:0;
+                  left:0;
+                  opacity:.2;
+                  position: absolute;
+                }
+              }
+            }
+            &.bad-hover{
+              td{
+                position:relative;
+                &:first-of-type{
+                  &::before{border-radius: 100px 0  0 100px;}
+                }
+                &:last-of-type{
+                  &::before{border-radius: 0 100px 100px 0;}
+                }
+                &::before{
+                  content: '';
+                  background-color: var(--crimson);
+                  height:100%;
+                  width:100%;
+                  top:0;
+                  left:0;
+                  opacity:.2;
+                  position: absolute;
+                }
+              }
+            }
+          }
+          td{
+            text-align: left;
+            padding:4px 12px;
+            &:last-of-type{
+            text-align: right;
+
+            }
+          }
+          &:first-of-type{
+            td{
+              font-weight: 800;
+              opacity:.5;
+              padding-bottom: .5rem;
+            }
+          }
+        }
+      }
+      .head {
+        display: grid;
+        gap: 5px;
+      }
+      h3,
+      h4 {
+        margin: 0;
+      }
+      h4 {
+        color: var(--neutral-4);
+      }
+    }
     &.wide {
       display: flex;
       align-content: center;
@@ -196,7 +297,7 @@
 }
 
 .good {
-  color: var(--light-lime);
+  color: var(--light-moss);
   &.plus {
     &::before {
       content: "+";

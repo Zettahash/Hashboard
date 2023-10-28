@@ -1,6 +1,7 @@
 <template>
   <div class="line-graph ui-ele">
     <div class="title">SHA256 Hash-rate (PH/s)</div>
+    <div class="tooltip"></div>
     <div class="lw-chart hashrateChart"></div>
     <div class="button-flex-organiser">
       <div :class="`btn compact${activeChartView === 'fit' ? ' active' : ''}`" @click="activeChartView = 'fit'">
@@ -133,10 +134,7 @@ export default {
       this.areaSeries.setData(this.chartData)
       this.chart.resize(this.width, this.height);
 
-      const toolTip = document.createElement('div');
-      toolTip.classList.add("tooltip")
-      this.chartContainer.appendChild(toolTip);
-
+      const toolTip = document.querySelector('.tooltip');
       this.chart.subscribeCrosshairMove(param => {
         if (
           param.point === undefined ||
@@ -193,7 +191,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .line-graph {
   // width: 100%;
   flex-grow: 1;
@@ -203,7 +201,9 @@ export default {
   display: grid;
   gap: 10px;
 
-  .tooltip {
+ 
+}
+ .tooltip {
     width: 120px;
     height: max-content;
     position: absolute;
@@ -230,8 +230,6 @@ export default {
       }
     }
   }
-}
-
 .button-flex-organiser {
   display: flex;
   gap: 10px;
