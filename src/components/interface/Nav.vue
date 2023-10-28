@@ -116,10 +116,7 @@ export default {
     }
   },
   mounted() {
-    const self = this
-    document.querySelector(".page-contents").addEventListener("click", () => {
-      self.menu = false
-    })
+    document.querySelector(".page-contents").addEventListener("click", this.resetMenu)
     document.querySelector(".logo.animated").addEventListener("mouseenter", () => {
       document.querySelector(".logo").classList.remove("animated")
       setTimeout(() => {
@@ -140,6 +137,9 @@ export default {
     },
   },
   methods: {
+    resetMenu() {
+      this.menu = false
+    },
     toggleSidebarCollapse(bool) {
       this.$store.commit('setDynamic', {
         item: 'uiSidebarCollapse',

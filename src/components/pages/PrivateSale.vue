@@ -7,9 +7,8 @@
 export default {
   name: 'PrivateSale',
   mounted() {
-    const self = this
     const iframe = document.createElement('iframe')
-    iframe.onload = function() { self.frameLoaded() }
+    iframe.onload = this.frameLoaded
     iframe.src = 'https://btcpay0.voltageapp.io/apps/nbtKUEJFpAPFjnwAmP9zyYQsF93/crowdfund';
     iframe.classList.add("dom-iframe")
     document.querySelector(".iframe").replaceWith(iframe)
@@ -20,20 +19,20 @@ export default {
         item: 'routerLoaded',
         value: true
       })
-      if (window.innerWidth < 800){
+      if (window.innerWidth < 800) {
         this.$store.commit('setDynamic', {
-        item: 'uiSidebarCollapse',
-        value: true
-      })
+          item: 'uiSidebarCollapse',
+          value: true
+        })
       }
     }
   }
 }
 </script>
 <style lang="scss">
-  .dom-iframe{
-    height: 100%;
-    width: 100%;
-    border: 0;
-  }
+.dom-iframe {
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
 </style>

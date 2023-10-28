@@ -5,6 +5,9 @@
   }
 }
 .flex-overview {
+  .invisible{
+    opacity:0;
+  }
   .ui-ele {
     opacity: 0;
     transform: scale(0.8);
@@ -40,7 +43,6 @@
     &.small {
       display: grid;
       align-content: center;
-      width: calc(25% - 15px);
       gap: 20px;
       justify-items: center;
       padding: 20px;
@@ -48,6 +50,7 @@
       background-color: var(--neutral-9);
       text-align: center;
       min-width: 200px;
+      width: calc(25% - 15px);
 
       @media (max-width: $content) {
         width: calc(25% - 20px);

@@ -10,12 +10,14 @@
         <div class="title">{{item.title}}</div>
       </div>
     </template>
+    <LoadingEle v-if="!payload" />
     <HashRate />
     <Profitability />
     <HashLineGraph />
   </div>
 </template>
 <script>
+import LoadingEle from './../interface/LoadingEle.vue'
 import HashRate from './../tiles/HashRate.vue'
 import Profitability from './../tiles/Profitability.vue'
 import HashLineGraph from './../charts/HashLineGraph.vue'
@@ -75,6 +77,7 @@ export default {
     }),
   },
   components: {
+    LoadingEle,
     HashRate,
     HashLineGraph,
     Profitability,

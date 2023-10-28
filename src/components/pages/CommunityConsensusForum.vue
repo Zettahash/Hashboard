@@ -7,9 +7,8 @@
 export default {
   name: 'CommunityConsensusForum',
   mounted() {
-    const self = this
     const iframe = document.createElement('iframe')
-    iframe.onload = function() { self.frameLoaded() }
+    iframe.onload = this.frameLoaded
     iframe.src = 'https://zettahash.flarum.cloud';
     iframe.classList.add("dom-iframe")
     document.querySelector(".iframe").replaceWith(iframe)

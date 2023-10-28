@@ -61,7 +61,7 @@ const actions = {
   },
   fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
-    let endpoint = "https://zettahash_hashboard_middleware.zetta-735.workers.dev"
+    let endpoint = "http://localhost:8787"//"https://zettahash_hashboard_middleware.zetta-735.workers.dev"
     try {
       fetch(`${endpoint}/api/combined-request-btc-eth-exr-lincoin`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {

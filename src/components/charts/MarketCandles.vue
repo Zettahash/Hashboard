@@ -50,7 +50,8 @@ export default {
         time: Math.floor(Date.now() / 1000),
       },
       refreshInterval: false,
-      chartDataObj:false,
+      chartDataObj: false,
+      boundedResize: false,
     }
   },
   computed: {
@@ -177,7 +178,8 @@ export default {
       })
       this.refreshNewDataInterval()
     },
-    mergeTickToBar(price) {
+    mergeTickToBar() {
+      let price = Number(Number(8.37 + (1 / (Math.floor(Math.random() * 100)))).toFixed(4))
       if (this.currentBar.open === null) {
         this.currentBar.open = price;
         this.currentBar.high = price;
@@ -196,18 +198,14 @@ export default {
     },
     refreshNewDataInterval() {
       clearInterval(this.refreshInterval)
-      let self = this
-      this.refreshInterval = setInterval(function () {
-        let open = Number(Number(8.37 + (1 / (Math.floor(Math.random() * 100)))).toFixed(4))
-        self.mergeTickToBar(open);
-      },2000)
+      this.refreshInterval = setInterval(() => { this.mergeTickToBar }, 2000)
     },
     setActiveChartView(value) {
       let data = this.chartDataObj
-      let from =  false
+      let from = false
       let from50 = data && data.length > 2 ? data[Math.ceil(data.length / 2)].time : 0
       if (!isNaN(Number(value))) {
-        let targetTime = Math.floor((Date.now() - (value * (24*3600000)))/1000)
+        let targetTime = Math.floor((Date.now() - (value * (24 * 3600000))) / 1000)
         for (let i = data.length - 1; i >= 0; i--) {
           let instance = data[i].time
           if (instance <= targetTime) {
@@ -239,16 +237,17 @@ export default {
           this.chart.timeScale().resetTimeScale()
       }
     },
-  },
-    mounted() {
-      this.chartContainer = document.querySelector(".marketCandleSticksGraph")
-      this.buildChartUI()
-      let self = this
-      window.addEventListener('resize', () => {
-        self.chart.resize(self.width, self.height);
-      })
+    resizeChart() {
+      this.chart.resize(this.width, this.height);
     },
-  }
+  },
+  mounted() {
+    this.boundedResize = this.resizeChart.bind(this)
+    this.chartContainer = document.querySelector(".marketCandleSticksGraph")
+    this.buildChartUI()
+    window.addEventListener('resize', this.boundedResize)
+  },
+}
 </script>
 
 <style lang="scss" scoped>

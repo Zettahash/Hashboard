@@ -1,5 +1,5 @@
 <template>
-  <div class="line-graph ui-ele">
+  <div :class="payload?'line-graph ui-ele':'line-graph invisible'">
     <div class="title">SHA256 Hash-rate (PH/s)</div>
     <div class="tooltip"></div>
     <div class="lw-chart hashrateChart"></div>
@@ -37,6 +37,7 @@ export default {
       toolTipHeight: 80,
       toolTipMargin: 15,
       activeChartView: 'default',
+      boundedResize: false,
     }
   },
   computed: {
@@ -96,8 +97,9 @@ export default {
     },
   },
   watch: {
-    chartData() {
-      this.buildChartUI()
+    chartData(value) {
+      if(value)
+      {this.buildChartUI()}
     },
     uiSidebarCollapse() {
       this.chart.resize(this.width, this.height)
@@ -179,14 +181,15 @@ export default {
         }
       });
     },
+    resizeChart() {
+      this.chart.resize(this.width, this.height)
+    }
   },
   mounted() {
     this.chartContainer = document.querySelector(".hashrateChart")
     this.buildChartUI()
-    let self = this
-    window.addEventListener('resize', () => {
-      self.chart.resize(self.width, self.height);
-    })
+    this.boundedResize = this.resizeChart.bind(this)
+    window.addEventListener('resize', this.boundedResize)
   },
 }
 </script>

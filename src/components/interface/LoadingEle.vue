@@ -1,6 +1,7 @@
 <template lang="">
   <div class="parent-flex">
-  <template v-for="n in 3"><div class="loading" :key="n"></div></template>
+  <template v-for="n in 3"><div class="loading small" :key="n"></div></template>
+  <template v-for="n in 2"><div class="loading" :key="n"></div></template>
   </div>
 </template>
 <script>
@@ -10,6 +11,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
+
 .parent-flex {
   width: 100%;
   display: flex;
@@ -21,19 +23,20 @@ export default {
   .loading {
     background: var(--neutral-1);
     align-content: start;
-    box-shadow: 0 0 0 0px var(--neutral-1);
-    transform: translateY(20px)scale(.9);
+    box-shadow: 0 0 0 0px var(--neutral-10);
+    // transform: translateY(20px)scale(.9);
     padding: 24px;
     border-radius: .75rem;
-    animation: loading 3s ease forwards infinite;
-    background: var(--neutral-1);
+    animation: loading 2s ease forwards infinite;
+    background: var(--neutral-9);
     align-content: start;
     max-width: unset;
     min-width: unset;
-    width: 100%;
     justify-items: start;
     height: 100px;
     grid-template: auto auto auto/auto 1fr;
+    width: 100%;
+    min-height:20vh;
 
     @media (max-width: $content) {
       width: calc(((100vw - 80px) / 3) - 20px);
@@ -49,6 +52,26 @@ export default {
 
     @media (max-width: $x-small) {
       width: calc(((100vw - 80px)) - 20px);
+    }
+
+    &.small {
+      width: calc(25% - 15px);
+
+      @media (max-width: $content) {
+        width: calc(25% - 20px);
+      }
+
+      @media (max-width: $medium) {
+        width: calc(33% - 15px);
+      }
+
+      @media (max-width: $small) {
+        width: calc(50% - 10px);
+      }
+
+      @media (max-width: $x-small) {
+        width: 100%;
+      }
     }
 
     @keyframes loading {
@@ -68,5 +91,4 @@ export default {
 
 
   }
-}
-</style>
+}</style>
