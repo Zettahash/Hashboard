@@ -12,8 +12,8 @@ const actions = {
         value: value
       })
     }
-    dispatch('fetchLincoin', { commit, dispatch, getters, context, rootGetters })
-    dispatch('fetchBalances', { commit, dispatch, getters, context, rootGetters })
+    // dispatch('fetchLincoin', { commit, dispatch, getters, context, rootGetters })
+    dispatch('fetchCombinedDataPayload', { commit, dispatch, getters, context, rootGetters })
 
     commit("setDynamic", {
       item: 'name',
@@ -59,35 +59,18 @@ const actions = {
     }, 2000)
 
   },
-  fetchBalances({ commit, dispatch, getters, context, rootGetters }) {
+  fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
     let endpoint = "https://zettahash_hashboard_middleware.zetta-735.workers.dev"
     try {
-      fetch(`${endpoint}/api/retrieve-bitcoin-balances`, { method: 'get' })
+      fetch(`${endpoint}/api/combined-request-btc-eth-exr-lincoin`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {
-          commit("setHoldingsBTC", data.payload)
-          commit("setData", { item: 'assets', value: Date.now() })
-          commit("setData", { item: 'synchronisationStatus', value: false })
-        })
-    } catch (e) {
-      commit("setData", { item: 'synchronisationStatus', value: "error" })
-    }
+          commit("setHoldingsBTC", data.payload.btc)
+          commit("setHoldingsETH", data.payload.eth)
+          commit("setRates", data.payload.exr)
+          commit("setPayload", data.payload.lincoin)
 
-    try {
-      fetch(`${endpoint}/api/retrieve-ethereum-balances`, { method: 'get' })
-        .then(result => { return result.json() }).then(data => {
-          commit("setHoldingsETH", data.payload)
-          commit("setData", { item: 'assets', value: Date.now() })
-          commit("setData", { item: 'synchronisationStatus', value: false })
-        })
-    } catch (e) {
-      commit("setData", { item: 'synchronisationStatus', value: "error" })
-    }
-
-    try {
-      fetch(`${endpoint}/api/get-exchange`, { method: 'get' })
-        .then(result => { return result.json() }).then(data => {
-          commit("setRates", data.payload)
+          commit("setData", { item: 'synchronisation', value: Date.now() })
           commit("setData", { item: 'assets', value: Date.now() })
           commit("setData", { item: 'synchronisationStatus', value: false })
         })
@@ -107,8 +90,8 @@ const actions = {
     clearTimeout(secondaryTimeout)
     parentTimeout = setTimeout(() => {
       secondaryTimeout = setTimeout(() => {
-        dispatch('fetchLincoin', { c, d, g, co, rg })
-        dispatch('fetchBalances', { c, d, g, co, rg })
+        // dispatch('fetchLincoin', { c, d, g, co, rg })
+        dispatch('fetchCombinedDataPayload', { c, d, g, co, rg })
       }, 120000)
     }, 2000)
 

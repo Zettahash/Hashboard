@@ -28,6 +28,7 @@
       font-size: 24px;
       font-weight: 800;
       color: var(--secondary);
+      line-break: anywhere;
     }
     .sub {
       opacity: 0.5;
@@ -46,7 +47,7 @@
       border-radius: 30px;
       background-color: var(--neutral-9);
       text-align: center;
-      min-width: 220px;
+      min-width: 200px;
 
       @media (max-width: $content) {
         width: calc(25% - 20px);
@@ -96,67 +97,74 @@
       @media (max-width: $x-small) {
         width: 100%;
       }
-      table{
+      table {
         width: 100%;
         border-collapse: collapse;
-        tr{
-          &:hover{
-            &.good-hover{
-              td{
-                position:relative;
-                &:first-of-type{
-                  &::before{border-radius: 100px 0  0 100px;}
+        tr {
+          &:hover {
+            &.good-hover {
+              td {
+                position: relative;
+                &:first-of-type {
+                  &::before {
+                    border-radius: 100px 0 0 100px;
+                  }
                 }
-                &:last-of-type{
-                  &::before{border-radius: 0 100px 100px 0;}
+                &:last-of-type {
+                  &::before {
+                    border-radius: 0 100px 100px 0;
+                  }
                 }
-                &::before{
-                  content: '';
+                &::before {
+                  content: "";
                   background-color: var(--light-moss);
-                  height:100%;
-                  width:100%;
-                  top:0;
-                  left:0;
-                  opacity:.2;
+                  height: 100%;
+                  width: 100%;
+                  top: 0;
+                  left: 0;
+                  opacity: 0.2;
                   position: absolute;
                 }
               }
             }
-            &.bad-hover{
-              td{
-                position:relative;
-                &:first-of-type{
-                  &::before{border-radius: 100px 0  0 100px;}
+            &.bad-hover {
+              td {
+                position: relative;
+                &:first-of-type {
+                  &::before {
+                    border-radius: 100px 0 0 100px;
+                  }
                 }
-                &:last-of-type{
-                  &::before{border-radius: 0 100px 100px 0;}
+                &:last-of-type {
+                  &::before {
+                    border-radius: 0 100px 100px 0;
+                  }
                 }
-                &::before{
-                  content: '';
+                &::before {
+                  content: "";
                   background-color: var(--crimson);
-                  height:100%;
-                  width:100%;
-                  top:0;
-                  left:0;
-                  opacity:.2;
+                  height: 100%;
+                  width: 100%;
+                  top: 0;
+                  left: 0;
+                  opacity: 0.2;
                   position: absolute;
                 }
               }
             }
           }
-          td{
+          td {
             text-align: left;
-            padding:4px 12px;
-            &:last-of-type{
-            text-align: right;
-
+            padding: 4px 12px;
+            &:last-of-type {
+              text-align: right;
             }
           }
-          &:first-of-type{
-            td{
+          &:first-of-type {
+            td {
               font-weight: 800;
-              opacity:.5;
-              padding-bottom: .5rem;
+              opacity: 0.5;
+              padding-bottom: 0.5rem;
             }
           }
         }
@@ -260,6 +268,24 @@
         width: calc(100% - 5px);
         background: var(--neutral-10);
         border-radius: 10px;
+      }
+    }
+  }
+  &.compact {
+    .block {
+      &.small {
+        width: calc(25% - 15px);
+        min-width: 180px;
+
+        @media (max-width: $content) {
+          width: calc(50% - 10px);
+        }
+        @media (max-width: $medium) {
+          width: calc(50% - 10px);
+        }
+        @media (max-width: $small) {
+          width: 100%;
+        }
       }
     }
   }

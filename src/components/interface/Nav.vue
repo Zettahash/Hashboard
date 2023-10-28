@@ -78,9 +78,10 @@
             <span v-if="String(data.synchronisationStatus)==='false'">Up to date<br>
               <small>{{new Date(data.synchronisation)}}</small>
             </span>
+            <span v-if="String(data.synchronisationStatus)==='error'">An Error has occurred</span>
             <span v-if="String(data.synchronisationStatus)==='true'">Error</span>
               <i v-if="data.synchronisationStatus==='syncing'" class="i-refresh-cw spinning"></i>
-              <i v-if="String(data.synchronisationStatus)==='true'" class="i-alert-circle"></i>
+              <i v-if="String(data.synchronisationStatus)==='error'" class="i-alert-circle"></i>
               <i v-if="String(data.synchronisationStatus)==='false'" class="i-check"></i> 
             </a>
           </li>

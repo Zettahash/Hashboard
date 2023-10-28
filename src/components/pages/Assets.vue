@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="flex-overview">
+  <div :class="!application.uiSidebarCollapse? 'flex-overview compact':'flex-overview'">
     <template v-for="(item, index) of hashrateWorker">
       <div :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
       <div class="head">

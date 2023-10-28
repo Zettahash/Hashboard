@@ -1,5 +1,5 @@
 <template lang="">
-<div class="block small ui-ele" title="hash rate" v-if="profitSummary">
+<div class="block small ui-ele" title="hash rate" v-if="payload">
   <div class="head">
   <h3>Profitability Summary</h3>
   <h4>PPS {{profitSummary.pps_profit}}</h4>
