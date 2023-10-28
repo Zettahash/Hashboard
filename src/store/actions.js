@@ -92,7 +92,7 @@ const actions = {
       secondaryTimeout = setTimeout(() => {
         // dispatch('fetchLincoin', { c, d, g, co, rg })
         dispatch('fetchCombinedDataPayload', { c, d, g, co, rg })
-      }, 120000)
+      }, 300000)
     }, 2000)
 
   },
