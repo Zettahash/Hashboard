@@ -1,6 +1,6 @@
 <template lang="">
   <div class="flex-overview">
-    <template v-for="(item, index) of payload">
+    <template v-for="(item, index) of hashrateWorker">
       <div :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
       <div class="head">
         <div class="product-icon">
@@ -91,18 +91,20 @@ export default {
     ...mapGetters({
       application: 'application',
       data: 'data',
+      payload: 'payload',
     }),
     hashrateWorker() {
       let tmp = []
-      if (this.payload && this.payload.hashrateWorker) {
+      if (this.application.uiDemoValues) { return this.samplePayload }
+      if (this.payload.hashrateWorker) {
         for (const worker of this.payload.hashrateWorker.value) {
           tmp.push(
             {
               size: 'asset-complicated wide',
-              manufacturer: worker.name,
-              model: 'mMdel No',
+              manufacturer: worker.worker_name,
+              model: 'Model No',
               rating: worker.consumption,
-              data: '0',
+              data: '1',
               graph: {
                 data: [worker.hashrate_10min, worker.hashrate_1hour, worker.hashrate_24hour],
                 colour: "#0062ff",
@@ -112,10 +114,6 @@ export default {
         }
       }
       return tmp
-    },
-    payload() {
-      if (this.application.uiDemoValues) { return this.samplePayload }
-      return this.hashrateWorker
     },
   },
   mounted() {

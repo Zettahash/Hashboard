@@ -65,7 +65,7 @@ export default {
         let ts = new Date()
         ts.setFullYear(ts.getFullYear() - 1)
         ts = new Date(ts).getTime()
-        for (let i = 0; i < (365 * 24); i++) {
+        for (let i = 0; i < (180 * 24); i++) {
           let time = ts + (i * (3600000))//Math.floor(( ts + (i * (3600000)))/1000)//.toISOString().split('T')[0]
 
           let open = Number(Number(8.37 + (1 / (Math.floor(Math.random() * 100)))).toFixed(4))

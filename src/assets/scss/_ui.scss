@@ -46,7 +46,7 @@
       border-radius: 30px;
       background-color: var(--neutral-9);
       text-align: center;
-      min-width: 240px;
+      min-width: 220px;
 
       @media (max-width: $content) {
         width: calc(25% - 20px);
