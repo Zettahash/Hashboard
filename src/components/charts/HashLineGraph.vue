@@ -1,6 +1,6 @@
 <template>
-  <div :class="payload?'line-graph ui-ele':'line-graph invisible'">
-    <div class="title">SHA256 Hash-rate (PH/s)</div>
+  <div class="line-graph ui-ele">
+    <div class="title">SHA256 Hash-rate (TH/s)</div>
     <div class="tooltip"></div>
     <div class="lw-chart hashrateChart"></div>
     <div class="button-flex-organiser">

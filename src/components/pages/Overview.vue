@@ -13,7 +13,7 @@
     <LoadingEle v-if="!payload" />
     <HashRate />
     <Profitability />
-    <HashLineGraph />
+    <HashLineGraph v-if="payload" />
   </div>
 </template>
 <script>
