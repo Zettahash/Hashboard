@@ -11,11 +11,13 @@
       </div>
     </template>
     <HashRate />
+    <Profitability />
     <HashLineGraph />
   </div>
 </template>
 <script>
 import HashRate from './../tiles/HashRate.vue'
+import Profitability from './../tiles/Profitability.vue'
 import HashLineGraph from './../charts/HashLineGraph.vue'
 import { mapGetters } from 'vuex';
 
@@ -75,6 +77,7 @@ export default {
   components: {
     HashRate,
     HashLineGraph,
+    Profitability,
   },
   mounted() {
     this.routeLoaded()

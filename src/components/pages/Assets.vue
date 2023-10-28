@@ -34,20 +34,7 @@ export default {
   name: 'Assets',
   data() {
     return {
-      emptyPayload: [
-        {
-          size: 'asset-complicated wide',
-          manufacturer: 'Manufacturer',
-          model: 'mMdel No',
-          rating: '000T',
-          data: '0',
-          graph: {
-            data: [4, 10, 6,2,12,10,22],
-            colour: "#0062ff",
-          },
-          url: 'heatsink'
-        },
-      ],
+
       samplePayload: [
         {
           size: 'asset-complicated wide',
@@ -56,7 +43,7 @@ export default {
           rating: '200T',
           data: '1582',
           graph: {
-            data: [4, 10, 6,2,12,10,22],
+            data: [4, 10, 6, 2, 12, 10, 22],
             colour: "#0062ff",
           },
           url: 'heatsink'
@@ -68,7 +55,7 @@ export default {
           rating: '151T',
           data: '3850',
           graph: {
-            data: [5,2,9,2,12,9,9],
+            data: [5, 2, 9, 2, 12, 9, 9],
             colour: "#0062ff",
           },
           url: 'heatsink'
@@ -80,7 +67,7 @@ export default {
           rating: '141T',
           data: '2892',
           graph: {
-            data: [1,12,1,100,70,100],
+            data: [1, 12, 1, 100, 70, 100],
             colour: "#0062ff",
           },
           url: 'heatsink'
@@ -92,7 +79,7 @@ export default {
           rating: '120T',
           data: '1682',
           graph: {
-            data: [1,12,1,100,70,100],
+            data: [1, 12, 1, 100, 70, 100],
             colour: "#0062ff",
           },
           url: 'heatsink'
@@ -105,9 +92,30 @@ export default {
       application: 'application',
       data: 'data',
     }),
+    hashrateWorker() {
+      let tmp = []
+      if (this.payload && this.payload.hashrateWorker) {
+        for (const worker of this.payload.hashrateWorker.value) {
+          tmp.push(
+            {
+              size: 'asset-complicated wide',
+              manufacturer: worker.name,
+              model: 'mMdel No',
+              rating: worker.consumption,
+              data: '0',
+              graph: {
+                data: [worker.hashrate_10min, worker.hashrate_1hour, worker.hashrate_24hour],
+                colour: "#0062ff",
+              },
+              url: 'heatsink'
+            })
+        }
+      }
+      return tmp
+    },
     payload() {
       if (this.application.uiDemoValues) { return this.samplePayload }
-      return this.emptyPayload
+      return this.hashrateWorker
     },
   },
   mounted() {
@@ -139,23 +147,31 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
 @import '@/assets/scss/ui';
-.product-icon{
-  grid-row:1/3;
-  img{
+
+.product-icon {
+  grid-row: 1/3;
+
+  img {
     height: 50px;
-    opacity:.5;
+    opacity: .5;
   }
 }
-.graph{max-width: 300px;margin-left:auto;}
-.data{
-  display:grid;
-  &::after{
+
+.graph {
+  max-width: 300px;
+  margin-left: auto;
+}
+
+.data {
+  display: grid;
+
+  &::after {
     content: 'units';
-    opacity:.5;
+    opacity: .5;
     font-size: 75%;
   }
 }
-.head{
-  min-width:250px;
-}
-</style>
+
+.head {
+  min-width: 250px;
+}</style>
