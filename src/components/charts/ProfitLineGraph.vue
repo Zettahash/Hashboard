@@ -164,50 +164,50 @@ export default {
 
       this.chart.resize(this.width, this.height);
 
-      const toolTip = document.querySelector('.tooltip');
-      this.chart.subscribeCrosshairMove(param => {
-        if (
-          param.point === undefined ||
-          !param.time ||
-          param.point.x < 0 ||
-          param.point.x > this.chartContainer.clientWidth ||
-          param.point.y < 0 ||
-          param.point.y > this.chartContainer.clientHeight
-        ) {
-          toolTip.classList.remove("active");
-        } else {
-          toolTip.classList.add("active")
-          const data = param.seriesData.get(this.areaSeries);
-          const price = data.value !== undefined ? data.value : data.close;
-          toolTip.innerHTML = `
-            <div>Hashrate</div>
-            <div>${Math.round(100 * price) / 100} Th/s</div>
-            <div>${String(new Date(param.time * 1000)).split("GMT")[0]}</div>
-          `;
+      // const toolTip = document.querySelector('.tooltip');
+      // this.chart.subscribeCrosshairMove(param => {
+      //   if (
+      //     param.point === undefined ||
+      //     !param.time ||
+      //     param.point.x < 0 ||
+      //     param.point.x > this.chartContainer.clientWidth ||
+      //     param.point.y < 0 ||
+      //     param.point.y > this.chartContainer.clientHeight
+      //   ) {
+      //     toolTip.classList.remove("active");
+      //   } else {
+      //     toolTip.classList.add("active")
+      //     const data = param.seriesData.get(this.areaSeries);
+      //     const price = data.value !== undefined ? data.value : data.close;
+      //     toolTip.innerHTML = `
+      //       <div>Hashrate</div>
+      //       <div>${Math.round(100 * price) / 100} Th/s</div>
+      //       <div>${String(new Date(param.time * 1000)).split("GMT")[0]}</div>
+      //     `;
 
-          const coordinate = this.areaSeries.priceToCoordinate(price);
-          let shiftedCoordinate = param.point.x - 50;
-          if (coordinate === null) {
-            return;
-          }
-          shiftedCoordinate = Math.max(
-            0,
-            Math.min(this.chartContainer.clientWidth - this.toolTipWidth, shiftedCoordinate)
-          );
-          const coordinateY =
-            coordinate - this.toolTipHeight - this.toolTipMargin > 0 ?
-              coordinate - this.toolTipHeight - this.toolTipMargin :
-              Math.max(
-                0,
-                Math.min(
-                  this.chartContainer.clientHeight - this.toolTipHeight - this.toolTipMargin,
-                  coordinate + this.toolTipMargin
-                )
-              );
-          toolTip.style.left = shiftedCoordinate + 'px';
-          toolTip.style.top = coordinateY + 'px';
-        }
-      });
+      //     const coordinate = this.areaSeries.priceToCoordinate(price);
+      //     let shiftedCoordinate = param.point.x - 50;
+      //     if (coordinate === null) {
+      //       return;
+      //     }
+      //     shiftedCoordinate = Math.max(
+      //       0,
+      //       Math.min(this.chartContainer.clientWidth - this.toolTipWidth, shiftedCoordinate)
+      //     );
+      //     const coordinateY =
+      //       coordinate - this.toolTipHeight - this.toolTipMargin > 0 ?
+      //         coordinate - this.toolTipHeight - this.toolTipMargin :
+      //         Math.max(
+      //           0,
+      //           Math.min(
+      //             this.chartContainer.clientHeight - this.toolTipHeight - this.toolTipMargin,
+      //             coordinate + this.toolTipMargin
+      //           )
+      //         );
+      //     toolTip.style.left = shiftedCoordinate + 'px';
+      //     toolTip.style.top = coordinateY + 'px';
+      //   }
+      // });
     },
     resizeChart() {
       this.chart.resize(this.width, this.height)

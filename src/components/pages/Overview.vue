@@ -13,8 +13,15 @@
     <LoadingEle v-if="!payload" />
     <HashRate />
     <Profitability />
-    <HashLineGraph v-if="payload" />
-    <ProfitLineGraph v-if="payload" />
+    <div class="charts-organiser-tabs ui-ele" v-if="payload">
+      <div class="tabs">
+        <div :class="activeChart==='HashLineGraph'?'btn active':'btn'" @click="activeChart='HashLineGraph'">Hashrate</div>
+        <div :class="activeChart==='Energy'?'btn active':'btn'" @click="activeChart='Energy'">Energy</div>
+        <div :class="activeChart==='ProfitLineGraph'?'btn active':'btn'" @click="activeChart='ProfitLineGraph'">Profitability</div>
+      </div>
+      <HashLineGraph v-if="activeChart==='HashLineGraph'" />
+      <ProfitLineGraph v-if="activeChart==='ProfitLineGraph'" />
+    </div>
   </div>
 </template>
 <script>
@@ -32,6 +39,7 @@ export default {
   data() {
     return {
       dataObjects: false,
+      activeChart: 'HashLineGraph',
       samplePayload: [
         {
           size: 'small',
@@ -101,4 +109,46 @@ export default {
 <style lang="scss">
 @import '@/assets/scss/constants';
 @import '@/assets/scss/ui';
+</style>
+
+<style lang="scss" scoped>
+.charts-organiser-tabs {
+  background: var(--neutral-9);
+  border-radius: 30px;
+  display: grid;
+  gap: 10px;
+
+  .tabs {
+    display: flex;
+    gap: 10px 2px;
+    padding: 30px 30px 0px 30px;
+    grid-row: 1/2;
+    grid-column: 1/2;
+
+    .btn {
+      padding: 10px 20px;
+      color: var(--neutral-0);
+        border-radius: 0px 0px 0px 0px;
+      &:first-of-type{
+        border-radius: 100px 0px 0px 100px;
+      }
+      &:last-of-type{
+        border-radius: 0px 100px 100px 0px;
+      }
+      &:hover {
+        background: var(--primary);
+      }
+      &:not(.active) {
+        background: var(--neutral-7);
+        &:hover {
+          background: var(--secondary);
+        }
+      }
+    }
+  }
+  .line-graph {
+    grid-row: 2/3 !important;
+    grid-column: 1/2;
+  }
+}
 </style>
