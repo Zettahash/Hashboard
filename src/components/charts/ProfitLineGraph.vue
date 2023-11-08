@@ -55,7 +55,7 @@ export default {
         let i = 1
         for (const item of this.payload.profitHistory.value.data) {
           tmp.push({
-            time: (new Date(item.date).getTime()/1000) + i, //.split("T")[0],
+            time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
             value: item.pps_only_profit
           })
           i++
@@ -71,8 +71,40 @@ export default {
         let i = 1
         for (const item of this.payload.profitHistory.value.data) {
           tmp.push({
-            time: (new Date(item.date).getTime()/1000) + i, //.split("T")[0],
-            value: item.reject_rate
+            time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
+            value: Number(item.reject_rate)
+          })
+          i++
+        }
+      } else {
+        tmp = false
+      }
+      return tmp.reverse()
+    },
+    hashRate() {
+      let tmp = []
+      if (this.payload.profitHistory && this.payload.profitHistory.value) {
+        let i = 1
+        for (const item of this.payload.profitHistory.value.data) {
+          tmp.push({
+            time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
+            value: Number(item.hashrate)/ 100000000000000
+          })
+          i++
+        }
+      } else {
+        tmp = false
+      }
+      return tmp.reverse()
+    },
+    workerCount() {
+      let tmp = []
+      if (this.payload.profitHistory && this.payload.profitHistory.value) {
+        let i = 1
+        for (const item of this.payload.profitHistory.value.data) {
+          tmp.push({
+            time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
+            value: Number(item.worker_count)
           })
           i++
         }
@@ -119,15 +151,14 @@ export default {
   },
   watch: {
     chartData(value) {
-      if(value)
-      {this.buildChartUI()}
+      if (value) { this.buildChartUI() }
     },
     uiSidebarCollapse() {
       this.chart.resize(this.width, this.height)
     },
     activeChartView(value) {
       let data = this.chartData
-      let from50 = data&&data.length>2?data[Math.ceil(data.length/2)].time:0
+      let from50 = data && data.length > 2 ? data[Math.ceil(data.length / 2)].time : 0
       switch (value) {
         case "fit":
           this.chart.timeScale().fitContent()
@@ -161,6 +192,20 @@ export default {
         lineColor: '#9600fb',
         lineWidth: 1,
       }).setData(this.rejectRate)
+
+      this.areaSeries.reject = this.chart.addAreaSeries({
+        topColor: '#00ffb3',
+        bottomColor: 'rgba(0, 0, 0, 0)',
+        lineColor: '#00ffb3',
+        lineWidth: 1,
+      }).setData(this.hashRate)
+
+      this.areaSeries.reject = this.chart.addAreaSeries({
+        topColor: '#d8ff00',
+        bottomColor: 'rgba(0, 0, 0, 0)',
+        lineColor: '#d8ff00',
+        lineWidth: 1,
+      }).setData(this.workerCount)
 
       this.chart.resize(this.width, this.height);
 
@@ -232,35 +277,37 @@ export default {
   display: grid;
   gap: 10px;
 
- 
+
 }
- .tooltip {
-    width: 120px;
-    height: max-content;
-    position: absolute;
-    display: none;
-    padding: 10px;
-    border-radius: 10px;
-    box-sizing: border-box;
-    font-size: 12px;
-    background-color: var(--neutral-10);
-    text-align: left;
-    z-index: 1000;
-    top: 12px;
-    left: 12px;
-    pointer-events: none;
 
-    &.active {
-      display: grid;
-      gap: 5px;
-    }
+.tooltip {
+  width: 120px;
+  height: max-content;
+  position: absolute;
+  display: none;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 12px;
+  background-color: var(--neutral-10);
+  text-align: left;
+  z-index: 1000;
+  top: 12px;
+  left: 12px;
+  pointer-events: none;
 
-    div {
-      &:nth-of-type(2) {
-        font-weight: 800;
-      }
+  &.active {
+    display: grid;
+    gap: 5px;
+  }
+
+  div {
+    &:nth-of-type(2) {
+      font-weight: 800;
     }
   }
+}
+
 .button-flex-organiser {
   display: flex;
   gap: 10px;

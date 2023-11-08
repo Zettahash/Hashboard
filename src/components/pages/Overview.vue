@@ -13,6 +13,7 @@
     <LoadingEle v-if="!payload" />
     <HashRate />
     <Profitability />
+    <Payouts />
     <div class="charts-organiser-tabs ui-ele" v-if="payload">
       <div class="tabs">
         <div :class="activeChart==='HashLineGraph'?'btn active':'btn'" @click="activeChart='HashLineGraph'">Hashrate</div>
@@ -27,6 +28,7 @@
 <script>
 import LoadingEle from './../interface/LoadingEle.vue'
 import HashRate from './../tiles/HashRate.vue'
+import Payouts from './../tiles/Payouts.vue'
 import Profitability from './../tiles/Profitability.vue'
 import HashLineGraph from './../charts/HashLineGraph.vue'
 import ProfitLineGraph from './../charts/ProfitLineGraph.vue'
@@ -90,6 +92,7 @@ export default {
     LoadingEle,
     HashRate,
     HashLineGraph,
+    Payouts,
     Profitability,
     ProfitLineGraph,
   },
