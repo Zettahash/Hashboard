@@ -2,12 +2,12 @@
 <div class="block small ui-ele" title="hash rate" v-if="payload">
   <div class="head">
   <h3>Profitability Summary</h3>
-  <h4>PPS {{profitSummary.pps_profit}}</h4>
+  <h4>PPS {{profitSummary.pps_profit}} {{profitSummary.coin}}</h4>
   </div>
     <div>
-      <div class="data">{{profitSummary.total_profit}} {{profitSummary.coin}}</div> 
+      <div class="data">{{Number(profitSummary.total_profit).toFixed(6)}} {{profitSummary.coin}}</div> 
       <div class="sub">
-      <span>Solo Profit {{profitSummary.solo_profit}}</span>
+      <span>Solo Profit {{profitSummary.solo_profit}} {{profitSummary.coin}}</span>
     </div>
     </div>
 </div>

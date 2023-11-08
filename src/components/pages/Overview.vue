@@ -14,6 +14,7 @@
     <HashRate />
     <Profitability />
     <HashLineGraph v-if="payload" />
+    <ProfitLineGraph v-if="payload" />
   </div>
 </template>
 <script>
@@ -21,6 +22,7 @@ import LoadingEle from './../interface/LoadingEle.vue'
 import HashRate from './../tiles/HashRate.vue'
 import Profitability from './../tiles/Profitability.vue'
 import HashLineGraph from './../charts/HashLineGraph.vue'
+import ProfitLineGraph from './../charts/ProfitLineGraph.vue'
 import { mapGetters } from 'vuex';
 
 
@@ -81,6 +83,7 @@ export default {
     HashRate,
     HashLineGraph,
     Profitability,
+    ProfitLineGraph,
   },
   mounted() {
     this.routeLoaded()

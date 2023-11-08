@@ -1,5 +1,6 @@
 /* eslint-disable */
 
+const endpoint = "http://localhost:8787"//"https://zettahash_hashboard_middleware.zetta-735.workers.dev"
 
 const actions = {
   init({ context, getters, dispatch, commit, rootGetters }) {
@@ -13,6 +14,7 @@ const actions = {
       })
     }
     // dispatch('fetchLincoin', { commit, dispatch, getters, context, rootGetters })
+    dispatch('expressFetch', { commit })
     dispatch('fetchCombinedDataPayload', { commit, dispatch, getters, context, rootGetters })
 
     commit("setDynamic", {
@@ -21,7 +23,7 @@ const actions = {
     })
 
     commit('setDynamic', { item: 'applicationLoaded', value: true })
-    dispatch('responsiveUI', { commit})
+    dispatch('responsiveUI', { commit })
 
   },
 
@@ -59,9 +61,25 @@ const actions = {
     }, 2000)
 
   },
+  expressFetch({ commit }) {
+    try {
+      fetch(`${endpoint}/api/get-data-express`, { method: 'get' })
+        .then(result => { return result.json() }).then(data => {
+          if (data.payload) {
+            try {
+              commit("setHoldingsBTC", data.payload.btc)
+              commit("setHoldingsETH", data.payload.eth)
+              commit("setRates", data.payload.exr)
+              commit("setPayload", data.payload.lincoin)
+            } catch (e) {
+            }
+          }
+        })
+    } catch (e) {
+    }
+  },
   fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
-    let endpoint = "http://localhost:8787"//"https://zettahash_hashboard_middleware.zetta-735.workers.dev"
     try {
       fetch(`${endpoint}/api/combined-request-btc-eth-exr-lincoin`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {
