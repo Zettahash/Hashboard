@@ -53,6 +53,6 @@ export default {
   display: flex;
   gap: 10px;
   justify-content: space-around;
-  width: 100%;
+  // width: 100%;
 }
 </style>

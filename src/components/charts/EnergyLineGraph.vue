@@ -1,15 +1,19 @@
 <template>
   <div class="line-graph ui-ele">
-    <div class="title">Profit History</div>
-    <div class="legend">
-      <div class="item"><i style="background-color:#0062ff"></i> <span>Reject rate</span></div>
-      <div class="item"><i style="background-color:#9600fb"></i> <span>Accepted work</span></div>
-      <div class="item"><i style="background-color:#00ffb3"></i> <span>Hashrate</span></div>
-      <div class="item"><i style="background-color:#d8ff00"></i> <span>Payout</span></div>
-    </div>
+    <div class="title">Energy (kW)<br><small>*data interpolated</small></div>
     <div class="tooltip"></div>
     <div class="lw-chart profitHistory"></div>
-
+    <!-- <div class="button-flex-organiser">
+      <div :class="`btn compact${activeChartView === 'fit' ? ' active' : ''}`" @click="activeChartView = 'fit'">
+        All
+      </div>
+      <div :class="`btn compact${activeChartView === 'half' ? ' active' : ''}`" @click="activeChartView = 'half'">
+        Half
+      </div>
+      <div :class="`btn compact${activeChartView === 'default' ? ' active' : ''}`" @click="activeChartView = 'default'">
+        Default
+      </div>
+    </div> -->
   </div>
 </template>
 
@@ -21,16 +25,13 @@ import {
   mapGetters
 } from 'vuex';
 export default {
-  name: 'ProfitLineGraph',
+  name: 'EnergyLineGraph',
   data() {
     return {
       chart: false,
       chartContainer: false,
       lineSeries: false,
-      areaSeries: {
-        profit: false,
-        reject: false,
-      },
+      areaSeries: false,
       height: 480,
       toolTipWidth: 80,
       toolTipHeight: 80,
@@ -45,62 +46,14 @@ export default {
       data: 'data',
       payload: 'payload',
     }),
-    chartData() {
+    energyRate() {
       let tmp = []
       if (this.payload.profitHistory && this.payload.profitHistory.value) {
         let i = 1
         for (const item of this.payload.profitHistory.value.data) {
           tmp.push({
             time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
-            value: item.pps_only_profit
-          })
-          i++
-        }
-      } else {
-        tmp = false
-      }
-      return tmp.reverse()
-    },
-    rejectRate() {
-      let tmp = []
-      if (this.payload.profitHistory && this.payload.profitHistory.value) {
-        let i = 1
-        for (const item of this.payload.profitHistory.value.data) {
-          tmp.push({
-            time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
-            value: Number(item.reject_rate)
-          })
-          i++
-        }
-      } else {
-        tmp = false
-      }
-      return tmp.reverse()
-    },
-    hashRate() {
-      let tmp = []
-      if (this.payload.profitHistory && this.payload.profitHistory.value) {
-        let i = 1
-        for (const item of this.payload.profitHistory.value.data) {
-          tmp.push({
-            time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
-            value: Number(item.hashrate)/ 100000000000000
-          })
-          i++
-        }
-      } else {
-        tmp = false
-      }
-      return tmp.reverse()
-    },
-    workerCount() {
-      let tmp = []
-      if (this.payload.profitHistory && this.payload.profitHistory.value) {
-        let i = 1
-        for (const item of this.payload.profitHistory.value.data) {
-          tmp.push({
-            time: (new Date(item.date).getTime() / 1000) + i, //.split("T")[0],
-            value: Number(item.worker_count)
+            value: (Number(item.hashrate)/ 100000000000000)*2
           })
           i++
         }
@@ -175,37 +128,17 @@ export default {
     buildChartUI() {
       this.chartContainer.innerHTML = ''
       this.chart = createChart(this.chartContainer, this.chartOptions);
-      this.areaSeries.profit = this.chart.addAreaSeries({
+
+      this.areaSeries = this.chart.addAreaSeries({
         topColor: '#0062ff',
-        bottomColor: 'rgba(0, 98, 255, 0)',
+        bottomColor: 'rgba(0, 0, 0, 0)',
         lineColor: '#0062ff',
         lineWidth: 1,
-      }).setData(this.chartData)
+      }).setData(this.energyRate)
 
-      this.areaSeries.reject = this.chart.addAreaSeries({
-        topColor: '#9600fb',
-        bottomColor: 'rgba(0, 0, 0, 0)',
-        lineColor: '#9600fb',
-        lineWidth: 1,
-      }).setData(this.rejectRate)
-
-      this.areaSeries.reject = this.chart.addAreaSeries({
-        topColor: '#00ffb3',
-        bottomColor: 'rgba(0, 0, 0, 0)',
-        lineColor: '#00ffb3',
-        lineWidth: 1,
-      }).setData(this.hashRate)
-
-      this.areaSeries.reject = this.chart.addAreaSeries({
-        topColor: '#d8ff00',
-        bottomColor: 'rgba(0, 0, 0, 0)',
-        lineColor: '#d8ff00',
-        lineWidth: 1,
-      }).setData(this.workerCount)
 
       this.chart.resize(this.width, this.height);
       this.chart.timeScale().fitContent()
-
       // const toolTip = document.querySelector('.tooltip');
       // this.chart.subscribeCrosshairMove(param => {
       //   if (
@@ -220,14 +153,14 @@ export default {
       //   } else {
       //     toolTip.classList.add("active")
       //     const data = param.seriesData.get(this.areaSeries);
-      //     const price = data.value !== undefined ? data.value : data.close;
+      //     const rate = data.value;
       //     toolTip.innerHTML = `
-      //       <div>Hashrate</div>
-      //       <div>${Math.round(100 * price) / 100} Th/s</div>
+      //       <div>Energy Consumption</div>
+      //       <div>${rate} kW</div>
       //       <div>${String(new Date(param.time * 1000)).split("GMT")[0]}</div>
       //     `;
 
-      //     const coordinate = this.areaSeries.priceToCoordinate(price);
+      //     const coordinate = this.areaSeries.priceToCoordinate(rate);
       //     let shiftedCoordinate = param.point.x - 50;
       //     if (coordinate === null) {
       //       return;
@@ -310,21 +243,5 @@ export default {
   gap: 10px;
   margin-right: auto;
   width: auto;
-}
-
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  .item{
-    display:flex;
-    gap: 5px;
-    i{
-      display: block;
-      height: 1rem;
-      width: 1rem;
-      border-radius: 5px;
-    }
-  }
 }
 </style>

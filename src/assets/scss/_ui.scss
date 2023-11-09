@@ -27,11 +27,11 @@
   margin-bottom: auto;
   .block {
     .data {
-      font-family: $font-family;
+      font-family: $sans-serif;
       font-size: 24px;
       font-weight: 800;
       color: var(--secondary);
-      line-break: anywhere;
+      // line-break: anywhere;
     }
     .sub {
       opacity: 0.5;
@@ -51,6 +51,7 @@
       text-align: center;
       min-width: 200px;
       width: calc(25% - 15px);
+      margin-bottom: auto;
 
       @media (max-width: $content) {
         width: calc(25% - 20px);

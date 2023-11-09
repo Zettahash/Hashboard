@@ -5,7 +5,7 @@
   <h4>PPS {{profitSummary.pps_profit}} {{profitSummary.coin}}</h4>
   </div>
     <div>
-      <div class="data">{{Number(profitSummary.total_profit).toFixed(6)}} {{profitSummary.coin}}</div> 
+      <div class="data"><span>{{Number(profitSummary.total_profit).toFixed(6)}}</span> <span>{{profitSummary.coin}}</span></div> 
       <div class="sub">
       <span>Solo Profit {{profitSummary.solo_profit}} {{profitSummary.coin}}</span>
     </div>

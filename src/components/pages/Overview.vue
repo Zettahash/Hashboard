@@ -13,6 +13,7 @@
     <LoadingEle v-if="!payload" />
     <HashRate />
     <Profitability />
+    <Energy />
     <Payouts />
     <div class="charts-organiser-tabs ui-ele" v-if="payload">
       <div class="tabs">
@@ -21,6 +22,7 @@
         <div :class="activeChart==='ProfitLineGraph'?'btn active':'btn'" @click="activeChart='ProfitLineGraph'">Profitability</div>
       </div>
       <HashLineGraph v-if="activeChart==='HashLineGraph'" />
+      <EnergyLineGraph v-if="activeChart==='Energy'" />
       <ProfitLineGraph v-if="activeChart==='ProfitLineGraph'" />
     </div>
   </div>
@@ -32,6 +34,8 @@ import Payouts from './../tiles/Payouts.vue'
 import Profitability from './../tiles/Profitability.vue'
 import HashLineGraph from './../charts/HashLineGraph.vue'
 import ProfitLineGraph from './../charts/ProfitLineGraph.vue'
+import EnergyLineGraph from './../charts/EnergyLineGraph.vue'
+import Energy from './../tiles/Energy.vue'
 import { mapGetters } from 'vuex';
 
 
@@ -95,6 +99,8 @@ export default {
     Payouts,
     Profitability,
     ProfitLineGraph,
+    EnergyLineGraph,
+    Energy,
   },
   mounted() {
     this.routeLoaded()
@@ -131,27 +137,32 @@ export default {
     .btn {
       padding: 10px 20px;
       color: var(--neutral-0);
-        border-radius: 0px 0px 0px 0px;
-      &:first-of-type{
+      border-radius: 0px 0px 0px 0px;
+
+      &:first-of-type {
         border-radius: 100px 0px 0px 100px;
       }
-      &:last-of-type{
+
+      &:last-of-type {
         border-radius: 0px 100px 100px 0px;
       }
+
       &:hover {
         background: var(--primary);
       }
+
       &:not(.active) {
         background: var(--neutral-7);
+
         &:hover {
           background: var(--secondary);
         }
       }
     }
   }
+
   .line-graph {
     grid-row: 2/3 !important;
     grid-column: 1/2;
   }
-}
-</style>
+}</style>
