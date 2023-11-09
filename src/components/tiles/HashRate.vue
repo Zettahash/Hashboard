@@ -51,6 +51,7 @@ export default {
 <style lang="scss" scoped>
 .button-flex-organiser {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: space-around;
   // width: 100%;
