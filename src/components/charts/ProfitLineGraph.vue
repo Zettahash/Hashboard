@@ -31,7 +31,6 @@ export default {
         profit: false,
         reject: false,
       },
-      height: 480,
       toolTipWidth: 80,
       toolTipHeight: 80,
       toolTipMargin: 15,
@@ -143,6 +142,9 @@ export default {
     },
     width() {
       return this.uiSidebarCollapse ? window.innerWidth - 100 : window.innerWidth - 400
+    },
+    height() {
+      return window.innerHeight <= 800 ? 380 : (window.innerHeight>1200?480:window.innerHeight*.4)
     },
   },
   watch: {
