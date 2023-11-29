@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.21.3",
+    "@wagmi/core": "0.10.2",
+    "@web3modal/ethereum": "2.2.1",
+    "@web3modal/html": "2.2.1",
     "assert": "^2.0.0",
     "chart.js": "^4.4.0",
     "core-js": "^3.8.3",

@@ -126,13 +126,14 @@ export default {
   border-radius: 30px;
   display: grid;
   gap: 10px;
-
+  
   .tabs {
     display: flex;
     gap: 10px 2px;
     padding: 30px 30px 0px 30px;
     grid-row: 1/2;
     grid-column: 1/2;
+    flex-wrap: wrap;
 
     .btn {
       padding: 10px 20px;
