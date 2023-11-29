@@ -140,7 +140,7 @@ export default {
         const core = document.querySelector('w3m-core-button')
         if (core.shadowRoot && core.shadowRoot.querySelectorAll('w3m-account-button').length > 0) {
           const btnBig = core.shadowRoot.querySelector('w3m-account-button').shadowRoot.querySelector('w3m-button-big')
-          btnBig.querySelector('w3m-avatar').style['margin-right'] = "10px"
+          btnBig.querySelector('w3m-avatar').style['margin-right'] = "5px"
           btnBig.shadowRoot.querySelector('button').style.height = "40px"
           btnBig.shadowRoot.querySelector('button').style.padding = "0px calc(1.5rem / 1.62)"
           clearInterval(this.buttonConnectUI)
@@ -148,7 +148,7 @@ export default {
         }
         if (core.shadowRoot && core.shadowRoot.querySelectorAll('w3m-connect-button').length > 0) {
           const btnBig = core.shadowRoot.querySelector('w3m-connect-button').shadowRoot.querySelector('w3m-button-big')
-          btnBig.querySelector('w3m-text').style['margin-left'] = "10px"
+          btnBig.querySelector('w3m-text').style['margin-left'] = "5px"
           btnBig.shadowRoot.querySelector('button').style.height = "40px"
           btnBig.shadowRoot.querySelector('button').style.padding = "0px calc(1.5rem / 1.62)"
           clearInterval(this.buttonConnectUI)
