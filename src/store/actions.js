@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = "https://zettahash_hashboard_middleware.zetta-735.workers.dev"
+const endpoint = "http://localhost:8787"//"https://zettahash_hashboard_middleware.zetta-735.workers.dev"
 
 const actions = {
   init({ context, getters, dispatch, commit, rootGetters }) {
