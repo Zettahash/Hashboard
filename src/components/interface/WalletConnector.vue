@@ -87,7 +87,7 @@ export default {
           address: account.address,
           token: this.zettahash,
         })
-        let holderBool = Number(balance.formatted) > 0 ? true : false
+        let holderBool = Number(balance.formatted) >= 1 ? true : false
 
         this.$store.commit('setDynamic', {
           item: 'zhHolderBool',
