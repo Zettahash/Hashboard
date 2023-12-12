@@ -1,7 +1,6 @@
 <template lang="">
   <div :class="!application.uiSidebarCollapse? 'flex-overview compact':'flex-overview'">
-    <template v-for="(item, index) of hashrateWorker">
-      <div :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
+      <div v-for="(item, index) of hashrateWorker" :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
       <div class="head">
         <div class="product-icon">
           <img :src="getIcon(item.url)">
@@ -16,8 +15,6 @@
           <AssetsStats :dataValues="item.graph.data" :colour="item.graph.colour" />
         </div>
       </div>
-    </template>
-
   </div>
 </template>
 <script>
@@ -172,4 +169,5 @@ export default {
 
 .head {
   min-width: 250px;
-}</style>
+}
+</style>

@@ -1,7 +1,6 @@
 <template lang="">
   <div :class="!application.uiSidebarCollapse? 'flex-overview compact':'flex-overview'">
-    <template v-for="(item, index) of payload">
-      <div :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
+      <div v-for="(item, index) of payload" :class="'block ui-ele ' + item.size" :key="index" :title="item.date">
       <div class="head">
         <div class="icon-group">
           <img :src="getIcon(item.currency)">
@@ -22,8 +21,6 @@
           <AssetsStats :dataValues="item.graph.data" :colour="item.graph.colour" />
         </div>
       </div>
-    </template>
-
   </div>
 </template>
 <script>

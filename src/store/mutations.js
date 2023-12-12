@@ -1,4 +1,6 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
+const app = createApp({})
+
 let mutations = {
   setDynamic(state, payload) {
     switch (true) {
@@ -10,7 +12,7 @@ let mutations = {
         break;
       default:
     }
-    Vue.set(state.application, [payload.item], payload.value)
+app.set(state.application, [payload.item], payload.value)
   },
   test(state, payload) {
     state.metamaskWallet.testParam = payload
@@ -22,7 +24,7 @@ let mutations = {
     state.wallet = payload
   },
   setData(state, payload) {
-    Vue.set(state.data, [payload.item], payload.value)
+app.set(state.data, [payload.item], payload.value)
   },
   setHoldingsBTC(state, payload) {
     state.holdings.btc = payload
