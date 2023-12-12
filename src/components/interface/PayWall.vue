@@ -7,7 +7,7 @@
     </template>
 
     <template v-if="message==='needAcc'">
-    <p>Please connect your wallet to get started.</p>
+    <p>Connect your wallet to get started.</p>
     </template>
   </div>
 </template>
