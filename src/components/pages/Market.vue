@@ -9,7 +9,7 @@
     <iframe id="dextools-widget"
     title="DEXTools Trading Chart"
     :width="width" :height="height"
-    src="https://www.dextools.io/widget-chart/en/ether/pe-light/0x501a9614b47040b84033147adae98a0b097e8981?theme=light&chartType=2&chartResolution=30&drawingToolbars=false"></iframe>
+    src="https://www.dextools.io/widget-chart/en/ether/pe-light/0x501a9614b47040b84033147adae98a0b097e8981?theme=dark&chartType=2&chartResolution=30&drawingToolbars=false"></iframe>
     <!-- <MarketCandles v-if="payload"/> -->
     <!-- <OrderBook v-if="payload" /> -->
     <!-- <BuySell v-if="payload" /> -->
@@ -57,6 +57,10 @@ export default {
   }
 }
 </script>
-<style lang="">
-  
+<style lang="scss" scoped>
+  #dextools-widget {
+  border: 0;
+  border-radius: 20px;
+  margin: auto;
+}
 </style>
