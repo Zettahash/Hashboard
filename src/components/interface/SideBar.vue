@@ -5,7 +5,7 @@
       <router-link :to="{name:'overview'}" class="shortcut"><i class="i-cpu">
       </i><span>Hashboard</span></router-link>
       <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
-      <router-link :to="{name:'community-consensus-forum'}" class="shortcut"><i class="i-users"></i><span>Consensus</span></router-link>
+      <router-link :to="{name:'consensus'}" class="shortcut"><i class="i-users"></i><span>Consensus</span></router-link>
       <router-link :to="{name:'mining'}" class="shortcut"><i class="i-zap"></i><span>Mining</span></router-link>
       <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
       <router-link :to="{name:'accountability'}" class="shortcut"><i class="i-shield"></i><span>Accountability</span></router-link>

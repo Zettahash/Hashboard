@@ -67,11 +67,11 @@ const routes = [
     }
   },
   {
-    path: '/community-consensus-forum',
-    name: 'community-consensus-forum',
+    path: '/consensus',
+    name: 'consensus',
     component: CommunityConsensusForum,
     meta: {
-      title: 'Community Consensus Forum | ' + title,
+      title: 'Consensus | ' + title,
       metaTags: [
         {
           name: 'description',
