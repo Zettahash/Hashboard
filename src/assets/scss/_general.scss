@@ -74,7 +74,13 @@ a {
   
 }
 
-
+.link{
+  color: var(--secondary);
+  transition: 200ms ease;
+  &:hover {
+    box-shadow: 0 2px 0 0 var(--secondary);
+  }
+}
 .btn-link {
   color: var(--secondary);
   box-shadow: 0 0 0 1px;
@@ -115,7 +121,8 @@ a {
     // transform: translateY(20px);
     // animation: build-in-up 200ms 10ms ease forwards 1;
     &.not-loaded {
-      &::after {
+      &:not([data-zhHolder="no"])
+      {&::after {
         content: url(/src/assets/img/spinner.svg);
         height: 100px;
         width: 100px;
@@ -129,7 +136,7 @@ a {
         opacity: 0;
         z-index: -1;
         animation: spin 10000ms 0ms linear forwards infinite;
-      }
+      }}
     }
   }
   @keyframes spin {

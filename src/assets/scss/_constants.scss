@@ -16,3 +16,10 @@ $title-line-height: 1.1;
 $title: 'Orbitron', mono;
 $font-family: 'Orbitron', Arial, Helvetica, sans-serif;
 $sans-serif: 'Roboto', Arial, Helvetica, sans-serif;
+:root{
+  --wui-font-weight-light: 400;
+  --wui-font-weight-regular: 500;
+  --wui-font-weight-medium: 500 !important;
+  --wui-font-weight-bold: 700;
+  --wui-cover:rgba(4, 4, 4, 0.8) !important;
+}

@@ -55,7 +55,9 @@
 
   <div></div>
   <div class="nav-links">
-
+  <template v-if="width>=800">
+    <WalletConnector />
+  </template>
     <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchBalances')">
       <i class="i-refresh-cw"></i>
       <i class="i-alert-circle"></i>
@@ -65,9 +67,11 @@
       <a class="btn" @click="menu=!menu"><i class="icon-ellipsis-v"></i></a>
       <div class="menu" v-if="menu">
         <ul>
-          <!-- <li>
-          <router-link :to="{ name: 'Profile'}"><i class="duotone icon-user"></i><span>User profile</span></router-link>
-        </li> -->
+          <li class="centre">
+            <template v-if="width<=800">
+    <WalletConnector />
+  </template>
+        </li>
           <li>
             <a @click="toggleDemoValues()"><span>Demo Mode</span><i :class="'switch-indicator' + (application.uiDemoValues ? ' on' : ' off')"></i></a>
           </li>
@@ -103,12 +107,15 @@
 </template>
 
 <script>
+import WalletConnector from './WalletConnector.vue'
 import {
   mapGetters
 } from 'vuex';
 export default {
   name: "NavBar",
-  components: {},
+  components: {
+    WalletConnector,
+  },
   data() {
     return {
       uiSidebarCollapse: false,
@@ -134,6 +141,9 @@ export default {
     }),
     dark() {
       return this.application.uiThemeDark
+    },
+    width() {
+      return window.innerWidth
     },
   },
   methods: {
@@ -320,6 +330,9 @@ export default {
             small {
               font-size: 75%;
               opacity: .5;
+            }
+            &.centre{
+              text-align: center;
             }
           }
         }

@@ -3,9 +3,14 @@
     <NavBar />
     <SideBar />
 
-    <div :class="application.routerLoaded ? 'page-contents loaded' : 'page-contents not-loaded'">
+    <div :class="application.routerLoaded ? 'page-contents loaded' : 'page-contents not-loaded'" :data-zhHolder="application.zhHolderBool?'yes':'no'">
 
-      <div class="coming-soon"></div><router-view></router-view>
+      <div class="coming-soon"></div>
+      <template v-if="application.zhHolderBool">
+      <router-view></router-view></template>
+      <template v-else>
+        <PayWall />
+      </template>
     </div>
   </div>
 </template>
@@ -13,6 +18,7 @@
 <script>
 import NavBar from './components/interface/Nav.vue'
 import SideBar from './components/interface/SideBar.vue'
+import PayWall from './components/interface/PayWall.vue'
 import { mapGetters } from 'vuex';
 
 export default {
@@ -20,6 +26,7 @@ export default {
   components: {
     NavBar,
     SideBar,
+    PayWall,
   },
   computed: {
     ...mapGetters({
