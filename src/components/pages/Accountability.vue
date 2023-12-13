@@ -1,6 +1,9 @@
 <template lang="">
-  <div>
-    
+  <div class="flex-overview">
+    <div class="ui-ele">
+      <h1>Accountability</h1>
+      <p>We're working on getting this section ready for you.</p>
+    </div>
   </div>
 </template>
 <script>
