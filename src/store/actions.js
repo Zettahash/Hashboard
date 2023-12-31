@@ -70,7 +70,7 @@ const actions = {
               commit("setHoldingsBTC", data.payload.btc)
               commit("setHoldingsETH", data.payload.eth)
               commit("setRates", data.payload.exr)
-              commit("setPayload", data.payload.lincoin)
+              // commit("setPayload", data.payload.lincoin)
             } catch (e) {
             }
           }
@@ -81,12 +81,12 @@ const actions = {
   fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
     try {
-      fetch(`${endpoint}/api/combined-request-btc-eth-exr-lincoin`, { method: 'get' })
+      fetch(`${endpoint}/api/combined-request-btc-eth-exr`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {
           commit("setHoldingsBTC", data.payload.btc)
           commit("setHoldingsETH", data.payload.eth)
           commit("setRates", data.payload.exr)
-          commit("setPayload", data.payload.lincoin)
+          // commit("setPayload", data.payload.lincoin)
 
           commit("setData", { item: 'synchronisation', value: Date.now() })
           commit("setData", { item: 'assets', value: Date.now() })

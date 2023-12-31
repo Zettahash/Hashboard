@@ -2,24 +2,33 @@
   <div :class="!application.uiSidebarCollapse? 'sidebar open':'sidebar closed'">
     <template v-if="!application.uiSidebarCollapse">
     <div class="shortcuts">
-      <router-link :to="{name:'overview'}" :class="crumbClass(to)">
-        <i class="i-cpu"></i><span>Hashboard</span>
-        <ul>
-          <li><router-link :to="{name:'manager'}" :class="crumbClass(to,true)">Manager</router-link></li>
-        </ul>
-      </router-link>
-      <!-- <router-link :to="{name:'private-sale'}" :class="crumbClass(to)"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
-      <router-link :to="{name:'consensus'}" :class="crumbClass(to)"><i class="i-users"></i><span>Consensus</span></router-link>
-      <router-link :to="{name:'mining'}" :class="crumbClass(to)"><i class="i-zap"></i><span>Mining</span></router-link>
-      <!-- <router-link :to="{name:'ledger-wallets-holdings'}" :class="crumbClass(to)"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
-      <router-link :to="{name:'accountability'}" :class="crumbClass(to)"><i class="i-shield"></i><span>Accountability</span></router-link>
-      <router-link :to="{name:'holdings'}" :class="crumbClass(to)"><i class="i-pie-chart"></i><span>Ledger</span></router-link>
-      <router-link :to="{name:'assets'}" :class="crumbClass(to)"><i class="i-hard-drive"></i><span>Assets</span></router-link>
-      <router-link :to="{name:'market'}" :class="crumbClass(to)"><i class="i-trending-up"></i><span>Market</span></router-link>
+      <a :class="routeClass('hashboard')" @click="dropdown.hashboard=!dropdown.hashboard"><i class="i-cpu"></i><span>Hashboard</span></a>
+      <ul v-if="dropdown.hashboard">
+        <li><router-link :to="{name:'manager'}" class="shortcut">Manager</router-link></li>
+        <li><router-link :to="{name:'accountant'}" class="shortcut">Accountant</router-link></li>
+      </ul>
+      <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
+      <router-link :to="{name:'consensus'}" class="shortcut"><i class="i-users"></i><span>Consensus</span></router-link>
+      <router-link :to="{name:'mining'}" class="shortcut"><i class="i-zap"></i><span>Mining</span></router-link>
+      <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
+      <!-- <router-link :to="{name:'treasury'}" class="shortcut"><i class="i-shield"></i><span>Treasury</span></router-link> -->
+      <a :class="routeClass('treasury')" @click="dropdown.treasury=!dropdown.treasury"><i class="i-shield"></i><span>Treasury</span></a>
+      <ul v-if="dropdown.treasury">
+        <li>      
+          <a :class="routeClass('safe',1)" @click="dropdown.safe=!dropdown.safe"><img :src="getIcon('safe')" class="icon" /><span>Safe</span></a>
+          <ul v-if="dropdown.safe">
+            <li><router-link :to="{name:'safe'}" class="shortcut">Treasury</router-link></li>
+          </ul>
+        </li>
+        <li><router-link :to="{name:'accountant'}" class="shortcut">Accountant</router-link></li>
+      </ul>
+      <router-link :to="{name:'holdings'}" class="shortcut"><i class="i-pie-chart"></i><span>Ledger</span></router-link>
+      <router-link :to="{name:'assets'}" class="shortcut"><i class="i-hard-drive"></i><span>Assets</span></router-link>
+      <router-link :to="{name:'market'}" class="shortcut"><i class="i-trending-up"></i><span>Market</span></router-link>
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
-      <a :class="crumbClass(to)" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
+      <a class="shortcut" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
     </div>
     </template>
   </div>
@@ -34,6 +43,12 @@ export default {
     return {
       checkConnectionInterval: false,
       network: false,
+      dropdown:
+      {
+        hashboard: false,
+        treasury: false,
+        safe:false,
+      },
     }
   },
   computed: {
@@ -47,17 +62,31 @@ export default {
   methods: {
     async init() {
     },
-    crumbClass(variable) {
+    routeClass(parent, depth = 0) {
       let className = 'shortcut '
-      // if (this.$route.meta.breadcrumbs) {
-      //   let breadcrumbs = this.$route.meta.breadcrumbs
-
-      //   console.log(breadcrumbs, nested)
-      // }
-
-      console.log(variable)
+      if (this.$route.meta.breadcrumbs) {
+        let breadcrumbs = this.$route.meta.breadcrumbs
+        if (breadcrumbs.indexOf(parent) == depth) {
+          className += 'active '
+          this.dropdown[parent] = true
+        }
+      }
       return className
-    }
+    },
+    getIcon(str) {
+      let token = str.toLowerCase()
+      let dir = '/src/assets/img/providers'
+      try {
+        return require(`${dir}/${token}.png`)
+      } catch (e) { console.log(e) }
+      try {
+        return require(`${dir}/${token}.svg`)
+      } catch (e) { console.log(e) }
+      try {
+        let tokenAlpha = token.replace(/-/g, '')
+        return require(`${dir}/${tokenAlpha}.png`)
+      } catch (e) { console.log(e) }
+    },
   }
 }
 </script>
@@ -101,6 +130,11 @@ export default {
       margin: 0 15px;
     }
 
+    ul {
+      list-style: none;
+      margin-top: 0;
+    }
+
     .shortcut {
       display: flex;
       gap: 10px;
@@ -109,7 +143,9 @@ export default {
       align-items: center;
       position: relative;
       font-weight: 400;
+      cursor: pointer;
 
+      &.router-link-exact-active,
       &.active {
         color: var(--primary);
 
@@ -140,6 +176,7 @@ export default {
 
       }
 
+      &:not(.router-link-exact-active),
       &:not(.active) {
         &:hover {
           color: var(--secondary);

@@ -1,14 +1,16 @@
-import {createApp} from 'vue'
-import {createRouter, createWebHashHistory} from 'vue-router'
+import { createApp } from 'vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 
-import Overview from '@/components/pages/Overview'
+// import Overview from '@/components/pages/Overview'
+import Accountant from '@/components/pages/Accountant'
 import Manager from '@/components/pages/Manager'
 import PrivateSale from '@/components/pages/PrivateSale'
 import CommunityConsensusForum from '@/components/pages/CommunityConsensusForum'
 import Mining from '@/components/pages/Mining'
 import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
 import Market from '@/components/pages/Market'
-import Accountability from '@/components/pages/Accountability'
+import SafeTreasury from '@/components/pages/Treasury/Safe/Treasury'
+
 import Holdings from '@/components/pages/Holdings'
 import Assets from '@/components/pages/Assets'
 
@@ -22,7 +24,7 @@ import Assets from '@/components/pages/Assets'
 
 // -Market: This is to show realtime ZH exchange trading. We are not creating an exchange though. Just pull data from coinmarketcap or another exchange.
 
-// -Accountability: Will be the different site locations. Like a world map.
+// -Treasury: Will be the different site locations. Like a world map.
 
 // -Assets should show historical revenue and profits. This can actually be combined with the Live Hashrate page.
 const app = createApp({})
@@ -30,13 +32,43 @@ const app = createApp({})
 const title = process.env.VUE_APP_APPLICATION_NAME
 
 const routes = [
+  // {
+  //   path: '/overview',
+  //   name: 'overview',
+  //   component: Overview,
+  //   meta: {
+  //     title: 'Overview | ' + title,
+  //     breadcrumbs: ['overview'],
+  //     metaTags: [
+  //       {
+  //         name: 'description',
+  //         content: 'Placeholder'
+  //       },
+  //       {
+  //         property: 'og:description',
+  //         content: 'Placeholder'
+  //       }
+  //     ]
+  //   }
+  // },
   {
-    path: '/overview',
-    name: 'overview',
-    component: Overview,
+    path: '/',
+    name: 'manager',
+    component: Manager,
+    children: [
+      {
+        path: "/manager",
+        name: "manager",
+        component: Manager,
+        meta: {
+          title: 'Manager | ' + title,
+          breadcrumbs: ['hashboard','manager'],
+        }
+      },
+    ],
     meta: {
-      title: 'Overview | ' + title,
-      breadcrumbs: ['overview'],
+      title: 'Manager | ' + title,
+      breadcrumbs: ['hashboard','manager'],
       metaTags: [
         {
           name: 'description',
@@ -50,12 +82,12 @@ const routes = [
     }
   },
   {
-    path: '/overview/manager',
-    name: 'manager',
-    component: Manager,
+    path: '/',
+    name: 'accountant',
+    component: Accountant,
     meta: {
-      title: 'Manager | ' + title,
-      breadcrumbs: ['overview', 'manager'],
+      title: 'Accountant | ' + title,
+      breadcrumbs: ['hashboard','accountant'],
       metaTags: [
         {
           name: 'description',
@@ -164,12 +196,12 @@ const routes = [
     }
   },
   {
-    path: '/accountability',
-    name: 'accountability',
-    component: Accountability,
+    path: '/treasury/safe/treasury',
+    name: 'safe',
+    component: SafeTreasury,
     meta: {
-      title: 'Accountability | ' + title,
-      breadcrumbs: ['accountability'],
+      title: 'Safe - Treasury | ' + title,
+      breadcrumbs: ['treasury', 'safe', 'treasury'],
       metaTags: [
         {
           name: 'description',
@@ -234,40 +266,40 @@ app.use(router)
 router.beforeEach((to, from, next) => {
 
 
-// This goes through the matched routes from last to first, finding the closest route with a title.
-// eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
-const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
+  // This goes through the matched routes from last to first, finding the closest route with a title.
+  // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
+  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
 
-// Find the nearest route element with meta tags.
-const nearestWithMeta = to.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
-// const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
+  // Find the nearest route element with meta tags.
+  const nearestWithMeta = to.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
+  // const previousNearestWithMeta = from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags);
 
-// If a route with a title was found, set the document (page) title to that value.
-if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+  // If a route with a title was found, set the document (page) title to that value.
+  if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
-// Remove any stale meta tags from the document using the key attribute we set below.
-Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
+  // Remove any stale meta tags from the document using the key attribute we set below.
+  Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
 
-// Skip rendering meta tags if there are none.
-if(!nearestWithMeta) return next();
+  // Skip rendering meta tags if there are none.
+  if (!nearestWithMeta) return next();
 
-// Turn the meta tag definitions into actual elements in the head.
-nearestWithMeta.meta.metaTags.map(tagDef => {
-  const tag = document.createElement('meta');
+  // Turn the meta tag definitions into actual elements in the head.
+  nearestWithMeta.meta.metaTags.map(tagDef => {
+    const tag = document.createElement('meta');
 
-  Object.keys(tagDef).forEach(key => {
-    tag.setAttribute(key, tagDef[key]);
-  });
+    Object.keys(tagDef).forEach(key => {
+      tag.setAttribute(key, tagDef[key]);
+    });
 
-  // We use this to track which meta tags we create, so we don't interfere with other ones.
-  tag.setAttribute('data-vue-router-controlled', '');
+    // We use this to track which meta tags we create, so we don't interfere with other ones.
+    tag.setAttribute('data-vue-router-controlled', '');
 
-  return tag;
-})
-// Add the meta tags to the document head.
-.forEach(tag => document.head.appendChild(tag));
+    return tag;
+  })
+    // Add the meta tags to the document head.
+    .forEach(tag => document.head.appendChild(tag));
 
-next();
+  next();
 });
 
 export default router
