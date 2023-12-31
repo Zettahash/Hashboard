@@ -1,6 +1,7 @@
 <template lang="">
   <div>
-  <div class="w3m-button" balance="show"></div>
+    <w3m-button balance="show"/>
+  <!-- <div class="w3m-button" balance="show"></div> -->
   <!-- <w3m-network-button disabled/> -->
     <!-- <w3m-button></w3m-button> -->
   </div>
@@ -33,8 +34,8 @@ export default {
     wagmiConnected(){return this.application['wagmi.connected']},
   },
   mounted() {
-    const html = document.createElement('w3m-button')
-    document.querySelector(".w3m-button").replaceWith(html)
+    // const html = document.createElement('w3m-button')
+    // document.querySelector(".w3m-button").replaceWith(html)
     this.init()
   },
   watch: {
@@ -70,15 +71,9 @@ export default {
         },
       }
       createWeb3Modal({ wagmiConfig, projectId, chains, themeMode, themeVariables, tokens })
-      this.ui()
       window.globalSelf = this
       watchAccount((account) => window.globalSelf.updateAccount(account))
 
-      window.addEventListener("focus", () => { window.globalSelf.ui() })
-      window.addEventListener("mousemove", () => { window.globalSelf.ui() })
-      window.addEventListener("click", () => { window.globalSelf.ui() })
-    },
-    async ui() {
     },
     async updateAccount(account) {
       const { isConnected } = getAccount()

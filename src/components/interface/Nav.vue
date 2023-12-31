@@ -55,7 +55,7 @@
 
   <div></div>
   <div class="nav-links">
-  <template v-if="width>=800">
+  <template v-if="width>800">
     <WalletConnector />
   </template>
     <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchBalances')">
@@ -69,9 +69,9 @@
         <ul>
           <li class="centre">
             <template v-if="width<=800">
-    <WalletConnector />
-  </template>
-        </li>
+              <WalletConnector />
+            </template>
+          </li>
           <li>
             <a @click="toggleDemoValues()"><span>Demo Mode</span><i :class="'switch-indicator' + (application.uiDemoValues ? ' on' : ' off')"></i></a>
           </li>
@@ -331,7 +331,8 @@ export default {
               font-size: 75%;
               opacity: .5;
             }
-            &.centre{
+
+            &.centre {
               text-align: center;
             }
           }
@@ -584,4 +585,5 @@ i.i-refresh-cw.spinning {
     max-width: 0vw;
     opacity: 0;
   }
-}</style>
+}
+</style>

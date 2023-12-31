@@ -30,7 +30,7 @@ const title = process.env.VUE_APP_APPLICATION_NAME
 
 const routes = [
   {
-    path: '/#/',
+    path: '/',
     name: 'overview',
     component: Overview,
     meta: {
@@ -48,7 +48,7 @@ const routes = [
     }
   },
   {
-    path: '/#/private-sale',
+    path: '/private-sale',
     name: 'private-sale',
     component: PrivateSale,
     meta: {
@@ -66,7 +66,7 @@ const routes = [
     }
   },
   {
-    path: '/#/community-consensus-forum',
+    path: '/community-consensus-forum',
     name: 'community-consensus-forum',
     component: CommunityConsensusForum,
     meta: {
@@ -84,7 +84,7 @@ const routes = [
     }
   },
   {
-    path: '/#/mining',
+    path: '/mining',
     name: 'mining',
     component: Mining,
     meta: {
@@ -102,7 +102,7 @@ const routes = [
     }
   },
   {
-    path: '/#/ledger-wallets-holdings',
+    path: '/ledger-wallets-holdings',
     name: 'ledger-wallets-holdings',
     component: LedgerWalletsHoldings,
     meta: {
@@ -120,7 +120,7 @@ const routes = [
     }
   },
   {
-    path: '/#/market',
+    path: '/market',
     name: 'market',
     component: Market,
     meta: {
@@ -138,7 +138,7 @@ const routes = [
     }
   },
   {
-    path: '/#/accountability',
+    path: '/accountability',
     name: 'accountability',
     component: Accountability,
     meta: {
@@ -156,7 +156,7 @@ const routes = [
     }
   },
   {
-    path: '/#/assets',
+    path: '/assets',
     name: 'assets',
     component: Assets,
     meta: {
@@ -174,7 +174,7 @@ const routes = [
     }
   },
   {
-    path: '/#/holdings',
+    path: '/holdings',
     name: 'holdings',
     component: Holdings,
     meta: {
