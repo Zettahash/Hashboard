@@ -21,6 +21,7 @@ import SideBar from './components/interface/SideBar.vue'
 import PayWall from './components/interface/PayWall.vue'
 import { mapGetters } from 'vuex';
 
+
 export default {
   name: 'App',
   components: {

@@ -1,7 +1,7 @@
 <template lang="">
   <div class="parent-flex">
-  <template v-for="n in 3"><div class="loading small" :key="'small-' + n"></div></template>
-  <template v-for="n in 2"><div class="loading" :key="'' + n"></div></template>
+    <div v-for="n in 3" class="loading small" :key="'small-' + n"></div>
+    <div v-for="n in 2" class="loading" :key="'' + n"></div>
   </div>
 </template>
 <script>

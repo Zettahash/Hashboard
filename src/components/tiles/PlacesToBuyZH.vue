@@ -1,7 +1,6 @@
 <template lang="">
   <div :class="!application.uiSidebarCollapse? 'flex-overview compact':'flex-overview'">
-    <template v-for="(item, index) of zhMarkets">
-      <a class="block ui-ele asset-complicated wide" :key="index" :title="item.title" :href="item.url">
+      <a v-for="(item, index) of zhMarkets" class="block ui-ele asset-complicated wide" :key="index" :title="item.title" :href="item.url">
         <div class="head">
 
         <div class="product-icon">
@@ -13,8 +12,6 @@
 
         </div>
       </a>
-    </template>
-
   </div>
 </template>
 <script>

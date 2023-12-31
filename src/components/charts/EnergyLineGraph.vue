@@ -99,6 +99,20 @@ export default {
     height() {
       return window.innerHeight <= 800 ? 380 : (window.innerHeight>1200?480:window.innerHeight*.4)
     },
+    chartData() {
+      let tmp = []
+      if (this.payload.energyRateChart) {
+        for (const item of this.payload.hashrateChart.value) {
+          tmp.push({
+            time: item.timestamp, //.split("T")[0],
+            value: (item.energyRate * 1000000000000)
+          })
+        }
+      } else {
+        tmp = false
+      }
+      return tmp
+    },
   },
   watch: {
     chartData(value) {

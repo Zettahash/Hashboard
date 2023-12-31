@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import {createApp} from 'vue'
+import {createRouter, createWebHashHistory} from 'vue-router'
 
 import Overview from '@/components/pages/Overview'
 import PrivateSale from '@/components/pages/PrivateSale'
@@ -24,8 +24,7 @@ import Assets from '@/components/pages/Assets'
 // -Accountability: Will be the different site locations. Like a world map.
 
 // -Assets should show historical revenue and profits. This can actually be combined with the Live Hashrate page.
-
-Vue.use(VueRouter)
+const app = createApp({})
 
 const title = process.env.VUE_APP_APPLICATION_NAME
 
@@ -194,11 +193,13 @@ const routes = [
   },
 ]
 
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHashHistory(),
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+app.use(router)
 
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {

@@ -1,14 +1,15 @@
-import Vue from 'vue'
+import {createApp, h} from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
 
-// Vue.config.productionTip = false
-
-new Vue({
-  store: store,
-  router: router,
-  render: h => h(App),
-}).$mount('#app')
+const app = createApp({
+  // store: store,
+  // router: router,
+  render: () => h(App),
+})
+app.use(store)
+app.use(router)
+app.mount('#app')
 
 store.dispatch('init')

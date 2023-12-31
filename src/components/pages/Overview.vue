@@ -1,7 +1,6 @@
 <template lang="">
   <div class="flex-overview">
-    <template v-for="(item, index) of dataObjects">
-      <div :class="'block ' + item.size" :key="index" :title="item.date">
+      <div v-for="(item, index) of dataObjects" :class="'block ' + item.size" :key="index" :title="item.date">
         <div class="data">{{item.data}}</div>
         <div class="sub" v-if="item.sub.length>0">
           <i v-if="item.subIconPre.length>0" :class="item.subIconPre"></i>
@@ -9,7 +8,6 @@
         </div>
         <div class="title">{{item.title}}</div>
       </div>
-    </template>
     <LoadingEle v-if="!payload" />
     <HashRate />
     <Profitability />
