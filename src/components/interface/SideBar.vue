@@ -2,20 +2,24 @@
   <div :class="!application.uiSidebarCollapse? 'sidebar open':'sidebar closed'">
     <template v-if="!application.uiSidebarCollapse">
     <div class="shortcuts">
-      <router-link :to="{name:'overview'}" class="shortcut"><i class="i-cpu">
-      </i><span>Hashboard</span></router-link>
-      <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
-      <router-link :to="{name:'consensus'}" class="shortcut"><i class="i-users"></i><span>Consensus</span></router-link>
-      <router-link :to="{name:'mining'}" class="shortcut"><i class="i-zap"></i><span>Mining</span></router-link>
-      <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
-      <router-link :to="{name:'accountability'}" class="shortcut"><i class="i-shield"></i><span>Accountability</span></router-link>
-      <router-link :to="{name:'holdings'}" class="shortcut"><i class="i-pie-chart"></i><span>Ledger</span></router-link>
-      <router-link :to="{name:'assets'}" class="shortcut"><i class="i-hard-drive"></i><span>Assets</span></router-link>
-      <router-link :to="{name:'market'}" class="shortcut"><i class="i-trending-up"></i><span>Market</span></router-link>
+      <router-link :to="{name:'overview'}" :class="crumbClass(to)">
+        <i class="i-cpu"></i><span>Hashboard</span>
+        <ul>
+          <li><router-link :to="{name:'manager'}" :class="crumbClass(to,true)">Manager</router-link></li>
+        </ul>
+      </router-link>
+      <!-- <router-link :to="{name:'private-sale'}" :class="crumbClass(to)"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
+      <router-link :to="{name:'consensus'}" :class="crumbClass(to)"><i class="i-users"></i><span>Consensus</span></router-link>
+      <router-link :to="{name:'mining'}" :class="crumbClass(to)"><i class="i-zap"></i><span>Mining</span></router-link>
+      <!-- <router-link :to="{name:'ledger-wallets-holdings'}" :class="crumbClass(to)"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
+      <router-link :to="{name:'accountability'}" :class="crumbClass(to)"><i class="i-shield"></i><span>Accountability</span></router-link>
+      <router-link :to="{name:'holdings'}" :class="crumbClass(to)"><i class="i-pie-chart"></i><span>Ledger</span></router-link>
+      <router-link :to="{name:'assets'}" :class="crumbClass(to)"><i class="i-hard-drive"></i><span>Assets</span></router-link>
+      <router-link :to="{name:'market'}" :class="crumbClass(to)"><i class="i-trending-up"></i><span>Market</span></router-link>
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
-      <a class="shortcut" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
+      <a :class="crumbClass(to)" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
     </div>
     </template>
   </div>
@@ -42,6 +46,17 @@ export default {
   },
   methods: {
     async init() {
+    },
+    crumbClass(variable) {
+      let className = 'shortcut '
+      // if (this.$route.meta.breadcrumbs) {
+      //   let breadcrumbs = this.$route.meta.breadcrumbs
+
+      //   console.log(breadcrumbs, nested)
+      // }
+
+      console.log(variable)
+      return className
     }
   }
 }
@@ -51,14 +66,15 @@ export default {
 
 .sidebar {
   // height: 100vh;
-  padding-top:20px;
+  padding-top: 20px;
   position: sticky;
   top: 0;
   z-index: 300;
   overflow-x: hidden;
   overflow-y: auto;
-    width: 0px;
+  width: 0px;
   transition: 400ms ease;
+
   &.open {
     width: 300px;
     max-width: 90vw;
@@ -75,7 +91,8 @@ export default {
     padding: 15px 0px;
     font-family: $sans-serif;
     font-size: 16px;
-    label{
+
+    label {
       text-transform: uppercase;
       font-weight: 900;
       font-size: .8rem;
@@ -83,6 +100,7 @@ export default {
       padding: 24px 20px 0px 20px;
       margin: 0 15px;
     }
+
     .shortcut {
       display: flex;
       gap: 10px;
@@ -92,7 +110,7 @@ export default {
       position: relative;
       font-weight: 400;
 
-      &.router-link-exact-active {
+      &.active {
         color: var(--primary);
 
         // &:after {
@@ -122,7 +140,7 @@ export default {
 
       }
 
-      &:not(.router-link-exact-active) {
+      &:not(.active) {
         &:hover {
           color: var(--secondary);
 
@@ -136,18 +154,20 @@ export default {
 
         }
       }
+
       --icon-size: 18px;
+
       img {
         height: var(--icon-size);
-        max-width:  var(--icon-size);
+        max-width: var(--icon-size);
       }
 
       i {
-        font-size:  var(--icon-size);
+        font-size: var(--icon-size);
 
         svg {
-          height:  var(--icon-size);
-          width:  var(--icon-size);
+          height: var(--icon-size);
+          width: var(--icon-size);
           margin: auto;
           display: block;
 
@@ -158,5 +178,4 @@ export default {
       }
     }
   }
-}
-</style>
+}</style>

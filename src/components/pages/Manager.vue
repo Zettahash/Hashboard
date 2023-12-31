@@ -7,7 +7,7 @@
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Overview',
+  name: 'Manager',
   mounted() {
     const iframe = document.createElement('iframe')
     iframe.onload = this.frameLoaded

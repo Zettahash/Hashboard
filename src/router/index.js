@@ -2,6 +2,7 @@ import {createApp} from 'vue'
 import {createRouter, createWebHashHistory} from 'vue-router'
 
 import Overview from '@/components/pages/Overview'
+import Manager from '@/components/pages/Manager'
 import PrivateSale from '@/components/pages/PrivateSale'
 import CommunityConsensusForum from '@/components/pages/CommunityConsensusForum'
 import Mining from '@/components/pages/Mining'
@@ -30,11 +31,31 @@ const title = process.env.VUE_APP_APPLICATION_NAME
 
 const routes = [
   {
-    path: '/',
+    path: '/overview',
     name: 'overview',
     component: Overview,
     meta: {
       title: 'Overview | ' + title,
+      breadcrumbs: ['overview'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/overview/manager',
+    name: 'manager',
+    component: Manager,
+    meta: {
+      title: 'Manager | ' + title,
+      breadcrumbs: ['overview', 'manager'],
       metaTags: [
         {
           name: 'description',
@@ -53,6 +74,7 @@ const routes = [
     component: PrivateSale,
     meta: {
       title: 'Private Sale | ' + title,
+      breadcrumbs: ['private-sale'],
       metaTags: [
         {
           name: 'description',
@@ -71,6 +93,7 @@ const routes = [
     component: CommunityConsensusForum,
     meta: {
       title: 'Consensus | ' + title,
+      breadcrumbs: ['consensus'],
       metaTags: [
         {
           name: 'description',
@@ -89,6 +112,7 @@ const routes = [
     component: Mining,
     meta: {
       title: 'Mining | ' + title,
+      breadcrumbs: ['mining'],
       metaTags: [
         {
           name: 'description',
@@ -107,6 +131,7 @@ const routes = [
     component: LedgerWalletsHoldings,
     meta: {
       title: 'Ledger - Wallets and Holdings | ' + title,
+      breadcrumbs: ['ledger-wallet-holdings'],
       metaTags: [
         {
           name: 'description',
@@ -125,6 +150,7 @@ const routes = [
     component: Market,
     meta: {
       title: 'Market | ' + title,
+      breadcrumbs: ['market'],
       metaTags: [
         {
           name: 'description',
@@ -143,6 +169,7 @@ const routes = [
     component: Accountability,
     meta: {
       title: 'Accountability | ' + title,
+      breadcrumbs: ['accountability'],
       metaTags: [
         {
           name: 'description',
@@ -161,6 +188,7 @@ const routes = [
     component: Assets,
     meta: {
       title: 'Assets | ' + title,
+      breadcrumbs: ['assets'],
       metaTags: [
         {
           name: 'description',
@@ -179,6 +207,7 @@ const routes = [
     component: Holdings,
     meta: {
       title: 'Holdings | ' + title,
+      breadcrumbs: ['holdings'],
       metaTags: [
         {
           name: 'description',
