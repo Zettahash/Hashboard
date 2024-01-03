@@ -58,7 +58,7 @@
   <template v-if="width>800">
     <WalletConnector />
   </template>
-    <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchBalances')">
+    <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchCombinedDataPayload')">
       <i class="i-refresh-cw"></i>
       <i class="i-alert-circle"></i>
       <i class="i-check"></i>
@@ -77,7 +77,7 @@
           </li>
 
           <li>
-            <a @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchBalances')">
+            <a @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchCombinedDataPayload')">
             <span v-if="data.synchronisationStatus==='syncing'">Syncing</span>
             <span v-if="String(data.synchronisationStatus)==='false'">Up to date<br>
               <small>{{new Date(data.synchronisation)}}</small>

@@ -10,6 +10,7 @@ import Mining from '@/components/pages/Mining'
 import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
 import Market from '@/components/pages/Market'
 import SafeTreasury from '@/components/pages/Treasury/Safe/Treasury'
+import SpecterTreasury from '@/components/pages/Treasury/Specter/Treasury'
 
 import Holdings from '@/components/pages/Holdings'
 import Assets from '@/components/pages/Assets'
@@ -202,6 +203,25 @@ const routes = [
     meta: {
       title: 'Safe - Treasury | ' + title,
       breadcrumbs: ['treasury', 'safe', 'treasury'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/treasury/specter/treasury',
+    name: 'specter',
+    component: SpecterTreasury,
+    meta: {
+      title: 'Specter - Treasury | ' + title,
+      breadcrumbs: ['treasury', 'specter', 'treasury'],
       metaTags: [
         {
           name: 'description',

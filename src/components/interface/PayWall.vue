@@ -7,7 +7,7 @@
     </template>
 
     <template v-if="message==='needAcc'">
-    <p>Connect your wallet to get started.</p>
+    <p>{{needAccMsg}}</p>
     </template>
   </div>
 </template>
@@ -18,6 +18,7 @@ export default {
   name: 'PayWall',
   data() {
     return {
+      needAccMsg:'Checking for wallet connection...'
       // message: '',
     }
   },
@@ -31,6 +32,12 @@ export default {
       if (!this.application.zhHolderBool) {return 'needZH'}
       return '?'
     },
+  },
+  mounted() {
+    window.payWallThis = this
+    setTimeout(() => {
+      window.payWallThis.needAccMsg = 'Connect your wallet to get started.'
+    },2000)
   },
 }
 </script>

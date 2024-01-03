@@ -18,19 +18,19 @@
         </div>
       </div>
         <div class="graph" v-if="item.graph">
-          <AssetsStats :dataValues="item.graph.data" :colour="item.graph.colour" />
+          <!-- <AssetsStats :dataValues="item.graph.data" :colour="item.graph.colour" /> -->
         </div>
       </div>
   </div>
 </template>
 <script>
 
-import AssetsStats from './../charts/AssetsStats.vue'
+// import AssetsStats from './../charts/AssetsStats.vue'
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    AssetsStats,
+    // AssetsStats,
   },
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Holdings',
@@ -227,26 +227,26 @@ export default {
         let instance = this.holdings[key]
         for (const [key, value] of Object.entries(instance)) {
           let childObject = {}
-          let balance = value.balance
+          let balance = Number(value.balance)
           let colour = "#fff"
           let type = false
-          let historyBalanceMultiplier = 0
+          // let historyBalanceMultiplier = 0
           switch (value.unit) {
             case 'BTC':
-              historyBalanceMultiplier = 1/100000000
+              // historyBalanceMultiplier = 1/100000000
               balance = balance > 0 ? Number(balance) / 100000000 : balance
               balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
               colour = "#ff8f00"
               break;
             case 'ETH':
-              historyBalanceMultiplier = 1/1000000000000000000
-              balance = balance > 0 ? Number(balance) / 1000000000000000000 : balance
+              // historyBalanceMultiplier = 1/1000000000000000000
+              // balance = balance > 0 ? Number(balance) / 1000000000000000000 : balance
               balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
               colour = "#5c6bc0"
               break;
             case 'USD-T':
             case 'USD-C':
-              historyBalanceMultiplier = 1000000000000
+              // historyBalanceMultiplier = 1000000000000
               balance = balance > 0 ? Number(balance) * 1000000000000 : balance
               balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
               colour = value.unit === "USD-C" ? "#1e88e5" : "#00acc1"
@@ -269,12 +269,12 @@ export default {
             childObject.change = Number(this.rates[childObject.displayCurrency].changePercent24Hr).toFixed(2)
           }
 
-          let history = value.history
-          for (const [key, value] of Object.entries(history)) {
-            childObject.graph.key = key
-            let formattedBalance = value.balance * historyBalanceMultiplier
-            if (value.balance) { childObject.graph.data.push(formattedBalance) }
-          }
+          // let history = value.history
+          // for (const [key, value] of Object.entries(history)) {
+          //   childObject.graph.key = key
+          //   let formattedBalance = value.balance * historyBalanceMultiplier
+          //   if (value.balance) { childObject.graph.data.push(formattedBalance) }
+          // }
           masterPayload.push(childObject)
         }
       }

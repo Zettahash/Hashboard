@@ -1,10 +1,10 @@
 <template lang="">
   <div class="flex-overview">
   <div>
-  <h2><img :src="require('@/assets/img/providers/safe.png')"/>SAFE</h2>
-  <p>Select any wallet to view directly on SAFE.</p>
+  <h2><img :src="require('@/assets/img/providers/specter.png')"/>Specter Solutions</h2>
+  <p>Select any wallet to view directly on block explorer.</p>
   </div>
-    <WalletsUI provider="SAFE" />
+    <WalletsUI provider="Specter" />
   </div>
 </template>
 <script>
@@ -17,7 +17,7 @@ export default {
     WalletsUI,
   },
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'SafeTreasury',
+  name: 'SpecterTreasury',
   data() {
     return {
     }

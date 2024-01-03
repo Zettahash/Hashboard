@@ -14,15 +14,10 @@
       <!-- <router-link :to="{name:'treasury'}" class="shortcut"><i class="i-shield"></i><span>Treasury</span></router-link> -->
       <a :class="routeClass('treasury')" @click="dropdown.treasury=!dropdown.treasury"><i class="i-shield"></i><span>Treasury</span></a>
       <ul v-if="dropdown.treasury">
-        <li>      
-          <a :class="routeClass('safe',1)" @click="dropdown.safe=!dropdown.safe"><img :src="getIcon('safe')" class="icon" /><span>Safe</span></a>
-          <ul v-if="dropdown.safe">
-            <li><router-link :to="{name:'safe'}" class="shortcut">Treasury</router-link></li>
-          </ul>
-        </li>
-        <li><router-link :to="{name:'accountant'}" class="shortcut">Accountant</router-link></li>
+        <li><router-link :to="{name:'safe'}" :class="routeClass('safe')"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
+        <li><router-link :to="{name:'specter'}" :class="routeClass('specter')"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
       </ul>
-      <router-link :to="{name:'holdings'}" class="shortcut"><i class="i-pie-chart"></i><span>Ledger</span></router-link>
+      <!-- <router-link :to="{name:'holdings'}" class="shortcut"><i class="i-pie-chart"></i><span>Ledger</span></router-link> -->
       <router-link :to="{name:'assets'}" class="shortcut"><i class="i-hard-drive"></i><span>Assets</span></router-link>
       <router-link :to="{name:'market'}" class="shortcut"><i class="i-trending-up"></i><span>Market</span></router-link>
     </div>
@@ -47,7 +42,7 @@ export default {
       {
         hashboard: false,
         treasury: false,
-        safe:false,
+        safe: false,
       },
     }
   },
@@ -75,7 +70,8 @@ export default {
     },
     getIcon(str) {
       let token = str.toLowerCase()
-      let dir = '/src/assets/img/providers'
+      let dir = '@/assets/img/providers'
+      console.log(`${dir}/${token}.png`)
       try {
         return require(`${dir}/${token}.png`)
       } catch (e) { console.log(e) }
@@ -215,4 +211,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
