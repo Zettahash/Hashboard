@@ -1,9 +1,11 @@
 <template lang="">
 <div class="nav">
 
-  <a title="Toggle sidebar" :class="'sidebar-toggle ' + !application.uiSidebarCollapse" @click.stop="toggleSidebarCollapse(!application.uiSidebarCollapse);menu=false;">
-    <i :class="application.uiSidebarCollapse?'i-chevrons-right':'i-chevrons-left'"></i>
+  <a title="Toggle sidebar" :class="`sidebar-toggle collapse-${uiSidebarCollapse}`" @click.stop="toggleSidebarCollapse(!application.uiSidebarCollapse);menu=false;">
+    <i class="i-arrow-right-circle"></i>
+    <i class="i-chevron-left"></i>
   </a>
+<div class="nav-inner">
   <router-link :to="{ name: 'manager'}" class="app-title logo animated">
     <svg width="100%" height="100%" viewBox="0 0 833 790" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:bevel;stroke-miterlimit:1.5;">
       <rect id="Artboard1" x="0" y="0" width="832.178" height="789.611" style="fill:none;" />
@@ -104,6 +106,7 @@
     </div>
   </div>
 </div>
+</div>
 </template>
 
 <script>
@@ -118,7 +121,7 @@ export default {
   },
   data() {
     return {
-      uiSidebarCollapse: false,
+      // uiSidebarCollapse: false,
       menu: false,
     }
   },
@@ -145,6 +148,12 @@ export default {
     width() {
       return window.innerWidth
     },
+    uiSidebarCollapse() {
+      let stage = 2
+      if (window.outerWidth < 700) { stage-- }
+      if (this.application.uiSidebarCollapse) { stage-- }
+      return stage == 0 ? false : stage
+    },
   },
   methods: {
     resetMenu() {
@@ -170,170 +179,173 @@ export default {
 @import '@/assets/scss/constants';
 
 .nav {
-  display: grid;
-  padding: 10px 20px;
-  gap: 20px;
-  grid-template: auto/auto auto 1fr auto;
-  align-items: center;
   position: relative;
   z-index: 400;
   grid-column: 1/3;
   grid-row: 1/2;
-  background-color: var(--neutral-10);
-  box-shadow: 0 1px 0 0 var(--neutral-6);
 
-  .logo {
-    display: inline-flex;
-    gap: 10px;
+  .nav-inner {
+    display: grid;
+    padding: 10px 20px;
+    gap: 20px;
+    grid-template: auto / auto 1fr auto;
     align-items: center;
-    font-weight: 600;
-    transition: 200ms ease;
-    width: 170px;
+    background-color: var(--neutral-10);
+    box-shadow: 0 1px 0 0 var(--neutral-6);
 
-    @media (max-width: $small) {
-      margin-right: auto;
-      width: auto;
+    .logo {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 600;
+      transition: 200ms ease;
+      width: 170px;
+
+      @media (max-width: $small) {
+        margin-right: auto;
+        width: auto;
+
+        span {
+          display: none;
+        }
+      }
+
+      svg {
+        height: 30px;
+        opacity: 0;
+        transform: scale(0.8);
+        transform-origin: center;
+        transition: 200ms ease;
+
+        path {
+          stroke: var(--neutral-1);
+        }
+      }
 
       span {
-        display: none;
+        font-size: 22px;
+        font-family: $font-family;
+
+      }
+
+      &.animated {
+        svg {
+          transform: scale(1);
+          opacity: 1;
+        }
+
+        #zed,
+        #vertical_1,
+        #vertical_2,
+        #horizontal_1,
+        #horizontal_2 {
+          opacity: 0;
+        }
+
+        #zed {
+          animation: animateDashLong 1500ms 50ms ease forwards 1;
+        }
+
+        #vertical_1 {
+          animation: animateDash 1000ms 750ms linear forwards 1;
+        }
+
+        #vertical_2 {
+          animation: animateDash 1000ms 1000ms linear forwards 1;
+        }
+
+        #horizontal_1 {
+          animation: animateDashShort 500ms 750ms linear forwards 1;
+        }
+
+        #horizontal_2 {
+          animation: animateDashShort 500ms 1000ms linear forwards 1;
+        }
       }
     }
 
-    svg {
-      height: 30px;
-      opacity: 0;
-      transform: scale(0.8);
-      transform-origin: center;
-      transition: 200ms ease;
+    .nav-links {
+      display: grid;
+      gap: 20px;
+      grid-auto-flow: column;
 
-      path {
-        stroke: var(--neutral-1);
-      }
-    }
+      .menu-container {
+        position: relative;
 
-    span {
-      font-size: 22px;
-      font-family: $font-family;
+        .btn {
+          background-color: var(--neutral-8);
+          color: var(--neutral-2);
+          padding: calc(1rem / 1.62);
+          min-width: 2.75rem;
+          justify-content: center;
+        }
 
-    }
+        .menu {
+          position: absolute;
+          width: 250px;
+          right: 0;
+          max-width: 100vw;
+          background: var(--neutral-7);
+          box-shadow: 0 0 0 1px var(--text), 0px 30px 50px -10px var(--black);
+          padding: 15px;
+          border-radius: 1rem;
+          top: calc(100% + 12px);
 
-    &.animated {
-      svg {
-        transform: scale(1);
-        opacity: 1;
-      }
+          ul {
+            list-style: none;
+            padding: 0;
+            color: var(--neutral-4);
+            margin: 0;
 
-      #zed,
-      #vertical_1,
-      #vertical_2,
-      #horizontal_1,
-      #horizontal_2 {
-        opacity: 0;
-      }
+            li {
+              cursor: pointer;
+              font-size: 20px;
 
-      #zed {
-        animation: animateDashLong 1500ms 50ms ease forwards 1;
-      }
+              &:not(:first-of-type) {
+                padding-top: 15px;
+              }
 
-      #vertical_1 {
-        animation: animateDash 1000ms 750ms linear forwards 1;
-      }
-
-      #vertical_2 {
-        animation: animateDash 1000ms 1000ms linear forwards 1;
-      }
-
-      #horizontal_1 {
-        animation: animateDashShort 500ms 750ms linear forwards 1;
-      }
-
-      #horizontal_2 {
-        animation: animateDashShort 500ms 1000ms linear forwards 1;
-      }
-    }
-  }
-
-  .nav-links {
-    display: grid;
-    gap: 20px;
-    grid-auto-flow: column;
-
-    .menu-container {
-      position: relative;
-
-      .btn {
-        background-color: var(--neutral-8);
-        color: var(--neutral-2);
-        padding: calc(1rem / 1.62);
-        min-width: 2.75rem;
-        justify-content: center;
-      }
-
-      .menu {
-        position: absolute;
-        width: 250px;
-        right: 0;
-        max-width: 100vw;
-        background: var(--neutral-7);
-        box-shadow: 0 0 0 1px var(--text), 0px 30px 50px -10px var(--black);
-        padding: 15px;
-        border-radius: 1rem;
-        top: calc(100% + 12px);
-
-        ul {
-          list-style: none;
-          padding: 0;
-          color: var(--neutral-4);
-          margin: 0;
-
-          li {
-            cursor: pointer;
-            font-size: 20px;
-
-            &:not(:first-of-type) {
-              padding-top: 15px;
-            }
-
-            &:not(:last-of-type) {
-              padding-bottom: 15px;
-              box-shadow: 0 1px 0 0 var(--neutral-5);
-            }
-
-            &:hover {
-              color: var(--neutral-2);
-
-            }
-
-            i {
-              margin-right: 10px;
-            }
-
-            >a {
-              display: flex;
-              justify-content: space-between;
-            }
-
-            .social-grid {
-              display: flex;
-              justify-content: space-around;
-
-              a {
-                color: var(--neutral-4);
+              &:not(:last-of-type) {
+                padding-bottom: 15px;
+                box-shadow: 0 1px 0 0 var(--neutral-5);
               }
 
               &:hover {
                 color: var(--neutral-2);
 
               }
-            }
 
-            small {
-              font-size: 75%;
-              opacity: .5;
-            }
+              i {
+                margin-right: 10px;
+              }
 
-            &.centre {
-              text-align: center;
+              >a {
+                display: flex;
+                justify-content: space-between;
+              }
+
+              .social-grid {
+                display: flex;
+                justify-content: space-around;
+
+                a {
+                  color: var(--neutral-4);
+                }
+
+                &:hover {
+                  color: var(--neutral-2);
+
+                }
+              }
+
+              small {
+                font-size: 75%;
+                opacity: .5;
+              }
+
+              &.centre {
+                text-align: center;
+              }
             }
           }
         }
@@ -452,25 +464,80 @@ i.i-refresh-cw.spinning {
 }
 
 .sidebar-toggle {
-  background-color: var(--neutral-8);
+  // background-color: var(--neutral-8);
   color: var(--neutral-2);
   display: flex;
-  height: 100%;
-  min-width: 2rem;
+  height: auto;
+  width: max-content;
+  aspect-ratio: 1/1;
+  font-size: 30px;
   align-items: center;
   justify-content: center;
   border-radius: 100px;
   transition: 200ms ease;
   cursor: pointer;
+  position: absolute;
+  top: 100%;
+  transform: translate(20px, 20px);
 
   &:hover {
     background-color: var(--neutral-6);
 
   }
 
-  &.true {
+  .i-arrow-right-circle,
+  .i-chevron-left {
+    display: none;
+  }
+
+  &:not(.collapse-false) {
     background: var(--secondary);
     color: var(--neutral-10);
+    transform: translate(calc(300px - 50%), 20px);
+
+
+  }
+
+  &.collapse-false {
+    .i-arrow-right-circle {
+      display: block;
+    }
+  }
+
+  &.collapse-2 {
+    .i-chevron-left {
+      display: block;
+      transform: translate(-2px, -1px);
+
+    }
+  }
+
+  &.collapse-1 {
+    transform: translate(calc(70px - 50%), 10px);
+
+    .i-chevron-left {
+      display: block;
+      transform: translate(-2px, -1px);
+
+      @media (min-width:700px) {
+        display: none;
+
+      }
+
+    }
+
+    .i-arrow-right-circle {
+      display: none;
+
+      @media (min-width:700px) {
+
+        display: block;
+      }
+    }
+
+    i {
+      transform: translate(-.5px, -1px);
+    }
   }
 }
 

@@ -1,15 +1,15 @@
 <template lang="">
-  <div :class="!application.uiSidebarCollapse? 'sidebar open':'sidebar closed'">
-    <template v-if="!application.uiSidebarCollapse">
+  <div :class="`sidebar collapse-${uiSidebarCollapse}`">
+    <template v-if="uiSidebarCollapse!=='false'">
     <div class="shortcuts">
       <a :class="routeClass('hashboard')" @click="dropdown.hashboard=!dropdown.hashboard"><i class="i-cpu"></i><span>Hashboard</span></a>
       <ul v-if="dropdown.hashboard">
-        <li><router-link :to="{name:'manager'}" class="shortcut">Manager</router-link></li>
-        <li><router-link :to="{name:'accountant'}" class="shortcut">Accountant</router-link></li>
+        <li><router-link :to="{name:'manager'}" class="shortcut"><i class="i-grid"></i><span>Manager</span></router-link></li>
+        <li><router-link :to="{name:'accountant'}" class="shortcut"><i class="i-book"></i><span>Accountant</span></router-link></li>
       </ul>
       <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
       <router-link :to="{name:'consensus'}" class="shortcut"><i class="i-users"></i><span>Consensus</span></router-link>
-      <router-link :to="{name:'mining'}" class="shortcut"><i class="i-zap"></i><span>Mining</span></router-link>
+      <router-link :to="{name:'vote'}" class="shortcut"><i class="i-zap"></i><span>Vote</span></router-link>
       <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
       <!-- <router-link :to="{name:'treasury'}" class="shortcut"><i class="i-shield"></i><span>Treasury</span></router-link> -->
       <a :class="routeClass('treasury')" @click="dropdown.treasury=!dropdown.treasury"><i class="i-shield"></i><span>Treasury</span></a>
@@ -50,6 +50,12 @@ export default {
     ...mapGetters({
       application: 'application',
     }),
+    uiSidebarCollapse() {
+      let stage = 2
+      if (window.outerWidth < 700) { stage-- }
+      if (this.application.uiSidebarCollapse) { stage-- }
+      return stage == 0 ? false : stage
+    },
   },
   mounted() {
     this.init()
@@ -100,17 +106,51 @@ export default {
   width: 0px;
   transition: 400ms ease;
 
-  &.open {
+  &:not(.collapse-false) {
     width: 300px;
     max-width: 90vw;
     background-color: var(--neutral-10);
     box-shadow: 1px 0 0 0 var(--neutral-6);
+  }
 
+  &.collapse-1 {
+    width: 70px;
+
+    .shortcuts {
+      justify-content: center;
+
+      label {
+        display: none;
+      }
+
+      .shortcut {
+        padding: 0;
+
+        span {
+          display: none;
+        }
+      }
+    }
+
+    ul {
+      padding-left: 0;
+    }
+  }
+
+  &.collapse-2 {
+
+    ul {
+      &::after {
+        opacity: 0.1 !important;
+        transform: translate(calc((-50% - 6px) + 2rem), calc(-50% - 6px)) !important;
+        width: calc((100% + 12px) - 2rem) !important;
+      }
+    }
   }
 
   .shortcuts {
     display: grid;
-    gap: 5px;
+    gap: 25px;
     justify-content: start;
     align-items: center;
     padding: 15px 0px;
@@ -129,12 +169,31 @@ export default {
     ul {
       list-style: none;
       margin-top: 0;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        height: calc(100% + 12px);
+        width: calc(100% + 12px);
+        background: var(--primary);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, calc(-50% - 6px));
+        z-index: -1;
+        opacity: .2;
+        border-radius: 5px;
+      }
+
+      li {
+        padding-bottom: 12px;
+      }
     }
 
     .shortcut {
       display: flex;
       gap: 10px;
-      padding: 12px 20px;
+      padding: 0px 20px;
       margin: 0 15px;
       align-items: center;
       position: relative;

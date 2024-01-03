@@ -6,7 +6,7 @@ import Accountant from '@/components/pages/Accountant'
 import Manager from '@/components/pages/Manager'
 import PrivateSale from '@/components/pages/PrivateSale'
 import CommunityConsensusForum from '@/components/pages/CommunityConsensusForum'
-import Mining from '@/components/pages/Mining'
+import Vote from '@/components/pages/Vote'
 import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
 import Market from '@/components/pages/Market'
 import SafeTreasury from '@/components/pages/Treasury/Safe/Treasury'
@@ -19,7 +19,7 @@ import Assets from '@/components/pages/Assets'
 
 // -Community Consensus Forum: Will need to have this developed. Standard forum with poll voting header. Community will have login profile, etc.
 
-// -Live Hashrate: Will look like a mining pool interface where we can pull in API info from existing mining pool providers
+// -Live Hashrate: Will look like a vote pool interface where we can pull in API info from existing vote pool providers
 
 // -Ledger - Wallets and Holdings: We can pull real time api from Etherscan.io / blockchain.com to show real time BTC, ETH, USDT holdings. We also want to be able to upload redacted bank statements.
 
@@ -140,12 +140,12 @@ const routes = [
     }
   },
   {
-    path: '/mining',
-    name: 'mining',
-    component: Mining,
+    path: '/vote',
+    name: 'vote',
+    component: Vote,
     meta: {
-      title: 'Mining | ' + title,
-      breadcrumbs: ['mining'],
+      title: 'Vote | ' + title,
+      breadcrumbs: ['vote'],
       metaTags: [
         {
           name: 'description',
