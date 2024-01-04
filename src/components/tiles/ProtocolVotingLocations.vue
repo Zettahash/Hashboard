@@ -1,13 +1,13 @@
 <template lang="">
   <div :class="!application.uiSidebarCollapse? 'flex-overview compact':'flex-overview'">
-      <a v-for="(item, index) of zhMarkets" target="_blank" class="block ui-ele asset-complicated wide" :key="index" :title="item.title" :href="item.url">
+      <a v-for="(item, index) of zhVoting" target="_blank" class="block ui-ele asset-complicated wide" :key="index" :title="item.title" :href="item.url">
         <div class="head">
 
         <div class="product-icon">
           <img :src="getIcon(item.img)">
         </div>
         <div class="type"><span>{{item.title}}</span> <span class="badge">{{item.type}}</span></div>
-        <div class="title">Exchange ZH on {{item.title}} <i class="i-external-link"></i></div>
+        <div class="title">Zettahash Governance on {{item.title}} <i class="i-external-link"></i></div>
 
 
         </div>
@@ -17,15 +17,15 @@
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  name: 'PlacesToBuyZH',
+  name: 'ProtocolVotingLocations',
   data() {
     return {
-      zhMarkets: [
+      zhVoting: [
         {
-          title: 'Dextools.io',
-          url: 'https://www.dextools.io/app/en/ether/pair-explorer/0x501a9614b47040b84033147adae98a0b097e8981',
-          img: 'markets/dextools',
-          type:'Decentralised Exchange'
+          title: 'Snapshot',
+          url: 'https://snapshot.org/#/zettahash.eth',
+          img: 'providers/snapshot',
+          type:'Voting platform'
         }
       ]
     }
@@ -61,6 +61,7 @@ export default {
   img {
     height: 50px;
     // opacity: .5;
+    border-radius: 5px;
   }
 }
 

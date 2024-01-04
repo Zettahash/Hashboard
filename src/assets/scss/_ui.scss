@@ -217,7 +217,7 @@
       align-content: start;
       gap: 30px;
       @media (min-width: $large) {
-        width: calc(20% - 20px);
+        // width: calc(20% - 20px);
       }
       @media (min-width: $x-large) {
         max-width: 380px;

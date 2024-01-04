@@ -1,6 +1,6 @@
 <template lang="">
     <div class="flex-overview">
-    <LoadingEle v-if="!payload" />
+    <!-- <LoadingEle v-if="!payload" /> -->
     <!-- <iframe id="dextswap-aggregator-widget"
     title="DEXTswap Aggregator"
     width="400" height="420"
@@ -21,7 +21,7 @@
   </div>
 </template>
 <script>
-import LoadingEle from './../interface/LoadingEle.vue'
+// import LoadingEle from './../interface/LoadingEle.vue'
 import PlacesToBuyZH from './../tiles/PlacesToBuyZH.vue'
 // import MarketCandles from './../charts/MarketCandles.vue'
 // import OrderBook from './../tiles/OrderBook.vue'
@@ -31,7 +31,7 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Market',
   components: {
-    LoadingEle,
+    // LoadingEle,
     PlacesToBuyZH,
     // MarketCandles,
     // OrderBook, BuySell
