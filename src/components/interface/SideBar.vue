@@ -2,14 +2,19 @@
   <div :class="`sidebar collapse-${uiSidebarCollapse}`">
     <template v-if="uiSidebarCollapse!=='false'">
     <div class="shortcuts">
-      <a :class="routeClass('hashboard')" @click="dropdown.hashboard=!dropdown.hashboard"><i class="i-cpu"></i><span>Hashboard</span></a>
+      <router-link :to="{name:'manager'}" :class="routeClass('hashboard')" @click="dropdown.hashboard=!dropdown.hashboard"><i class="i-cpu"></i><span>Hashboard</span></router-link>
       <ul v-if="dropdown.hashboard">
         <li><router-link :to="{name:'manager'}" class="shortcut"><i class="i-grid"></i><span>Manager</span></router-link></li>
         <li><router-link :to="{name:'accountant'}" class="shortcut"><i class="i-book"></i><span>Accountant</span></router-link></li>
       </ul>
       <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
       <router-link :to="{name:'consensus'}" class="shortcut"><i class="i-users"></i><span>Consensus</span></router-link>
-      <router-link :to="{name:'vote'}" class="shortcut"><i class="i-zap"></i><span>Vote</span></router-link>
+      <router-link :class="routeClass('vote')" @click="dropdown.vote=!dropdown.vote" :to="{name:'vote'}" class="shortcut"><i class="i-zap"></i><span>Vote</span></router-link>
+      <ul v-if="dropdown.vote">
+        <li><router-link :to="{name:'protocol-proposals'}" class="shortcut"><i class="i-crosshair"></i><span>Proposals</span></router-link></li>
+        <li><router-link :to="{name:'protocol-treasury'}" class="shortcut"><i class="i-dollar-sign"></i><span>Treasury</span></router-link></li>
+        <li><router-link :to="{name:'protocol-about'}" class="shortcut"><i class="i-info"></i><span>About</span></router-link></li>
+      </ul>
       <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
       <!-- <router-link :to="{name:'treasury'}" class="shortcut"><i class="i-shield"></i><span>Treasury</span></router-link> -->
       <a :class="routeClass('treasury')" @click="dropdown.treasury=!dropdown.treasury"><i class="i-shield"></i><span>Treasury</span></a>
@@ -43,6 +48,7 @@ export default {
         hashboard: false,
         treasury: false,
         safe: false,
+        vote:false,
       },
     }
   },
@@ -115,7 +121,7 @@ export default {
 
   &.collapse-1 {
     width: 70px;
-
+    padding-top: 60px;
     .shortcuts {
       justify-content: center;
 
