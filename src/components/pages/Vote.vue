@@ -4,7 +4,7 @@
       <h1>Vote</h1>
       <p>Zettahash governance using the Snapshot protocol.</p>
       <div class="containers-ui">
-        <ProtocolVotingLocations />
+        <!-- <ProtocolVotingLocations /> -->
         <div class="container compact">
           <div class="head">
             <router-link :to="{ name: 'protocol-about' }" class="space-id">
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import ProtocolVotingLocations from './../tiles/ProtocolVotingLocations.vue'
+// import ProtocolVotingLocations from './../tiles/ProtocolVotingLocations.vue'
 import { mapGetters } from 'vuex';
 // import {space, proposals} from "@/components/data/graphQL"
 // import snapshot from '@snapshot-labs/snapshot.js';
@@ -65,7 +65,7 @@ export default {
     this.routeLoaded()
   },
   components: {
-    ProtocolVotingLocations,
+    // ProtocolVotingLocations,
   },
   methods: {
     routeLoaded() {

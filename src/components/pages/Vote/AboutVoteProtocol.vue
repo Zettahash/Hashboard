@@ -40,8 +40,8 @@
               <div class="avatar-wrapper">
                 <img :src="`https://cdn.stamp.fyi/avatar/${member.address}`">
               </div>
-              <a class="address-truncated" :href="`https://snapshot.org/#/profile/${member.address}`" target="_blank">{{
-                member.addressTruncated }} <i class="i-external-link"></i></a>
+              <a class="address-truncated" :href="`https://snapshot.org/#/profile/${member.address}`" target="_blank"><span>{{
+                member.addressTruncated }} <i class="i-external-link"></i></span></a>
               <span class="role">{{ member.role }}</span>
             </li>
           </ul>
