@@ -12,13 +12,15 @@ let state = {
     uiThemeDark: true,
     zhHolderBool: false,
     zhBalance: false,
-    walletConnected:false,
+    walletConnected: false,
   },
   data: {},
   payload: false,
   wallet: false,
   holdings: { btc: false, eth: false },
-  rates:false,
+  rates: false,
+  snapshot: false,
+  snapshotUser: false,
   test: false
 }
 export default state

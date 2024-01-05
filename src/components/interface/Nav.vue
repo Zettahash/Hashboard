@@ -60,7 +60,7 @@
   <template v-if="width>800">
     <WalletConnector />
   </template>
-    <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchCombinedDataPayload')">
+    <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchCombinedDataPayload')">
       <i class="i-refresh-cw"></i>
       <i class="i-alert-circle"></i>
       <i class="i-check"></i>
@@ -190,7 +190,7 @@ export default {
     gap: 20px;
     grid-template: auto / auto 1fr auto;
     align-items: center;
-    background-color: var(--neutral-10);
+    background-color: var(--neutral-9);
     box-shadow: 0 1px 0 0 var(--neutral-6);
 
     .logo {
@@ -285,7 +285,7 @@ export default {
           width: 250px;
           right: 0;
           max-width: 100vw;
-          background: var(--neutral-7);
+          background: var(--neutral-8);
           box-shadow: 0 0 0 1px var(--text), 0px 30px 50px -10px var(--black);
           padding: 15px;
           border-radius: 1rem;
@@ -503,7 +503,7 @@ i.i-refresh-cw.spinning {
     i {
       &::before {
         color: var(--secondary);
-        background-color: var(--neutral-10);
+        background-color: var(--neutral-9);
     padding: 2px;
       }
     }
@@ -528,7 +528,7 @@ i.i-refresh-cw.spinning {
   }
 
   &.collapse-1 {
-    transform: translate(calc(12px + 50%), 20px);
+    transform: translate(calc(8px + 50%), 20px);
     font-size: 24px;
 
     .i-chevron-left {

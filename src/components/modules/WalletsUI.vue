@@ -187,6 +187,7 @@ export default {
   width: 100%;
 
   .wallet-group {
+  box-shadow: 0 0 0 1px var(--neutral-6);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -201,7 +202,7 @@ export default {
     margin-bottom: auto;
 
     &:hover {
-      box-shadow: 0 10px 80px -20px var(--black);
+      box-shadow:  0 0 0 1px var(--neutral-6), 0 10px 80px -20px var(--black);
       z-index: 999;
       background: var(--neutral-10);
 

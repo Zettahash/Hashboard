@@ -1,6 +1,6 @@
 <template lang="">
-  <div :class="!application.uiSidebarCollapse? 'flex-overview compact':'flex-overview'">
-      <a v-for="(item, index) of zhVoting" target="_blank" class="block ui-ele asset-complicated wide" :key="index" :title="item.title" :href="item.url">
+  <div>
+      <a v-for="(item, index) of zhVoting" target="_blank" class="block ui-ele asset-complicated tile" :key="index" :title="item.title" :href="item.url">
         <div class="head">
 
         <div class="product-icon">

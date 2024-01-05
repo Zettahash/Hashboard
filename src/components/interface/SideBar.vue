@@ -115,7 +115,7 @@ export default {
   &:not(.collapse-false) {
     width: 300px;
     max-width: 90vw;
-    background-color: var(--neutral-10);
+    background-color: var(--neutral-9);
     box-shadow: 1px 0 0 0 var(--neutral-6);
   }
 

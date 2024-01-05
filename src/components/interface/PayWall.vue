@@ -49,7 +49,7 @@ export default {
     max-width:80vw;
     padding:30px;
     border-radius: 20px;
-    background: var(--neutral-9);
+    background: var(--neutral-10);
     h1{
       margin-top:0;
     }

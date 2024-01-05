@@ -26,7 +26,6 @@ const actions = {
     dispatch('responsiveUI', { commit })
 
   },
-
   fetchLincoin({ commit, dispatch, getters, context, rootGetters }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
 
@@ -96,6 +95,20 @@ const actions = {
       commit("setData", { item: 'synchronisationStatus', value: "error" })
     }
 
+    try {
+      fetch(`${endpoint}/api/query-snapshot`, { method: 'get' })
+        .then(result => { return result.json() }).then(data => {
+          commit("setSnapshot", data.payload)
+          // commit("setPayload", data.payload.lincoin)
+
+          commit("setData", { item: 'synchronisation', value: Date.now() })
+          commit("setData", { item: 'assets', value: Date.now() })
+          commit("setData", { item: 'synchronisationStatus', value: false })
+        })
+    } catch (e) {
+      commit("setData", { item: 'synchronisationStatus', value: "error" })
+    }
+
     let c = commit
     let d = dispatch
     let g = getters
@@ -110,9 +123,19 @@ const actions = {
       secondaryTimeout = setTimeout(() => {
         // dispatch('fetchLincoin', { c, d, g, co, rg })
         dispatch('fetchCombinedDataPayload', { c, d, g, co, rg })
-      }, 300000)
+      }, 900000)
     }, 2000)
 
+  },
+  getSnapshotUser({ commit, dispatch, getters, context, rootGetters }, payload) {
+      try {
+        fetch(`${endpoint}/api/query-snapshot-user/query=address:${payload.address}`, { method: 'get' })
+          .then(result => { return result.json() }).then(data => {
+            payload.store.commit("setSnapshotUser", data.payload)
+          })
+      } catch (e) {
+        // console.log(e)
+      }
   },
   responsiveUI({ commit }) {
     if (window.innerWidth <= 1200) {

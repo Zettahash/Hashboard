@@ -32,5 +32,11 @@ let mutations = {
   setRates(state, payload) {
     state.rates = payload
   },
+  setSnapshot(state, payload) {
+    state.snapshot = payload
+  },
+  setSnapshotUser(state, payload) {
+    state.snapshotUser = payload
+  },
 }
 export default mutations

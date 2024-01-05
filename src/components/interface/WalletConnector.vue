@@ -105,6 +105,8 @@ export default {
 
       if (isConnected) {
 
+        this.$store.commit('setWallet', account.address)
+        this.$store.dispatch('getSnapshotUser', {address: account.address, store:this.$store});
         this.$store.commit('setDynamic', {
           item: 'walletConnected',
           value: true

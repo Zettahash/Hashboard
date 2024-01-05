@@ -17,5 +17,11 @@ let getters = {
   rates: state => {
     return state.rates
   },
+  snapshot: state => {
+    return state.snapshot
+  },
+  snapshotUser: state => {
+    return state.snapshotUser
+  },
 }
 export default getters

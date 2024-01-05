@@ -15,6 +15,11 @@ import SpecterTreasury from '@/components/pages/Treasury/Specter/Treasury'
 import Holdings from '@/components/pages/Holdings'
 import Assets from '@/components/pages/Assets'
 
+import VoteProtocolTreasury from '@/components/pages/Vote/VoteProtocolTreasury'
+import Proposals from '@/components/pages/Vote/Proposals'
+import AboutVoteProtocol from '@/components/pages/Vote/AboutVoteProtocol'
+
+
 // -Private Sale: will be important so that they can purchase the ZH token. We use the BTCPay that we have hosted on Voltage.
 
 // -Community Consensus Forum: Will need to have this developed. Standard forum with poll voting header. Community will have login profile, etc.
@@ -83,7 +88,7 @@ const routes = [
     }
   },
   {
-    path: '/',
+    path: '/accountant',
     name: 'accountant',
     component: Accountant,
     meta: {
@@ -158,6 +163,67 @@ const routes = [
       ]
     }
   },
+
+  {
+    path: '/vote/protocol/proposals',
+    name: 'protocol-proposals',
+    component: Proposals,
+    meta: {
+      title: 'Proposals | ' + title,
+      breadcrumbs: ['vote','protocol','proposals'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+
+  {
+    path: '/vote/protocol/about',
+    name: 'protocol-about',
+    component: AboutVoteProtocol,
+    meta: {
+      title: 'About | ' + title,
+      breadcrumbs: ['vote','protocol','about'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+
+  {
+    path: '/vote/protocol/treasury',
+    name: 'protocol-treasury',
+    component: VoteProtocolTreasury,
+    meta: {
+      title: 'Treasury | ' + title,
+      breadcrumbs: ['vote','protocol','treasury'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+
   {
     path: '/ledger-wallets-holdings',
     name: 'ledger-wallets-holdings',
