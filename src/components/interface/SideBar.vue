@@ -165,6 +165,7 @@ export default {
 
       .shortcut {
         padding: 0;
+        justify-content: center;
 
         span {
           display: none;
@@ -239,7 +240,6 @@ export default {
       position: relative;
       font-weight: 400;
       cursor: pointer;
-      justify-content: center;
 
       &.router-link-exact-active,
       &.active {
