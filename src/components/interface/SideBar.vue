@@ -1,34 +1,34 @@
 <template lang="">
-  <div :class="`sidebar collapse-${uiSidebarCollapse}`">
-    <template v-if="uiSidebarCollapse!=='false'">
+  <div :class="`sidebar collapse-${uiSidebarCollapse}`" @scroll="unlabelify">
+    <template v-if="uiSidebarCollapse !== 'false'">
     <div class="shortcuts">
-      <router-link :to="{name:'manager'}" :class="routeClass('hashboard')" @click="dropdown.hashboard=!dropdown.hashboard"><i class="i-cpu"></i><span>Hashboard</span></router-link>
+      <router-link :to="{ name: 'manager' }" :class="routeClass('hashboard')" @click="dropdown.hashboard = !dropdown.hashboard" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-cpu"></i><span>Hashboard</span></router-link>
       <ul v-if="dropdown.hashboard">
-        <li><router-link :to="{name:'manager'}" class="shortcut"><i class="i-grid"></i><span>Manager</span></router-link></li>
-        <li><router-link :to="{name:'accountant'}" class="shortcut"><i class="i-book"></i><span>Accountant</span></router-link></li>
+        <li><router-link :to="{ name: 'manager' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-grid"></i><span>Manager</span></router-link></li>
+        <li><router-link :to="{ name: 'accountant' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-book"></i><span>Accountant</span></router-link></li>
       </ul>
       <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
-      <router-link :to="{name:'consensus'}" class="shortcut"><i class="i-users"></i><span>Consensus</span></router-link>
-      <router-link :class="routeClass('vote')" @click="dropdown.vote=!dropdown.vote" :to="{name:'vote'}" class="shortcut"><i class="i-zap"></i><span>Vote</span></router-link>
+      <router-link :to="{ name: 'consensus' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-users"></i><span>Consensus</span></router-link>
+      <router-link :class="routeClass('vote')" @click="dropdown.vote = !dropdown.vote" :to="{ name: 'vote' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
-        <li><router-link :to="{name:'protocol-proposals'}" class="shortcut"><i class="i-crosshair"></i><span>Proposals</span></router-link></li>
-        <li><router-link :to="{name:'protocol-treasury'}" class="shortcut"><i class="i-dollar-sign"></i><span>Treasury</span></router-link></li>
-        <li><router-link :to="{name:'protocol-about'}" class="shortcut"><i class="i-info"></i><span>About</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-proposals' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-crosshair"></i><span>Proposals</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-treasury' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-dollar-sign"></i><span>Treasury</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-about' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-info"></i><span>About</span></router-link></li>
       </ul>
       <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
       <!-- <router-link :to="{name:'treasury'}" class="shortcut"><i class="i-shield"></i><span>Treasury</span></router-link> -->
-      <a :class="routeClass('treasury')" @click="dropdown.treasury=!dropdown.treasury"><i class="i-shield"></i><span>Treasury</span></a>
+      <a :class="routeClass('treasury')" @click="dropdown.treasury = !dropdown.treasury" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-shield"></i><span>Treasury</span></a>
       <ul v-if="dropdown.treasury">
-        <li><router-link :to="{name:'safe'}" :class="routeClass('safe')"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
-        <li><router-link :to="{name:'specter'}" :class="routeClass('specter')"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
+        <li><router-link :to="{ name: 'safe' }" :class="routeClass('safe')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
+        <li><router-link :to="{ name: 'specter' }" :class="routeClass('specter')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
       </ul>
       <!-- <router-link :to="{name:'holdings'}" class="shortcut"><i class="i-pie-chart"></i><span>Ledger</span></router-link> -->
-      <router-link :to="{name:'assets'}" class="shortcut"><i class="i-hard-drive"></i><span>Assets</span></router-link>
-      <router-link :to="{name:'market'}" class="shortcut"><i class="i-trending-up"></i><span>Market</span></router-link>
+      <router-link :to="{ name: 'assets' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-hard-drive"></i><span>Assets</span></router-link>
+      <router-link :to="{ name: 'market' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-trending-up"></i><span>Market</span></router-link>
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
-      <a class="shortcut" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
+      <a class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
     </div>
     </template>
   </div>
@@ -48,7 +48,7 @@ export default {
         hashboard: false,
         treasury: false,
         safe: false,
-        vote:false,
+        vote: false,
       },
     }
   },
@@ -65,6 +65,7 @@ export default {
   },
   mounted() {
     this.init()
+    window.addEventListener("scroll", this.unlabelify)
   },
   methods: {
     async init() {
@@ -95,11 +96,36 @@ export default {
         return require(`${dir}/${tokenAlpha}.png`)
       } catch (e) { console.log(e) }
     },
+    labelify(event) {
+      let label = event.target.querySelector('span').innerHTML
+      this.unlabelify()
+      if (document.querySelector('.sidebar').classList.contains("collapse-1")) {
+        let temp = document.createElement("div")
+        temp.classList.add('temp-label-sidebar')
+        temp.setAttribute('style', `transform:translate(${event.clientX}px, ${event.clientY}px)`)
+        temp.innerHTML = label
+        document.body.append(temp)
+      }
+    },
+    unlabelify() {
+      if (document.querySelector(".temp-label-sidebar")) { document.querySelector(".temp-label-sidebar").remove() }
+    },
   }
 }
 </script>
 <style lang="scss">
 @import '@/assets/scss/constants';
+
+.temp-label-sidebar {
+  position: absolute;
+  top: 0;
+  left: calc(1rem + 5px);
+  z-index: 301;
+  background: var(--neutral-10);
+  box-shadow: 0 0 0 1px var(--neutral-6);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
 
 .sidebar {
   // height: 100vh;
@@ -122,11 +148,19 @@ export default {
   &.collapse-1 {
     width: 70px;
     padding-top: 60px;
+
     .shortcuts {
       justify-content: center;
 
       label {
-        display: none;
+        height: 0px;
+        width: 50%;
+        overflow: hidden;
+        padding: 0;
+        margin: 0 auto;
+        box-shadow: 0 0 0 .5px var(--neutral-6);
+        display: block;
+        line-height: 2;
       }
 
       .shortcut {
@@ -205,6 +239,7 @@ export default {
       position: relative;
       font-weight: 400;
       cursor: pointer;
+      justify-content: center;
 
       &.router-link-exact-active,
       &.active {
@@ -276,5 +311,4 @@ export default {
       }
     }
   }
-}
-</style>
+}</style>
