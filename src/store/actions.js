@@ -5,8 +5,11 @@ const endpoint = "https://zettahash_hashboard_middleware.zetta-735.workers.dev"
 const actions = {
   init({ context, getters, dispatch, commit, rootGetters }) {
 
-
-
+    
+    commit("setDynamic", {
+      item: 'version',
+      value: process.env.VUE_APP_GIT_HASH
+    })
     for (const [key, value] of Object.entries(localStorage)) {
       commit("setDynamic", {
         item: key,

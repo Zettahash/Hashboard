@@ -1,5 +1,6 @@
 let state = {
   application: {
+    version:false,
     applicationLoaded: false,
     wallet: false,
     name: false,

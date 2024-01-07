@@ -31,6 +31,10 @@
       <a class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
     </div>
     </template>
+
+    <div class="version shortcuts">
+      <div class="shortcut">{{version[0]}}<span>{{version[1]}}</span></div>
+    </div>
   </div>
 </template>
 <script>
@@ -61,6 +65,16 @@ export default {
       if (window.outerWidth < 700) { stage-- }
       if (this.application.uiSidebarCollapse) { stage-- }
       return stage == 0 ? false : stage
+    },
+    version() {
+      if(this.application.version)
+      {
+        let arr = []
+        arr.push(String(this.application.version).split("-")[0])
+        arr.push(String(this.application.version).split(arr[0])[1])
+        return arr
+      }
+      return []
     },
   },
   mounted() {
@@ -137,6 +151,8 @@ export default {
   overflow-y: auto;
   width: 0px;
   transition: 400ms ease;
+  display: flex;
+  flex-direction: column;
 
   &:not(.collapse-false) {
     width: 300px;
@@ -197,6 +213,17 @@ export default {
     padding: 15px 0px;
     font-family: $sans-serif;
     font-size: 16px;
+
+    &.version
+{
+  flex-grow: 1;
+  align-content: end;
+  .shortcut{
+    gap:0;
+    color:var(--neutral-5);
+    font-size: .8rem;
+  }
+}
 
     label {
       text-transform: uppercase;
@@ -311,4 +338,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
