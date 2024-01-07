@@ -2,38 +2,42 @@
   <div :class="`sidebar collapse-${uiSidebarCollapse}`" @scroll="unlabelify">
     <template v-if="uiSidebarCollapse !== 'false'">
     <div class="shortcuts">
-      <router-link :to="{ name: 'manager' }" :class="routeClass('hashboard')" @click="dropdown.hashboard = !dropdown.hashboard" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-cpu"></i><span>Hashboard</span></router-link>
-      <ul v-if="dropdown.hashboard">
-        <li><router-link :to="{ name: 'manager' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-grid"></i><span>Manager</span></router-link></li>
-        <li><router-link :to="{ name: 'accountant' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-book"></i><span>Accountant</span></router-link></li>
+      <router-link :to="{ name: 'lincoin-manager' }" :class="routeClass('hashboard')" @click="dropdown.hashboard = !dropdown.hashboard" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-cpu"></i><span>Hashboard</span></router-link>
+      <ul v-if="dropdown.hashboard" :class="`dropdown ${dropdown.pool}`" @click="dropdown.pool=!dropdown.pool" @mouseenter="labelify" @mouseleave="unlabelify">
+        <li data-for="lincoin" :data-active="activeFarm('lincoin')">
+          <router-link :to="{ name: 'lincoin-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/lincoin.png')" class="icon" /><span>Lincoin</span></router-link>
+        </li>
+        <li data-for="ocean" :data-active="activeFarm('ocean')">
+          <router-link :to="{ name: 'ocean-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/ocean.png')" class="icon" /><span>Ocean</span></router-link>
+        </li>
       </ul>
-      <!-- <router-link :to="{name:'private-sale'}" class="shortcut"><i class="i-tag"></i><span>Private Sales</span></router-link> -->
-      <router-link :to="{ name: 'consensus' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-users"></i><span>Consensus</span></router-link>
-      <router-link :class="routeClass('vote')" @click="dropdown.vote = !dropdown.vote" :to="{ name: 'vote' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
+      <ul v-if="dropdown.hashboard && application.activeFarm=='lincoin'">
+        <li><router-link :to="{ name: 'lincoin-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-grid"></i><span>Manager</span></router-link></li>
+        <li><router-link :to="{ name: 'lincoin-accountant' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-book"></i><span>Accountant</span></router-link></li>
+      </ul>
+      <router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-users"></i><span>Consensus</span></router-link>
+      <router-link :class="routeClass('vote')" @click="dropdown.vote = !dropdown.vote" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
-        <li><router-link :to="{ name: 'protocol-proposals' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-crosshair"></i><span>Proposals</span></router-link></li>
-        <li><router-link :to="{ name: 'protocol-treasury' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-dollar-sign"></i><span>Treasury</span></router-link></li>
-        <li><router-link :to="{ name: 'protocol-about' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-info"></i><span>About</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-crosshair"></i><span>Proposals</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-treasury' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-dollar-sign"></i><span>Treasury</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-about' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-info"></i><span>About</span></router-link></li>
       </ul>
-      <!-- <router-link :to="{name:'ledger-wallets-holdings'}" class="shortcut"><i class="i-file-text"></i><span>Ledger</span></router-link> -->
-      <!-- <router-link :to="{name:'treasury'}" class="shortcut"><i class="i-shield"></i><span>Treasury</span></router-link> -->
       <a :class="routeClass('treasury')" @click="dropdown.treasury = !dropdown.treasury" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-shield"></i><span>Treasury</span></a>
       <ul v-if="dropdown.treasury">
         <li><router-link :to="{ name: 'safe' }" :class="routeClass('safe')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
         <li><router-link :to="{ name: 'specter' }" :class="routeClass('specter')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
       </ul>
-      <!-- <router-link :to="{name:'holdings'}" class="shortcut"><i class="i-pie-chart"></i><span>Ledger</span></router-link> -->
-      <router-link :to="{ name: 'assets' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-hard-drive"></i><span>Assets</span></router-link>
-      <router-link :to="{ name: 'market' }" class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-trending-up"></i><span>Market</span></router-link>
+      <router-link :to="{ name: 'assets' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-hard-drive"></i><span>Assets</span></router-link>
+      <router-link :to="{ name: 'market' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-trending-up"></i><span>Market</span></router-link>
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
-      <a class="shortcut" @mouseenter="labelify" @mouseleave="unlabelify" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
+      <a @mouseenter="labelify" @mouseleave="unlabelify" href="https://zettahash.org"><i class="i-hash"></i><span>Zettahash home</span></a>
     </div>
     </template>
 
     <div class="version shortcuts">
-      <div class="shortcut">{{version[0]}}<span>{{version[1]}}</span></div>
+      <a>{{version[0]}}<span>{{version[1]}}</span></a>
     </div>
   </div>
 </template>
@@ -53,6 +57,7 @@ export default {
         treasury: false,
         safe: false,
         vote: false,
+        pool: false,
       },
     }
   },
@@ -67,8 +72,7 @@ export default {
       return stage == 0 ? false : stage
     },
     version() {
-      if(this.application.version)
-      {
+      if (this.application.version) {
         let arr = []
         arr.push(String(this.application.version).split("-")[0])
         arr.push(String(this.application.version).split(arr[0])[1])
@@ -123,6 +127,9 @@ export default {
     },
     unlabelify() {
       if (document.querySelector(".temp-label-sidebar")) { document.querySelector(".temp-label-sidebar").remove() }
+    },
+    activeFarm(pool) {
+      return pool === this.application.activeFarm
     },
   }
 }
@@ -179,7 +186,8 @@ export default {
         line-height: 2;
       }
 
-      .shortcut {
+      .shortcut,
+      a {
         padding: 0;
         justify-content: center;
 
@@ -214,16 +222,17 @@ export default {
     font-family: $sans-serif;
     font-size: 16px;
 
-    &.version
-{
-  flex-grow: 1;
-  align-content: end;
-  .shortcut{
-    gap:0;
-    color:var(--neutral-5);
-    font-size: .8rem;
-  }
-}
+    &.version {
+      flex-grow: 1;
+      align-content: end;
+
+      .shortcut,
+      a {
+        gap: 0;
+        color: var(--neutral-5);
+        font-size: .8rem;
+      }
+    }
 
     label {
       text-transform: uppercase;
@@ -238,6 +247,33 @@ export default {
       list-style: none;
       margin-top: 0;
       position: relative;
+
+      &.dropdown {
+        margin-bottom: -10px;
+
+        &.false {
+          &::before {
+            font-family: "ico" !important;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\e92e";
+            position: absolute;
+            color: var(--neutral-0);
+            z-index: 2;
+            right: -4px;
+          }
+          [data-active="true"] {
+            pointer-events:none;
+          }
+          [data-active="false"] {
+            display: none;
+          }
+        }
+      }
 
       &::after {
         content: '';
@@ -258,7 +294,8 @@ export default {
       }
     }
 
-    .shortcut {
+    .shortcut,
+    a {
       display: flex;
       gap: 10px;
       padding: 0px 20px;

@@ -2,8 +2,9 @@ import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 // import Overview from '@/components/pages/Overview'
-import Accountant from '@/components/pages/Accountant'
-import Manager from '@/components/pages/Manager'
+import LincoinAccountant from '@/components/pages/Farms/Lincoin/Accountant'
+import LincoinManager from '@/components/pages/Farms/Lincoin/Manager'
+import OceanManager from '@/components/pages/Farms/Ocean/Manager'
 import PrivateSale from '@/components/pages/PrivateSale'
 import CommunityConsensusForum from '@/components/pages/CommunityConsensusForum'
 import Vote from '@/components/pages/Vote'
@@ -38,43 +39,33 @@ const app = createApp({})
 const title = process.env.VUE_APP_APPLICATION_NAME
 
 const routes = [
-  // {
-  //   path: '/overview',
-  //   name: 'overview',
-  //   component: Overview,
-  //   meta: {
-  //     title: 'Overview | ' + title,
-  //     breadcrumbs: ['overview'],
-  //     metaTags: [
-  //       {
-  //         name: 'description',
-  //         content: 'Placeholder'
-  //       },
-  //       {
-  //         property: 'og:description',
-  //         content: 'Placeholder'
-  //       }
-  //     ]
-  //   }
-  // },
   {
     path: '/',
-    name: 'manager',
-    component: Manager,
+    name: 'lincoin-manager',
+    component: LincoinManager,
     children: [
       {
-        path: "/manager",
-        name: "manager",
-        component: Manager,
+        path: "/lincoin",
+        name: "lincoin-manager",
+        component: LincoinManager,
         meta: {
-          title: 'Manager | ' + title,
-          breadcrumbs: ['hashboard','manager'],
+          title: 'Lincoin Manager | ' + title,
+          breadcrumbs: ['hashboard', 'lincoin', 'manager'],
+        }
+      },
+      {
+        path: "/lincoin/manager",
+        name: "lincoin-manager",
+        component: LincoinManager,
+        meta: {
+          title: 'Lincoin Manager | ' + title,
+          breadcrumbs: ['hashboard', 'lincoin', 'manager'],
         }
       },
     ],
     meta: {
-      title: 'Manager | ' + title,
-      breadcrumbs: ['hashboard','manager'],
+      title: 'Lincoin Manager | ' + title,
+      breadcrumbs: ['hashboard', 'lincoin', 'manager'],
       metaTags: [
         {
           name: 'description',
@@ -88,12 +79,31 @@ const routes = [
     }
   },
   {
-    path: '/accountant',
-    name: 'accountant',
-    component: Accountant,
+    path: '/lincoin/accountant',
+    name: 'lincoin-accountant',
+    component: LincoinAccountant,
     meta: {
-      title: 'Accountant | ' + title,
-      breadcrumbs: ['hashboard','accountant'],
+      title: 'Lincoin Accountant | ' + title,
+      breadcrumbs: ['hashboard', 'lincoin', 'accountant'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/ocean/manager',
+    name: 'ocean-manager',
+    component: OceanManager,
+    meta: {
+      title: 'Ocean Manager | ' + title,
+      breadcrumbs: ['hashboard', 'ocean', 'manager'],
       metaTags: [
         {
           name: 'description',

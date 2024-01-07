@@ -14,6 +14,7 @@ let state = {
     zhHolderBool: false,
     zhBalance: false,
     walletConnected: false,
+    activeFarm: 'lincoin',
   },
   data: {},
   payload: false,

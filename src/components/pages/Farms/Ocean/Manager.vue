@@ -7,13 +7,18 @@
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Manager',
+  name: 'OceanManager',
   mounted() {
     const iframe = document.createElement('iframe')
     iframe.onload = this.frameLoaded
-    iframe.src = 'https://app.lincoin.com/user/observer-welcome?token=developer.manager.046b51007b0ca230deeebf736eda19f4&role=manager';
+    iframe.src = 'https://ocean.xyz/stats/bc1q26pwx77e3024uetddkr5mtk3llkk36juu64l6ll2w9nry7k2rymsg0la96.zettahash';
     iframe.classList.add("dom-iframe")
+    iframe.setAttribute("style", "filter: invert(1) hue-rotate(180deg)")
     document.querySelector(".iframe").replaceWith(iframe)
+    this.$store.commit('setDynamic', {
+      item: 'activeFarm',
+      value: 'ocean'
+    })
   },
   methods: {
     frameLoaded() {
@@ -21,20 +26,20 @@ export default {
         item: 'routerLoaded',
         value: true
       })
-      if (window.innerWidth < 800){
+      if (window.innerWidth < 800) {
         this.$store.commit('setDynamic', {
-        item: 'uiSidebarCollapse',
-        value: true
-      })
+          item: 'uiSidebarCollapse',
+          value: true
+        })
       }
     }
   }
 }
 </script>
 <style lang="scss">
-  .dom-iframe{
-    height: 100%;
-    width: 100%;
-    border: 0;
-  }
+.dom-iframe {
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
 </style>

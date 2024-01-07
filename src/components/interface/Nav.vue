@@ -6,7 +6,7 @@
     <i class="i-chevron-left"></i>
   </a>
 <div class="nav-inner">
-  <router-link :to="{ name: 'manager'}" class="app-title logo animated">
+  <router-link :to="{ path: '/'}" class="app-title logo animated">
     <svg width="100%" height="100%" viewBox="0 0 833 790" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:bevel;stroke-miterlimit:1.5;">
       <rect id="Artboard1" x="0" y="0" width="832.178" height="789.611" style="fill:none;" />
       <clipPath id="_logo_clip1">
@@ -79,7 +79,7 @@
           </li>
 
           <li>
-            <a @click="$store.dispatch('fetchLincoin');$store.dispatch('fetchCombinedDataPayload')">
+            <a @click="$store.dispatch('fetchCombinedDataPayload')">
             <span v-if="data.synchronisationStatus==='syncing'">Syncing</span>
             <span v-if="String(data.synchronisationStatus)==='false'">Up to date<br>
               <small>{{new Date(data.synchronisation)}}</small>
