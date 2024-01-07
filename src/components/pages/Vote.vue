@@ -12,8 +12,8 @@
               <span class="name">{{ space.name }}</span>
               <span class="id">{{ space.id }}</span>
             </router-link>
-            <span :class="`state ${following ? 'following' : ''}`" :data-text="following ? 'Joined' : 'Follow'"><i
-                class="i-check" v-if="following"></i></span>
+            <span @click="followUnfollow(space.id)" :class="`state ${following ? 'following' : ''}`"
+              :data-text="following ? 'Joined' : 'Follow'"><i class="i-check" v-if="following"></i></span>
 
           </div>
 
@@ -30,6 +30,8 @@
 <script>
 // import ProtocolVotingLocations from './../tiles/ProtocolVotingLocations.vue'
 import { mapGetters } from 'vuex';
+import { Web3Provider } from '@ethersproject/providers';
+import snapshot from '@snapshot-labs/snapshot.js';
 // import {space, proposals} from "@/components/data/graphQL"
 // import snapshot from '@snapshot-labs/snapshot.js';
 export default {
@@ -74,6 +76,24 @@ export default {
         value: true
       })
     },
+    async followUnfollow(space) {
+      const hub = 'https://hub.snapshot.org'; // or https://testnet.hub.snapshot.org for testnet
+      const client = new snapshot.Client712(hub);
+      const web3 = new Web3Provider(window.ethereum);
+      const [account] = await web3.listAccounts();
+      let receipt = false
+
+      if (this.following) {
+        receipt = await client.unfollow(web3, account, {
+          "name": space ? space : "zettahash.eth"
+        });
+      } else {
+        receipt = await client.follow(web3, account, {
+          "name": space ? space : "zettahash.eth"
+        });
+      }
+      console.log(receipt)
+    },
   }
 }
 </script>
@@ -116,4 +136,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
