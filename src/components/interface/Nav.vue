@@ -509,7 +509,7 @@ i.i-refresh-cw.spinning {
     }
 
     // color: var(--neutral-10);
-    transform: translate(calc(300px - 50%), 20px);
+    transform: translate(calc($sidebar - 50%), 20px);
 
   }
 

@@ -48,7 +48,7 @@ export default {
       return this.application.uiSidebarCollapse
     },
     width() {
-      return this.uiSidebarCollapse ? (window.outerWidth > 700? window.innerWidth - 110 :window.innerWidth - 40) : window.innerWidth - 340
+      return this.uiSidebarCollapse ? (window.outerWidth > 700? window.innerWidth - 110 :window.innerWidth - 40) : window.innerWidth - 320
     },
     height() {
       return window.innerHeight <= 800 ? 380 : (window.innerHeight > 1200 ? 480 : window.innerHeight * .4)

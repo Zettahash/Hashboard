@@ -79,7 +79,7 @@ export default {
   right: 15px;
   left: auto;
   margin: auto;
-  width: $x-small;
+  width: $x-small * .8;
   max-width: 80vw;
   z-index: 99;
 

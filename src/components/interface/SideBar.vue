@@ -161,7 +161,7 @@ export default {
   flex-direction: column;
 
   &:not(.collapse-false) {
-    width: 300px;
+    width: $sidebar;
     max-width: 90vw;
     background-color: var(--neutral-9);
     box-shadow: 1px 0 0 0 var(--neutral-6);

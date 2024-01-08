@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = "https://zettahash_hashboard_middleware.zetta-735.workers.dev"
+const endpoint = process.env.VUE_APP_MIDDLEWARE_URL
 
 const actions = {
   init({ context, getters, dispatch, commit, rootGetters }) {
