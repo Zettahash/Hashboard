@@ -55,7 +55,6 @@ export default {
       {
         hashboard: false,
         treasury: false,
-        safe: false,
         vote: false,
         pool: false,
       },

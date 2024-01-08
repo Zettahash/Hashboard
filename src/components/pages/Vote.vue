@@ -77,19 +77,24 @@ export default {
       })
     },
     async followUnfollow(space) {
-      const hub = 'https://hub.snapshot.org'; // or https://testnet.hub.snapshot.org for testnet
-      const client = new snapshot.Client712(hub);
+      console.log(space)
+      const client = new snapshot.Client712('https://hub.snapshot.org');
+      console.log(client)
       const web3 = new Web3Provider(window.ethereum);
+      console.log(web3)
+      // const account = [this.wallet];
       const [account] = await web3.listAccounts();
+      console.log(account)
       let receipt = false
 
       if (this.following) {
+      console.log(this.following)
         receipt = await client.unfollow(web3, account, {
-          "name": space ? space : "zettahash.eth"
+          "name": space
         });
       } else {
         receipt = await client.follow(web3, account, {
-          "name": space ? space : "zettahash.eth"
+          "name": space
         });
       }
       console.log(receipt)
@@ -121,8 +126,12 @@ export default {
       }
 
       &:hover {
+        background:  var(--primary) !important;
+      }
+      &.following{
+      &:hover {
         box-shadow: 0 0 0 1px var(--crimson);
-        background: transparent;
+        background: transparent !important;
         color: var(--crimson);
 
         i {
@@ -134,6 +143,7 @@ export default {
           color: var(--crimson);
         }
       }
+    }
     }
   }
 }

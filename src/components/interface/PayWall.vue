@@ -18,8 +18,8 @@ export default {
   name: 'PayWall',
   data() {
     return {
-      needAccMsg:'Checking for wallet connection...'
-      // message: '',
+      needAccMsg: 'Checking for wallet connection...',
+      timeout: false,
     }
   },
   computed: {
@@ -28,31 +28,51 @@ export default {
     }),
     message() {
 
-      if(!this.application.walletConnected){return 'needAcc'}
-      if (!this.application.zhHolderBool) {return 'needZH'}
+      if (!this.application.walletConnected) { return 'needAcc' }
+      if (!this.application.zhHolderBool) { return 'needZH' }
       return '?'
     },
+    zhHolderBool() {
+      return this.application.zhHolderBool
+    },
+  },
+  watch: {
+    zhHolderBool(value) {
+      if (value == true) {
+        clearTimeout(this.timeout)
+        this.timeout = false
+      }
+    }
   },
   mounted() {
     window.payWallThis = this
-    setTimeout(() => {
-      window.payWallThis.needAccMsg = 'Connect your wallet to get started.'
-    },2000)
+    this.timeout = setTimeout(() => {
+      if(!window.payWallThis.application.zhHolderBool)
+     { window.payWallThis.needAccMsg = 'Connect your wallet to get started.'
+      window.payWallThis = this
+      this.$store.commit("setNotification", {
+        title: "Connect your wallet to get started.",
+        data: "You'll need to connect your wallet and hold at least 1ZH to continue.",
+      })}
+    }, 4000)
   },
 }
 </script>
 <style lang="scss" scoped>
-  .modal-stationary{
-    margin:50px auto auto auto;
-    height: auto;
-    width:500px;
-    max-width:80vw;
-    padding:30px;
-    border-radius: 20px;
-    background: var(--neutral-10);
-    h1{
-      margin-top:0;
-    }
-    p{margin-bottom:0;}
+.modal-stationary {
+  margin: 50px auto auto auto;
+  height: auto;
+  width: 500px;
+  max-width: 80vw;
+  padding: 30px;
+  border-radius: 20px;
+  background: var(--neutral-10);
+
+  h1 {
+    margin-top: 0;
   }
-</style>
+
+  p {
+    margin-bottom: 0;
+  }
+}</style>

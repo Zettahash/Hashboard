@@ -38,5 +38,14 @@ let mutations = {
   setSnapshotUser(state, payload) {
     state.snapshotUser = payload
   },
+  setNotification(state, payload) {
+    payload.className = payload.className ? payload.className : 'neutral'
+    payload.active = true
+    payload.time = Date.now()
+    state.application.notifications.push(payload)
+  },
+  closeNotification(state, payload) {
+    state.application.notifications[payload].active = false
+  },
 }
 export default mutations

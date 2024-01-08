@@ -5,7 +5,7 @@
 
     <div :class="application.routerLoaded ? 'page-contents loaded' : 'page-contents not-loaded'" :data-zhHolder="application.zhHolderBool?'yes':'no'">
 
-      <div class="coming-soon"></div>
+        <Notifications />
       <template v-if="application.zhHolderBool">
       <router-view></router-view></template>
       <template v-else>
@@ -19,6 +19,7 @@
 import NavBar from './components/interface/Nav.vue'
 import SideBar from './components/interface/SideBar.vue'
 import PayWall from './components/interface/PayWall.vue'
+import Notifications from './components/modules/Notifications.vue'
 import { mapGetters } from 'vuex';
 
 
@@ -28,6 +29,7 @@ export default {
     NavBar,
     SideBar,
     PayWall,
+    Notifications,
   },
   computed: {
     ...mapGetters({
@@ -44,6 +46,12 @@ export default {
         value: false
       })
     }
+  },
+  mounted() {
+    this.$store.commit("setNotification", {
+      title: `Hashboard BETA`,
+      data: `We're getting the Hashboard ready to launch 🚀`,
+    })
   }
 }
 </script>
@@ -55,7 +63,7 @@ export default {
 
 // REMOVE ALL STYLES AFTER THIS LINE WHEN REMOVING COMING SOON BANNER
 .page-contents{
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
 } 
 .coming-soon {
   padding: 20px;
