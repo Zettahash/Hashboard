@@ -175,6 +175,23 @@ const actions = {
       body: encodeURI(JSON.stringify({ id:payload.id, address: payload.address }))
     })
   },
+  async submitReply({ commit, dispatch, getters, context, rootGetters }, payload) {
+    let encodedPost = encodeStr(JSON.stringify(payload.post))
+    let post = await fetch(`${endpoint}/forum/new-reply`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ post: payload.post, address: payload.id }))
+    })
+    return post.json()
+  },
+  async fetchPostReplies({ commit, dispatch, getters, context, rootGetters }, payload) {
+    let posts = await fetch(`${endpoint}/forum/fetch-post-replies`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ limit: { start: 0, end: 50 }, address: payload.id, topic_id: payload.topic_id }))
+    })
+    let postsPayload = await posts.json()
+    if (postsPayload.payload.replies) { return postsPayload.payload.replies }
+    else{return {error: 'Failed to fetch comments.'}}
+  },
   responsiveUI({ commit }) {
     if (window.innerWidth <= 1200) {
       commit("setDynamic", {

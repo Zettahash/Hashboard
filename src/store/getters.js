@@ -29,5 +29,8 @@ let getters = {
   forumPostsCache: state => {
     return state.forumPostsCache
   },
+  forumPostRepliesWatcherFlag: state => {
+    return state.forumPostRepliesWatcherFlag
+  },
 }
 export default getters

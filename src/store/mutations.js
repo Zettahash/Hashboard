@@ -53,5 +53,8 @@ let mutations = {
   setForumPostsCache(state, payload) {
     state.forumPostsCache = payload
   },
+  setForumPostRepliesWatcherFlag(state, payload) {
+    state.forumPostRepliesWatcherFlag = payload
+  },
 }
 export default mutations

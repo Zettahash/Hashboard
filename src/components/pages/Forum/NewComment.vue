@@ -1,25 +1,16 @@
 <template lang="html">
   <div class="form new-post ui-ele">
     <div class="head-organiser">
-
-    <a @click="cancelStage++" class="cancel">{{ cancelText }}</a>
-    <h2>New Post</h2>
-  </div>
-
-    <div :class="`form-section ${postTitleNotice}`" :error="postTitleDataDifference">
-      <label>Title</label>
-      <input v-model="postTitle" />
+      <a @click="cancelStage++" class="cancel">{{ cancelText }}</a>
+      <h2><b>Commenting on</b><span>{{ topic }}</span></h2>
     </div>
     <div :class="`form-section ${postBodyNotice}`" :error="postBodyDataDifference">
-      <label>Body</label>
+      <label>Comment</label>
       <textarea v-model="postBody" />
     </div>
     <div class="form-section">
-      <label>Category & tags</label>
+      <label>Tags</label>
       <div class="form-flex">
-        <select v-model="category">
-          <option v-for="topic of topics" :key="topic" :value="topic.toLocaleLowerCase()">{{ topic }}</option>
-        </select>
         <div :class="`tags ${tagsInput.length > 0 || tags.length > 0 ? 'active' : ''}`">
           <div v-for="(tag, index) of tags" :key="index" @click="removeTag(index)" class="tag">{{ tag }}</div>
           <input v-model="tagsInput" @keyup.enter="setTag" />
@@ -28,14 +19,14 @@
       </div>
     </div>
     <div class="form-section">
-      <a class="btn-link" @click="preview = true">Preview</a>
+      <a class="btn-link" @click="preview = true">Reply</a>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 export default {
-  name: 'NewPost',
+  name: 'NewComment',
   data() {
     return {
       preview: false,
@@ -53,6 +44,7 @@ export default {
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
+  props: ['topic', 'topic_id', 'wallet'],
   watch: {
     cancelStage(value) {
       if (value == 2) { this.$emit('closeModal') }
@@ -74,19 +66,19 @@ export default {
     preview(value) {
       if (value) {
         let flag = 0
-        if (this.postTitle.length < 20) {
-          this.postTitleNotice = 'error'
-          this.postTitleDataDifference = `Add ${20-this.postTitle.length} characters.`
-          flag++
-        }
-        if (this.postTitle.length > 100) {
-          this.postTitleNotice = 'error2'
-          this.postTitleDataDifference = `Remove ${this.postTitle.length-100} characters.`
-          flag++
-        }
-        if (this.postBody.length < 20) {
+        // if (this.postTitle.length < 3) {
+        //   this.postTitleNotice = 'error'
+        //   this.postTitleDataDifference = `Add ${3 - this.postTitle.length} characters.`
+        //   flag++
+        // }
+        // if (this.postTitle.length > 100) {
+        //   this.postTitleNotice = 'error2'
+        //   this.postTitleDataDifference = `Remove ${this.postTitle.length - 100} characters.`
+        //   flag++
+        // }
+        if (this.postBody.length < 3) {
           this.postBodyNotice = 'error3'
-          this.postBodyDataDifference = `Add ${20-this.postBody.length} characters.`
+          this.postBodyDataDifference = `Add ${3 - this.postBody.length} characters.`
           flag++
         }
         if (this.postBody.length > 1000) {
@@ -95,7 +87,7 @@ export default {
           flag++
         }
         if (flag == 0) {
-          this.$emit('previewModal', this.payload())
+          this.reply()
         }
         this.preview = false
       }
@@ -111,8 +103,25 @@ export default {
     }),
   },
   methods: {
-    newPost() {
-
+    async reply() {
+      let result = await this.$store.dispatch('submitReply', { post: this.payload(), id: this.wallet });
+      if (result.payload.error) {
+        this.$store.commit("setNotification", {
+          title: "Something went wrong",
+          className: 'error',
+          data: result.payload.error,
+        })
+        return
+      }
+      if (result.payload.message) {
+        this.$store.commit("setNotification", {
+          title: "Looks good",
+          className: 'good',
+          data: result.payload.message,
+        })
+        this.$emit('closeModal')
+        this.$store.commit("setForumPostRepliesWatcherFlag", Date.now())
+      }
     },
     setTag() {
       if (this.tagsInput.trim().length > 0) {
@@ -125,9 +134,8 @@ export default {
     },
     payload() {
       return {
-        postTitle: this.postTitle,
+        topic_id: this.topic_id,
         postBody: this.postBody,
-        category: this.category,
         tags: this.tags,
       }
     },
@@ -146,8 +154,8 @@ export default {
 
 
 .new-post {
-  position: absolute;
-  width: $small;
+  position: relative;
+  width: 100%;
   max-width: 80vw;
   height: max-content;
   display: grid;
@@ -168,27 +176,42 @@ export default {
     left: 0;
     height: 100%;
     width: 100%;
-    background: var(--neutral-7);
+    background: var(--neutral-8);
     z-index: -1;
     border-radius: 20px;
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 100vh;
-    width: 100vw;
-    transform: translate(-50%, -50%);
-    background: var(--gauze);
-    z-index: -2;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
+  // &::after {
+  //   content: '';
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   height: 100vh;
+  //   width: 100vw;
+  //   transform: translate(-50%, -50%);
+  //   background: var(--gauze);
+  //   z-index: -2;
+  //   backdrop-filter: blur(10px);
+  //   -webkit-backdrop-filter: blur(10px);
+  // }
 
   h2 {
     margin-top: 0;
+    position: relative;
+    display: grid;
+    gap: 10px;
+    grid-template: 1fr/auto 1fr;
+
+    b {
+      white-space: nowrap;
+    }
+
+    span {
+      color: var(--neutral-4);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   .form-section {
@@ -210,19 +233,22 @@ export default {
 
     &.error {
       &::after {
-        content: 'This field requires at least 20 characters of text. ' attr(error);
+        content: 'This field requires at least 3 characters of text. ' attr(error);
       }
     }
+
     &.error2 {
       &::after {
         content: 'This field is limited to 100 characters. ' attr(error);
       }
     }
+
     &.error3 {
       &::after {
-        content: 'This field requires at least 20 characters of text. ' attr(error);
+        content: 'This field requires at least 3 characters of text. ' attr(error);
       }
     }
+
     &.error4 {
       &::after {
         content: 'This field is limited to 1000 characters. ' attr(error);
@@ -233,7 +259,7 @@ export default {
     input,
     textarea,
     select {
-      background: var(--neutral-7);
+      background: var(--neutral-8);
       box-shadow: 0 0 0 1px var(--neutral-5);
       border: 0;
       padding: 10px 20px;
@@ -245,7 +271,7 @@ export default {
 
       &:focus {
         outline: none;
-        background: var(--neutral-8);
+        background: var(--neutral-9);
         box-shadow: 0 0 0 0;
       }
     }
@@ -269,7 +295,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    background: var(--neutral-7);
+    background: var(--neutral-8);
     box-shadow: 0 0 0 1px var(--neutral-5);
     border-radius: 10px;
     padding: 10px 10px;
@@ -316,4 +342,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>

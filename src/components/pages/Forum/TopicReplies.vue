@@ -1,27 +1,35 @@
 <template lang="html">
   <div class="forum-topics">
-  <LoadingEle short="short" v-if="!forumPostsCache"/>
-    <router-link v-for="(topic, index) of forumPostsCache" :to="{ path: `/consensus/topic/${topic.topic_id}` }"
-      :key="index" class="topic">
-      <img :src="profileImg(topic.op_address)" class="profile-logo"
-        :title="`Original Poster: Hasher #${opName(topic.op_address, topic.op_profile_id)}`" />
+  <h2>Comments</h2>
+    <LoadingEle short="short" v-if="!topicsReplies" />
+    <div v-for="(reply, index) of topicsReplies" :key="index" class="topic">
+
+
+
+      <div class="hasher-name-organiser-post-view">
+        <img :src="profileImg(reply.op_address)" class="wallet-logo" />
+        <h2>Hasher #{{ opName(reply.op_address, reply.op_profile_id) }}</h2>
+        <small>
+          commented
+          <timeago :datetime="Number(reply.timestamp)" />
+        </small>
+      </div>
+
+
       <div class="main">
-        <h3>{{ topic.topic }}</h3>
+        <p>{{ reply.body }}</p>
         <div class="tags">
-          <div class="tag category">{{ topic.categories }}</div>
-          <div v-for="(tag, index) of topic.tags" :key="index" class="tag">{{ tag }}</div>
+          <div v-for="(tag, index) of reply.tags" :key="index" class="tag">{{ tag }}</div>
         </div>
       </div>
-      <div class="stats-organiser">
-        <div class="view-count"><i class="i-eye"></i> {{ Number(topic.view_count) }}</div>
-        <div class="replies-count"><i class="i-message-square"></i> {{ Number(topic.reply_count) }}</div>
-        <div class="date">posted
-          <timeago :datetime="Number(topic.timestamp)" />
-        </div>
-      </div>
-    </router-link>
-    <template v-if="forumPostsCache.length==0">
-      <p><i>No posts yet.</i></p>
+      <!-- <div class="stats-organiser">
+        <div class="view-count"><i class="i-eye"></i> {{ Number(reply.view_count) }}</div>
+        <div class="replies-count"><i class="i-message-square"></i> {{ Number(reply.reply_count) }}</div>
+        
+      </div> -->
+    </div>
+    <template v-if="topicsReplies.length == 0">
+      <p><i>No replies yet. Be the first.</i></p>
     </template>
   </div>
 </template>
@@ -30,26 +38,34 @@ import { mapGetters } from 'vuex';
 import { minidenticon } from 'minidenticons'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
-  name: 'ForumTopics',
+  name: 'TopicReplies',
   data() {
     return {
+      topicsReplies: false,
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
-  components:{LoadingEle},
-  mounted() {
-
+  props: ['topic_id', 'wallet'],
+  components: { LoadingEle },
+  async mounted() {
+    this.topicsReplies = await this.$store.dispatch("fetchPostReplies", { topic_id: this.topic_id, id: this.wallet, store: this.$store })
   },
   computed: {
     ...mapGetters({
       application: 'application',
       forumProfile: 'forumProfile',
-      forumPostsCache: 'forumPostsCache',
+      forumPostRepliesWatcherFlag: 'forumPostRepliesWatcherFlag',
     }),
+  },
+  watch: {
+    async forumPostRepliesWatcherFlag() {
+      this.topicsReplies = await this.$store.dispatch("fetchPostReplies", { topic_id: this.topic_id, id: this.wallet, store: this.$store })
+    },
   },
   methods: {
     opName(address, id) {
-      return `${address.substr(address.length - 6)}${id}`
+      let isYou = address.toUpperCase()===this.wallet.toUpperCase()?' (You)':''
+      return `${address.substr(address.length - 6)}${id}${isYou}`
     },
     profileImg(address) {
       return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(address))}`
@@ -73,7 +89,7 @@ export default {
   margin-top: 30px;
 
   .topic {
-    display: flex;
+    display: grid;
     gap: 15px;
     border-radius: 20px;
     transition: 200ms ease;
@@ -91,8 +107,12 @@ export default {
       flex-shrink: 0;
       flex-grow: 1;
       display: grid;
-      grid-template: 1.5rem 1fr / 1fr;
+      grid-template: 1fr auto/1fr;
       position: relative;
+
+      p {
+        margin: 0;
+      }
 
       h3 {
         margin: 0;
@@ -118,7 +138,7 @@ export default {
     }
 
     .profile-logo {
-      height: 60px;
+      height: 40px;
       aspect-ratio: 1/1;
       background: var(--neutral-10);
       border-radius: 100px;
@@ -135,7 +155,8 @@ export default {
   margin-right: 0;
   justify-content: end;
   text-align: right;
-  .date{
+
+  .date {
     width: 100%;
   }
 }

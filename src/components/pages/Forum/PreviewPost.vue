@@ -1,10 +1,14 @@
 <template lang="html">
   <div class="form new-post ui-ele">
-    <div class="cancel-container">
-      <a @click="$emit('closePreviewModal')" class="btn-link neutral">Edit <i class="i-edit-3"></i></a>
-      <a @click="cancelStage++" class="cancel">{{ cancelText }}</a>
+    <div class="head-organiser">
+
+      <div class="cancel-container">
+        <a @click="$emit('closePreviewModal')" class="btn-link neutral">Edit <i class="i-edit-3"></i></a>
+        <a @click="cancelStage++" class="cancel">{{ cancelText }}</a>
+      </div>
+      <h2>Post preview</h2>
     </div>
-    <h2>Post preview</h2>
+
     <div class="post">
       <div class="hasher-name-organiser-post-view">
         <img :src="profileImg" class="wallet-logo" />
@@ -124,25 +128,9 @@ export default {
 }
 
 .cancel-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
   display: flex;
   gap: 10px;
 
-  .cancel {
-    border-radius: 100px;
-    padding: 4px 20px;
-    box-shadow: 0 0 0 1px var(--crimson);
-    color: var(--crimson);
-    transition: 200ms ease;
-    cursor: pointer;
-
-    &:hover {
-      background: var(--crimson);
-      color: var(--neutral-0);
-    }
-  }
 }
 
 .new-post {

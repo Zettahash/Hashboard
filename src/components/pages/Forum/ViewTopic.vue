@@ -1,34 +1,58 @@
 <template lang="html">
-  <div class="flex-overview forum-ui">
+  <div class="flex-overview forum-ui column">
+    <router-link :to="{ name: 'consensus' }" class="btn-link neutral subtle"><i class="i-arrow-left"></i>
+      Back</router-link>
+
     <div class="post" v-if="thisTopic">
-    <div class="hasher-name-organiser-post-view">
+      <div class="hasher-name-organiser-post-view">
         <img :src="profileImg(thisTopic.op_address)" class="wallet-logo" />
         <h2>Hasher #{{ opName(thisTopic.op_address, thisTopic.op_profile_id) }}</h2>
-        <small><timeago :datetime="Number(thisTopic.timestamp)" /></small>
+        <small>
+          <timeago :datetime="Number(thisTopic.timestamp)" />
+        </small>
       </div>
 
+      <div class="stats-organiser">
+        <div class="view-count"><i class="i-eye"></i> {{ Number(thisTopic.view_count) + 1 }}</div>
+        <div class="replies-count"><i class="i-message-square"></i> {{ Number(thisTopic.reply_count) }}</div><a
+          class="btn-link" @click="newReply = true"><i class="i-message-circle"></i> Add a comment</a>
+      </div>
 
       <div class="main">
-        <h3>{{ thisTopic.topic }}</h3>
         <div class="tags">
           <div class="tag category">{{ thisTopic.categories }}</div>
           <div v-for="(tag, index) of thisTopic.tags" :key="index" class="tag">{{ tag }}</div>
         </div>
+        <div>
+
+        </div>
+        <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
       </div>
-      <div class="view-count"><i class="i-eye"></i> {{ Number(thisTopic.view_count) + 1 }}</div>
-      <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
     </div>
+    <div class="reply-button-holder">
+      <a class="btn" v-if="!newReply" @click="newReply = true">Add a comment</a>
+    </div>
+    <div ref="newPostEle"></div>
+    <NewComment v-if="newReply" @close-modal="newReply = false" @preview-modal="setPreviewPost" :topic="thisTopic.topic" :topic_id="topic_id" :wallet="wallet"/>
+
+    <TopicReplies :topic_id="topic_id" :wallet="wallet"/>
+
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { minidenticon } from 'minidenticons'
 import VueMarkdown from 'vue-markdown-render'
+import NewComment from './NewComment.vue'
+import TopicReplies from './TopicReplies.vue'
+import { ref } from "vue";
+
 export default {
   name: 'ViewTopic',
-  components:{VueMarkdown},
+  components: { VueMarkdown, NewComment, TopicReplies },
   data() {
     return {
+      newReply: false,
       topic_id: this.$route.params.topic_id,
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
@@ -38,7 +62,7 @@ export default {
       item: 'routerLoaded',
       value: true
     })
-    this.$store.dispatch("viewPost", { id: this.topic_id, address:this.wallet, store: this.$store })
+    this.$store.dispatch("viewPost", { id: this.topic_id, address: this.wallet, store: this.$store })
   },
   computed: {
     ...mapGetters({
@@ -49,7 +73,7 @@ export default {
     }),
     thisTopic() {
       let post = false
-      if(!this.forumPostsCache){return false}
+      if (!this.forumPostsCache) { return false }
       for (const topic of this.forumPostsCache) {
         if (Number(topic.topic_id) === Number(this.topic_id)) {
           post = topic
@@ -59,9 +83,20 @@ export default {
       return post
     },
   },
+  watch: {
+    newReply(value) {
+      if (value == true) {
+        const newPostEle = ref < HTMLElement | null > (null);
+
+        // refs set with a v-for are returned as an array
+        newPostEle.value?.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+  },
   methods: {
     opName(address, id) {
-      return `${address.substr(address.length - 6)}${id}`
+      let isYou = address.toUpperCase()===this.wallet.toUpperCase()?' (You)':''
+      return `${address.substr(address.length - 6)}${id}${isYou}`
     },
     profileImg(address) {
       return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(address))}`
@@ -72,8 +107,19 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/scss/_constants.scss";
 @import "@/assets/scss/_forum.scss";
 
+.stats-organiser {
+  display: flex;
+  margin: 30px 0;
+  gap: 20px;
+  align-items: center;
+}
+.reply-button-holder{
+  position: sticky;
+  top:0;
+  z-index: 2;
+}
 </style>

@@ -27,5 +27,6 @@ let state = {
   test: false,
   forumProfile: false,
   forumPostsCache: false,
+  forumPostRepliesWatcherFlag:false,
 }
 export default state

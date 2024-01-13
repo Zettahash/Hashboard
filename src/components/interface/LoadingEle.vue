@@ -1,12 +1,18 @@
-<template lang="">
-  <div class="parent-flex">
-    <div v-for="n in 3" class="loading small" :key="'small-' + n"></div>
-    <div v-for="n in 2" class="loading" :key="'' + n"></div>
+<template lang="html">
+  <div class="parent-flex" v-if="!preset">
+    <template v-if="short">
+      <div v-for="n in 3" class="loading short" :key="'' + n"></div>
+    </template>
+    <template v-else>
+      <div v-for="n in 3" class="loading small" :key="'small-' + n"></div>
+      <div v-for="n in 2" class="loading" :key="'' + n"></div>
+    </template>
   </div>
 </template>
 <script>
 export default {
-  name: 'LoadingEle'
+  name: 'LoadingEle',
+  props: ['preset', 'short'],
 }
 </script>
 <style lang="scss" scoped>
@@ -21,22 +27,37 @@ export default {
   padding: 30px 0;
 
   .loading {
-    background: var(--neutral-1);
     align-content: start;
-    box-shadow: 0 0 0 0px var(--neutral-10);
+    // box-shadow: 0 0 0 0px var(--neutral-10);
     // transform: translateY(20px)scale(.9);
-    padding: 24px;
-    border-radius: .75rem;
-    animation: loading 2s ease forwards infinite;
-    background: var(--neutral-9);
-    align-content: start;
+    border-radius: 20px;
+    background-color: var(--neutral-10);
     max-width: unset;
     min-width: unset;
-    justify-items: start;
     height: 100px;
-    grid-template: auto auto auto/auto 1fr;
     width: 100%;
-    min-height:20vh;
+    min-height: 20vh;
+    position: relative;
+    overflow: hidden;
+
+    &.short {
+      height: 50px;
+      min-height:unset;
+    }
+
+    &:after {
+      content: '';
+      background-image: linear-gradient(90deg, transparent, var(--neutral-7), transparent);
+      position: absolute;
+      height: 100%;
+      width: 200%;
+      top: 0;
+      left: -50%;
+      z-index: 2;
+      opacity: .3;
+      animation: loading 1000ms ease forwards infinite;
+
+    }
 
     @media (max-width: $content) {
       width: calc(((100vw - 80px) / 3) - 20px);
@@ -75,20 +96,22 @@ export default {
     }
 
     @keyframes loading {
-      0% {
-        opacity: .5
-      }
+      // 0% {
+      //   opacity: .5
+      // }
 
-      50% {
-        opacity: 1;
-      }
-
-      100% {
-        opacity: .5
+      // 100% {
+      //   opacity: 1
+      // }
+      @for $i from 0 through 100 {
+        #{$i * 1%} {
+          transform: translateX(#{$i * 1%});
+        }
       }
     }
 
 
 
   }
-}</style>
+}
+</style>
