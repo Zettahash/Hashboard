@@ -57,24 +57,22 @@ a {
     background: var(--secondary);
     color: var(--neutral-10);
   }
-  &.compact{
+  &.compact {
     font-size: 14px;
     padding: 4px 8px;
-    &:not(.active){
+    &:not(.active) {
       background: var(--neutral-7);
       color: var(--neutral-3);
-  &:hover {
-
-      background: transparent;
-      box-shadow: 0 0 0 2px;
-      color: var(--primary);
+      &:hover {
+        background: transparent;
+        box-shadow: 0 0 0 2px;
+        color: var(--primary);
+      }
     }
   }
-  }
-  
 }
 
-.link{
+.link {
   color: var(--secondary);
   transition: 200ms ease;
   &:hover {
@@ -90,6 +88,13 @@ a {
   &:hover {
     background: var(--secondary);
     color: var(--neutral-10);
+  }
+  &.neutral{
+  color: var(--neutral-3);
+  &:hover {
+    background: var(--neutral-3);
+    color: var(--neutral-10);
+  }
   }
 }
 
@@ -121,22 +126,23 @@ a {
     // transform: translateY(20px);
     // animation: build-in-up 200ms 10ms ease forwards 1;
     &.not-loaded {
-      &:not([data-zhHolder="no"])
-      {&::after {
-        content: url(/src/assets/img/spinner.svg);
-        height: 100px;
-        width: 100px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-        transform-origin: center;
-        opacity: 0;
-        z-index: -1;
-        animation: spin 10000ms 0ms linear forwards infinite;
-      }}
+      &:not([data-zhHolder="no"]) {
+        &::after {
+          content: url(/src/assets/img/spinner.svg);
+          height: 100px;
+          width: 100px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+          transform-origin: center;
+          opacity: 0;
+          z-index: -1;
+          animation: spin 10000ms 0ms linear forwards infinite;
+        }
+      }
     }
   }
   @keyframes spin {
@@ -159,4 +165,11 @@ a {
       transform: translateY(0px);
     }
   }
+}
+
+.wallet-logo {
+  height: 70px;
+  border-radius: 100px;
+  aspect-ratio: 1/1;
+  background: var(--neutral-10);
 }

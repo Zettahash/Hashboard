@@ -128,7 +128,7 @@ export default {
 
     &.good {
       &::after {
-        background: var(--moss);
+        background: var(--dark-moss);
       }
     }
 
@@ -140,7 +140,7 @@ export default {
 
     &.error {
       &::after {
-        background: var(--crimson);
+        background: var(--dark-crimson);
       }
 
     }

@@ -1,11 +1,12 @@
 /* eslint-disable */
 
 const endpoint = process.env.VUE_APP_MIDDLEWARE_URL
+import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
   init({ context, getters, dispatch, commit, rootGetters }) {
 
-    
+
     commit("setDynamic", {
       item: 'version',
       value: process.env.VUE_APP_GIT_HASH
@@ -27,6 +28,7 @@ const actions = {
 
     commit('setDynamic', { item: 'applicationLoaded', value: true })
     dispatch('responsiveUI', { commit })
+    // dispatch('initProfile', { commit, dispatch, getters, context, rootGetters })
 
   },
   fetchLincoin({ commit, dispatch, getters, context, rootGetters }) {
@@ -131,14 +133,47 @@ const actions = {
 
   },
   getSnapshotUser({ commit, dispatch, getters, context, rootGetters }, payload) {
-      try {
-        fetch(`${endpoint}/api/query-snapshot-user/query=address:${payload.address}`, { method: 'get' })
-          .then(result => { return result.json() }).then(data => {
-            payload.store.commit("setSnapshotUser", data.payload)
-          })
-      } catch (e) {
-        // console.log(e)
-      }
+    try {
+      fetch(`${endpoint}/api/query-snapshot-user/query=address:${payload.address}`, { method: 'get' })
+        .then(result => { return result.json() }).then(data => {
+          payload.store.commit("setSnapshotUser", data.payload)
+        })
+    } catch (e) {
+      // console.log(e)
+    }
+  },
+  initProfile({ commit, dispatch, getters, context, rootGetters }, payload) {
+    fetch(`${endpoint}/forum/init`, {
+      // mode: "no-cors",
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ address: payload.address }))
+    })
+      .then(result => { return result.json() }).then(data => {
+        payload.store.commit("setForum", data.payload?.id)
+        payload.store.dispatch("fetchPosts", { id: payload.address, store: payload.store })
+      })
+  },
+  async submitPost({ commit, dispatch, getters, context, rootGetters }, payload) {
+    let encodedPost = encodeStr(JSON.stringify(payload.post))
+    let post = await fetch(`${endpoint}/forum/new-post`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ post: payload.post, address: payload.id }))
+    })
+    return post.json()
+  },
+  async fetchPosts({ commit, dispatch, getters, context, rootGetters }, payload) {
+    let posts = await fetch(`${endpoint}/forum/fetch-posts`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ limit: { start: 0, end: 50 }, address: payload.id }))
+    })
+    let postsPayload = await posts.json()
+    if (postsPayload.payload.posts) { payload.store.commit('setForumPostsCache', postsPayload.payload.posts) }
+  },
+  async viewPost({ commit, dispatch, getters, context, rootGetters }, payload) {
+    await fetch(`${endpoint}/forum/increment-view`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ id:payload.id, address: payload.address }))
+    })
   },
   responsiveUI({ commit }) {
     if (window.innerWidth <= 1200) {

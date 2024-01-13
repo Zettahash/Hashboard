@@ -47,5 +47,11 @@ let mutations = {
   closeNotification(state, payload) {
     state.application.notifications[payload].active = false
   },
+  setForum(state, payload) {
+    state.forumProfile = payload
+  },
+  setForumPostsCache(state, payload) {
+    state.forumPostsCache = payload
+  },
 }
 export default mutations

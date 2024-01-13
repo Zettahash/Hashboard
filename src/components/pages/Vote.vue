@@ -88,14 +88,30 @@ export default {
       let receipt = false
 
       if (this.following) {
-      console.log(this.following)
-        receipt = await client.unfollow(web3, account, {
-          "name": space
-        });
+        console.log(this.following)
+        try {
+          receipt = await client.unfollow(web3, account, {
+            "name": space
+          });
+        } catch (err) {
+          this.$store.commit("setNotification", {
+            title: "Something went wrong",
+            className: 'error',
+            data: err,
+          })
+        }
       } else {
-        receipt = await client.follow(web3, account, {
-          "name": space
-        });
+        try {
+          receipt = await client.follow(web3, account, {
+            "name": space
+          });
+        } catch (err) {
+          this.$store.commit("setNotification", {
+            title: "Something went wrong",
+            className: 'error',
+            data: err,
+          })
+        }
       }
       console.log(receipt)
     },
@@ -126,24 +142,25 @@ export default {
       }
 
       &:hover {
-        background:  var(--primary) !important;
+        background: var(--primary) !important;
       }
-      &.following{
-      &:hover {
-        box-shadow: 0 0 0 1px var(--crimson);
-        background: transparent !important;
-        color: var(--crimson);
 
-        i {
-          display: none;
-        }
-
-        &::after {
-          content: 'Leave';
+      &.following {
+        &:hover {
+          box-shadow: 0 0 0 1px var(--crimson);
+          background: transparent !important;
           color: var(--crimson);
+
+          i {
+            display: none;
+          }
+
+          &::after {
+            content: 'Leave';
+            color: var(--crimson);
+          }
         }
       }
-    }
     }
   }
 }

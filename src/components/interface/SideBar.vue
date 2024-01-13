@@ -15,7 +15,12 @@
         <li><router-link :to="{ name: 'lincoin-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-grid"></i><span>Manager</span></router-link></li>
         <li><router-link :to="{ name: 'lincoin-accountant' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-book"></i><span>Accountant</span></router-link></li>
       </ul>
-      <router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-users"></i><span>Consensus</span></router-link>
+      <router-link :to="{ name: 'consensus' }" @click="dropdown.consensus = !dropdown.consensus" @mouseenter="labelify" @mouseleave="unlabelify" :class="routeClass('consensus')"><i class="i-users"></i><span>Consensus</span></router-link>
+      <ul v-if="dropdown.consensus">
+        <li><router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-list"></i><span>Topics</span></router-link></li>
+        <li><router-link :to="{ name: 'new-topic' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-plus"></i><span>New Post</span></router-link></li>
+       
+      </ul>
       <router-link :class="routeClass('vote')" @click="dropdown.vote = !dropdown.vote" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
         <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-crosshair"></i><span>Proposals</span></router-link></li>
@@ -57,6 +62,7 @@ export default {
         treasury: false,
         vote: false,
         pool: false,
+        consensus: false,
       },
     }
   },

@@ -23,5 +23,11 @@ let getters = {
   snapshotUser: state => {
     return state.snapshotUser
   },
+  forumProfile: state => {
+    return state.forumProfile
+  },
+  forumPostsCache: state => {
+    return state.forumPostsCache
+  },
 }
 export default getters

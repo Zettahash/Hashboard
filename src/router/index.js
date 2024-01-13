@@ -21,6 +21,9 @@ import Proposals from '@/components/pages/Vote/Proposals'
 import AboutVoteProtocol from '@/components/pages/Vote/AboutVoteProtocol'
 
 
+import ViewTopic from '@/components/pages/Forum/ViewTopic'
+import NewPostWrapper from '@/components/pages/Forum/NewPostWrapper'
+
 // -Private Sale: will be important so that they can purchase the ZH token. We use the BTCPay that we have hosted on Voltage.
 
 // -Community Consensus Forum: Will need to have this developed. Standard forum with poll voting header. Community will have login profile, etc.
@@ -142,6 +145,44 @@ const routes = [
     meta: {
       title: 'Consensus | ' + title,
       breadcrumbs: ['consensus'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/consensus/new',
+    name: 'new-topic',
+    component: NewPostWrapper,
+    meta: {
+      title: 'New Topic | ' + title,
+      breadcrumbs: ['consensus', 'new'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/consensus/topic/:topic_id(.*)',
+    name: 'view-topic',
+    component: ViewTopic,
+    meta: {
+      title: 'View Topic | ' + title,
+      breadcrumbs: ['consensus', 'topic', 'view'],
       metaTags: [
         {
           name: 'description',

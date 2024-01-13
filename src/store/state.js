@@ -24,6 +24,8 @@ let state = {
   rates: false,
   snapshot: false,
   snapshotUser: false,
-  test: false
+  test: false,
+  forumProfile: false,
+  forumPostsCache: false,
 }
 export default state
