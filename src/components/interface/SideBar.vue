@@ -23,11 +23,11 @@
       </ul>
       <router-link :class="routeClass('vote')" @click="dropdown.vote = !dropdown.vote" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
-        <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-crosshair"></i><span>Proposals</span></router-link></li>
-        <li><router-link :to="{ name: 'protocol-treasury' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-dollar-sign"></i><span>Treasury</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-bulb"></i><span>Proposals</span></router-link></li>
+        <li><router-link :to="{ name: 'protocol-treasury' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-banknote"></i><span>Treasury</span></router-link></li>
         <li><router-link :to="{ name: 'protocol-about' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-info"></i><span>About</span></router-link></li>
       </ul>
-      <a :class="routeClass('treasury')" @click="dropdown.treasury = !dropdown.treasury" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-shield"></i><span>Treasury</span></a>
+      <a :class="routeClass('treasury')" @click="dropdown.treasury = !dropdown.treasury" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-library"></i><span>Treasury</span></a>
       <ul v-if="dropdown.treasury">
         <li><router-link :to="{ name: 'safe' }" :class="routeClass('safe')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
         <li><router-link :to="{ name: 'specter' }" :class="routeClass('specter')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
@@ -220,7 +220,7 @@ export default {
 
   .shortcuts {
     display: grid;
-    gap: 25px;
+    gap: 30px;
     justify-content: start;
     align-items: center;
     padding: 15px 0px;
@@ -269,11 +269,13 @@ export default {
             position: absolute;
             color: var(--neutral-0);
             z-index: 2;
-            right: -4px;
+            right: -1px;
           }
+
           [data-active="true"] {
-            pointer-events:none;
+            pointer-events: none;
           }
+
           [data-active="false"] {
             display: none;
           }
@@ -283,26 +285,26 @@ export default {
       &::after {
         content: '';
         position: absolute;
-        height: calc(100% + 12px);
-        width: calc(100% + 12px);
+        height: calc(100% + 15px);
+        width: 100%;
         background: var(--primary);
         top: 50%;
         left: 50%;
-        transform: translate(-50%, calc(-50% - 6px));
+        transform: translate(-50%, calc(-50% - 10px));
         z-index: -1;
         opacity: .2;
         border-radius: 5px;
       }
 
       li {
-        padding-bottom: 12px;
+        padding-bottom: 20px;
       }
     }
 
     .shortcut,
     a {
       display: flex;
-      gap: 10px;
+      gap: 15px;
       padding: 0px 20px;
       margin: 0 15px;
       align-items: center;
@@ -357,7 +359,7 @@ export default {
         }
       }
 
-      --icon-size: 18px;
+      --icon-size: 22px;
 
       img {
         height: var(--icon-size);
