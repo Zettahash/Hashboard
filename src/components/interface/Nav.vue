@@ -203,7 +203,7 @@ export default {
 
       @media (max-width: $small) {
         margin-right: auto;
-        width: auto;
+        width: 30px;
 
         span {
           display: none;

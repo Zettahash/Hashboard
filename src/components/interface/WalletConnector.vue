@@ -50,9 +50,9 @@ export default {
 
       // 2. Create wagmiConfig
       const metadata = {
-        name: 'Web3Modal',
+        name: 'Zettahash Hashboard',
         description: 'Web3Modal',
-        url: 'https://web3modal.com',
+        url: 'https://hashboard.zettahash.org',
       }
 
       const chains = [mainnet]

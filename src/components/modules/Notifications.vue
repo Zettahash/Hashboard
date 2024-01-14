@@ -80,8 +80,15 @@ export default {
   left: auto;
   margin: auto;
   width: $x-small * .8;
-  max-width: 80vw;
+  max-width: 70vw;
   z-index: 99;
+  @media (max-width: $x-small) {
+    right: 0;
+  z-index: 499;
+  max-width: 90vw;
+  width: 90vw;
+  left: 0;
+  }
 
   .notification {
     color: var(--neutral-2);
@@ -146,7 +153,6 @@ export default {
     }
 
     .data {
-      font-family: "Open Sans";
     }
 
     .title {
