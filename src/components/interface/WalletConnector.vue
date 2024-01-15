@@ -12,8 +12,11 @@ import { mapGetters } from 'vuex';
 // eslint-disable-next-line no-unused-vars
 import { readContract, getAccount, fetchBalance, watchAccount } from '@wagmi/core'
 // eslint-disable-next-line no-unused-vars
-import { createWeb3Modal, defaultWagmiConfig, useWeb3ModalEvents } from '@web3modal/wagmi/vue'
-import { mainnet } from 'viem/chains'
+import {   createWeb3Modal,  defaultWagmiConfig,  useWeb3Modal,  useWeb3ModalEvents,  useWeb3ModalState,  useWeb3ModalTheme } from '@web3modal/wagmi/vue'
+// import { mainnet } from 'viem/chains'
+// eslint-disable-next-line no-unused-vars
+import { arbitrum, mainnet } from '@wagmi/core/chains'
+
 // import { genericABI } from '../data/genericABI'
 
 export default {
@@ -50,9 +53,7 @@ export default {
 
       // 2. Create wagmiConfig
       const metadata = {
-        name: 'Zettahash Hashboard',
-        description: 'Web3Modal',
-        url: 'https://hashboard.zettahash.org',
+        name: 'Zettahash Hashboard'
       }
 
       const chains = [mainnet]

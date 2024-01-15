@@ -8,7 +8,7 @@
         <div class="container compact">
           <div class="head">
             <router-link :to="{ name: 'protocol-about' }" class="space-id">
-              <ipfs-image radius="100" width="40" height="40" :src="`${space.avatar}`" />
+              <div class="img-wrapper"><img radius="100" :src="`${space.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
               <span class="name">{{ space.name }}</span>
               <span class="id">{{ space.id }}</span>
             </router-link>
