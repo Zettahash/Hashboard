@@ -17,7 +17,7 @@ const metadata = {
   name: 'Zettahash Hashboard',
   description: 'Zettahash Hashboard',
   url: 'https://hashboard.zettahash.org',
-  icons: ['https://hashboard.zettahash.org/src/assets/img/tokens/zh.png']
+  icons: [require('@/assets/img/tokens/zh.png')]
 }
 const chains = [mainnet, arbitrum]
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
