@@ -69,18 +69,4 @@ export default {
 }
 </script>
 <style lang="scss">
-.head-organiser {
-  display: flex;
-  width: 100%;
-  flex-grow: 1;
-  flex-shrink: 0;
-  gap: 10px;
-  align-items: center;
-
-  h1,
-  h2 {
-    font-size: 2rem;
-  }
-
-
-}</style>
+</style>

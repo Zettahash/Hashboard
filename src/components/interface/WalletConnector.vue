@@ -49,6 +49,7 @@ export default {
       application: 'application',
     }),
     wagmiConnected() { return this.application['wagmi.connected'] },
+    wagmiWallet() { return this.application['wagmi.wallet'] },
   },
   mounted() {
     this.init()
@@ -58,10 +59,20 @@ export default {
   watch: {
     wagmiConnected(value) {
       console.log("wagmiConnected:", value)
+      watchAccount((account) => this.updateAccount(account))
+    },
+    wagmiWallet(value) {
+      console.log("wagmiWallet:", value)
+      watchAccount((account) => this.updateAccount(account))
     },
   },
   methods: {
     async init() {
+      try {
+        this.updateAccount(getAccount())
+      } catch (e) {
+        console.log(e)
+      }
     },
     async updateAccount(account) {
       const { isConnected } = getAccount()

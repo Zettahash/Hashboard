@@ -71,7 +71,6 @@ export default {
   flex-direction: column;
   gap: 20px;
   margin-top: 30px;
-
   .topic {
     display: flex;
     gap: 15px;
@@ -82,6 +81,18 @@ export default {
     cursor: pointer;
     align-items: center;
 
+  @media (max-width:$x-small) {
+    display:grid;
+    grid-template: 1fr auto / 1fr auto;
+    .main{
+      grid-column: 1/3;
+      grid-row:2/3;
+    }
+    .stats-organiser{
+      grid-column: 2/3;
+      grid-row:1/2;
+    }
+  }
     &:hover {
       box-shadow: 0 0 0 1px var(--neutral-4);
 
