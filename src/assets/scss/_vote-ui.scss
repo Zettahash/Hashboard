@@ -5,6 +5,9 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @media (max-width: $x-small) {
+  max-width: calc(95vw - 40px);
+}
   .list {
     display: grid;
     gap: 20px;

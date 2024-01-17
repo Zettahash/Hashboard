@@ -72,7 +72,7 @@ export default {
     }),
     uiSidebarCollapse() {
       let stage = 2
-      if (window.outerWidth < 700) { stage-- }
+      if (window.innerWidth < 700) { stage-- }
       if (this.application.uiSidebarCollapse) { stage-- }
       return stage == 0 ? false : stage
     },
@@ -89,6 +89,16 @@ export default {
   mounted() {
     this.init()
     window.addEventListener("scroll", this.unlabelify)
+  },
+  watch: {
+    $route() {
+      if (window.innerWidth < 700) {
+        this.$store.commit('setDynamic', {
+          item: 'uiSidebarCollapse',
+          value: true
+        })
+      }
+    }
   },
   methods: {
     async init() {
@@ -177,33 +187,48 @@ export default {
     width: 70px;
     padding-top: 60px;
 
+    @media (max-width: $sidebar-breakpoint) {
+      padding-top: 0px;
+      width: $sidebar;
+    }
+
     .shortcuts {
-      justify-content: center;
+      @media (min-width: $sidebar-breakpoint) {
+        justify-content: center;
+      }
 
       label {
-        height: 0px;
-        width: 50%;
-        overflow: hidden;
-        padding: 0;
-        margin: 0 auto;
-        box-shadow: 0 0 0 .5px var(--neutral-6);
-        display: block;
-        line-height: 2;
+        @media (min-width: $sidebar-breakpoint) {
+          height: 0px;
+          width: 50%;
+          overflow: hidden;
+          padding: 0;
+          margin: 0 auto;
+          box-shadow: 0 0 0 .5px var(--neutral-6);
+          display: block;
+          line-height: 2;
+        }
       }
 
       .shortcut,
       a {
-        padding: 0;
-        justify-content: center;
+        @media (min-width: $sidebar-breakpoint) {
+          padding: 0;
+          justify-content: center;
+        }
 
         span {
-          display: none;
+          @media (min-width: $sidebar-breakpoint) {
+            display: none;
+          }
         }
       }
     }
 
     ul {
-      padding-left: 0;
+      @media (min-width: $sidebar-breakpoint) {
+        padding-left: 0;
+      }
     }
   }
 
@@ -382,5 +407,4 @@ export default {
       }
     }
   }
-}
-</style>
+}</style>

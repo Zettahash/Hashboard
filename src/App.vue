@@ -3,11 +3,12 @@
     <NavBar />
     <SideBar />
 
-    <div :class="application.routerLoaded ? 'page-contents loaded' : 'page-contents not-loaded'" :data-zhHolder="application.zhHolderBool?'yes':'no'">
+    <div :class="pageContentsClass"
+      :data-zhHolder="application.zhHolderBool ? 'yes' : 'no'">
 
-        <Notifications />
+      <Notifications />
       <template v-if="application.zhHolderBool">
-      <router-view></router-view></template>
+        <router-view></router-view></template>
       <template v-else>
         <PayWall />
       </template>
@@ -35,6 +36,19 @@ export default {
     ...mapGetters({
       application: 'application',
     }),
+    routerLoaded() {
+      return this.application.routerLoaded
+    },
+    uiSidebarCollapse() {
+      return this.application.uiSidebarCollapse
+    },
+    pageContentsClass() {
+      let className = 'page-contents'
+      if (this.routerLoaded) { className += ' loaded' }
+      else { className += ' not-loaded' }
+      if (!this.uiSidebarCollapse && window.innerWidth<=700) { className += ' blur' }
+      return className
+    },
     dark() {
       return this.application.uiThemeDark
     },
@@ -62,9 +76,15 @@ export default {
 @import "@/assets/scss/styles.scss";
 
 // REMOVE ALL STYLES AFTER THIS LINE WHEN REMOVING COMING SOON BANNER
-.page-contents{
+.page-contents {
   grid-template-rows: 1fr;
-} 
+  transition: 200ms ease;
+  &.blur{
+    filter: blur(50px);
+    -webkit-filter: blur(50px);
+  }
+}
+
 .coming-soon {
   padding: 20px;
   display: block;
@@ -87,7 +107,7 @@ export default {
     left: 0;
     content: '';
     z-index: -1;
-    opacity:.1;
+    opacity: .1;
   }
 }
 </style>

@@ -184,6 +184,15 @@ export default {
   grid-column: 1/3;
   grid-row: 1/2;
 
+  @media (max-width: $x-small) {
+    display: grid;
+    grid-template: auto / auto 1fr;
+    align-items: center;
+    box-shadow: 0 1px 0 0 var(--neutral-6);
+    padding-left: 20px;
+    gap: 0px;
+  }
+
   .nav-inner {
     display: grid;
     padding: 10px 20px;
@@ -192,6 +201,11 @@ export default {
     align-items: center;
     background-color: var(--neutral-9);
     box-shadow: 0 1px 0 0 var(--neutral-6);
+
+    @media (max-width: $x-small) {
+      grid-column: 2/3;
+      box-shadow: unset;
+    }
 
     .logo {
       display: inline-flex;
@@ -480,6 +494,13 @@ i.i-refresh-cw.spinning {
   top: 100%;
   transform: translate(20px, 20px);
 
+  @media (max-width: $x-small) {
+    position: relative;
+    grid-column: 1/2;
+    top: unset;
+    transform: unset;
+  }
+
   &:hover {
     i {
       &::before {
@@ -504,13 +525,16 @@ i.i-refresh-cw.spinning {
       &::before {
         color: var(--secondary);
         background-color: var(--neutral-9);
-    padding: 2px;
+        padding: 2px;
       }
     }
 
     // color: var(--neutral-10);
     transform: translate(calc($sidebar - 50%), 20px);
 
+    @media (max-width: $x-small) {
+      transform: unset;
+    }
   }
 
   &.collapse-false {
@@ -530,7 +554,10 @@ i.i-refresh-cw.spinning {
   &.collapse-1 {
     transform: translate(calc(8px + 50%), 20px);
     font-size: 24px;
-
+    @media (max-width: $x-small) {
+      transform: unset;
+    font-size: 30px;
+    }
     .i-chevron-left {
       display: block;
       // transform: translate(-2px, -1px);
