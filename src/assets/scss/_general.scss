@@ -87,20 +87,19 @@ a {
   transition: 200ms ease;
   width: max-content;
   cursor: pointer;
-&.subtle{
-  box-shadow: 0 0 0 0px;
-
-}
+  &.subtle {
+    box-shadow: 0 0 0 0px;
+  }
   &:hover {
     background: var(--secondary);
     color: var(--neutral-10);
   }
-  &.neutral{
-  color: var(--neutral-3);
-  &:hover {
-    background: var(--neutral-3);
-    color: var(--neutral-10);
-  }
+  &.neutral {
+    color: var(--neutral-3);
+    &:hover {
+      background: var(--neutral-3);
+      color: var(--neutral-10);
+    }
   }
 }
 
@@ -169,6 +168,34 @@ a {
     to {
       opacity: 1;
       transform: translateY(0px);
+    }
+  }
+}
+
+.spinner {
+  height: 1rem;
+  aspect-ratio: 1/1;
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: "";
+    height: 100%;
+    aspect-ratio: 1/1;
+    position: absolute;
+    display: block;
+    top: -4px;
+    left: -4px;
+    transform-origin: 50% 50%;
+    border-radius: 100px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: var(--primary);
+    border-top-color: transparent;
+    animation: spin2 2000ms 0ms linear forwards infinite;
+  }
+  @keyframes spin2 {
+    to {
+      transform: rotate(360deg);
     }
   }
 }

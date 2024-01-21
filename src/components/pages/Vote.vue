@@ -8,7 +8,8 @@
         <div class="container compact">
           <div class="head">
             <router-link :to="{ name: 'protocol-about' }" class="space-id">
-              <div class="img-wrapper"><img radius="100" :src="`${space.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
+              <div class="img-wrapper"><img radius="100"
+                  :src="`${space?.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
               <span class="name">{{ space.name }}</span>
               <span class="id">{{ space.id }}</span>
             </router-link>
@@ -28,12 +29,12 @@
   </div>
 </template>
 <script>
-// import ProtocolVotingLocations from './../tiles/ProtocolVotingLocations.vue'
 import { mapGetters } from 'vuex';
-import { Web3Provider } from '@ethersproject/providers';
-import snapshot from '@snapshot-labs/snapshot.js';
-// import {space, proposals} from "@/components/data/graphQL"
-// import snapshot from '@snapshot-labs/snapshot.js';
+import {Client} from '@snapshot-labs/snapshot.js';
+
+// eslint-disable-next-line no-unused-vars
+import { BrowserProvider } from 'ethers'
+const client = new Client('https://hub.snapshot.org', { relayerURL:'https://hub.snapshot.org' })
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Vote',
@@ -65,6 +66,7 @@ export default {
   },
   async mounted() {
     this.routeLoaded()
+
   },
   components: {
     // ProtocolVotingLocations,
@@ -77,37 +79,31 @@ export default {
       })
     },
     async followUnfollow(space) {
-      console.log(space)
-      const client = new snapshot.Client712('https://hub.snapshot.org');
-      console.log(client)
-      const web3 = new Web3Provider(window.ethereum);
-      console.log(web3)
-      // const account = [this.wallet];
-      const [account] = await web3.listAccounts();
-      console.log(account)
       let receipt = false
-
+      const walletProvider = this.application.walletConnectModal.getWalletProvider()
+      const ethersProvider = new BrowserProvider(walletProvider)
       if (this.following) {
-        console.log(this.following)
         try {
-          receipt = await client.unfollow(web3, account, {
+          receipt = await client.unfollow(ethersProvider, this.wallet, {
+            "from":this.wallet,
             "name": space
           });
         } catch (err) {
           this.$store.commit("setNotification", {
-            title: "Something went wrong",
+            title: "Something went wrong with unfollow",
             className: 'error',
             data: err,
           })
         }
       } else {
         try {
-          receipt = await client.follow(web3, account, {
+          receipt = await client.follow(ethersProvider, this.wallet, {
+            "from":this.wallet,
             "name": space
           });
         } catch (err) {
           this.$store.commit("setNotification", {
-            title: "Something went wrong",
+            title: "Something went wrong with follow",
             className: 'error',
             data: err,
           })

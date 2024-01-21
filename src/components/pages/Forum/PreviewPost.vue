@@ -11,8 +11,8 @@
 
     <div class="post">
       <div class="hasher-name-organiser-post-view">
-        <img :src="profileImg" class="wallet-logo" />
-        <h2>Hasher #{{ hasherName }}</h2>
+        <img :src="profileImg()" class="wallet-logo" />
+        <h2>Hasher #{{ hasherName() }}</h2>
         <small>on {{ new Date() }}</small>
       </div>
       <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
@@ -33,7 +33,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import VueMarkdown from 'vue-markdown-render'
-import { minidenticon } from 'minidenticons'
+import { profileImg, hasherName} from '@/utils/forum'
 export default {
   name: 'PreviewPost',
   data() {
@@ -66,14 +66,9 @@ export default {
       forumProfile: 'forumProfile',
       wallet: 'wallet',
     }),
-    profileImg() {
-      return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(this.wallet))}`
-    },
-    hasherName() {
-      return `${this.wallet.substr(this.wallet.length - 6)}${this.forumProfile}`
-    },
   },
   methods: {
+    profileImg,hasherName,
     markdownPreprocess() {
       return String(`# ${this.payload.postTitle}\n\n${this.payload.postBody}`)
     },

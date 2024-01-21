@@ -149,7 +149,7 @@ const actions = {
       body: encodeURI(JSON.stringify({ address: payload.address }))
     })
       .then(result => { return result.json() }).then(data => {
-        payload.store.commit("setForum", data.payload?.id)
+        payload.store.commit("setForum", data.payload?.profile)
         payload.store.dispatch("fetchPosts", { id: payload.address, store: payload.store })
       })
   },
@@ -190,6 +190,15 @@ const actions = {
     })
     let postsPayload = await posts.json()
     if (postsPayload.payload.replies) { return postsPayload.payload.replies }
+    else{return {error: 'Failed to fetch comments.'}}
+  },
+  async snapshotUnfollow({ commit, dispatch, getters, context, rootGetters }, payload) {
+    let request = await fetch(`${endpoint}/snapshot/unfollow`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ address: payload.address }))
+    })
+    let response = await request.json()
+    if (response.payload) { return response.payload }
     else{return {error: 'Failed to fetch comments.'}}
   },
   responsiveUI({ commit }) {

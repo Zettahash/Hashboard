@@ -3,8 +3,7 @@
     <NavBar />
     <SideBar />
 
-    <div :class="pageContentsClass"
-      :data-zhHolder="application.zhHolderBool ? 'yes' : 'no'">
+    <div :class="pageContentsClass" :data-zhHolder="application.zhHolderBool ? 'yes' : 'no'" @click="collapseSidebar()">
 
       <Notifications />
       <template v-if="application.zhHolderBool">
@@ -46,7 +45,7 @@ export default {
       let className = 'page-contents'
       if (this.routerLoaded) { className += ' loaded' }
       else { className += ' not-loaded' }
-      if (!this.uiSidebarCollapse && window.innerWidth<=700) { className += ' blur' }
+      if (!this.uiSidebarCollapse && window.innerWidth <= 700) { className += ' blur' }
       return className
     },
     dark() {
@@ -61,11 +60,21 @@ export default {
       })
     }
   },
+  methods: {
+    collapseSidebar() {
+      if (window.innerWidth < 1250) {
+        this.$store.commit('setDynamic', {
+          item: 'uiSidebarCollapse',
+          value: true
+        })
+      }
+    },
+  },
   mounted() {
-    this.$store.commit("setNotification", {
-      title: `Hashboard BETA`,
-      data: `We're getting the Hashboard ready to launch 🚀`,
-    })
+    // this.$store.commit("setNotification", {
+    //   title: `Hashboard BETA`,
+    //   data: `We're getting the Hashboard ready to launch 🚀`,
+    // })
   }
 }
 </script>
@@ -79,7 +88,8 @@ export default {
 .page-contents {
   grid-template-rows: 1fr;
   transition: 200ms ease;
-  &.blur{
+
+  &.blur {
     filter: blur(50px);
     -webkit-filter: blur(50px);
   }

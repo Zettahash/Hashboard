@@ -4,7 +4,7 @@
     <router-link v-for="(topic, index) of forumPostsCache" :to="{ path: `/consensus/topic/${topic.topic_id}` }"
       :key="index" class="topic">
       <img :src="profileImg(topic.op_address)" class="profile-logo"
-        :title="`Original Poster: Hasher #${opName(topic.op_address, topic.op_profile_id)}`" />
+        :title="`Original Poster: Hasher #${hasherName(topic.op_address, topic.op_profile_id)}`" />
       <div class="main">
         <h3>{{ topic.topic }}</h3>
         <div class="tags">
@@ -27,8 +27,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { minidenticon } from 'minidenticons'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
+import { profileImg, hasherName} from '@/utils/forum'
+
 export default {
   name: 'ForumTopics',
   data() {
@@ -48,12 +49,7 @@ export default {
     }),
   },
   methods: {
-    opName(address, id) {
-      return `${address.substr(address.length - 6)}${id}`
-    },
-    profileImg(address) {
-      return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(address))}`
-    },
+    profileImg, hasherName,
   }
 }
 </script>

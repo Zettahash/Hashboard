@@ -6,7 +6,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { minidenticon } from 'minidenticons'
 import NewPost from '@/components/pages/Forum/NewPost.vue';
 import PreviewPost from '@/components/pages/Forum/PreviewPost.vue';
 export default {
@@ -34,12 +33,6 @@ export default {
       wallet: 'wallet',
       forumPostsCache: 'forumPostsCache',
     }),
-    profileImg() {
-      return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(this.wallet))}`
-    },
-    hasherName() {
-      return `${this.wallet.substr(this.wallet.length - 6)}${this.forumProfile}`
-    },
   },
   watch: {
     wallet(value) {

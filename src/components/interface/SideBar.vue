@@ -2,8 +2,8 @@
   <div :class="`sidebar collapse-${uiSidebarCollapse}`" @scroll="unlabelify">
     <template v-if="uiSidebarCollapse !== 'false'">
     <div class="shortcuts">
-      <router-link :to="{ name: 'lincoin-manager' }" :class="routeClass('hashboard')" @click="dropdown.hashboard = !dropdown.hashboard" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-cpu"></i><span>Hashboard</span></router-link>
-      <ul v-if="dropdown.hashboard" :class="`dropdown ${dropdown.pool}`" @click="dropdown.pool=!dropdown.pool" @mouseenter="labelify" @mouseleave="unlabelify">
+      <router-link :to="{ name: 'lincoin-manager' }" :class="routeClass('hashboard')" @click="dropdownToggle('hashboard')" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-cpu"></i><span>Hashboard</span></router-link>
+      <ul v-if="dropdown.hashboard" :class="`dropdown ${dropdown.pool}`" @click="dropdownToggle('pool', 1)" @mouseenter="labelify" @mouseleave="unlabelify">
         <li data-for="lincoin" :data-active="activeFarm('lincoin')">
           <router-link :to="{ name: 'lincoin-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/lincoin.png')" class="icon" /><span>Lincoin</span></router-link>
         </li>
@@ -15,25 +15,30 @@
         <li><router-link :to="{ name: 'lincoin-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-grid"></i><span>Manager</span></router-link></li>
         <li><router-link :to="{ name: 'lincoin-accountant' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-book"></i><span>Accountant</span></router-link></li>
       </ul>
-      <router-link :to="{ name: 'consensus' }" @click="dropdown.consensus = !dropdown.consensus" @mouseenter="labelify" @mouseleave="unlabelify" :class="routeClass('consensus')"><i class="i-users"></i><span>Consensus</span></router-link>
+      <router-link :to="{ name: 'consensus' }" @click="dropdownToggle('consensus')" @mouseenter="labelify" @mouseleave="unlabelify" :class="routeClass('consensus')"><i class="i-forum"></i><span>Consensus</span></router-link>
       <ul v-if="dropdown.consensus">
         <li><router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-list"></i><span>Topics</span></router-link></li>
         <li><router-link :to="{ name: 'new-topic' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-plus"></i><span>New Post</span></router-link></li>
        
       </ul>
-      <router-link :class="routeClass('vote')" @click="dropdown.vote = !dropdown.vote" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
+      <router-link :class="routeClass('vote')" @click="dropdownToggle('vote')" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
         <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-bulb"></i><span>Proposals</span></router-link></li>
         <li><router-link :to="{ name: 'protocol-treasury' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-banknote"></i><span>Treasury</span></router-link></li>
         <li><router-link :to="{ name: 'protocol-about' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-info"></i><span>About</span></router-link></li>
       </ul>
-      <a :class="routeClass('treasury')" @click="dropdown.treasury = !dropdown.treasury" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-library"></i><span>Treasury</span></a>
+      <a :class="routeClass('treasury')" @click="dropdownToggle('treasury')" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-library"></i><span>Treasury</span></a>
       <ul v-if="dropdown.treasury">
-        <li><router-link :to="{ name: 'safe' }" :class="routeClass('safe')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
-        <li><router-link :to="{ name: 'specter' }" :class="routeClass('specter')" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
+        <li><router-link :to="{ name: 'safe' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
+        <li><router-link :to="{ name: 'specter' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
       </ul>
       <router-link :to="{ name: 'assets' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-hard-drive"></i><span>Assets</span></router-link>
       <router-link :to="{ name: 'market' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-trending-up"></i><span>Market</span></router-link>
+    </div>
+    <div class="shortcuts">
+      <label>Management</label>
+      <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-user"></i><span>Profile #{{hasherName()}}</span></router-link>
+      <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{walletShortName(wallet)}}</span></router-link>
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
@@ -48,6 +53,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import { profileImg, hasherName } from '@/utils/forum'
+import {walletShortName} from '@/utils/strings'
 export default {
   name: "SideBar",
   components: {
@@ -69,6 +76,7 @@ export default {
   computed: {
     ...mapGetters({
       application: 'application',
+      wallet:'wallet',
     }),
     uiSidebarCollapse() {
       let stage = 2
@@ -98,13 +106,14 @@ export default {
           value: true
         })
       }
-    }
+    },
   },
   methods: {
+    profileImg, hasherName,walletShortName,
     async init() {
     },
     routeClass(parent, depth = 0) {
-      let className = 'shortcut '
+      let className = 'caret shortcut '
       if (this.$route.meta.breadcrumbs) {
         let breadcrumbs = this.$route.meta.breadcrumbs
         if (breadcrumbs.indexOf(parent) == depth) {
@@ -112,7 +121,17 @@ export default {
           this.dropdown[parent] = true
         }
       }
+      if (this.dropdown[parent]) { className += 'dropdown-open' }
       return className
+    },
+    dropdownToggle(item, depth = 0) {
+      if (depth == 0) {
+        for (const key of Object.keys(this.dropdown)) {
+          if(key != item)
+          {this.dropdown[key] = false}
+        }
+      }
+      this.dropdown[item]=!this.dropdown[item]
     },
     getIcon(str) {
       let token = str.toLowerCase()
@@ -149,262 +168,11 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import '@/assets/scss/constants';
-
-.temp-label-sidebar {
-  position: absolute;
-  top: 0;
-  left: calc(1rem + 5px);
-  z-index: 301;
+@import '@/assets/scss/sidebar';
+.wallet-icon{
   background: var(--neutral-10);
-  box-shadow: 0 0 0 1px var(--neutral-6);
-  padding: 2px 5px;
-  border-radius: 3px;
+  border-radius: 100px;
 }
-
-.sidebar {
-  // height: 100vh;
-  padding-top: 20px;
-  position: sticky;
-  top: 0;
-  z-index: 300;
-  overflow-x: hidden;
-  overflow-y: auto;
-  width: 0px;
-  transition: 400ms ease;
-  display: flex;
-  flex-direction: column;
-
-  &:not(.collapse-false) {
-    width: $sidebar;
-    max-width: 90vw;
-    background-color: var(--neutral-9);
-    box-shadow: 1px 0 0 0 var(--neutral-6);
-  }
-
-  &.collapse-1 {
-    width: 70px;
-    padding-top: 60px;
-
-    @media (max-width: $sidebar-breakpoint) {
-      padding-top: 0px;
-      width: $sidebar;
-    }
-
-    .shortcuts {
-      @media (min-width: $sidebar-breakpoint) {
-        justify-content: center;
-      }
-
-      label {
-        @media (min-width: $sidebar-breakpoint) {
-          height: 0px;
-          width: 50%;
-          overflow: hidden;
-          padding: 0;
-          margin: 0 auto;
-          box-shadow: 0 0 0 .5px var(--neutral-6);
-          display: block;
-          line-height: 2;
-        }
-      }
-
-      .shortcut,
-      a {
-        @media (min-width: $sidebar-breakpoint) {
-          padding: 0;
-          justify-content: center;
-        }
-
-        span {
-          @media (min-width: $sidebar-breakpoint) {
-            display: none;
-          }
-        }
-      }
-    }
-
-    ul {
-      @media (min-width: $sidebar-breakpoint) {
-        padding-left: 0;
-      }
-    }
-  }
-
-  &.collapse-2 {
-
-    ul {
-      &::after {
-        opacity: 0.1 !important;
-        transform: translate(calc((-50% - 6px) + 2rem), calc(-50% - 6px)) !important;
-        width: calc((100% + 12px) - 2rem) !important;
-      }
-    }
-  }
-
-  .shortcuts {
-    display: grid;
-    gap: 30px;
-    justify-content: start;
-    align-items: center;
-    padding: 15px 0px;
-    font-family: $sans-serif;
-    font-size: 16px;
-
-    &.version {
-      flex-grow: 1;
-      align-content: end;
-
-      .shortcut,
-      a {
-        gap: 0;
-        color: var(--neutral-5);
-        font-size: .8rem;
-      }
-    }
-
-    label {
-      text-transform: uppercase;
-      font-weight: 900;
-      font-size: .8rem;
-      color: var(--neutral-4);
-      padding: 24px 20px 0px 20px;
-      margin: 0 15px;
-    }
-
-    ul {
-      list-style: none;
-      margin-top: 0;
-      position: relative;
-
-      &.dropdown {
-        margin-bottom: -10px;
-
-        &.false {
-          &::before {
-            font-family: "ico" !important;
-            font-style: normal;
-            font-weight: normal;
-            font-variant: normal;
-            text-transform: none;
-            line-height: 1;
-            -moz-osx-font-smoothing: grayscale;
-            content: "\e92e";
-            position: absolute;
-            color: var(--neutral-0);
-            z-index: 2;
-            right: -1px;
-          }
-
-          [data-active="true"] {
-            pointer-events: none;
-          }
-
-          [data-active="false"] {
-            display: none;
-          }
-        }
-      }
-
-      &::after {
-        content: '';
-        position: absolute;
-        height: calc(100% + 15px);
-        width: 100%;
-        background: var(--primary);
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, calc(-50% - 10px));
-        z-index: -1;
-        opacity: .2;
-        border-radius: 5px;
-      }
-
-      li {
-        padding-bottom: 20px;
-      }
-    }
-
-    .shortcut,
-    a {
-      display: flex;
-      gap: 15px;
-      padding: 0px 20px;
-      margin: 0 15px;
-      align-items: center;
-      position: relative;
-      font-weight: 400;
-      cursor: pointer;
-
-      &.router-link-exact-active,
-      &.active {
-        color: var(--primary);
-
-        // &:after {
-        //   content: "";
-        //   z-index: -1;
-        //   height: 100%;
-        //   width: 100%;
-        //   background: var(--secondary);
-        //   left: 0;
-        //   top: 0;
-        //   opacity: .1;
-        //   position: absolute;
-        //   border-radius: 15px;
-        // }
-
-        span {
-          // font-weight: 800;
-        }
-
-        i {
-          svg {
-            path {
-              fill: var(--primary);
-            }
-          }
-        }
-
-      }
-
-      &:not(.router-link-exact-active),
-      &:not(.active) {
-        &:hover {
-          color: var(--secondary);
-
-          i {
-            svg {
-              path {
-                fill: var(--secondary);
-              }
-            }
-          }
-
-        }
-      }
-
-      --icon-size: 22px;
-
-      img {
-        height: var(--icon-size);
-        max-width: var(--icon-size);
-      }
-
-      i {
-        font-size: var(--icon-size);
-
-        svg {
-          height: var(--icon-size);
-          width: var(--icon-size);
-          margin: auto;
-          display: block;
-
-          path {
-            fill: var(--neutral-0);
-          }
-        }
-      }
-    }
-  }
-}</style>
+</style>

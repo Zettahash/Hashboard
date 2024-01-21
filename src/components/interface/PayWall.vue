@@ -54,7 +54,7 @@ export default {
         title: "Connect your wallet to get started.",
         data: "You'll need to connect your wallet and hold at least 1ZH to continue.",
       })}
-    }, 4000)
+    }, 8000)
   },
 }
 </script>

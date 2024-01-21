@@ -8,7 +8,7 @@
 
       <div class="hasher-name-organiser-post-view">
         <img :src="profileImg(reply.op_address)" class="wallet-logo" />
-        <h2>Hasher #{{ opName(reply.op_address, reply.op_profile_id) }}</h2>
+        <h2>Hasher #{{ hasherName(reply.op_address, reply.op_profile_id) }}</h2>
         <small>
           commented
           <timeago :datetime="Number(reply.timestamp)" />
@@ -35,7 +35,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { minidenticon } from 'minidenticons'
+import { profileImg, hasherName} from '@/utils/forum'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   name: 'TopicReplies',
@@ -63,13 +63,7 @@ export default {
     },
   },
   methods: {
-    opName(address, id) {
-      let isYou = address.toUpperCase()===this.wallet.toUpperCase()?' (You)':''
-      return `${address.substr(address.length - 6)}${id}${isYou}`
-    },
-    profileImg(address) {
-      return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(address))}`
-    },
+    profileImg,hasherName,
   }
 }
 </script>

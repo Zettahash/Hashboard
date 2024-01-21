@@ -6,7 +6,7 @@
     <div class="post" v-if="thisTopic">
       <div class="hasher-name-organiser-post-view">
         <img :src="profileImg(thisTopic.op_address)" class="wallet-logo" />
-        <h2>Hasher #{{ opName(thisTopic.op_address, thisTopic.op_profile_id) }}</h2>
+        <h2>Hasher #{{ hasherName(thisTopic.op_address, thisTopic.op_profile_id) }}</h2>
         <small>
           <timeago :datetime="Number(thisTopic.timestamp)" />
         </small>
@@ -41,7 +41,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { minidenticon } from 'minidenticons'
+import { profileImg, hasherName} from '@/utils/forum'
 import VueMarkdown from 'vue-markdown-render'
 import NewComment from './NewComment.vue'
 import TopicReplies from './TopicReplies.vue'
@@ -94,13 +94,8 @@ export default {
     },
   },
   methods: {
-    opName(address, id) {
-      let isYou = address.toUpperCase()===this.wallet.toUpperCase()?' (You)':''
-      return `${address.substr(address.length - 6)}${id}${isYou}`
-    },
-    profileImg(address) {
-      return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(address))}`
-    },
+    hasherName,
+    profileImg,
     markdownPreprocess() {
       return String(`# ${this.thisTopic.topic}\n\n${this.thisTopic.body}`)
     },

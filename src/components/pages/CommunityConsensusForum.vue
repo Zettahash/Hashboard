@@ -4,8 +4,8 @@
     <div class="head-organiser">
     <h1>Welcome,</h1>
     <div class="hasher-name-organiser">
-    <img :src="profileImg" class="wallet-logo" />
-    <h2>Hasher #{{hasherName}}</h2>
+    <img :src="profileImg()" class="wallet-logo" />
+    <h2>Hasher #{{hasherName()}}</h2>
     </div>
     </div>
     <div>
@@ -18,10 +18,11 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { minidenticon } from 'minidenticons'
 import NewPost from '@/components/pages/Forum/NewPost.vue';
 import PreviewPost from '@/components/pages/Forum/PreviewPost.vue';
 import ForumTopics from '@/components/pages/Forum/ForumTopics.vue';
+import { profileImg, hasherName} from '@/utils/forum'
+
 export default {
   name: 'CommunityConsensusForum',
   data() {
@@ -47,12 +48,6 @@ export default {
       wallet: 'wallet',
       forumPostsCache: 'forumPostsCache',
     }),
-    profileImg() {
-      return `data:image/svg+xml;utf8,${encodeURIComponent(minidenticon(this.wallet))}`
-    },
-    hasherName() {
-      return `${this.wallet.substr(this.wallet.length - 6)}${this.forumProfile}`
-    },
   },
   watch: {
     wallet(value) {
@@ -62,6 +57,7 @@ export default {
     }
   },
   methods: {
+    profileImg, hasherName,
     newPostUI() {
       this.newPost = true
     },

@@ -16,6 +16,7 @@ let state = {
     zhBalance: false,
     walletConnected: false,
     activeFarm: 'lincoin',
+    walletConnectModal:false,
   },
   data: {},
   payload: false,
@@ -27,6 +28,10 @@ let state = {
   test: false,
   forumProfile: false,
   forumPostsCache: false,
-  forumPostRepliesWatcherFlag:false,
+  forumPostRepliesWatcherFlag: false,
+  ens:{
+    name: false,
+    avatar: false
+  },
 }
 export default state

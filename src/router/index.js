@@ -13,7 +13,6 @@ import Market from '@/components/pages/Market'
 import SafeTreasury from '@/components/pages/Treasury/Safe/Treasury'
 import SpecterTreasury from '@/components/pages/Treasury/Specter/Treasury'
 
-import Holdings from '@/components/pages/Holdings'
 import Assets from '@/components/pages/Assets'
 
 import VoteProtocolTreasury from '@/components/pages/Vote/VoteProtocolTreasury'
@@ -23,6 +22,8 @@ import AboutVoteProtocol from '@/components/pages/Vote/AboutVoteProtocol'
 
 import ViewTopic from '@/components/pages/Forum/ViewTopic'
 import NewPostWrapper from '@/components/pages/Forum/NewPostWrapper'
+import ProfileManager from '@/components/pages/ProfileManager'
+import WalletManager from '@/components/pages/WalletManager'
 
 // -Private Sale: will be important so that they can purchase the ZH token. We use the BTCPay that we have hosted on Voltage.
 
@@ -371,12 +372,31 @@ const routes = [
     }
   },
   {
-    path: '/holdings',
-    name: 'holdings',
-    component: Holdings,
+    path: '/profile',
+    name: 'profile',
+    component: ProfileManager,
     meta: {
-      title: 'Holdings | ' + title,
-      breadcrumbs: ['holdings'],
+      title: 'Profile | ' + title,
+      breadcrumbs: ['profile'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/wallet',
+    name: 'wallet',
+    component: WalletManager,
+    meta: {
+      title: 'Wallet | ' + title,
+      breadcrumbs: ['wallet'],
       metaTags: [
         {
           name: 'description',

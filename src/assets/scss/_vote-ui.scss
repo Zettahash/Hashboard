@@ -1,6 +1,6 @@
 .proposals-ui,
 .containers-ui {
-  width: ($small * .9) - 40px;
+  width:$ui-width - 40px;
   max-width: calc(80vw - 40px);
   display: flex;
   flex-direction: column;
