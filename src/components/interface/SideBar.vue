@@ -39,6 +39,7 @@
       <label>Management</label>
       <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-user"></i><span>Profile #{{hasherName()}}</span></router-link>
       <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{walletShortName(wallet)}}</span></router-link>
+      <a v-if="wallet && !application.zhHolderBool" @click="doDisconnect()" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-log-out"></i><span>Disconnect</span></a>
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
@@ -54,7 +55,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import { profileImg, hasherName } from '@/utils/forum'
-import {walletShortName} from '@/utils/strings'
+import { walletShortName } from '@/utils/strings'
+import { useDisconnect } from '@web3modal/ethers/vue'
+const { disconnect } = useDisconnect()
 export default {
   name: "SideBar",
   components: {
@@ -109,7 +112,11 @@ export default {
     },
   },
   methods: {
-    profileImg, hasherName,walletShortName,
+    profileImg, hasherName, walletShortName, disconnect,
+    doDisconnect() {
+      this.$store.commit('setWallet', false)
+      disconnect()
+    },
     async init() {
     },
     routeClass(parent, depth = 0) {
