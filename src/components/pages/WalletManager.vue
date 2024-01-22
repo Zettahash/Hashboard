@@ -79,6 +79,7 @@ export default {
       this.disconnectButtonText = `Cancel disconnect`
       this.disconnectButtonIcon = 'i-x'
       this.disconnecting = setTimeout(() => {
+        this.$store.commit('setWallet', false)
         this.disconnect()
       }, 5000)
     },
