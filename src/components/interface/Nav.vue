@@ -60,20 +60,10 @@
   <template v-if="width>800">
     <WalletConnector />
   </template>
-    <div :class="'exposed sync-status ' + data.synchronisationStatus" @click="$store.dispatch('fetchCombinedDataPayload')">
-      <i class="i-refresh-cw"></i>
-      <i class="i-alert-circle"></i>
-      <i class="i-check"></i>
-    </div>
     <div class="menu-container">
       <a class="btn" @click="menu=!menu"><i class="icon-ellipsis-v"></i></a>
       <div class="menu" v-if="menu">
         <ul>
-          <li class="centre">
-            <template v-if="width<=800">
-              <WalletConnector />
-            </template>
-          </li>
           <li>
             <a @click="toggleDemoValues()"><span>Demo Mode</span><i :class="'switch-indicator' + (application.uiDemoValues ? ' on' : ' off')"></i></a>
           </li>

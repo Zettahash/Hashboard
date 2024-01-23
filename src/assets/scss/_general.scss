@@ -45,9 +45,9 @@ a {
 .btn {
   display: inline-flex;
   font-size: 18px;
-  padding: calc(2rem / #{$r}) calc((2rem / #{$r}) * 2);
+  padding: calc(1.4rem / #{$r}) calc((2rem / #{$r}) * 2);
   background: var(--primary);
-  color: var(--neutral-8);
+  color: var(--neutral-0);
   transition: 200ms ease;
   cursor: pointer;
   line-height: 1;
@@ -55,7 +55,8 @@ a {
   border-radius: 100px;
   &:hover {
     background: var(--secondary);
-    color: var(--neutral-10);
+    text-shadow: 0px 1px 5px var(--neutral-9), 4px -1px 5px var(--primary);
+    // color: var(--primary);
   }
   &.compact {
     font-size: 14px;
@@ -87,6 +88,14 @@ a {
   transition: 200ms ease;
   width: max-content;
   cursor: pointer;
+  &.error, &.bad{
+    color: var(--crimson);
+    &:hover {
+      background: var(--crimson);
+      color: var(--neutral-0);
+  box-shadow: 0 0 0 1px var(--crimson);
+}
+  }
   &.subtle {
     box-shadow: 0 0 0 0px;
   }

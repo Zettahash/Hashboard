@@ -40,6 +40,13 @@
       <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-user"></i><span>Profile #{{hasherName()}}</span></router-link>
       <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{walletShortName(wallet)}}</span></router-link>
       <a v-if="wallet && !application.zhHolderBool" @click="doDisconnect()" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-log-out"></i><span>Disconnect</span></a>
+      <a :class="`sync-status ${data.synchronisationStatus}`" @click="$store.dispatch('fetchCombinedDataPayload')" @mouseenter="labelify" @mouseleave="unlabelify">
+      <i class="i-refresh-cw"></i>
+      <i class="i-alert-circle"></i>
+      <i class="i-check"></i>
+      <span v-if="!data.synchronisationStatus">Hashboard synced</span>
+      <span v-if="data.synchronisationStatus=='syncing'">Syncing...</span>
+    </a>
     </div>
     <div class="shortcuts">
       <label>Shortcuts</label>
@@ -79,7 +86,9 @@ export default {
   computed: {
     ...mapGetters({
       application: 'application',
-      wallet:'wallet',
+      wallet: 'wallet',
+      data: 'data',
+      
     }),
     uiSidebarCollapse() {
       let stage = 2
@@ -175,6 +184,18 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.temp-label-sidebar {
+  position: absolute;
+  top: 0;
+  left: calc(1rem + 5px);
+  z-index: 301;
+  background: var(--neutral-10);
+  box-shadow: 0 0 0 1px var(--neutral-6);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+</style>
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
 @import '@/assets/scss/sidebar';

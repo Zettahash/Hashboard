@@ -82,43 +82,53 @@ const actions = {
     } catch (e) {
     }
   },
-  fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
+  async fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
-    try {
-      fetch(`${endpoint}/api/combined-request-btc-eth-exr`, { method: 'get' })
-        .then(result => { return result.json() }).then(data => {
-          commit("setHoldingsBTC", data.payload.btc)
-          commit("setHoldingsETH", data.payload.eth)
-          commit("setRates", data.payload.exr)
-          // commit("setPayload", data.payload.lincoin)
-
-          commit("setData", { item: 'synchronisation', value: Date.now() })
-          commit("setData", { item: 'assets', value: Date.now() })
-          commit("setData", { item: 'synchronisationStatus', value: false })
-        })
-    } catch (e) {
-      commit("setData", { item: 'synchronisationStatus', value: "error" })
-    }
-
-    try {
-      fetch(`${endpoint}/api/query-snapshot`, { method: 'get' })
-        .then(result => { return result.json() }).then(data => {
-          commit("setSnapshot", data.payload)
-          // commit("setPayload", data.payload.lincoin)
-
-          commit("setData", { item: 'synchronisation', value: Date.now() })
-          commit("setData", { item: 'assets', value: Date.now() })
-          commit("setData", { item: 'synchronisationStatus', value: false })
-        })
-    } catch (e) {
-      commit("setData", { item: 'synchronisationStatus', value: "error" })
-    }
-
     let c = commit
     let d = dispatch
     let g = getters
     let co = context
     let rg = rootGetters
+    let errors = 0
+    let success = 0
+    try {
+      await fetch(`${endpoint}/api/combined-request-btc-eth-exr`, { method: 'get' })
+        .then(result => { return result.json() }).then(data => {
+          commit("setHoldingsBTC", data.payload.btc)
+          commit("setHoldingsETH", data.payload.eth)
+          commit("setRates", data.payload.exr)
+          success++
+        })
+    } catch (e) {
+          errors++
+    }
+
+    try {
+      await fetch(`${endpoint}/api/query-snapshot`, { method: 'get' })
+        .then(result => { return result.json() }).then(data => {
+          commit("setSnapshot", data.payload)
+          success++
+        })
+    } catch (e) {
+          success++
+    }
+
+    try {
+      dispatch('fetchPosts', { c, d, g, co, rg }, {id:g.wallet})
+
+    } catch (e) {
+      console.log(e)
+          success++
+    }
+
+    if (errors > 0) {
+      commit("setData", { item: 'synchronisationStatus', value: "error" })
+    } else {
+      commit("setData", { item: 'synchronisation', value: Date.now() })
+      commit("setData", { item: 'assets', value: Date.now() })
+      commit("setData", { item: 'synchronisationStatus', value: false })
+    }
+
     let parentTimeout = false
     let secondaryTimeout = false
 
@@ -167,7 +177,10 @@ const actions = {
       body: encodeURI(JSON.stringify({ limit: { start: 0, end: 50 }, address: payload.id }))
     })
     let postsPayload = await posts.json()
-    if (postsPayload.payload.posts) { payload.store.commit('setForumPostsCache', postsPayload.payload.posts) }
+    if (postsPayload.payload.posts) {
+      if(payload.store){ payload.store.commit('setForumPostsCache', postsPayload.payload.posts)}
+      else if(commit){ commit('setForumPostsCache', postsPayload.payload.posts)}
+    }
   },
   async viewPost({ commit, dispatch, getters, context, rootGetters }, payload) {
     await fetch(`${endpoint}/forum/increment-view`, {

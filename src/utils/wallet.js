@@ -1,5 +1,8 @@
 import { genericABI } from '@/components/data/genericABI'
 import { BrowserProvider, formatUnits, Contract } from 'ethers'
+import { useDisconnect } from '@web3modal/ethers/vue'
+const { disconnect } = useDisconnect()
+
 const tokens = {
   zh: {
     contract: '0x2C0e15190aCB858Bf74447928Cbd8Fb9709dCB19',
@@ -31,4 +34,9 @@ const getBalance = async function(currency, address){
   const formattedStr = Number(formatted) > 1 ? Number(formatted).toFixed(6) : Number(formatted).toFixed(8)
   return { balance: formatted, formatted: formattedStr, raw: balance }
 }
-export { getBalance }
+
+const doDisconnect = function () {
+  this.$store.commit('setWallet', false)
+  disconnect()
+}
+export { getBalance, doDisconnect }

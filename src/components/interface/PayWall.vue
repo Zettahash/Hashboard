@@ -1,33 +1,62 @@
-<template lang="">
+<template lang="html">
   <div class="modal-stationary">
-    <h1><i class="i-alert-circle"></i> Message</h1>
-    <template v-if="message==='needZH'">
-    <p>Only Holders of the ZH token may participate on this platform.<br>
-       Check back soon for details on acquiring ZH, or email <a href="mailto:zetta@zettahash.org" class="link">zetta@zettahash.org</a> for more information.</p>
+
+    <template v-if="message === 'needZH'">
+      <h1>
+        <i class="i-alert-circle"></i> Notice
+      </h1>
+      <p>Only Holders of the ZH token may participate on this platform.<br>
+        Check back soon for details on acquiring ZH, or email <a href="mailto:zetta@zettahash.org"
+          class="link">zetta@zettahash.org</a> for more information.</p>
+      <p>You can disconnect this wallet, {{ walletShortName(wallet) }}, and try another account.</p>
+      <p><a class="btn-link error" @click="doDisconnect()">Disconnect {{ walletShortName(wallet) }} <i
+            class="i-log-out"></i></a></p>
+    </template>
+    <!-- <WalletConnector /> -->
+
+    <template v-if="message === 'waiting'">
+      <h1>
+        <a class="spinner"></a> Connecting...
+      </h1>
+      <p>Checking for wallet connection...</p>
+
     </template>
 
-    <template v-if="message==='needAcc'">
-    <p>{{needAccMsg}}</p>
+    <template v-if="message === 'needAcc'">
+      <h1>
+        <i class="i-alert-circle"></i> Welcome
+      </h1>
+      <p>Connect your wallet to get started.</p>
+      <p>
+        <WalletConnector />
+      </p>
+
     </template>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
-// eslint-disable-next-line no-unused-vars
+import WalletConnector from './WalletConnector.vue'
+import { walletShortName } from '@/utils/strings.js'
+import { doDisconnect } from '@/utils/wallet'
+
 export default {
   name: 'PayWall',
   data() {
     return {
-      needAccMsg: 'Checking for wallet connection...',
       timeout: false,
+      timeoutFunction: false,
     }
   },
   computed: {
     ...mapGetters({
       application: 'application',
+      wallet: 'wallet',
+
     }),
     message() {
 
+      if (!this.timeout) { return 'waiting' }
       if (!this.application.walletConnected) { return 'needAcc' }
       if (!this.application.zhHolderBool) { return 'needZH' }
       return '?'
@@ -36,24 +65,27 @@ export default {
       return this.application.zhHolderBool
     },
   },
+  components: {
+    WalletConnector,
+  },
+  methods: {
+    walletShortName, doDisconnect,
+  },
   watch: {
     zhHolderBool(value) {
       if (value == true) {
-        clearTimeout(this.timeout)
-        this.timeout = false
+        clearTimeout(this.timeoutFunction)
+        this.timeoutFunction = false
       }
     }
   },
   mounted() {
     window.payWallThis = this
-    this.timeout = setTimeout(() => {
-      if(!window.payWallThis.application.zhHolderBool)
-     { window.payWallThis.needAccMsg = 'Connect your wallet to get started.'
-      window.payWallThis = this
-      this.$store.commit("setNotification", {
-        title: "Connect your wallet to get started.",
-        data: "You'll need to connect your wallet and hold at least 1ZH to continue.",
-      })}
+    this.timeoutFunction = setTimeout(() => {
+      if (!window.payWallThis.application.zhHolderBool) {
+        window.payWallThis.timeout = true
+        window.payWallThis = this
+      }
     }, 8000)
   },
 }
@@ -75,4 +107,5 @@ export default {
   p {
     margin-bottom: 0;
   }
-}</style>
+}
+</style>

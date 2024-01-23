@@ -23,10 +23,9 @@
 import { mapGetters } from 'vuex';
 import { profileImg, hasherName } from '@/utils/forum'
 import { walletShortName } from '@/utils/strings'
-import { getBalance } from '@/utils/wallet'
+import { getBalance, doDisconnect } from '@/utils/wallet'
 import UserWalletsUI from '@/components/modules/UserWalletsUI.vue'
-import { useDisconnect } from '@web3modal/ethers/vue'
-const { disconnect } = useDisconnect()
+
 export default {
   data() {
     return {
@@ -64,8 +63,7 @@ export default {
     UserWalletsUI,
   },
   methods: {
-    disconnect,
-    profileImg, hasherName, walletShortName, getBalance,
+    profileImg, hasherName, walletShortName, getBalance, doDisconnect,
     disconnectOrCancel() {
       if (this.disconnecting) {
         clearInterval(this.disconnectingCountdown)
@@ -79,8 +77,7 @@ export default {
       this.disconnectButtonText = `Cancel disconnect`
       this.disconnectButtonIcon = 'i-x'
       this.disconnecting = setTimeout(() => {
-        this.$store.commit('setWallet', false)
-        this.disconnect()
+        this.doDisconnect()
       }, 5000)
     },
     routeLoaded() {
