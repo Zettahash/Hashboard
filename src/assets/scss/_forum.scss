@@ -156,3 +156,22 @@
     }
   }
 }
+
+.vote-score {
+  [class*="up"] {
+    &[class*="solid"] {
+      color: var(--moss);
+    }
+    &:hover {
+      color: var(--moss);
+    }
+  }
+  [class*="down"] {
+    &[class*="solid"] {
+      color: var(--violet);
+    }
+    &:hover {
+      color: var(--violet);
+    }
+  }
+}

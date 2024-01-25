@@ -144,7 +144,7 @@ export default {
       if (depth == 0) {
         for (const key of Object.keys(this.dropdown)) {
           if(key != item)
-          {this.dropdown[key] = false}
+          { this.dropdown[key] = false }
         }
       }
       this.dropdown[item]=!this.dropdown[item]

@@ -143,7 +143,7 @@ export default {
 
 .stats-organiser {
   display: flex;
-  gap: 5px 10px;
+  gap: 5px 20px;
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: 0;

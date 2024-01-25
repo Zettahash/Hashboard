@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?27kq96');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?27kq96#iefix') format('embedded-opentype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?27kq96') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?27kq96') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?27kq96##{$icomoon-font-family}') format('svg');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?m2b0wr');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?m2b0wr#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?m2b0wr') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?m2b0wr') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?m2b0wr##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,6 +27,46 @@ i[class^='i-'] {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.i-down-short-solid {
+  &:before {
+    content: $i-down-short-solid; 
+  }
+}
+.i-down-short-stroke {
+  &:before {
+    content: $i-down-short-stroke; 
+  }
+}
+.i-up-short-solid {
+  &:before {
+    content: $i-up-short-solid; 
+  }
+}
+.i-up-short-stroke {
+  &:before {
+    content: $i-up-short-stroke; 
+  }
+}
+.i-down-stroke {
+  &:before {
+    content: $i-down-stroke; 
+  }
+}
+.i-up-stroke {
+  &:before {
+    content: $i-up-stroke; 
+  }
+}
+.i-down-solid {
+  &:before {
+    content: $i-down-solid; 
+  }
+}
+.i-up-solid {
+  &:before {
+    content: $i-up-solid; 
+  }
+}
 .i-forum {
   &:before {
     content: $i-forum; 

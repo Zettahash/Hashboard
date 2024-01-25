@@ -188,6 +188,15 @@ const actions = {
       body: encodeURI(JSON.stringify({ id:payload.id, address: payload.address }))
     })
   },
+  async vote({ commit, dispatch, getters, context, rootGetters }, payload) {
+    const request = await fetch(`${endpoint}/forum/vote`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ direction:payload.direction, topic_id:payload.topic_id, comment_id:payload.comment_id, address: payload.address }))
+    })
+    let response = await request.json()
+    if (response.payload) { return response }
+    else{return {error: 'Failed to submit vote.'}}
+  },
   async submitReply({ commit, dispatch, getters, context, rootGetters }, payload) {
     let encodedPost = encodeStr(JSON.stringify(payload.post))
     let post = await fetch(`${endpoint}/forum/new-reply`, {

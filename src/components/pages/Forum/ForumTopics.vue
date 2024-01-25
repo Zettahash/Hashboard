@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="forum-topics">
   <LoadingEle short="short" v-if="!forumPostsCache"/>
-    <router-link v-for="(topic, index) of forumPostsCache" :to="{ path: `/consensus/topic/${topic.topic_id}` }"
+    <div v-for="(topic, index) of forumPostsCache" @click="$router.push({ path: `/consensus/topic/${topic.topic_id}` })"
       :key="index" class="topic">
       <img :src="profileImg(topic.op_address)" class="profile-logo"
         :title="`Original Poster: Hasher #${hasherName(topic.op_address, topic.op_profile_id)}`" />
@@ -13,13 +13,14 @@
         </div>
       </div>
       <div class="stats-organiser">
+        <div :class="`vote-score ${topic.direction}`"><i :class="`i-up-short-${topic.direction=='up'?'solid':'stroke'}`" @click.stop="voteTopic(topic.topic_id, 'up')"></i> {{ Number(topic.resultant_score || '0') }} <i :class="`i-down-short-${topic.direction=='down'?'solid':'stroke'}`" @click.stop="voteTopic(topic.topic_id, 'down')"></i></div>
         <div class="view-count"><i class="i-eye"></i> {{ Number(topic.view_count) }}</div>
         <div class="replies-count"><i class="i-message-square"></i> {{ Number(topic.reply_count) }}</div>
         <div class="date">posted
           <timeago :datetime="Number(topic.timestamp)" />
         </div>
       </div>
-    </router-link>
+    </div>
     <template v-if="forumPostsCache.length==0">
       <p><i>No posts yet.</i></p>
     </template>
@@ -28,7 +29,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import LoadingEle from '@/components/interface/LoadingEle.vue'
-import { profileImg, hasherName} from '@/utils/forum'
+import { profileImg, hasherName, voteTopic} from '@/utils/forum'
 
 export default {
   name: 'ForumTopics',
@@ -49,7 +50,7 @@ export default {
     }),
   },
   methods: {
-    profileImg, hasherName,
+    profileImg, hasherName, voteTopic,
   }
 }
 </script>
@@ -136,12 +137,16 @@ export default {
 
 .stats-organiser {
   display: flex;
-  gap: 5px 10px;
+  gap: 5px 20px;
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: 0;
   justify-content: end;
   text-align: right;
+  .vote-score{
+    display: flex;
+    gap: 10px;
+  }
   .date{
     width: 100%;
   }
