@@ -158,20 +158,69 @@
 }
 
 .vote-score {
-  [class*="up"] {
-    &[class*="solid"] {
-      color: var(--moss);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  --up: var(--moss);
+  --down: var(--violet);
+  span {
+    &[class*="up"] {
+      color: var(--up);
     }
-    &:hover {
-      color: var(--moss);
+    &[class*="down"] {
+      color: var(--down);
     }
   }
-  [class*="down"] {
-    &[class*="solid"] {
-      color: var(--violet);
+  i {
+    cursor: pointer;
+    &[class*="up"] {
+      &[class*="solid"] {
+        color: var(--up);
+      }
+      &:hover {
+        color: var(--up);
+      }
     }
-    &:hover {
-      color: var(--violet);
+    &[class*="down"] {
+      &[class*="solid"] {
+        color: var(--down);
+      }
+      &:hover {
+        color: var(--down);
+      }
+    }
+  }
+
+  .change {
+    &[class*="solid"] {
+      &[class*="up"] {
+        animation: jump-up 400ms cubic-bezier(0, 1.08, 0.4, 1.57) forwards 1;
+        @keyframes jump-up {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+      }
+      &[class*="down"] {
+        animation: jump-down 400ms cubic-bezier(0, 1.08, 0.4, 1.57) forwards 1;
+        @keyframes jump-down {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(10px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+      }
     }
   }
 }

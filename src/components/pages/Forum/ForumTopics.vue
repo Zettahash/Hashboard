@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="stats-organiser">
-        <div :class="`vote-score ${topic.direction}`"><i :class="`i-up-short-${topic.direction=='up'?'solid':'stroke'}`" @click.stop="voteTopic(topic.topic_id, 'up')"></i> {{ Number(topic.resultant_score || '0') }} <i :class="`i-down-short-${topic.direction=='down'?'solid':'stroke'}`" @click.stop="voteTopic(topic.topic_id, 'down')"></i></div>
+        <ForumVoteUI :topic="topic"/>
         <div class="view-count"><i class="i-eye"></i> {{ Number(topic.view_count) }}</div>
         <div class="replies-count"><i class="i-message-square"></i> {{ Number(topic.reply_count) }}</div>
         <div class="date">posted
@@ -29,7 +29,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import LoadingEle from '@/components/interface/LoadingEle.vue'
-import { profileImg, hasherName, voteTopic} from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum'
+import ForumVoteUI from '@/components/modules/ForumVoteUI.vue'
 
 export default {
   name: 'ForumTopics',
@@ -38,7 +39,7 @@ export default {
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
-  components:{LoadingEle},
+  components:{LoadingEle, ForumVoteUI},
   mounted() {
 
   },
@@ -50,7 +51,7 @@ export default {
     }),
   },
   methods: {
-    profileImg, hasherName, voteTopic,
+    profileImg, hasherName,
   }
 }
 </script>

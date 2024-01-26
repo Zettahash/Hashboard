@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="forum-topics">
-  <h2>Comments</h2>
+    <h2><template v-if="waiting"><a class="spinner"></a>&nbsp;&nbsp;</template>Comments</h2>
     <LoadingEle short="short" v-if="!topicsReplies" />
     <div v-for="(reply, index) of topicsReplies" :key="index" class="topic">
 
@@ -22,11 +22,14 @@
           <div v-for="(tag, index) of reply.tags" :key="index" class="tag">{{ tag }}</div>
         </div>
       </div>
-      <!-- <div class="stats-organiser">
-        <div class="view-count"><i class="i-eye"></i> {{ Number(reply.view_count) }}</div>
+      <div class="stats-organiser">
+
+        <ForumVoteUI :reply="reply" />
+
+        <!--  <div class="view-count"><i class="i-eye"></i> {{ Number(reply.view_count) }}</div>
         <div class="replies-count"><i class="i-message-square"></i> {{ Number(reply.reply_count) }}</div>
-        
-      </div> -->
+         -->
+      </div>
     </div>
     <template v-if="topicsReplies.length == 0">
       <p><i>No replies yet. Be the first.</i></p>
@@ -35,35 +38,48 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { profileImg, hasherName} from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
+import ForumVoteUI from '@/components/modules/ForumVoteUI.vue'
 export default {
   name: 'TopicReplies',
   data() {
     return {
+      waiting: true,
       topicsReplies: false,
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
   props: ['topic_id', 'wallet'],
-  components: { LoadingEle },
+  components: { LoadingEle, ForumVoteUI, },
   async mounted() {
-    this.topicsReplies = await this.$store.dispatch("fetchPostReplies", { topic_id: this.topic_id, id: this.wallet, store: this.$store })
+    this.fetchAndSetReplies()
+    this.intervalFetch = setInterval(() => {
+        this.fetchAndSetReplies()
+    }, 60000)
   },
   computed: {
     ...mapGetters({
       application: 'application',
       forumProfile: 'forumProfile',
+      intervalFetch:false,
       forumPostRepliesWatcherFlag: 'forumPostRepliesWatcherFlag',
     }),
   },
   watch: {
     async forumPostRepliesWatcherFlag() {
-      this.topicsReplies = await this.$store.dispatch("fetchPostReplies", { topic_id: this.topic_id, id: this.wallet, store: this.$store })
+      this.fetchAndSetReplies()
     },
   },
   methods: {
-    profileImg,hasherName,
+    profileImg, hasherName,
+    async fetchAndSetReplies() {
+      this.waiting = true
+      const reply = await this.$store.dispatch("fetchPostReplies", { topic_id: this.topic_id, id: this.wallet, store: this.$store })
+      this.topicsReplies = reply
+      this.waiting = reply ? false : true
+      return reply
+    }
   }
 }
 </script>

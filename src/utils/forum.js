@@ -28,34 +28,39 @@ const hasherName = function (wallet, profile) {
 const voteTopic = async function (property, direction) {
   let topic_id = Array.isArray(property) ? property[0] : property
   let comment_id = Array.isArray(property) ? property[1] : ''
+
+  if (comment_id.length == 0) {
+    let temp = []
+    for (const item of this.$store.state.forumPostsCache) {
+      let tempItem = item
+      if (item.topic_id === topic_id) {
+        let voteValue = item.resultant_score ? item.resultant_score : 0
+        if (tempItem.direction === direction) {
+          tempItem.resultant_score = direction === 'up' ? voteValue - 1 : voteValue + 1
+          tempItem.direction = 'NULL'
+        } else {
+          tempItem.resultant_score = direction === 'up' ? voteValue + 1 : voteValue - 1
+          tempItem.direction = direction
+        }
+
+        tempItem.change = 'change'
+      }
+      temp.push(tempItem)
+    }
+    this.$store.commit('setForumPostsCache', temp)
+  }
+
+
   let result = await this.$store.dispatch('vote', { topic_id: topic_id, comment_id: comment_id, direction: direction, address: this.$store.state.wallet });
   if (result.payload.error) {
     this.$store.commit("setNotification", {
-      title: "Something went wrong",
+      title: "Something went wrong with your vote",
       className: 'error',
       data: result.payload.error,
     })
     return
   }
-  // if (result.payload.message) {
-  //   this.$store.commit("setNotification", {
-  //     title: "Looks good",
-  //     className: 'good',
-  //     data: result.payload.message,
-  //   })
-  // }
-  let temp = []
-  for (const item of this.$store.state.forumPostsCache) {
-    let tempItem = item
-    if (item.topic_id === topic_id) {
-      let voteValue = item.resultant_score ? item.resultant_score : 0
-      voteValue = direction === 'up' ? voteValue + 1 : voteValue - 1
-      tempItem.resultant_score = voteValue
-      tempItem.direction = direction
-    }
-    temp.push(tempItem)
-  }
-  this.$store.commit('setForumPostsCache', temp)
+
 }
 
 export { profileImg, hasherName, voteTopic }

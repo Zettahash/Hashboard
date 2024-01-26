@@ -29,6 +29,9 @@
         <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
       </div>
     </div>
+    <div class="stats-organiser" v-if="thisTopic">
+      <ForumVoteUI :topic="thisTopic"/>
+    </div>
     <div class="reply-button-holder">
       <a class="btn" v-if="!newReply" @click="newReply = true">Add a comment</a>
     </div>
@@ -46,10 +49,11 @@ import VueMarkdown from 'vue-markdown-render'
 import NewComment from './NewComment.vue'
 import TopicReplies from './TopicReplies.vue'
 import { ref } from "vue";
+import ForumVoteUI from '@/components/modules/ForumVoteUI.vue'
 
 export default {
   name: 'ViewTopic',
-  components: { VueMarkdown, NewComment, TopicReplies },
+  components: { VueMarkdown, NewComment, TopicReplies, ForumVoteUI },
   data() {
     return {
       newReply: false,
