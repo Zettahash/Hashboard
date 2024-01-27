@@ -91,7 +91,7 @@
       .post-formatted {
         background: var(--neutral-9);
       }
-      .stats-orgnaiser{
+      .stats-organiser{
         margin: 0;
       }
     }
@@ -169,8 +169,8 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  --up: var(--moss);
-  --down: var(--violet);
+  --up: var(--primary);
+  --down: var(--purple);
   span {
     &[class*="up"] {
       color: var(--up);

@@ -14,12 +14,12 @@
 
 
 
-      <div class="main">
+      <div class="main topic-view">
         <div class="tags">
           <div class="tag category">{{ thisTopic.categories }}</div>
           <div v-for="(tag, index) of thisTopic.tags" :key="index" class="tag">{{ tag }}</div>
         </div>
-        <vue-markdown class="post-formatted topic-view" :source="markdownPreprocess()" />
+        <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
         <div class="stats-organiser" v-if="thisTopic">
           <ForumVoteUI :topic="thisTopic" />
           <div class="view-count"><i class="i-eye"></i> {{ Number(thisTopic.view_count) + 1 }}</div>
