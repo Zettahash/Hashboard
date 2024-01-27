@@ -2,11 +2,11 @@
   <div class="forum-topics">
     <h2><template v-if="waiting"><a class="spinner"></a>&nbsp;&nbsp;</template>Comments</h2>
     <LoadingEle short="short" v-if="!topicsReplies" />
-    <div v-for="(reply, index) of topicsReplies" :key="index" class="topic">
+    <div v-for="(reply, index) of topicsReplies" :key="index" class="reply">
 
 
 
-      <div class="hasher-name-organiser-post-view">
+      <div class="hasher-name-organiser-reply-view">
         <img :src="profileImg(reply.op_address)" class="wallet-logo" />
         <h2>Hasher #{{ hasherName(reply.op_address, reply.op_profile_id) }}</h2>
         <small>
@@ -30,7 +30,10 @@
         <div class="replies-count"><i class="i-message-square"></i> {{ Number(reply.reply_count) }}</div>
          -->
       </div>
+
+      
     </div>
+      <a v-if="topicsReplies.length>0 && !newReplyAfter" class="btn left" @click="$emit('newReply')">Add a comment</a>
     <template v-if="topicsReplies.length == 0">
       <p><i>No replies yet. Be the first.</i></p>
     </template>
@@ -50,7 +53,7 @@ export default {
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
-  props: ['topic_id', 'wallet'],
+  props: ['topic_id', 'wallet', 'newReplyAfter'],
   components: { LoadingEle, ForumVoteUI, },
   async mounted() {
     this.fetchAndSetReplies()
@@ -77,7 +80,7 @@ export default {
       this.waiting = true
       const reply = await this.$store.dispatch("fetchPostReplies", { topic_id: this.topic_id, id: this.wallet, store: this.$store })
       this.topicsReplies = reply
-      this.waiting = reply ? false : true
+      setTimeout(() => { this.waiting = reply ? false : true },1000)
       return reply
     }
   }
@@ -95,23 +98,28 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   margin-top: 30px;
 
-  .topic {
+  .reply {
     display: grid;
     gap: 15px;
-    border-radius: 20px;
+    border-radius: 15px;
     transition: 200ms ease;
-    padding: 20px;
     box-shadow: 0 0 0 1px var(--neutral-6);
-    cursor: pointer;
     align-items: center;
+    position: relative;
 
-    &:hover {
-      box-shadow: 0 0 0 1px var(--neutral-4);
-
+    &::after{
+      content: '';
+      height: 30px;
+      width: 2px;
+      background: var(--neutral-6);
+      position:absolute;
+      bottom:-30px;
+      left: 30px;
     }
+
 
     .main {
       flex-shrink: 0;
@@ -119,6 +127,7 @@ export default {
       display: grid;
       grid-template: 1fr auto/1fr;
       position: relative;
+      padding-left: 15px; padding-right: 15px
 
       p {
         margin: 0;
@@ -147,12 +156,6 @@ export default {
       font-size: .9rem;
     }
 
-    .profile-logo {
-      height: 40px;
-      aspect-ratio: 1/1;
-      background: var(--neutral-10);
-      border-radius: 100px;
-    }
   }
 
 }
@@ -161,13 +164,45 @@ export default {
   display: flex;
   gap: 5px 20px;
   flex-wrap: wrap;
-  margin-left: auto;
-  margin-right: 0;
-  justify-content: end;
-  text-align: right;
+  margin-left: 15px;
+  margin-right: 15px;
+  padding-bottom: 15px;
+  // justify-content: end;
+  // text-align: right;
 
   .date {
     width: 100%;
+  }
+}
+
+.hasher-name-organiser-reply-view {
+  display: grid;
+  gap: 2px 10px;
+  align-items: center;
+  padding: 10px 15px 10px 15px;
+  box-shadow: 0 1px 0 0 var(--neutral-6);
+  // border-radius: 100px;
+  grid-template-columns: auto 1fr;
+
+  h2 {
+    margin: 0;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    font-size: 1.2rem;
+    color: var(--neutral-4);
+  }
+
+  small {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    color: var(--neutral-5);
+    font-size: 0.7rem;
+  }
+
+  .wallet-logo {
+    height: 2rem;
+    grid-column: 1/2;
+    grid-row: 1/3;
   }
 }
 </style>

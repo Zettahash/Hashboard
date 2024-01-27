@@ -97,7 +97,7 @@ export default {
   width: 500px;
   max-width: 80vw;
   padding: 30px;
-  border-radius: 20px;
+  border-radius: 15px;
   background: var(--neutral-10);
 
   h1 {

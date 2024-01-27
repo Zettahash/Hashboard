@@ -30,21 +30,26 @@
       </div>
     </div>
     <div class="stats-organiser" v-if="thisTopic">
-      <ForumVoteUI :topic="thisTopic"/>
+      <ForumVoteUI :topic="thisTopic" />
     </div>
     <div class="reply-button-holder">
-      <a class="btn" v-if="!newReply" @click="newReply = true">Add a comment</a>
+      <a class="btn" v-if="!newReply" @click="newReply = true; newReplyAfter = false">Add a comment</a>
     </div>
     <div ref="newPostEle"></div>
-    <NewComment v-if="newReply" @close-modal="newReply = false" @preview-modal="setPreviewPost" :topic="thisTopic.topic" :topic_id="topic_id" :wallet="wallet"/>
+    <NewComment v-if="newReply" @close-modal="newReply = false" @preview-modal="setPreviewPost" :topic="thisTopic.topic"
+      :topic_id="topic_id" :wallet="wallet" />
 
-    <TopicReplies :topic_id="topic_id" :wallet="wallet"/>
+    <TopicReplies :newReplyAfter="newReplyAfter" :topic_id="topic_id" :wallet="wallet"
+      @new-reply="newReplyAfter = true; newReply = false" />
+
+    <NewComment v-if="newReplyAfter" @close-modal="newReplyAfter = false" @preview-modal="setPreviewPost"
+      :topic="thisTopic.topic" :topic_id="topic_id" :wallet="wallet" />
 
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { profileImg, hasherName} from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum'
 import VueMarkdown from 'vue-markdown-render'
 import NewComment from './NewComment.vue'
 import TopicReplies from './TopicReplies.vue'
@@ -57,6 +62,7 @@ export default {
   data() {
     return {
       newReply: false,
+      newReplyAfter: false,
       topic_id: this.$route.params.topic_id,
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
@@ -116,9 +122,9 @@ export default {
   gap: 20px;
   align-items: center;
 }
-.reply-button-holder{
+
+.reply-button-holder {
   position: sticky;
-  top:0;
+  top: 0;
   z-index: 2;
-}
-</style>
+}</style>

@@ -151,7 +151,7 @@ export default {
   max-width: 80vw;
   height: max-content;
   display: grid;
-  border-radius: 20px;
+  border-radius: 15px;
   gap: 20px;
   padding: 20px;
   z-index: 2;
@@ -168,9 +168,10 @@ export default {
     left: 0;
     height: 100%;
     width: 100%;
-    background: var(--neutral-7);
+    background: var(--neutral-9);
     z-index: -1;
-    border-radius: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 0 1px var(--neutral-6);
   }
 
   &::after {
@@ -233,8 +234,8 @@ export default {
     input,
     textarea,
     select {
-      background: var(--neutral-7);
-      box-shadow: 0 0 0 1px var(--neutral-5);
+      background: var(--neutral-9);
+      box-shadow: 0 0 0 1px var(--neutral-6);
       border: 0;
       padding: 10px 20px;
       color: var(--neutral-0);
@@ -245,8 +246,9 @@ export default {
 
       &:focus {
         outline: none;
-        background: var(--neutral-8);
-        box-shadow: 0 0 0 0;
+        background: var(--neutral-9);
+        box-shadow: 0 0 0 1px var(--primary);
+
       }
     }
 
@@ -269,14 +271,14 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    background: var(--neutral-7);
-    box-shadow: 0 0 0 1px var(--neutral-5);
+    background: var(--neutral-9);
+    box-shadow: 0 0 0 1px var(--neutral-6);
     border-radius: 10px;
     padding: 10px 10px;
     gap: 10px;
 
     &.active {
-      background: var(--neutral-8);
+      background: var(--neutral-9);
       box-shadow: 0 0 0 0;
 
     }

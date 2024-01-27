@@ -96,7 +96,7 @@ export default {
   display: grid;
   gap: 20px;
   padding: 30px;
-  border-radius: 20px;
+  border-radius: 15px;
   box-shadow: 0 0 0 1px var(--neutral-5);
 
   .head {

@@ -67,7 +67,7 @@ export default {
 <style lang="scss" scoped>
 #dextools-widget {
   border: 0;
-  border-radius: 20px;
+  border-radius: 15px;
   margin: auto;
 }
 </style>

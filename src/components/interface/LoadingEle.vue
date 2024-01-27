@@ -30,7 +30,7 @@ export default {
     align-content: start;
     // box-shadow: 0 0 0 0px var(--neutral-10);
     // transform: translateY(20px)scale(.9);
-    border-radius: 20px;
+    border-radius: 15px;
     background-color: var(--neutral-10);
     max-width: unset;
     min-width: unset;

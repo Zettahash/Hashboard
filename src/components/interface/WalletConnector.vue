@@ -1,6 +1,6 @@
 <template lang="">
   <div>
-  <template v-if="!web3ModalAccountIsConnected">
+  <template v-if="!web3ModalAccountIsConnected && !wallet">
     <w3m-button balance="hide"/>
   <!-- <div class="w3m-button" balance="show"></div> -->
   <!-- <w3m-network-button disabled/> -->
@@ -65,6 +65,7 @@ export default {
   computed: {
     ...mapGetters({
       application: 'application',
+      wallet:'wallet',
     }),
   },
   mounted() {

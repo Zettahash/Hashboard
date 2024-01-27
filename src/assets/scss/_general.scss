@@ -58,6 +58,9 @@ a {
     text-shadow: 0px 1px 5px var(--neutral-9), 4px -1px 5px var(--primary);
     // color: var(--primary);
   }
+  &.left{
+    margin-right: auto;
+  }
   &.compact {
     font-size: 14px;
     padding: 4px 8px;
