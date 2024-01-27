@@ -14,8 +14,8 @@
 
       <div class="stats-organiser">
         <div class="view-count"><i class="i-eye"></i> {{ Number(thisTopic.view_count) + 1 }}</div>
-        <div class="replies-count"><i class="i-message-square"></i> {{ Number(thisTopic.reply_count) }}</div><a
-          class="btn-link" @click="newReply = true"><i class="i-message-circle"></i> Add a comment</a>
+        <div class="replies-count"><i class="i-message-square"></i> {{ Number(thisTopic.reply_count) }}</div>
+        <!-- <a class="btn-link" @click="newReply = true"><i class="i-message-circle"></i> Add a comment</a> -->
       </div>
 
       <div class="main">

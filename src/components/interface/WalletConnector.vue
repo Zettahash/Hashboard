@@ -1,15 +1,19 @@
 <template lang="">
   <div>
-  <template v-if="!web3ModalAccountIsConnected && !wallet">
+  <template v-if="!web3ModalAccountIsConnected">
     <w3m-button balance="hide"/>
   <!-- <div class="w3m-button" balance="show"></div> -->
   <!-- <w3m-network-button disabled/> -->
     <!-- <w3m-button></w3m-button> -->
 </template> 
+<template v-else>
+  <a class="btn-link error" @click="reset()">Reset wallet connection</a>
+</template>
 </div>
 </template> 
 <script>
 import { mapGetters } from 'vuex';
+import { doDisconnect } from '@/utils/wallet'
 import { genericABI } from '@/components/data/genericABI'
 import { createWeb3Modal, defaultConfig, useWeb3ModalAccount } from '@web3modal/ethers/vue'
 import { BrowserProvider, formatUnits, Contract } from 'ethers'
@@ -83,6 +87,10 @@ export default {
     },
   },
   methods: {
+    doDisconnect,
+    reset() {
+      this.doDisconnect()
+    },
     async init() {
       try {
         this.$store.commit('setDynamic', {
