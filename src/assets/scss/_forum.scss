@@ -87,6 +87,14 @@
       // box-shadow: 0 0 0 1px var(--neutral-5);
     }
 
+    &.topic-view {
+      .post-formatted {
+        background: var(--neutral-9);
+      }
+      .stats-orgnaiser{
+        margin: 0;
+      }
+    }
     .post-formatted {
       background: var(--light-gauze);
       padding: 30px;

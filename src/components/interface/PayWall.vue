@@ -30,6 +30,11 @@
       <p>
         <WalletConnector />
       </p>
+      <p>
+        <template>
+          <a class="btn-link error" @click="reset()">Reset wallet connection</a>
+        </template>
+      </p>
 
     </template>
   </div>
@@ -70,6 +75,9 @@ export default {
   },
   methods: {
     walletShortName, doDisconnect,
+    reset() {
+      this.doDisconnect()
+    },
   },
   watch: {
     zhHolderBool(value) {

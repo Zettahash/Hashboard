@@ -12,28 +12,23 @@
         </small>
       </div>
 
-      <div class="stats-organiser">
-        <div class="view-count"><i class="i-eye"></i> {{ Number(thisTopic.view_count) + 1 }}</div>
-        <div class="replies-count"><i class="i-message-square"></i> {{ Number(thisTopic.reply_count) }}</div>
-        <!-- <a class="btn-link" @click="newReply = true"><i class="i-message-circle"></i> Add a comment</a> -->
-      </div>
+
 
       <div class="main">
         <div class="tags">
           <div class="tag category">{{ thisTopic.categories }}</div>
           <div v-for="(tag, index) of thisTopic.tags" :key="index" class="tag">{{ tag }}</div>
         </div>
-        <div>
-
+        <vue-markdown class="post-formatted topic-view" :source="markdownPreprocess()" />
+        <div class="stats-organiser" v-if="thisTopic">
+          <ForumVoteUI :topic="thisTopic" />
+          <div class="view-count"><i class="i-eye"></i> {{ Number(thisTopic.view_count) + 1 }}</div>
+          <div class="replies-count"><i class="i-message-square"></i> {{ Number(thisTopic.reply_count) }}</div>
         </div>
-        <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
+        <div class="reply-button-holder">
+          <a class="btn" v-if="!newReply" @click="newReply = true; newReplyAfter = false">Add a comment</a>
+        </div>
       </div>
-    </div>
-    <div class="stats-organiser" v-if="thisTopic">
-      <ForumVoteUI :topic="thisTopic" />
-    </div>
-    <div class="reply-button-holder">
-      <a class="btn" v-if="!newReply" @click="newReply = true; newReplyAfter = false">Add a comment</a>
     </div>
     <div ref="newPostEle"></div>
     <NewComment v-if="newReply" @close-modal="newReply = false" @preview-modal="setPreviewPost" :topic="thisTopic.topic"
@@ -127,4 +122,5 @@ export default {
   position: sticky;
   top: 0;
   z-index: 2;
-}</style>
+}
+</style>
