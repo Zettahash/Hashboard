@@ -12,7 +12,7 @@
     </div>
     <div :class="`form-section ${postBodyNotice}`" :error="postBodyDataDifference">
       <label>Body</label>
-      <textarea v-model="postBody" />
+      <textarea ref="textArea" v-model="postBody" @input="textAreaInput++" :style="`height:${height}`"/>
     </div>
     <div class="form-section">
       <label>Category & tags</label>
@@ -38,6 +38,8 @@ export default {
   name: 'NewPost',
   data() {
     return {
+      height:'100px',
+      textAreaInput:0,
       preview: false,
       cancelStage: 0,
       cancelText: 'Cancel',
@@ -54,6 +56,10 @@ export default {
     }
   },
   watch: {
+    textAreaInput() {
+      this.height = 0
+      this.height = `${this.$refs.textArea.scrollHeight}px`
+    },
     cancelStage(value) {
       if (value == 2) { this.$emit('closeModal') }
       if (value == 1) {

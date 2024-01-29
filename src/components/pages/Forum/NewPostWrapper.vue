@@ -31,7 +31,6 @@ export default {
       application: 'application',
       forumProfile: 'forumProfile',
       wallet: 'wallet',
-      forumPostsCache: 'forumPostsCache',
     }),
   },
   watch: {

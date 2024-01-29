@@ -153,7 +153,7 @@ const routes = [
         },
         {
           property: 'og:description',
-          content: 'Placeholder'
+          content: 'Placeholder',
         }
       ]
     }

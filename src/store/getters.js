@@ -29,6 +29,9 @@ let getters = {
   forumPostsCache: state => {
     return state.forumPostsCache
   },
+  forumPosts: state => {
+    return state.forumPosts
+  },
   forumPostRepliesWatcherFlag: state => {
     return state.forumPostRepliesWatcherFlag
   },

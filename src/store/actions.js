@@ -172,14 +172,16 @@ const actions = {
     return post.json()
   },
   async fetchPosts({ commit, dispatch, getters, context, rootGetters }, payload) {
+    let start = payload.start?payload.start:0
+    let end = payload.end?payload.end:50
     let posts = await fetch(`${endpoint}/forum/fetch-posts`, {
       method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ limit: { start: 0, end: 50 }, address: payload.id }))
+      body: encodeURI(JSON.stringify({ limit: { start: start, end: end }, address: payload.id }))
     })
     let postsPayload = await posts.json()
     if (postsPayload.payload.posts) {
-      if(payload.store){ payload.store.commit('setForumPostsCache', postsPayload.payload.posts)}
-      else if(commit){ commit('setForumPostsCache', postsPayload.payload.posts)}
+      if(payload.store){ payload.store.commit('setForumPostsCache', postsPayload.payload)}
+      else if(commit){ commit('setForumPostsCache', postsPayload.payload)}
     }
   },
   async viewPost({ commit, dispatch, getters, context, rootGetters }, payload) {

@@ -47,7 +47,7 @@ const voteTopic = async function (property, direction) {
       }
       temp.push(tempItem)
     }
-    this.$store.commit('setForumPostsCache', temp)
+    this.$store.commit('setForumPostsCache', { posts: temp })
   }
 
 
@@ -63,4 +63,10 @@ const voteTopic = async function (property, direction) {
 
 }
 
-export { profileImg, hasherName, voteTopic }
+const loadForumCache = function (address) {
+  let start = this.$store.state.forumPosts.page * this.$store.state.forumPosts.paginationLimit
+  let end = start + this.$store.state.forumPosts.paginationLimit
+  this.$store.dispatch("fetchPosts", { id: address, store: this.$store, start: start, end: end })
+}
+
+export { profileImg, hasherName, voteTopic, loadForumCache }

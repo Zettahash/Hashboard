@@ -21,7 +21,7 @@ import { mapGetters } from 'vuex';
 import NewPost from '@/components/pages/Forum/NewPost.vue';
 import PreviewPost from '@/components/pages/Forum/PreviewPost.vue';
 import ForumTopics from '@/components/pages/Forum/ForumTopics.vue';
-import { profileImg, hasherName} from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum'
 
 export default {
   name: 'CommunityConsensusForum',
@@ -37,8 +37,8 @@ export default {
       item: 'routerLoaded',
       value: true
     })
-    if (this.wallet) {
-      this.$store.dispatch("fetchPosts", { id: this.wallet, store:this.$store })
+    if (this.wallet && !this.forumPostsCache) {
+      this.loadForumCache()
     }
   },
   computed: {
@@ -46,18 +46,24 @@ export default {
       application: 'application',
       forumProfile: 'forumProfile',
       wallet: 'wallet',
+      forumPosts: 'forumPosts',
       forumPostsCache: 'forumPostsCache',
     }),
   },
   watch: {
     wallet(value) {
       if (value) {
-        this.$store.dispatch("fetchPosts", { id: value, store:this.$store })
+        this.loadForumCache()
       }
     }
   },
   methods: {
     profileImg, hasherName,
+    loadForumCache() {
+      let start = this.forumPosts.page * this.forumPosts.paginationLimit
+      let end = start + this.forumPosts.paginationLimit
+      this.$store.dispatch("fetchPosts", { id: this.wallet, store: this.$store, start: start, end: end })
+    },
     newPostUI() {
       this.newPost = true
     },
@@ -70,5 +76,4 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-</style>
+<style lang="scss"></style>

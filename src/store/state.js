@@ -28,6 +28,11 @@ let state = {
   test: false,
   forumProfile: false,
   forumPostsCache: false,
+  forumPosts: {
+    total: false,
+    page: 0,
+    paginationLimit: 50,
+  },
   forumPostRepliesWatcherFlag: false,
   ens:{
     name: false,

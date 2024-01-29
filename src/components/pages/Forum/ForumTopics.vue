@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="forum-topics">
-  <LoadingEle short="short" v-if="!forumPostsCache"/>
+    <LoadingEle short="short" v-if="!forumPostsCache"/>
+    <template v-if="forumPostsCache">
     <div v-for="(topic, index) of forumPostsCache" @click="$router.push({ path: `/consensus/topic/${topic.topic_id}` })"
       :key="index" class="topic">
       <img :src="profileImg(topic.op_address)" class="profile-logo"
@@ -20,9 +21,12 @@
           <timeago :datetime="Number(topic.timestamp)" />
         </div>
       </div>
-    </div>
+    </div></template>
     <template v-if="forumPostsCache.length==0">
       <p><i>No posts yet.</i></p>
+    </template>
+    <template v-else>
+      <ForumPagination />
     </template>
   </div>
 </template>
@@ -31,6 +35,7 @@ import { mapGetters } from 'vuex';
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 import { profileImg, hasherName } from '@/utils/forum'
 import ForumVoteUI from '@/components/modules/ForumVoteUI.vue'
+import ForumPagination from '@/components/modules/ForumPagination.vue'
 
 export default {
   name: 'ForumTopics',
@@ -39,7 +44,7 @@ export default {
       topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
-  components:{LoadingEle, ForumVoteUI},
+  components:{LoadingEle, ForumVoteUI, ForumPagination},
   mounted() {
 
   },

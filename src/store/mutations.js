@@ -51,7 +51,12 @@ let mutations = {
     state.forumProfile = payload
   },
   setForumPostsCache(state, payload) {
-    state.forumPostsCache = payload
+    state.forumPostsCache = payload.posts
+    state.forumPosts.total = payload.total? payload.total:state.forumPosts.total
+  },
+  setForumPosts(state, payload) {
+    state.forumPosts.total = payload.total? payload.total:state.forumPosts.total
+    state.forumPosts.page = payload.page? payload.page:state.forumPosts.page
   },
   setForumPostRepliesWatcherFlag(state, payload) {
     state.forumPostRepliesWatcherFlag = payload
