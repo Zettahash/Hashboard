@@ -58,6 +58,11 @@ let mutations = {
     state.forumPosts.total = payload.total? payload.total:state.forumPosts.total
     state.forumPosts.page = payload.page? payload.page:state.forumPosts.page
   },
+  setENS(state, payload) {
+    for (const [key, value] of Object.entries(payload)) {
+      state.ens[key]=value
+    }
+  },
   setForumPostRepliesWatcherFlag(state, payload) {
     state.forumPostRepliesWatcherFlag = payload
   },

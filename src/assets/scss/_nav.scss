@@ -405,34 +405,7 @@ i.i-refresh-cw.spinning {
   }
 }
 
-.switch-indicator {
-  display: inline-block;
-  width: 50px;
-  height: 25px;
-  border-radius: 100px;
-  box-shadow: 0 0 0 2px;
-  padding: 3px;
-  margin: auto 10px;
 
-  &::before {
-    content: '';
-    height: 100%;
-    aspect-ratio: 1/1;
-    background: var(--neutral-5);
-    display: block;
-    border-radius: 100px;
-    transition: 200ms ease;
-  }
-
-  &.on {
-    box-shadow: 0 0 0 2px var(--moss);
-
-    &::before {
-      transform: translateX(calc(100% + 6px));
-      background: var(--light-moss);
-    }
-  }
-}
 
 @keyframes animateDashShort {
   from {

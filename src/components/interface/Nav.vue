@@ -60,7 +60,7 @@
   <template v-if="width>800">
     <WalletConnector />
   </template>
-    <div class="menu-container">
+    <!-- <div class="menu-container">
       <a class="btn" @click="menu=!menu"><i class="icon-ellipsis-v"></i></a>
       <div class="menu" v-if="menu">
         <ul>
@@ -93,7 +93,7 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 </div>

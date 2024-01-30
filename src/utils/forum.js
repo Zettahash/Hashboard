@@ -69,4 +69,14 @@ const loadForumCache = function (address) {
   this.$store.dispatch("fetchPosts", { id: address, store: this.$store, start: start, end: end })
 }
 
-export { profileImg, hasherName, voteTopic, loadForumCache }
+const setProfile = async function (payload) {
+  let wallet = this.$store.state.wallet
+  let result = await fetch(`${process.env.VUE_APP_MIDDLEWARE_URL}/forum/set-profile`, {
+    method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+    body: encodeURI(JSON.stringify({ data: payload, address: wallet }))
+  })
+  let newPayload = await result.json()
+  this.$store.commit("setForum", newPayload.payload?.profile)
+}
+
+export { profileImg, hasherName, voteTopic, loadForumCache, setProfile }

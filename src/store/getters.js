@@ -35,5 +35,8 @@ let getters = {
   forumPostRepliesWatcherFlag: state => {
     return state.forumPostRepliesWatcherFlag
   },
+  ens: state => {
+    return state.ens
+  },
 }
 export default getters

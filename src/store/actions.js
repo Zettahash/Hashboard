@@ -28,7 +28,6 @@ const actions = {
 
     commit('setDynamic', { item: 'applicationLoaded', value: true })
     dispatch('responsiveUI', { commit })
-    // dispatch('initProfile', { commit, dispatch, getters, context, rootGetters })
 
   },
   fetchLincoin({ commit, dispatch, getters, context, rootGetters }) {
@@ -100,7 +99,7 @@ const actions = {
           success++
         })
     } catch (e) {
-          errors++
+      errors++
     }
 
     try {
@@ -110,15 +109,15 @@ const actions = {
           success++
         })
     } catch (e) {
-          success++
+      success++
     }
 
     try {
-      dispatch('fetchPosts', { c, d, g, co, rg }, {id:g.wallet})
+      dispatch('fetchPosts', { c, d, g, co, rg }, { id: g.wallet })
 
     } catch (e) {
       console.log(e)
-          success++
+      success++
     }
 
     if (errors > 0) {
@@ -160,6 +159,7 @@ const actions = {
     })
       .then(result => { return result.json() }).then(data => {
         payload.store.commit("setForum", data.payload?.profile)
+        // payload.store.commit("setENS", { systemUseENS: data.payload?.profile?.ens })
         payload.store.dispatch("fetchPosts", { id: payload.address, store: payload.store })
       })
   },
@@ -172,32 +172,32 @@ const actions = {
     return post.json()
   },
   async fetchPosts({ commit, dispatch, getters, context, rootGetters }, payload) {
-    let start = payload.start?payload.start:0
-    let end = payload.end?payload.end:50
+    let start = payload.start ? payload.start : 0
+    let end = payload.end ? payload.end : 50
     let posts = await fetch(`${endpoint}/forum/fetch-posts`, {
       method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
       body: encodeURI(JSON.stringify({ limit: { start: start, end: end }, address: payload.id }))
     })
     let postsPayload = await posts.json()
     if (postsPayload.payload.posts) {
-      if(payload.store){ payload.store.commit('setForumPostsCache', postsPayload.payload)}
-      else if(commit){ commit('setForumPostsCache', postsPayload.payload)}
+      if (payload.store) { payload.store.commit('setForumPostsCache', postsPayload.payload) }
+      else if (commit) { commit('setForumPostsCache', postsPayload.payload) }
     }
   },
   async viewPost({ commit, dispatch, getters, context, rootGetters }, payload) {
     await fetch(`${endpoint}/forum/increment-view`, {
       method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ id:payload.id, address: payload.address }))
+      body: encodeURI(JSON.stringify({ id: payload.id, address: payload.address }))
     })
   },
   async vote({ commit, dispatch, getters, context, rootGetters }, payload) {
     const request = await fetch(`${endpoint}/forum/vote`, {
       method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ direction:payload.direction, topic_id:payload.topic_id, comment_id:payload.comment_id, address: payload.address }))
+      body: encodeURI(JSON.stringify({ direction: payload.direction, topic_id: payload.topic_id, comment_id: payload.comment_id, address: payload.address }))
     })
     let response = await request.json()
     if (response.payload) { return response }
-    else{return {error: 'Failed to submit vote.'}}
+    else { return { error: 'Failed to submit vote.' } }
   },
   async submitReply({ commit, dispatch, getters, context, rootGetters }, payload) {
     let encodedPost = encodeStr(JSON.stringify(payload.post))
@@ -214,7 +214,7 @@ const actions = {
     })
     let postsPayload = await posts.json()
     if (postsPayload.payload.replies) { return postsPayload.payload.replies }
-    else{return {error: 'Failed to fetch comments.'}}
+    else { return { error: 'Failed to fetch comments.' } }
   },
   async snapshotUnfollow({ commit, dispatch, getters, context, rootGetters }, payload) {
     let request = await fetch(`${endpoint}/snapshot/unfollow`, {
@@ -223,7 +223,7 @@ const actions = {
     })
     let response = await request.json()
     if (response.payload) { return response.payload }
-    else{return {error: 'Failed to fetch comments.'}}
+    else { return { error: 'Failed to fetch comments.' } }
   },
   responsiveUI({ commit }) {
     if (window.innerWidth <= 1200) {

@@ -55,7 +55,7 @@
     </template>
 
     <div class="version shortcuts">
-      <a>{{version[0]}}<span>{{version[1]}}</span></a>
+      <a>{{version[0]}}-beta<span>{{version[1]}}</span></a>
     </div>
   </div>
 </template>

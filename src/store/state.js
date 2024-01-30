@@ -36,7 +36,8 @@ let state = {
   forumPostRepliesWatcherFlag: false,
   ens:{
     name: false,
-    avatar: false
+    avatar: false,
+    systemUseENS: false,
   },
 }
 export default state
