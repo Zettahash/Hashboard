@@ -45,6 +45,11 @@ const actions = {
         })
     } catch (e) {
       commit("setData", { item: 'synchronisationStatus', value: "error" })
+      commit("setNotification", {
+        title: "Synchronisation did not complete",
+        className: 'error',
+        data: "Features which rely on exchange data may not be available.",
+      })
     }
 
     let c = commit
@@ -71,14 +76,25 @@ const actions = {
           if (data.payload) {
             try {
               commit("setHoldingsBTC", data.payload.btc)
+            } catch (e) { }
+            try {
               commit("setHoldingsETH", data.payload.eth)
+            } catch (e) { }
+            try {
               commit("setRates", data.payload.exr)
+            } catch (e) { }
+            try {
+              commit("setPhysicalAssets", data.payload.physical_assets)
               // commit("setPayload", data.payload.lincoin)
-            } catch (e) {
-            }
+            } catch (e) { }
           }
         })
     } catch (e) {
+      commit("setNotification", {
+        title: "Something went wrong",
+        className: 'error',
+        data: e,
+      })
     }
   },
   async fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
@@ -122,6 +138,11 @@ const actions = {
 
     if (errors > 0) {
       commit("setData", { item: 'synchronisationStatus', value: "error" })
+      commit("setNotification", {
+        title: "Unable to fetch exchange rates data",
+        className: 'error',
+        data: "Some balances may not reflect their true value.",
+      })
     } else {
       commit("setData", { item: 'synchronisation', value: Date.now() })
       commit("setData", { item: 'assets', value: Date.now() })

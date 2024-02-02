@@ -38,5 +38,8 @@ let getters = {
   ens: state => {
     return state.ens
   },
+  physicalAssets: state => {
+    return state.physical_assets
+  },
 }
 export default getters

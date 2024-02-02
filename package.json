@@ -11,6 +11,7 @@
     "@apollo/client": "^3.8.7",
     "@babel/eslint-parser": "^7.21.3",
     "@ensdomains/ensjs": "^3.1.0",
+    "@mayasabha/ckeditor4-vue3": "^1.0.7",
     "@snapshot-labs/lock": "^0.2.2",
     "@snapshot-labs/snapshot.js": "^0.9.9",
     "@vitejs/plugin-vue": "^5.0.3",

@@ -66,5 +66,8 @@ let mutations = {
   setForumPostRepliesWatcherFlag(state, payload) {
     state.forumPostRepliesWatcherFlag = payload
   },
+  setPhysicalAssets(state, payload) {
+    state.physical_assets = payload
+  },
 }
 export default mutations

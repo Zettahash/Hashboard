@@ -352,6 +352,12 @@
       }
     }
 
+    &.error {
+      i.i-alert-triangle {
+        display: block;
+      }
+    }
+
     &.syncing {
       pointer-events: none;
       i.i-refresh-cw {

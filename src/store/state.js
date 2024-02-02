@@ -39,5 +39,6 @@ let state = {
     avatar: false,
     systemUseENS: false,
   },
+  physical_assets: false,
 }
 export default state

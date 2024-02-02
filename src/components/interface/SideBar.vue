@@ -44,8 +44,10 @@
       <i class="i-refresh-cw"></i>
       <i class="i-alert-circle"></i>
       <i class="i-check"></i>
+      <i class="i-alert-triangle"></i>
       <span v-if="!data.synchronisationStatus">Hashboard synced</span>
       <span v-if="data.synchronisationStatus=='syncing'">Syncing...</span>
+      <span v-if="data.synchronisationStatus=='error'">Sync errors detected</span>
     </a>
     </div>
     <div class="shortcuts">

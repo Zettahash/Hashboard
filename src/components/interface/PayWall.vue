@@ -31,7 +31,7 @@
         <WalletConnector />
       </p>
       <p>
-        <template>
+        <template v-if="wallet">
           <a class="btn-link error" @click="reset()">Reset wallet connection</a>
         </template>
       </p>
