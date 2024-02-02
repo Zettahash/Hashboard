@@ -85,9 +85,9 @@ export default {
           this.postTitleDataDifference = `Add ${20-this.postTitle.length} characters.`
           flag++
         }
-        if (this.postTitle.length > 100) {
+        if (this.postTitle.length > 1000) {
           this.postTitleNotice = 'error2'
-          this.postTitleDataDifference = `Remove ${this.postTitle.length-100} characters.`
+          this.postTitleDataDifference = `Remove ${this.postTitle.length-1000} characters.`
           flag++
         }
         if (this.postBody.length < 20) {
@@ -95,9 +95,9 @@ export default {
           this.postBodyDataDifference = `Add ${20-this.postBody.length} characters.`
           flag++
         }
-        if (this.postBody.length > 1000) {
+        if (this.postBody.length > 10000) {
           this.postBodyNotice = 'error4'
-          this.postBodyDataDifference = `Remove ${this.postBody.length - 1000} characters.`
+          this.postBodyDataDifference = `Remove ${this.postBody.length - 10000} characters.`
           flag++
         }
         if (flag == 0) {
@@ -222,7 +222,7 @@ export default {
     }
     &.error2 {
       &::after {
-        content: 'This field is limited to 100 characters. ' attr(error);
+        content: 'This field is limited to 1000 characters. ' attr(error);
       }
     }
     &.error3 {
@@ -232,7 +232,7 @@ export default {
     }
     &.error4 {
       &::after {
-        content: 'This field is limited to 1000 characters. ' attr(error);
+        content: 'This field is limited to 10,000 characters. ' attr(error);
       }
     }
 
