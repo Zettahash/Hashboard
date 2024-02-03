@@ -405,10 +405,16 @@
   display: flex;
   box-shadow: 0 0 0 1px var(--neutral-6);
   border-radius: 10px;
-  overflow: hidden;
-  &::before{
+  margin-top: 20px;
+    position: relative;
+    &::before {
     content: attr(data-label);
-    
+    position: absolute;
+  top: -20px;
+  font-size: 11px;
+  color: var(--neutral-5);
+  text-transform: uppercase;
+  font-weight: 800;
   }
   .tab {
     padding: 10px;
@@ -416,40 +422,46 @@
     position: relative;
     z-index: 1;
     display: flex;
-  align-items: center;
-  text-align: center;
+    align-items: center;
+    text-align: center;
     cursor: pointer;
     transition: 100ms ease;
     &:first-of-type {
       padding-left: 20px;
       &.active {
         &::after {
-          left: -10px;
-          width:calc(100% + 15px);
-        }}
+          width: calc(100% + 5px);
+          border-radius: 10px 0 0 10px;
+        }
+      }
     }
     &:last-of-type {
       padding-right: 20px;
       &.active {
         &::after {
           left: -5px;
-          width:calc(100% + 15px);
-        }}
+          width: calc(100% + 5px);
+          border-radius: 0 10px 10px 0;
+        }
+      }
     }
-    &:not(.active){&:hover{
-      color: var(--neutral-0);
-    }}
+    &:not(.active) {
+      &:hover {
+        color: var(--neutral-0);
+      }
+    }
     &.active {
       color: var(--neutral-1);
       &::after {
         content: "";
         position: absolute;
         top: 0;
-        left: 0;
-        height:100%;
-        width:100%;
+        left: -5px;
+        height: 100%;
+        width: calc(100% + 10px);
         z-index: -1;
         background: var(--neutral-6);
+        // border-radius: 4px;
       }
     }
   }

@@ -76,6 +76,7 @@ export default {
     reorderView() {
       let tab = this.activeTab
       let tmp = this.forumPostsCache
+      if(!tmp){return}
       switch (tab) {
         case 'latest':
           tmp.sort((a, b) => { return a.timestamp > b.timestamp ? 0 : 1 })
