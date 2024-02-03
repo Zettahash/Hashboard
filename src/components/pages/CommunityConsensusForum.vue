@@ -8,8 +8,14 @@
     <h2>Hasher #{{hasherName()}}</h2>
     </div>
     </div>
-    <div>
-      <a class="btn" @click="newPost = true">New Post</a>
+    <div class="head-span-flex">
+      <div class="tabs-switcher" data-label="Sorting">
+        <div :class="`tab ${activeTab=='latest'?'active':''}`" @click="activeTab='latest'">Latest</div>
+        <div :class="`tab ${activeTab=='popular'?'active':''}`" @click="activeTab='popular'">Votes</div>
+        <div :class="`tab ${activeTab=='views'?'active':''}`" @click="activeTab='views'">Views</div>
+        <div :class="`tab ${activeTab=='comments'?'active':''}`" @click="activeTab='comments'">Comments</div>
+      </div>
+      <a class="btn" @click="newPost = true"><i class="i-plus"></i> New Post</a>
     </div>
     <NewPost v-if="newPost" @close-modal="newPost=false" @preview-modal="setPreviewPost"/>
     <PreviewPost v-if="previewPost" @close-preview-modal="previewPost=false" @close-modal="newPost=false" :payload="previewPost"/>
@@ -29,6 +35,7 @@ export default {
     return {
       newPost: false,
       previewPost: false,
+      activeTab: 'latest',
     }
   },
   components: { ForumTopics, NewPost, PreviewPost, },
@@ -39,6 +46,9 @@ export default {
     })
     if (this.wallet && !this.forumPostsCache) {
       this.loadForumCache()
+    }
+    if (localStorage.getItem('forumActiveTab')) {
+      this.activeTab = localStorage.getItem('forumActiveTab')
     }
   },
   computed: {
@@ -55,10 +65,36 @@ export default {
       if (value) {
         this.loadForumCache()
       }
-    }
+    },
+    activeTab(value) {
+      localStorage.setItem('forumActiveTab', value)
+      this.reorderView()
+    },
   },
   methods: {
     profileImg, hasherName,
+    reorderView() {
+      let tab = this.activeTab
+      let tmp = this.forumPostsCache
+      switch (tab) {
+        case 'latest':
+          tmp.sort((a, b) => { return a.timestamp > b.timestamp ? 0 : 1 })
+          break;
+        case 'popular':
+          tmp.sort((a, b) => { return a.resultant_score > b.resultant_score ? 0 : 1 })
+          break;
+        case 'views':
+          tmp.sort((a, b) => { return Number(a.view_count) > Number(b.view_count) ? 0 : 1 })
+          break;
+          case 'comments':
+          tmp.sort((a, b) => { return Number(a.reply_count ? a.reply_count : 0) > Number(b.reply_count ? b.reply_count : 0) ? 0 : 1 })
+          break;
+        default:
+      }
+      this.$store.dispatch("setForumPostsCache", { posts: tmp })
+      //   setForumPostsCache(state, payload) {
+      // state.forumPostsCache = payload.posts
+    },
     loadForumCache() {
       let start = this.forumPosts.page * this.forumPosts.paginationLimit
       let end = start + this.forumPosts.paginationLimit
