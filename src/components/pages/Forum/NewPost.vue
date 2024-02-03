@@ -2,9 +2,9 @@
   <div class="form new-post ui-ele">
     <div class="head-organiser">
 
-    <a @click="cancelStage++" class="cancel">{{ cancelText }}</a>
-    <h2>New Post</h2>
-  </div>
+      <a @click="cancelStage++" class="cancel">{{ cancelText }}</a>
+      <h2>New Post</h2>
+    </div>
 
     <div :class="`form-section ${postTitleNotice}`" :error="postTitleDataDifference">
       <label>Title</label>
@@ -12,7 +12,11 @@
     </div>
     <div :class="`form-section ${postBodyNotice}`" :error="postBodyDataDifference">
       <label>Body</label>
-      <textarea ref="textArea" v-model="postBody" @input="textAreaInput++" :style="`height:${height}`"/>
+      <!-- <textarea ref="textArea" v-model="postBody" @input="textAreaInput++" :style="`height:${height}`"/> -->
+      <div class="editor-wrapper">
+        <quill-editor :options="editorOption" :disabled="false"
+          @change="postBody = $event.html; postBodyText = $event.text"></quill-editor>
+      </div>
     </div>
     <div class="form-section">
       <label>Category & tags</label>
@@ -32,14 +36,33 @@
     </div>
   </div>
 </template>
+<script setup>
+</script>
 <script>
 import { mapGetters } from 'vuex';
+import { quillEditor } from 'vue3-quill'
+
 export default {
   name: 'NewPost',
+  components: {
+    quillEditor,
+  },
   data() {
     return {
-      height:'100px',
-      textAreaInput:0,
+      editorOption: {
+        placeholder: 'Body contents',
+        theme: 'snow',
+        modules: {
+          toolbar: [['bold', 'italic', 'underline', 'strike', 'link', 'image'],
+          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'align': [] }],
+          ['blockquote', 'code-block', 'link'],
+          [{ 'color': [] }, 'clean'],
+          ],
+        },
+      },
+      height: '100px',
+      textAreaInput: 0,
       preview: false,
       cancelStage: 0,
       cancelText: 'Cancel',
@@ -47,6 +70,7 @@ export default {
       postTitleDataDifference: '',
       postTitleNotice: 'neutral',
       postBody: '',
+      postBodyText: '',
       postBodyDataDifference: '',
       postBodyNotice: 'neutral',
       category: 'general',
@@ -79,25 +103,31 @@ export default {
     category() { this.cancelStage = 0 },
     preview(value) {
       if (value) {
+        const bytes = (new TextEncoder().encode(this.postBody)).length
         let flag = 0
-        if (this.postTitle.length < 20) {
+        if (this.postTitle.length < this.application.postTextCharacterMin) {
           this.postTitleNotice = 'error'
-          this.postTitleDataDifference = `Add ${20-this.postTitle.length} characters.`
+          this.postTitleDataDifference = `Add ${this.application.postTextCharacterMin - this.postTitle.length} characters.`
           flag++
         }
-        if (this.postTitle.length > 1000) {
+        if (this.postTitle.length > this.application.postTitleCharacterLimit) {
           this.postTitleNotice = 'error2'
-          this.postTitleDataDifference = `Remove ${this.postTitle.length-1000} characters.`
+          this.postTitleDataDifference = `Remove ${this.postTitle.length - this.application.postTitleCharacterLimit} characters.`
           flag++
         }
-        if (this.postBody.length < 20) {
+        if ((bytes < this.application.postTextBytesMin) || (this.postBodyText.length < this.application.postTextCharacterMin)) {
           this.postBodyNotice = 'error3'
-          this.postBodyDataDifference = `Add ${20-this.postBody.length} characters.`
+          this.postBodyDataDifference = `Add ${this.application.postTextCharacterMin - this.postBodyText.length} characters.`
           flag++
         }
-        if (this.postBody.length > 10000) {
+        if (this.postBodyText.length > this.application.postBodyCharacterLimit) {
           this.postBodyNotice = 'error4'
-          this.postBodyDataDifference = `Remove ${this.postBody.length - 10000} characters.`
+          this.postBodyDataDifference = `Remove ${this.postBodyText.length - this.application.postBodyCharacterLimit} characters.`
+          flag++
+        }
+        if (bytes > this.application.postBodyByteLimit) {
+          this.postBodyNotice = 'error5'
+          this.postBodyDataDifference = `Reduce by ${bytes - this.application.postBodyByteLimit} bytes or utilise external links for your content.`
           flag++
         }
         if (flag == 0) {
@@ -117,8 +147,8 @@ export default {
     }),
   },
   methods: {
-    newPost() {
-
+    updateContent(e) {
+      console.log(e)
     },
     setTag() {
       if (this.tagsInput.trim().length > 0) {
@@ -140,6 +170,9 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+@import "@/assets/scss/_quill.scss";
+</style>
 <style lang="scss" scoped>
 @import "@/assets/scss/_constants.scss";
 
@@ -148,8 +181,6 @@ export default {
   margin-right: auto;
   cursor: pointer;
 }
-
-
 
 .new-post {
   position: absolute;
@@ -182,7 +213,7 @@ export default {
 
   &::after {
     content: '';
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     height: 100vh;
@@ -217,22 +248,31 @@ export default {
 
     &.error {
       &::after {
-        content: 'This field requires at least 20 characters of text. ' attr(error);
+        content: 'This field requires at least 10 characters of text. ' attr(error);
       }
     }
+
     &.error2 {
       &::after {
         content: 'This field is limited to 1000 characters. ' attr(error);
       }
     }
+
     &.error3 {
       &::after {
-        content: 'This field requires at least 20 characters of text. ' attr(error);
+        content: 'This field requires at least 10 characters of text. ' attr(error);
       }
     }
+
     &.error4 {
       &::after {
-        content: 'This field is limited to 10,000 characters. ' attr(error);
+        content: 'This field is limited to 20,000 characters. ' attr(error);
+      }
+    }
+
+    &.error5 {
+      &::after {
+        content: 'Posts are limited to 95 KB. ' attr(error);
       }
     }
 
@@ -270,6 +310,7 @@ export default {
   .form-flex {
     display: flex;
     gap: 20px;
+    align-items: baseline;
   }
 
   .tags {
@@ -283,9 +324,16 @@ export default {
     padding: 10px 10px;
     gap: 10px;
 
+    input {
+      &:focus {
+        box-shadow: none;
+        border-radius: unset;
+      }
+    }
+
     &.active {
       background: var(--neutral-9);
-      box-shadow: 0 0 0 0;
+      // box-shadow: 0 0 0 0;
 
     }
 
@@ -324,4 +372,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>

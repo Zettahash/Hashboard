@@ -16,7 +16,12 @@ let state = {
     zhBalance: false,
     walletConnected: false,
     activeFarm: 'lincoin',
-    walletConnectModal:false,
+    walletConnectModal: false,
+    postBodyByteLimit: 950000,
+    postTextBytesMin: 16,
+    postTextCharacterMin:10,
+    postTitleCharacterLimit: 1000,
+    postBodyCharacterLimit: 20000
   },
   data: {},
   payload: false,

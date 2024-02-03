@@ -138,11 +138,7 @@ const actions = {
 
     if (errors > 0) {
       commit("setData", { item: 'synchronisationStatus', value: "error" })
-      commit("setNotification", {
-        title: "Unable to fetch exchange rates data",
-        className: 'error',
-        data: "Some balances may not reflect their true value.",
-      })
+      console.log("Unable to fetch all balance data. Some balances may not reflect their true value.")
     } else {
       commit("setData", { item: 'synchronisation', value: Date.now() })
       commit("setData", { item: 'assets', value: Date.now() })

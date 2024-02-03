@@ -15,7 +15,11 @@
         <h2>Hasher #{{ hasherName() }}</h2>
         <small>on {{ new Date() }}</small>
       </div>
-      <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
+      <!-- <vue-markdown class="post-formatted" :source="markdownPreprocess()" /> -->
+      <div class="post-formatted">
+      <h1>{{payload.postTitle}}</h1>
+      <div v-html="payload.postBody"></div>
+      </div>
 
       <div class="form-section">
         <label>Category & tags</label>
@@ -32,7 +36,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import VueMarkdown from 'vue-markdown-render'
+// import VueMarkdown from 'vue-markdown-render'
 import { profileImg, hasherName} from '@/utils/forum'
 export default {
   name: 'PreviewPost',
@@ -45,7 +49,7 @@ export default {
   },
   props: ['payload',],
   components: {
-    VueMarkdown,
+    // VueMarkdown,
   },
   watch: {
     cancelStage(value) {
@@ -73,7 +77,9 @@ export default {
       return String(`# ${this.payload.postTitle}\n\n${this.payload.postBody}`)
     },
     async post() {
-      let result = await this.$store.dispatch('submitPost', { post: this.payload, id: this.wallet });
+      let tmpPost = this.payload
+      tmpPost.postBody = encodeURIComponent(tmpPost.postBody)
+      let result = await this.$store.dispatch('submitPost', { post: tmpPost, id: this.wallet });
       if (result.payload.error) {
         this.$store.commit("setNotification", {
           title: "Something went wrong",

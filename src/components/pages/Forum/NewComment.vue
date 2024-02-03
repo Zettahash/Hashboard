@@ -6,7 +6,10 @@
     </div>
     <div :class="`form-section ${postBodyNotice}`" :error="postBodyDataDifference">
       <label>Comment</label>
-      <textarea v-model="postBody" />
+      <!-- <textarea v-model="postBody" /> -->
+      <div class="editor-wrapper">
+        <quill-editor :options="editorOption" :disabled="false" @change="postBody=$event.html; postBodyText=$event.text"></quill-editor>
+      </div>
     </div>
     <div class="form-section">
       <label>Tags</label>
@@ -25,10 +28,26 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import { quillEditor } from 'vue3-quill'
+
 export default {
   name: 'NewComment',
+  components:{quillEditor},
   data() {
     return {
+      editorOption: {
+        placeholder: 'Body contents',
+        theme: 'snow',
+        modules: {
+          toolbar: [['bold', 'italic', 'underline', 'strike', 'link', 'image'],
+          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'align': [] }],
+          ['blockquote', 'code-block', 'link'],
+          [{ 'color': [] }, 'clean'],
+          ],
+        },
+      },
+      postBodyText: '',
       preview: false,
       cancelStage: 0,
       cancelText: 'Cancel',
@@ -66,24 +85,21 @@ export default {
     preview(value) {
       if (value) {
         let flag = 0
-        // if (this.postTitle.length < 3) {
-        //   this.postTitleNotice = 'error'
-        //   this.postTitleDataDifference = `Add ${3 - this.postTitle.length} characters.`
-        //   flag++
-        // }
-        // if (this.postTitle.length > 100) {
-        //   this.postTitleNotice = 'error2'
-        //   this.postTitleDataDifference = `Remove ${this.postTitle.length - 100} characters.`
-        //   flag++
-        // }
-        if (this.postBody.length < 3) {
+        const bytes = (new TextEncoder().encode(this.postBody)).length
+        console.log(bytes, this.postBodyText.length)
+        if ((bytes < this.application.postTextBytesMin) || (this.postBodyText.length < this.application.postTextCharacterMin)) {
           this.postBodyNotice = 'error3'
-          this.postBodyDataDifference = `Add ${3 - this.postBody.length} characters.`
+          this.postBodyDataDifference = `Add ${(this.application.postTextCharacterMin - this.postBodyText.length) || this.application.postTextCharacterMin} characters.`
           flag++
         }
-        if (this.postBody.length > 1000) {
+        if (this.postBodyText.length > this.application.postBodyCharacterLimit) {
           this.postBodyNotice = 'error4'
-          this.postBodyDataDifference = `Remove ${this.postBody.length - 1000} characters.`
+          this.postBodyDataDifference = `Remove ${this.postBodyText.length - this.application.postBodyCharacterLimit} characters.`
+          flag++
+        }
+        if (bytes > this.application.postBodyByteLimit) {
+          this.postBodyNotice = 'error5'
+          this.postBodyDataDifference = `Reduce by ${bytes - this.application.postBodyByteLimit} bytes or utilise external links for your content.`
           flag++
         }
         if (flag == 0) {
@@ -104,7 +120,12 @@ export default {
   },
   methods: {
     async reply() {
-      let result = await this.$store.dispatch('submitReply', { post: this.payload(), id: this.wallet });
+      let tmpPost = {
+        topic_id: this.topic_id,
+        postBody: encodeURIComponent(this.postBody),
+        tags: this.tags,
+      }
+      let result = await this.$store.dispatch('submitReply', { post: tmpPost, id: this.wallet });
       if (result.payload.error) {
         this.$store.commit("setNotification", {
           title: "Something went wrong",
@@ -142,6 +163,9 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+@import "@/assets/scss/_quill.scss";
+</style>
 <style lang="scss" scoped>
 @import "@/assets/scss/_constants.scss";
 
@@ -234,25 +258,31 @@ export default {
 
     &.error {
       &::after {
-        content: 'This field requires at least 3 characters of text. ' attr(error);
+        content: 'This field requires at least 10 characters of text. ' attr(error);
       }
     }
 
     &.error2 {
       &::after {
-        content: 'This field is limited to 100 characters. ' attr(error);
+        content: 'This field is limited to 1000 characters. ' attr(error);
       }
     }
 
     &.error3 {
       &::after {
-        content: 'This field requires at least 3 characters of text. ' attr(error);
+        content: 'This field requires at least 10 characters of text. ' attr(error);
       }
     }
 
     &.error4 {
       &::after {
-        content: 'This field is limited to 1000 characters. ' attr(error);
+        content: 'This field is limited to 20,000 characters. ' attr(error);
+      }
+    }
+
+    &.error5 {
+      &::after {
+        content: 'Comments are limited to 95 KB. ' attr(error);
       }
     }
 

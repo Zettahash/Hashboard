@@ -19,7 +19,10 @@
           <div class="tag category">{{ thisTopic.categories }}</div>
           <div v-for="(tag, index) of thisTopic.tags" :key="index" class="tag">{{ tag }}</div>
         </div>
-        <vue-markdown class="post-formatted" :source="markdownPreprocess()" />
+        <div class="post-formatted">
+        <h1>{{thisTopic.topic}}</h1>
+        <div v-html="decodeURIComponent(thisTopic.body)"></div>
+        </div>
         <div class="stats-organiser" v-if="thisTopic">
           <ForumVoteUI :topic="thisTopic" />
           <div class="view-count"><i class="i-eye"></i> {{ Number(thisTopic.view_count) + 1 }}</div>
@@ -45,7 +48,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import { profileImg, hasherName } from '@/utils/forum'
-import VueMarkdown from 'vue-markdown-render'
 import NewComment from './NewComment.vue'
 import TopicReplies from './TopicReplies.vue'
 import { ref } from "vue";
@@ -53,7 +55,7 @@ import ForumVoteUI from '@/components/modules/ForumVoteUI.vue'
 
 export default {
   name: 'ViewTopic',
-  components: { VueMarkdown, NewComment, TopicReplies, ForumVoteUI },
+  components: { NewComment, TopicReplies, ForumVoteUI },
   data() {
     return {
       newReply: false,

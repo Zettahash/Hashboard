@@ -17,7 +17,7 @@
 
 
       <div class="main">
-        <p>{{ reply.body }}</p>
+        <div v-html="decodeURIComponent(reply.body)"></div>
         <div class="tags">
           <div v-for="(tag, index) of reply.tags" :key="index" class="tag">{{ tag }}</div>
         </div>
