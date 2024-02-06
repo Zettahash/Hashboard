@@ -431,7 +431,7 @@
       &.active {
         &::after {
           left: 0px;
-          width: calc(100% + 5px);
+          width: calc(100% + 4px);
           border-radius: 10px 0 0 10px;
         }
       }
@@ -440,8 +440,8 @@
       padding-right: 20px;
       &.active {
         &::after {
-          left: -5px;
-          width: calc(100% + 5px);
+          left: -2px;
+          width: calc(100% + 4px);
           border-radius: 0 10px 10px 0;
         }
       }
@@ -457,9 +457,9 @@
         content: "";
         position: absolute;
         top: 0;
-        left: -5px;
+        left: -2px;
         height: 100%;
-        width: calc(100% + 10px);
+        width: calc(100% + 4px);
         z-index: -1;
         background: var(--neutral-6);
         // border-radius: 4px;
