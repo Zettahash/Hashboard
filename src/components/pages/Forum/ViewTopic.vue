@@ -61,7 +61,6 @@ export default {
       newReply: false,
       newReplyAfter: false,
       topic_id: this.$route.params.topic_id,
-      topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
   mounted() {

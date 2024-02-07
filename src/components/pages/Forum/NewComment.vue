@@ -60,7 +60,6 @@ export default {
       category: 'general',
       tagsInput: '',
       tags: [],
-      topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
   props: ['topic', 'topic_id', 'wallet'],

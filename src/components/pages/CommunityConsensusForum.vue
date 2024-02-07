@@ -8,6 +8,7 @@
     <h2>Hasher #{{hasherName()}}</h2>
     </div>
     </div>
+      <ForumTopicsShortcuts />
     <div class="head-span-flex">
       <div class="tabs-switcher" data-label="Sorting">
         <div :class="`tab ${activeTab=='latest'?'active':''}`" @click="activeTab='latest'">Latest</div>
@@ -27,6 +28,7 @@ import { mapGetters } from 'vuex';
 import NewPost from '@/components/pages/Forum/NewPost.vue';
 import PreviewPost from '@/components/pages/Forum/PreviewPost.vue';
 import ForumTopics from '@/components/pages/Forum/ForumTopics.vue';
+import ForumTopicsShortcuts from '@/components/pages/Forum/ForumTopicsShortcuts.vue';
 import { profileImg, hasherName } from '@/utils/forum'
 
 export default {
@@ -38,7 +40,7 @@ export default {
       activeTab: 'latest',
     }
   },
-  components: { ForumTopics, NewPost, PreviewPost, },
+  components: { ForumTopics, NewPost, PreviewPost, ForumTopicsShortcuts, },
   mounted() {
     this.$store.commit('setDynamic', {
       item: 'routerLoaded',
@@ -58,6 +60,7 @@ export default {
       wallet: 'wallet',
       forumPosts: 'forumPosts',
       forumPostsCache: 'forumPostsCache',
+      forumTopics: 'forumTopics',
     }),
   },
   watch: {

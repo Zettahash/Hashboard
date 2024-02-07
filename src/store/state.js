@@ -21,7 +21,11 @@ let state = {
     postTextBytesMin: 16,
     postTextCharacterMin:10,
     postTitleCharacterLimit: 1000,
-    postBodyCharacterLimit: 20000
+    postBodyCharacterLimit: 20000,
+    forumTopics: {
+      quantities:false,
+      names:['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']},
+
   },
   data: {},
   payload: false,

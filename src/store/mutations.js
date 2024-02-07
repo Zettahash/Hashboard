@@ -51,8 +51,9 @@ let mutations = {
     state.forumProfile = payload
   },
   setForumPostsCache(state, payload) {
-    state.forumPostsCache = payload.posts
-    state.forumPosts.total = payload.total? payload.total:state.forumPosts.total
+    state.forumPostsCache = payload.posts.results
+    state.forumPosts.total = payload.posts.total? payload.posts.total:state.forumPosts.posts.total
+    state.application.forumTopics.quantities = payload.posts.totalPerCategory? payload.posts.totalPerCategory:state.application.forumTopics.quantities
   },
   setForumPosts(state, payload) {
     state.forumPosts.total = payload.total? payload.total:state.forumPosts.total

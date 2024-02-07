@@ -50,7 +50,6 @@ export default {
     return {
       waiting: true,
       topicsReplies: false,
-      topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
   props: ['topic_id', 'wallet', 'newReplyAfter'],

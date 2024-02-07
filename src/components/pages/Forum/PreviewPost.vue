@@ -44,7 +44,6 @@ export default {
     return {
       cancelStage: 0,
       cancelText: 'Cancel',
-      topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
   props: ['payload',],

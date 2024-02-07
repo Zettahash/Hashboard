@@ -41,7 +41,6 @@ export default {
   name: 'ForumTopics',
   data() {
     return {
-      topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
   components:{LoadingEle, ForumVoteUI, ForumPagination},

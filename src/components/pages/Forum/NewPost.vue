@@ -22,7 +22,7 @@
       <label>Category & tags</label>
       <div class="form-flex">
         <select v-model="category">
-          <option v-for="topic of topics" :key="topic" :value="topic.toLocaleLowerCase()">{{ topic }}</option>
+          <option v-for="topic of forumTopics.names" :key="topic" :value="topic.toLocaleLowerCase()">{{ topic }}</option>
         </select>
         <div :class="`tags ${tagsInput.length > 0 || tags.length > 0 ? 'active' : ''}`">
           <div v-for="(tag, index) of tags" :key="index" @click="removeTag(index)" class="tag">{{ tag }}</div>
@@ -76,7 +76,6 @@ export default {
       category: 'general',
       tagsInput: '',
       tags: [],
-      topics: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     }
   },
   watch: {
@@ -144,6 +143,7 @@ export default {
     ...mapGetters({
       application: 'application',
       forumProfile: 'forumProfile',
+      forumTopics: 'forumTopics',
     }),
   },
   methods: {

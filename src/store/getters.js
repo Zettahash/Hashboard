@@ -41,5 +41,8 @@ let getters = {
   physicalAssets: state => {
     return state.physical_assets
   },
+  forumTopics: state => {
+    return state.application.forumTopics
+  },
 }
 export default getters
