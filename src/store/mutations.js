@@ -52,16 +52,16 @@ let mutations = {
   },
   setForumPostsCache(state, payload) {
     state.forumPostsCache = payload.posts.results
-    state.forumPosts.total = payload.posts.total? payload.posts.total:state.forumPosts.posts.total
-    state.application.forumTopics.quantities = payload.posts.totalPerCategory? payload.posts.totalPerCategory:state.application.forumTopics.quantities
+    state.forumPosts.total = payload.posts.total ? payload.posts.total :  (state.forumPosts && state.forumPosts.total ? state.forumPosts.total : 0)
+    state.application.forumTopics.quantities = payload.posts.totalPerCategory ? payload.posts.totalPerCategory : state.application.forumTopics.quantities
   },
   setForumPosts(state, payload) {
-    state.forumPosts.total = payload.total? payload.total:state.forumPosts.total
-    state.forumPosts.page = payload.page? payload.page:state.forumPosts.page
+    state.forumPosts.total = payload.total ? payload.total : (state.forumPosts && state.forumPosts.total ? state.forumPosts.total : 0)
+    state.forumPosts.page = payload.page ? payload.page : state.forumPosts.page
   },
   setENS(state, payload) {
     for (const [key, value] of Object.entries(payload)) {
-      state.ens[key]=value
+      state.ens[key] = value
     }
   },
   setForumPostRepliesWatcherFlag(state, payload) {
