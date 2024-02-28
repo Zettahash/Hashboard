@@ -9,7 +9,7 @@
       <template v-if="application.zhHolderBool">
         <router-view></router-view></template>
       <template v-else>
-        <PayWall />
+        <LandingPage />
       </template>
     </div>
   </div>
@@ -18,7 +18,7 @@
 <script>
 import NavBar from './components/interface/Nav.vue'
 import SideBar from './components/interface/SideBar.vue'
-import PayWall from './components/interface/PayWall.vue'
+import LandingPage from './components/pages/LandingPage.vue'
 import Notifications from './components/modules/Notifications.vue'
 import { mapGetters } from 'vuex';
 
@@ -28,7 +28,7 @@ export default {
   components: {
     NavBar,
     SideBar,
-    PayWall,
+    LandingPage,
     Notifications,
   },
   computed: {

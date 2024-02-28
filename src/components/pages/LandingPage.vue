@@ -15,7 +15,22 @@
           :src="require('/src/assets/img/design/6590e06479ac1d8d587b3954_dashdark-x-products-page-dashboard-webflow-template-p-500.png')">
         <div class="text-overlay">
           <p>Get Ready for next-level transparency.</p>
-          <p><router-link :to="{ name: 'mining' }" class="btn" target="_blank">Enter Hashboard</router-link></p>
+          <p v-if="application.zhHolderBool"><router-link :to="{ name: 'mining' }" class="btn">Enter
+              Hashboard</router-link></p>
+          <template v-else>
+            <template v-if="message === 'needAcc'">
+              <p>Connect your wallet to get started.</p>
+              <p class="centred-connect-btn">
+                <WalletConnector />
+              </p>
+              <p>
+                <template v-if="wallet">
+                  <a class="btn-link error" @click="reset()">Reset wallet connection</a>
+                </template>
+              </p>
+
+            </template>
+          </template>
         </div>
       </div>
 
@@ -43,7 +58,7 @@
             <i class="i-alert-circle"></i> Welcome
           </h1>
           <p>Connect your wallet to get started.</p>
-          <p>
+          <p class="centred-connect-btn">
             <WalletConnector />
           </p>
           <p>
@@ -120,14 +135,14 @@ export default {
 @import '@/assets/scss/constants';
 
 .modal-relative {
-  margin: 0 auto;
+  margin: 40px auto;
   height: max-content;
   width: 500px;
   max-width: 80vw;
   padding: 30px;
   border-radius: 15px;
   background: var(--neutral-10);
-  position: absolute;
+  position: relative;
   z-index: 2;
   top: 0;
   left: 0;
@@ -191,5 +206,9 @@ p {
     z-index: 3;
     position: relative;
   }
+}
+.centred-connect-btn{
+  width: max-content;
+    margin: auto;
 }
 </style>

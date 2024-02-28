@@ -497,10 +497,8 @@
       }
       &.overlap-upper {
         max-width: 75%;
-        position:absolute;
-        top:30%;
-        left:auto;
-        right:0;
+        position:relative;
+        margin: -50% 0px auto auto;
         z-index: 2;
   box-shadow: 0 0px 80px var(--black);
 }
@@ -510,14 +508,16 @@
 bottom:0;
 left:0;
 right:0;
+top:0;
 margin: auto;
 text-align: center;
 z-index: 2;
 border-radius: 20px;
-backdrop-filter: blur(80px);
--webkit-backdrop-filter: blur(80px);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
 box-shadow: 0 0px 80px var(--black);
 width: max-content;
+height: max-content;
 max-width: 80%;
     padding: 0 20px;
 }
