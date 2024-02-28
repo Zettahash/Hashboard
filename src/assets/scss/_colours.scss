@@ -26,9 +26,27 @@
   --neutral-1: #dddddd;
   --neutral-0: #fafafa;
 
+  --neutral-10: #00091c;
+  --neutral-9: #000e2d;
+  --neutral-8: #021235;
+  --neutral-7: #00133b;
+  --neutral-6: #061e50;
+  --neutral-5: #0d2c6f;
+  --neutral-4: #1f469b;
+  --neutral-3: #4b79de;
+  --neutral-2: #87a6e9;
+  --neutral-1: #b8cefb;
+  --neutral-0: #d8e4ff;
+
+
+  --element-border: var(--neutral-5);
   // --primary: #66FF00;
   // --secondary: #46CB18;
   // --yellow: #FFFF00;
+
+  --bg:#000e2d;
+  --neutral-9: var(--bg);
+
 
   --primary-dark: #222c3d;
   --primary: #0062ff;

@@ -2,7 +2,7 @@
   <div :class="`sidebar collapse-${uiSidebarCollapse}`" @scroll="unlabelify">
     <template v-if="uiSidebarCollapse !== 'false'">
     <div class="shortcuts">
-      <router-link :to="{ name: 'lincoin-manager' }" :class="routeClass('hashboard')" @click="dropdownToggle('hashboard')" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-cpu"></i><span>Hashboard</span></router-link>
+      <!-- <router-link :to="{ name: 'lincoin-manager' }" :class="routeClass('hashboard')" @click="dropdownToggle('hashboard')" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-cpu"></i><span>Hashboard</span></router-link>
       <ul v-if="dropdown.hashboard" :class="`dropdown ${dropdown.pool}`" @click="dropdownToggle('pool', 1)" @mouseenter="labelify" @mouseleave="unlabelify">
         <li data-for="lincoin" :data-active="activeFarm('lincoin')">
           <router-link :to="{ name: 'lincoin-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/lincoin.png')" class="icon" /><span>Lincoin</span></router-link>
@@ -14,13 +14,13 @@
       <ul v-if="dropdown.hashboard && application.activeFarm=='lincoin'">
         <li><router-link :to="{ name: 'lincoin-manager' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-grid"></i><span>Manager</span></router-link></li>
         <li><router-link :to="{ name: 'lincoin-accountant' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-book"></i><span>Accountant</span></router-link></li>
-      </ul>
-      <router-link :to="{ name: 'consensus' }" @click="dropdownToggle('consensus')" @mouseenter="labelify" @mouseleave="unlabelify" :class="routeClass('consensus')"><i class="i-forum"></i><span>Consensus</span></router-link>
-      <ul v-if="dropdown.consensus">
-        <li><router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-list"></i><span>Topics</span></router-link></li>
-        <li><router-link :to="{ name: 'new-topic' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-plus"></i><span>New Post</span></router-link></li>
-       
-      </ul>
+      </ul> -->
+
+
+      <router-link :to="{ name: 'mining' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-activity"></i><span>Mining</span></router-link>
+
+      <router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-forum"></i><span>Consensus</span></router-link>
+
       <router-link :class="routeClass('vote')" @click="dropdownToggle('vote')" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
         <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-bulb"></i><span>Proposals</span></router-link></li>

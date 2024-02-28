@@ -1,6 +1,6 @@
 @import "./constants";
 body {
-  background-color: var(--neutral-9);
+  background-color: var(--bg);
   color: var(--neutral-1);
   min-height: 100vh;
   width: 100vw;
@@ -10,6 +10,7 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 150%;
 }
 
 h1,

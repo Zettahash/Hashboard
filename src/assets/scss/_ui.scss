@@ -406,15 +406,15 @@
   box-shadow: 0 0 0 1px var(--neutral-6);
   border-radius: 10px;
   margin-top: 20px;
-    position: relative;
-    &::before {
+  position: relative;
+  &::before {
     content: attr(data-label);
     position: absolute;
-  top: -20px;
-  font-size: 11px;
-  color: var(--neutral-5);
-  text-transform: uppercase;
-  font-weight: 800;
+    top: -20px;
+    font-size: 11px;
+    color: var(--neutral-5);
+    text-transform: uppercase;
+    font-weight: 800;
   }
   .tab {
     padding: 10px;
@@ -465,5 +465,61 @@
         // border-radius: 4px;
       }
     }
+  }
+}
+.page-inner {
+  max-width: $ui-width;
+  width: 100%;
+  height: max-content;
+  position: absolute;
+  margin: 40px auto;
+  z-index: 3;
+  border-radius: 20px;
+  background: var(--neutral-8);
+  box-shadow: 0 20px 200px -100px var(--black);
+  padding: 30px;
+  h1 {
+    margin-top: 0;
+    text-align: center;
+  }
+  .container {
+    position: relative;
+    // padding: 20px;
+    box-shadow:unset;
+    .img {
+      border-radius: 20px;
+      &.overlap-lower {
+        max-width: 75%;
+        position:relative;
+        top:0;
+        left:0;
+        z-index: 1;
+      }
+      &.overlap-upper {
+        max-width: 75%;
+        position:absolute;
+        top:30%;
+        left:auto;
+        right:0;
+        z-index: 2;
+  box-shadow: 0 0px 80px var(--black);
+}
+    }
+    .text-overlay{
+      position:absolute;
+bottom:0;
+left:0;
+right:0;
+margin: auto;
+text-align: center;
+z-index: 2;
+border-radius: 20px;
+backdrop-filter: blur(80px);
+-webkit-backdrop-filter: blur(80px);
+box-shadow: 0 0px 80px var(--black);
+width: max-content;
+max-width: 80%;
+    padding: 0 20px;
+}
   }
 }

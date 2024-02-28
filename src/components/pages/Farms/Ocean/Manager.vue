@@ -13,7 +13,7 @@ export default {
     iframe.onload = this.frameLoaded
     iframe.src = 'https://ocean.xyz/stats/bc1q26pwx77e3024uetddkr5mtk3llkk36juu64l6ll2w9nry7k2rymsg0la96.zettahash';
     iframe.classList.add("dom-iframe")
-    iframe.setAttribute("style", "filter: invert(1) hue-rotate(180deg)")
+    // iframe.setAttribute("style", "filter: invert(1) hue-rotate(180deg)")
     document.querySelector(".iframe").replaceWith(iframe)
     this.$store.commit('setDynamic', {
       item: 'activeFarm',

@@ -1,0 +1,110 @@
+<template lang="html">
+  <div class="flex-overview">
+  <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/scatter.svg')" ></div>
+  <div class="modal centre">
+    <img class="icon" :src="require('/src/assets/img/zh-rounded.svg')" >
+  <h1>We're on Mattermost</h1>
+  <p>Join the conversation on our private Mattermost instance.</p>
+  <p><a class="btn" href="https://teams.zettahash.org/signup_user_complete/?id=sy8det39ypgyxcjye9oxodk36a&md=link&sbr=fa" target="_blank">Continue <i class="i-arrow-right"></i></a></p>
+  
+  </div>
+  </div>
+</template>
+<script>
+import { mapGetters } from 'vuex';
+
+
+export default {
+  name: 'MattermostRouter',
+  data() {
+    return {
+    }
+  },
+  components: {  },
+  mounted() {
+    this.$store.commit('setDynamic', {
+      item: 'routerLoaded',
+      value: true
+    })
+  },
+  computed: {
+    ...mapGetters({
+      application: 'application',
+    }),
+  },
+  watch: {
+
+  },
+  methods: {
+
+  }
+}
+</script>
+<style lang="scss">
+@import '@/assets/scss/constants';
+
+.modal {
+  margin: auto;
+    height: max-content;
+    width: 500px;
+    max-width: 80vw;
+    padding: 30px;
+    border-radius: 15px;
+    background: var(--neutral-10);
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    &.centre{
+      text-align: center;
+    }
+    .icon{
+      height: 100px;
+      width: auto;
+    }
+  h1 {
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+
+.bg-overlay {
+    height: 100%;
+    min-height: $content;
+    aspect-ratio: 1/1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &::before{
+      content: '';
+      height:100%;
+      width:100%;
+      top:0;
+      left:0;
+      background:radial-gradient(var(--neutral-9) 30%, transparent);
+      display: block;
+    position: absolute;
+      z-index:2;
+    }
+    img{
+      position: absolute;
+      top:0;
+      left:0;
+      height:100%;
+      width:100%;
+      z-index:1;
+      animation: slow-orbit 200s linear forwards infinite;
+    }
+    @keyframes slow-orbit {
+      to{
+        transform: rotate(360deg);
+      }
+    }
+}
+</style>

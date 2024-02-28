@@ -6,7 +6,8 @@ import LincoinAccountant from '@/components/pages/Farms/Lincoin/Accountant'
 import LincoinManager from '@/components/pages/Farms/Lincoin/Manager'
 import OceanManager from '@/components/pages/Farms/Ocean/Manager'
 import PrivateSale from '@/components/pages/PrivateSale'
-import CommunityConsensusForum from '@/components/pages/CommunityConsensusForum'
+import MattermostRouter from '@/components/pages/MattermostRouter'
+import LandingPage from '@/components/pages/LandingPage'
 import Vote from '@/components/pages/Vote'
 import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
 import Market from '@/components/pages/Market'
@@ -43,33 +44,14 @@ const app = createApp({})
 const title = process.env.VUE_APP_APPLICATION_NAME
 
 const routes = [
+  
   {
     path: '/',
-    name: 'lincoin-manager',
-    component: LincoinManager,
-    children: [
-      {
-        path: "/lincoin",
-        name: "lincoin-manager",
-        component: LincoinManager,
-        meta: {
-          title: 'Lincoin Manager | ' + title,
-          breadcrumbs: ['hashboard', 'lincoin', 'manager'],
-        }
-      },
-      {
-        path: "/lincoin/manager",
-        name: "lincoin-manager",
-        component: LincoinManager,
-        meta: {
-          title: 'Lincoin Manager | ' + title,
-          breadcrumbs: ['hashboard', 'lincoin', 'manager'],
-        }
-      },
-    ],
+    name: 'hashboard',
+    component: LandingPage,
     meta: {
-      title: 'Lincoin Manager | ' + title,
-      breadcrumbs: ['hashboard', 'lincoin', 'manager'],
+      title: '#Hashboard | ' + title,
+      breadcrumbs: ['hashboard'],
       metaTags: [
         {
           name: 'description',
@@ -83,12 +65,70 @@ const routes = [
     }
   },
   {
-    path: '/lincoin/accountant',
+    path: '/mining',
+    name: 'mining',
+    component: LandingPage,
+    meta: {
+      title: 'Mining | ' + title,
+      breadcrumbs: ['hashboard', 'mining'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/mining-output',
+    name: 'lincoin-manager',
+    component: LincoinManager,
+    children: [
+      // {
+      //   path: "/mining",
+      //   name: "lincoin-manager",
+      //   component: LincoinManager,
+      //   meta: {
+      //     title: 'Lincoin Manager | ' + title,
+      //     breadcrumbs: ['hashboard', 'lincoin', 'manager'],
+      //   }
+      // },
+      {
+        path: "/mining/lincoin",
+        name: "lincoin-manager",
+        component: LincoinManager,
+        meta: {
+          title: 'Lincoin Manager | ' + title,
+          breadcrumbs: ['hashboard', 'lincoin', 'manager'],
+        }
+      },
+    ],
+    meta: {
+      title: 'Lincoin Manager | ' + title,
+      breadcrumbs: ['hashboard', 'mining', 'lincoin', 'manager'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/mining/lincoin/accountant',
     name: 'lincoin-accountant',
     component: LincoinAccountant,
     meta: {
       title: 'Lincoin Accountant | ' + title,
-      breadcrumbs: ['hashboard', 'lincoin', 'accountant'],
+      breadcrumbs: ['hashboard', 'mining', 'lincoin', 'accountant'],
       metaTags: [
         {
           name: 'description',
@@ -142,7 +182,7 @@ const routes = [
   {
     path: '/consensus',
     name: 'consensus',
-    component: CommunityConsensusForum,
+    component: MattermostRouter,
     meta: {
       title: 'Consensus | ' + title,
       breadcrumbs: ['consensus'],
