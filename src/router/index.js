@@ -7,6 +7,7 @@ import LincoinManager from '@/components/pages/Farms/Lincoin/Manager'
 import OceanManager from '@/components/pages/Farms/Ocean/Manager'
 import PrivateSale from '@/components/pages/PrivateSale'
 import MattermostRouter from '@/components/pages/MattermostRouter'
+import MiningLandingPage from '@/components/pages/MiningLandingPage'
 import LandingPage from '@/components/pages/LandingPage'
 import Vote from '@/components/pages/Vote'
 import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
@@ -67,9 +68,9 @@ const routes = [
   {
     path: '/mining',
     name: 'mining',
-    component: LandingPage,
+    component: MiningLandingPage,
     meta: {
-      title: 'Mining | ' + title,
+      title: 'Mining & Energy | ' + title,
       breadcrumbs: ['hashboard', 'mining'],
       metaTags: [
         {

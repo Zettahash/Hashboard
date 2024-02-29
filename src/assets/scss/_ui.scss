@@ -485,41 +485,48 @@
   .container {
     position: relative;
     // padding: 20px;
-    box-shadow:unset;
+    box-shadow: unset;
     .img {
       border-radius: 20px;
       &.overlap-lower {
         max-width: 75%;
-        position:relative;
-        top:0;
-        left:0;
+        position: relative;
+        top: 0;
+        left: 0;
         z-index: 1;
+        animation: lobAround 10s linear alternate infinite;
       }
       &.overlap-upper {
         max-width: 75%;
-        position:relative;
+        position: relative;
         margin: -50% 0px auto auto;
         z-index: 2;
-  box-shadow: 0 0px 80px var(--black);
-}
+        box-shadow: 0 0px 80px var(--black);
+        animation: lobAround 10s linear alternate-reverse infinite;
+      }
+      @keyframes lobAround {
+        100%{
+          transform: translate(5px, -20px);
+        }
+      }
     }
-    .text-overlay{
-      position:absolute;
-bottom:0;
-left:0;
-right:0;
-top:0;
-margin: auto;
-text-align: center;
-z-index: 2;
-border-radius: 20px;
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-box-shadow: 0 0px 80px var(--black);
-width: max-content;
-height: max-content;
-max-width: 80%;
-    padding: 0 20px;
-}
+    .text-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      margin: auto;
+      text-align: center;
+      z-index: 2;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 0px 80px var(--black);
+      width: max-content;
+      height: max-content;
+      max-width: 80%;
+      padding: 0 20px;
+    }
   }
 }
