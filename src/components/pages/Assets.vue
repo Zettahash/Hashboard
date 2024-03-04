@@ -1,11 +1,11 @@
 <template lang="html">
-  <div class="flex-overview">
+  <div class="flex-overview demo">
     <div class="head-organiser">
 
       <h1>Assets</h1>
       <p></p>
     </div>
-    <div v-for="(item, index) of physical_assets" class="item" :key="index" :title="item.model">
+    <div v-for="(item, index) of physicalAssets" :class="`item ${item.class?item.class:''}`" :key="index" :title="item.model">
       <div class="product">
         <img :src="getIcon(item.image_url)">
         <div class="info">
@@ -50,6 +50,11 @@
         </tbody>
       </table>
     </div>
+    <div class="text-overlay">
+        <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
+        <p>We're working on this section.</p>
+        <p>Visit <router-link :to="{ name: 'consensus' }" class="link">Consensus</router-link> for updates.</p>
+      </div>
   </div>
 </template>
 <script>
@@ -125,7 +130,19 @@ export default {
       payload: 'payload',
       physical_assets: 'physicalAssets',
     }),
-
+    physicalAssets() {
+      let assets = this.physical_assets
+      let tmpAssets = [
+        { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "10", "serial": "N9TT-9G0A-B7FQ-RANC", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "Alaska", "location_country_code": "US", "purchase_price": "$0.00", "image_url": "https://file.bitmain.com/shop-image-storage/product/2023/09/27/14/c9685fac-d3b9-478c-9922-6c390f45bd5f_540.jpg", "data": null, "timestamp": null, "class": "demo-item" },
+        { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "100", "serial": "QK6A-JI6S-7ETR-0A6C", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "Reykjavik", "location_country_code": "IS", "purchase_price": "$0.00", "image_url": "https://file.bitmain.com/shop-image-storage/product/2023/09/27/14/c9685fac-d3b9-478c-9922-6c390f45bd5f_540.jpg", "data": null, "timestamp": null, "class": "demo-item" },
+        { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "10", "serial": "SXFP-CHYK-ONI6-S89U", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "Kópavogur", "location_country_code": "IS", "purchase_price": "$0.00", "image_url": "https://file.bitmain.com/shop-image-storage/product/2023/09/27/14/c9685fac-d3b9-478c-9922-6c390f45bd5f_540.jpg", "data": null, "timestamp": null, "class": "demo-item" },
+        { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "10", "serial": "XNSS-HSJW-3NGU-8XTJ", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "Bern", "location_country_code": "CH", "purchase_price": "$0.00", "image_url": "https://file.bitmain.com/shop-image-storage/product/2023/09/27/14/c9685fac-d3b9-478c-9922-6c390f45bd5f_540.jpg", "data": null, "timestamp": null, "class": "demo-item" },
+        { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "20", "serial": "NHLE-L6MI-4GE4-ETEV", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "California", "location_country_code": "US", "purchase_price": "$0.00", "image_url": "https://file.bitmain.com/shop-image-storage/product/2023/09/27/14/c9685fac-d3b9-478c-9922-6c390f45bd5f_540.jpg", "data": null, "timestamp": null, "class": "demo-item" },
+        {"manufacturer":"Bitmain","series":"Antminer","model":"S21K Pro","quantity":"15","serial":"6ETI-UIL2-9WAX-XHYO","hashrate":"200TH/s","power":"3500w","efficiency":"23J/T","location":"Beijing","location_country_code":"CN","purchase_price":"$0.00","image_url":"https://file.bitmain.com/shop-image-storage/product/2023/09/27/14/c9685fac-d3b9-478c-9922-6c390f45bd5f_540.jpg","data":null,"timestamp":null,"class":"demo-item"},
+      ]
+      if (tmpAssets.length > 0) { for (const a of tmpAssets) { assets.push(a) } }
+      return assets
+    },
   },
   mounted() {
     this.routeLoaded()
@@ -144,6 +161,41 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
 @import '@/assets/scss/ui';
+.demo .item{
+  animation: toBlur 2s 1500ms ease forwards 1;
+}
+
+@keyframes toBlur {
+  100% {
+    filter: blur(10px);
+  }
+}
+@keyframes toAppear {
+  100% {
+    opacity: 1;
+  }
+}
+.icon {
+  height: 80px;
+  width: auto;
+  margin: 20px auto;
+  display: block;
+}
+.text-overlay {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.5);
+  width: max-content;
+  padding: 10px 30px 10px 30px;
+  border-radius: 20px;
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: toAppear 2s 1500ms ease forwards 1;
+}
 .item{
   display: flex;
   flex-direction: row;
@@ -153,6 +205,7 @@ export default {
   border-radius: 15px;
   box-shadow: 0 0 0 1px var(--neutral-6);
   align-items: center;
+  width: 100%;
 }
 .product {
   display: grid;
@@ -171,6 +224,8 @@ export default {
 }
 
 .details {
+  flex-shrink: 0;
+  flex-grow:1;
   // margin-bottom: auto;
   thead {
     td {

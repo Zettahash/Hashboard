@@ -8,6 +8,21 @@
       <h1>Welcome to #Hashboard</h1>
       <p>ZH Token-holders get access to the #Hashboard and can participate in the DAO Governance.</p>
 
+      <template v-if="wallet">
+      <div class="container">
+      <div class="section">
+        <h2>Dive right in to these #Hashboard features:</h2>
+        <div class="flex-shortcuts">
+        <router-link :to="{ name: 'protocol-proposals' }" class="btn"><i class="i-bulb"></i> View Proposals</router-link>
+        <router-link :to="{ name: 'safe' }" class="btn"><i class="i-library"></i> Check ETH & ERC-20 Wallet balances</router-link>
+        <router-link :to="{ name: 'specter' }" class="btn"><i class="i-library"></i> Check BTC Wallet balances</router-link>
+        <router-link :to="{ name: 'market' }" class="btn"><i class="i-trending-up"></i> ZH Markets</router-link>
+        <a href="https://teams.zettahash.org/signup_user_complete/?id=sy8det39ypgyxcjye9oxodk36a&md=link&sbr=fa" target="_blank" class="btn"><i class="i-forum"></i> Consensus</a>
+        </div>
+      </div>
+      </div>
+      </template>
+
       <div class="container">
         <img class="img overlap-lower"
           :src="require('/src/assets/img/design/6590e06479ac1d8d587b3952_dashdark-x-reports-page-dashboard-webflow-template.png')">
@@ -134,6 +149,39 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
 
+.section{
+  box-shadow: 0 0 0 1px var(--neutral-4);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: max-content;
+  padding: 20px;
+  gap: 10px;
+  h2{
+    margin-top:0;
+    text-align: center;
+  }
+}
+
+.flex-shortcuts{
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-shrink: 0;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  a{
+    &:nth-of-type(1){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-cerulean));}}
+    &:nth-of-type(2){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--lime));}}
+    &:nth-of-type(3){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-amber));}}
+    &:nth-of-type(4){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--crimson));}}
+    &:nth-of-type(5){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--violet));}}
+  }
+}
 .modal-relative {
   margin: 40px auto;
   height: max-content;

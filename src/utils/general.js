@@ -2,11 +2,17 @@ const getIcon = function (str, folder) {
   if (!str) { return false }
   if (str.indexOf('https://') >= 0) {
     return str
-  }
+  } else if (Array.isArray(str)) { folder = str[1]; str = str[0]; console.log(str, folder); }
   let token = str.toLowerCase().replace(/-/g, '')
   folder = folder ? folder : '/src/assets/img/tokens/'
   try {
-    return require(`${folder}${token}.png`)
+    return require(`${folder}${token}`)
+  } catch (e) { console.log(e) }
+  try {
+    return require(`${folder}${token}.jpg`)
+  } catch (e) { console.log(e) }
+  try {
+    return require(`${folder}${token}.jpeg`)
   } catch (e) { console.log(e) }
   try {
     return require(`${folder}${token}.png`)
