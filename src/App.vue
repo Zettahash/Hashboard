@@ -71,6 +71,11 @@ export default {
     },
   },
   mounted() {
+    let umami = document.createElement('script')
+    umami.setAttribute('src', 'https://eu.umami.is/script.js')
+    umami.setAttribute('data-website-id', '2e3126f1-0704-4e97-ab66-393d6bb08f06')
+    document.head.appendChild(umami)
+      
     // this.$store.commit("setNotification", {
     //   title: `Hashboard BETA`,
     //   data: `We're getting the Hashboard ready to launch 🚀`,
