@@ -3,9 +3,13 @@
     <div v-for="(value, key, index) of payloadGrouped" :key="index"
       :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"  @click="!dropdown[key]?dropdown[key]=true:false">
       <h2>
-        <span>{{ key.replace(/_/g, ' ') }} <template v-if="!dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
-              USD</span></template></span>
-        <a @click.stop="openWalletInProviderView(value)"><i class="i-link"></i></a>
+        <span>{{ key.replace(/_/g, ' ') }} 
+              <template v-if="!dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
+              USD</span></template>
+              <template v-if="dropdown[key]"><br><span class="sub" :title="consistentAddress(value).address">address: {{ consistentAddress(value).addressShort }}
+              </span></template>
+              </span>
+        <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
         <a @click.stop="dropdown[key] = !dropdown[key]">
           <i class="i-maximize" v-if="!dropdown[key]"></i>
           <i class="i-minimize" v-if="dropdown[key]"></i>
@@ -20,7 +24,7 @@
               <h3>{{ item.name }}</h3>
               <a class="type"><span>{{ item.currency }}</span> <span v-if="item.badge"
                   class="badge">{{ item.badge }}</span></a>
-              <p :title="item.address">{{ item.addressShort }}</p>
+              <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
               <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                 {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
               <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
@@ -122,6 +126,15 @@ export default {
   },
   methods: {
     getIcon,
+    consistentAddress(items) {
+      let address = ''
+      let addressShort = ''
+      for (const item of items) {
+        address = address === item.address ? address : item.address
+        addressShort = addressShort === item.addressShort ? addressShort : item.addressShort
+      }
+      return {address: address, addressShort: addressShort}
+    },
     groupBalance(items) {
       let balance = 0
       for (const item of items) {
