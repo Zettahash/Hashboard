@@ -20,7 +20,7 @@ const hasherName = function (wallet, profile) {
   wallet = wallet ? wallet : this.$store.state.wallet
   profile = profile ? profile : (this.$store.state.forumProfile ? this.$store.state.forumProfile.id : false)
 
-  if (!wallet || !profile) { return '#####-?' }
+  if (!wallet || !profile) { return 'N/A' }
 
   return `${wallet.substr(wallet.length - 6)}${profile || '?'}`
 }

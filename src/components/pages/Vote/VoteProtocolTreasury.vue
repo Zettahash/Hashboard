@@ -2,7 +2,7 @@
   <div class="flex-overview">
     <div class="ui-ele">
       <h1>Treasury</h1>
-      <p></p>
+      <p>The snapshot protocol treasury accounts are displayed below.<br>You may also be interested in the department-itemised <router-link :to="{ name: 'safe' }" class="link">Zettahash DAO Treasury</router-link></p>
       <div class="containers-ui">
         <div class="list">
           <h2>Wallets</h2>

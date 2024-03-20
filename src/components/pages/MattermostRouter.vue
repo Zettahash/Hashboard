@@ -2,10 +2,10 @@
   <div class="flex-overview">
   <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/scatter.svg')" ></div>
   <div class="modal centre">
-    <img class="icon" :src="require('/src/assets/img/zh-rounded.svg')" >
-  <h1>We're on Mattermost</h1>
-  <p>Join the conversation on our private Mattermost instance.</p>
-  <p><a class="btn" href="https://teams.zettahash.org/signup_user_complete/?id=sy8det39ypgyxcjye9oxodk36a&md=link&sbr=fa" target="_blank">Continue <i class="i-arrow-right"></i></a></p>
+    <img class="icon" :src="require('/src/assets/img/zh-circle.svg')" >
+  <h1>We're on Reddit</h1>
+  <p>Join the conversation on the Zettahash subreddit.</p>
+  <p><a class="btn" href="https://www.reddit.com/r/Zettahash/" target="_blank">r/Zettahash <i class="i-arrow-right"></i></a></p>
   
   </div>
   </div>

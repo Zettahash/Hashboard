@@ -185,7 +185,7 @@ const routes = [
     name: 'consensus',
     component: MattermostRouter,
     meta: {
-      title: 'Consensus | ' + title,
+      title: 'Consensus on our subreddit | ' + title,
       breadcrumbs: ['consensus'],
       metaTags: [
         {
