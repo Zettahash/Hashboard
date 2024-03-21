@@ -29,7 +29,7 @@
     &.open {
       background: var(--neutral-8);
     }
-    .wallet-grid{
+    .wallet-grid {
       display: flex;
       flex-direction: row;
       gap: 20px;
@@ -88,17 +88,21 @@
       // box-shadow:0 0 0 1px var(--colour);
 
       position: relative;
+      &:last-of-type{
+      flex-grow: 0;
+
+      }
       &::after {
         content: "";
         position: absolute;
         height: 100%;
         width: 100%;
         border-radius: 10px;
-        background: var(--colour);
-        opacity: 0.1;
+        background: radial-gradient(ellipse at top left, var(--neutral-7) -10%, transparent 120%);
         top: 0;
         left: 0;
         z-index: -1;
+        background-color: var(--colour);
       }
       .head {
         display: flex;
@@ -129,6 +133,7 @@
           flex-wrap: wrap;
           gap: 5px 10px;
           line-height: 1;
+          color: var(--colour);
 
           .badge {
             box-shadow: 0 0 0 2px;
@@ -208,4 +213,13 @@
 .ether,
 .ETHER {
   --colour: #5c6bc0;
+}
+
+.app-parent{
+  iframe{
+    border: 0;
+    width: 100%;
+    min-height: 500px;
+    border-radius: 8px;;
+  }
 }

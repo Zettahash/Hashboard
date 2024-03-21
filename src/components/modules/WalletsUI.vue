@@ -1,48 +1,63 @@
 <template lang="html">
   <div class="brick-wall">
     <div v-for="(value, key, index) of payloadGrouped" :key="index"
-      :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"  @click="!dropdown[key]?dropdown[key]=true:false">
+      :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
+      @click="!dropdown[key] ? dropdown[key] = true : false">
       <h2>
-        <span>{{ key.replace(/_/g, ' ') }} 
-              <template v-if="!dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
+        <span>{{ key.replace(/_/g, ' ') }}
+          <template v-if="app[key] || !dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
               USD</span></template>
-              <template v-if="dropdown[key]"><br><span class="sub" :title="consistentAddress(value).address">address: {{ consistentAddress(value).addressShort }}
-              </span></template>
-              </span>
+          <template v-if="dropdown[key]"><br><span class="sub click-to-copy" @click="c2c"
+              :title="consistentAddress(value).address" :data-copy="consistentAddress(value).address">address: {{
+      consistentAddress(value).addressShort }}
+            </span></template>
+        </span>
         <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
         <a @click.stop="dropdown[key] = !dropdown[key]">
           <i class="i-maximize" v-if="!dropdown[key]"></i>
           <i class="i-minimize" v-if="dropdown[key]"></i>
         </a>
       </h2>
-      <div class="wallet-grid" v-if="dropdown[key]">
-        <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
-          :title="item.date">
-          <div class="head">
-            <img class="coin-icon" :src="getIcon(item.currency)">
-            <div class="head-text">
-              <h3>{{ item.name }}</h3>
-              <a class="type"><span>{{ item.currency }}</span> <span v-if="item.badge"
-                  class="badge">{{ item.badge }}</span></a>
-              <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
-              <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
-                {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
-              <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
+      <template v-if="dropdown[key]">
+        <div class="wallet-grid" v-if="!app[key]">
+          <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
+            :title="item.date">
+            <div class="head">
+              <img class="coin-icon" :src="getIcon(item.currency)">
+              <div class="head-text">
+                <!-- <h3>{{ item.name }}</h3> -->
+                <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{ item.badge
+                    }}</span></h3>
+                <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
+                <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
+                  {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
+                <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div class="apps-flex">
+          <a @click="app[key] = 'hedgey'">Hedgey.</a>
+        </div>
+        <div class="app-parent" v-if="app[key]">
+          <iframe class="styles_iframe__rqkAt" id="iframe-https://app.hedgey.finance/vesting"
+            src="https://app.hedgey.finance/vesting" title="0xHedgey Token Vesting"
+            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-downloads allow-orientation-lock"
+            allow=""></iframe>
+        </div>
+      </template>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon } from '@/utils/general'
+import { getIcon, c2c } from '@/utils/general'
 export default {
   name: 'WalletsUI',
   data() {
     return {
-      dropdown: {}
+      dropdown: {},
+      app: {}
     }
   },
   props: {
@@ -56,6 +71,7 @@ export default {
       rates: 'rates',
     }),
     payload() {
+      if (!this.holdings) { return [] }
       let masterPayload = []
       for (const key of Object.keys(this.holdings)) {
         let instance = this.holdings[key]
@@ -112,6 +128,7 @@ export default {
       return masterPayload
     },
     payloadGrouped() {
+      if (!this.holdings) { return {} }
       let arr = {}
       for (const item of this.payload) {
         if (!item.group_id) { continue }
@@ -125,6 +142,7 @@ export default {
   mounted() {
   },
   methods: {
+    c2c,
     getIcon,
     consistentAddress(items) {
       let address = ''
@@ -133,7 +151,7 @@ export default {
         address = address === item.address ? address : item.address
         addressShort = addressShort === item.addressShort ? addressShort : item.addressShort
       }
-      return {address: address, addressShort: addressShort}
+      return { address: address, addressShort: addressShort }
     },
     groupBalance(items) {
       let balance = 0
@@ -172,4 +190,6 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>@import '@/assets/scss/wallet-ui';</style>
+<style lang="scss" scoped>
+@import '@/assets/scss/wallet-ui';
+</style>

@@ -192,8 +192,8 @@ export default {
   padding: 10px 30px 10px 30px;
   border-radius: 20px;
   opacity: 0;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   animation: toAppear 2s 1500ms ease forwards 1;
 }
 .item{
