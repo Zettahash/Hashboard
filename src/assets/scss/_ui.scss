@@ -4,6 +4,16 @@
     transform: scale(1);
   }
 }
+@keyframes slideInToLeft {
+  from{
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to{
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
 .flex-overview {
   display: flex;
   flex-direction: row;
@@ -506,7 +516,7 @@
         animation: lobAround 10s linear alternate-reverse infinite;
       }
       @keyframes lobAround {
-        100%{
+        100% {
           transform: translate(5px, -20px);
         }
       }
@@ -531,6 +541,32 @@
     }
   }
 }
-[data-copy]{
-  cursor: pointer; 
+[data-copy] {
+  cursor: pointer;
+}
+.icon-stack {
+  &.horizontal {
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+    align-items: center;
+    width: max-content;
+    img {
+      height: 30px;
+      &:nth-of-type(1) {
+        height: 20px;
+        z-index: 0;
+      }
+      aspect-ratio: 1/1;
+      border-radius: 50px;
+      position: relative;
+      @for $i from 2 through 50 {
+        &:nth-of-type(#{$i}) {
+          z-index: $i;
+          margin-right: -5px * ($i - 1);
+          box-shadow: 15px 0px 20px -10px var(--neutral-9);
+        }
+      }
+    }
+  }
 }

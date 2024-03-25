@@ -28,6 +28,16 @@
     }
     &.open {
       background: var(--neutral-8);
+      box-shadow: 0 0 0 1px var(--neutral-5);
+      h2 {
+        opacity: 1;
+      }
+      &:hover {
+        box-shadow: 0 0 0 1px var(--neutral-5);
+        h2 {
+          opacity: 1;
+        }
+      }
     }
     .wallet-grid {
       display: flex;
@@ -40,11 +50,12 @@
     &:hover {
       box-shadow:
         0 0 0 1px var(--neutral-8),
-        0 10px 80px -20px var(--black);
+        0 20px 80px -30px var(--black);
       z-index: 999;
       background: var(--neutral-8);
 
       h2 {
+        opacity: 0.8;
         a {
           color: var(--primary);
         }
@@ -58,6 +69,7 @@
       display: grid;
       grid-template: 1fr / 1fr auto auto;
       gap: 15px;
+      opacity: 0.5;
       .spinner {
       }
       a {
@@ -88,9 +100,8 @@
       // box-shadow:0 0 0 1px var(--colour);
 
       position: relative;
-      &:last-of-type{
-      flex-grow: 0;
-
+      &:last-of-type {
+        flex-grow: 0;
       }
       &::after {
         content: "";
@@ -215,11 +226,72 @@
   --colour: #5c6bc0;
 }
 
-.app-parent{
-  iframe{
+.app-parent {
+  iframe {
     border: 0;
     width: 100%;
     min-height: 500px;
-    border-radius: 8px;;
+    border-radius: 8px;
   }
+}
+
+.app-module {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vesting-table-ui {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    padding-bottom: 10px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    padding-left: 10px;
+  }
+
+  tr {
+    transform: translateX(20px);
+    opacity: 0;
+    animation: slideInToLeft 400ms ease forwards 1;
+    @for $i from 1 through 50 {
+      &:nth-of-type(#{$i}) {
+        animation-delay: 200ms * $i;
+      }
+    }
+    &:nth-of-type(odd) {
+      td {
+        background: var(--neutral-5);
+      }
+    }
+
+    td {
+      padding: 10px;
+      &:first-child {
+        border-radius: 5px 0 0 5px;
+        padding-left: 20px;
+      }
+      &:not(:first-child) {
+        box-shadow: -21px 0 0 -20px;
+      }
+      &:last-child {
+        border-radius:0 5px 5px 0;
+      }
+    }
+  }
+}
+
+.flex{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  &.wrap{flex-wrap: wrap;}
+}
+.col{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }

@@ -1,28 +1,28 @@
-const getIcon = function (str, folder) {
-  if (!str) { return false }
-  if (str.indexOf('https://') >= 0) {
-    return str
-  } else if (Array.isArray(str)) { folder = str[1]; str = str[0]; console.log(str, folder); }
-  let token = str.toLowerCase().replace(/-/g, '')
-  folder = folder ? folder : '/src/assets/img/tokens/'
+const getIcon = function (img, folder) {
+  if (!img) { return false }
+  if (img.indexOf('https://') >= 0) {
+    return img
+  } else if (Array.isArray(img)) { folder = img[1]; img = img[0]; }
+  let imgName = img.toLowerCase().replace(/-/g, '')
+  folder = folder ? folder : '@/assets/img/tokens/'
   try {
-    return require(`${folder}${token}`)
+    return require(`${folder}${imgName}`)
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${token}.jpg`)
+    return require(`${folder}${imgName}.jpg`)
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${token}.jpeg`)
+    return require(`${folder}${imgName}.jpeg`)
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${token}.png`)
+    return require(`${folder}${imgName}.png`)
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${token}.svg`)
+    return require(`${folder}${imgName}.svg`)
   } catch (e) { console.log(e) }
   try {
-    let tokenAlpha = token.replace(/-/g, '')
-    return require(`${folder}${tokenAlpha}.png`)
+    let imgNameAlpha = imgName.replace(/-/g, '')
+    return require(`${folder}${imgNameAlpha}.png`)
   } catch (e) { console.log(e) }
 }
 
@@ -45,4 +45,11 @@ const c2c = function (event) {
   // }
 }
 
-export { getIcon, c2c }
+const scrollTo = function(ele) {
+  const [el] = ele;
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+  }
+}
+
+export { getIcon, c2c, scrollTo }

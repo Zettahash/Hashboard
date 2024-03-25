@@ -15,6 +15,7 @@
   </div>
 </template>
 <script>
+import { getIcon } from '@/utils/general'
 import { mapGetters } from 'vuex';
 export default {
   name: 'PlacesToBuyZH',
@@ -36,19 +37,7 @@ export default {
     }),
   },
   methods: {
-    getIcon(str) {
-      let token = str.toLowerCase()
-      try {
-        return require(`/src/assets/img/${token}.png`)
-      } catch (e) { console.log(e) }
-      try {
-        return require(`/src/assets/img/${token}.svg`)
-      } catch (e) { console.log(e) }
-      try {
-        let tokenAlpha = token.replace(/-/g, '')
-        return require(`/src/assets/img/${tokenAlpha}.png`)
-      } catch (e) { console.log(e) }
-    },
+    getIcon,
   },
 }
 </script>

@@ -1,0 +1,56 @@
+$hedgey-font-family: "hedgey" !default;
+$hedgey-font-path: "/src/assets/fonts/hedgey" !default;
+
+$i-cliff: unquote('"\\e900"');
+$i-end: unquote('"\\e901"');
+$i-start: unquote('"\\e902"');
+$i-step: unquote('"\\e903"');
+
+@font-face {
+  font-family: '#{$hedgey-font-family}';
+  src:  url('#{$hedgey-font-path}/#{$hedgey-font-family}.eot?5u8eln');
+  src:  url('#{$hedgey-font-path}/#{$hedgey-font-family}.eot?5u8eln#iefix') format('embedded-opentype'),
+    url('#{$hedgey-font-path}/#{$hedgey-font-family}.ttf?5u8eln') format('truetype'),
+    url('#{$hedgey-font-path}/#{$hedgey-font-family}.woff?5u8eln') format('woff'),
+    url('#{$hedgey-font-path}/#{$hedgey-font-family}.svg?5u8eln##{$hedgey-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i[class^='h-i-'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$hedgey-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.h-i-cliff {
+  &:before {
+    content: $i-cliff; 
+  }
+}
+.h-i-end {
+  &:before {
+    content: $i-end; 
+  }
+}
+.h-i-start {
+  &:before {
+    content: $i-start; 
+  }
+}
+.h-i-step {
+  &:before {
+    content: $i-step; 
+  }
+}
+

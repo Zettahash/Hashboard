@@ -66,6 +66,7 @@ import { mapGetters } from 'vuex';
 import { profileImg, hasherName } from '@/utils/forum'
 import { walletShortName } from '@/utils/strings'
 import { useDisconnect } from '@web3modal/ethers/vue'
+import { getIcon } from '@/utils/general'
 const { disconnect } = useDisconnect()
 export default {
   name: "SideBar",
@@ -151,21 +152,7 @@ export default {
       }
       this.dropdown[item]=!this.dropdown[item]
     },
-    getIcon(str) {
-      let token = str.toLowerCase()
-      let dir = '@/assets/img/providers'
-      console.log(`${dir}/${token}.png`)
-      try {
-        return require(`${dir}/${token}.png`)
-      } catch (e) { console.log(e) }
-      try {
-        return require(`${dir}/${token}.svg`)
-      } catch (e) { console.log(e) }
-      try {
-        let tokenAlpha = token.replace(/-/g, '')
-        return require(`${dir}/${tokenAlpha}.png`)
-      } catch (e) { console.log(e) }
-    },
+    getIcon,
     labelify(event) {
       let label = event.target.querySelector('span').innerHTML
       this.unlabelify()

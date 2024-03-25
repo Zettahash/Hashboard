@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = 'http://localhost:8787'//process.env.VUE_APP_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
@@ -242,6 +242,14 @@ const actions = {
     let response = await request.json()
     if (response.payload) { return response.payload }
     else { return { error: 'Failed to fetch comments.' } }
+  },
+  async fetchHedgeyVesting({ commit, dispatch, getters, context, rootGetters }, payload) {
+    let response = await fetch(`${endpoint}/vesting/hedgey`, {
+      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
+      body: encodeURI(JSON.stringify({ address: payload.id }))
+    })
+    let responsePayload = await response.json()
+    return responsePayload
   },
   responsiveUI({ commit }) {
     if (window.innerWidth <= 1200) {

@@ -2,7 +2,7 @@
   <div class="brick-wall">
     <div v-for="(value, key, index) of payloadGrouped" :key="index"
       :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
-      @click="!dropdown[key] ? dropdown[key] = true : false">
+      @click="!dropdown[key] ? dropdown[key] = true : false; scrollTo($refs[key])" :ref="key">
       <h2>
         <span>{{ key.replace(/_/g, ' ') }}
           <template v-if="app[key] || !dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
@@ -23,7 +23,8 @@
           <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
             :title="item.date">
             <div class="head">
-              <img class="coin-icon" :src="getIcon(item.currency)">
+              <img class="coin-icon"
+                :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
               <div class="head-text">
                 <!-- <h3>{{ item.name }}</h3> -->
                 <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{ item.badge
@@ -37,29 +38,28 @@
           </div>
         </div>
         <div class="apps-flex">
-          <a @click="app[key] = 'hedgey'">Hedgey.</a>
+          <span :set="name = 'Hedgey.'" :class="`link-wrapper ${app[key] == name ? 'active' : ''}`"><a
+              @click="app[key] = name" :class="`link`">{{ name }} </a><span v-if="app[key] == name" class="close link"
+              @click.stop="app[key] = false"><i class="icon-times"></i></span></span>
         </div>
-        <div class="app-parent" v-if="app[key]">
-          <iframe class="styles_iframe__rqkAt" id="iframe-https://app.hedgey.finance/vesting"
-            src="https://app.hedgey.finance/vesting" title="0xHedgey Token Vesting"
-            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-downloads allow-orientation-lock"
-            allow=""></iframe>
-        </div>
+        <VestingTable v-if="app[key]" :address="consistentAddress(value).address" :walletName="key" />
       </template>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon, c2c } from '@/utils/general'
+import { getIcon, c2c, scrollTo } from '@/utils/general'
+import VestingTable from '@/components/modules/VestingTable'
 export default {
   name: 'WalletsUI',
   data() {
     return {
       dropdown: {},
-      app: {}
+      app: {},
     }
   },
+  components: { VestingTable, },
   props: {
     provider: String,
   },
@@ -69,6 +69,7 @@ export default {
       data: 'data',
       holdings: 'holdings',
       rates: 'rates',
+      wallet: 'wallet',
     }),
     payload() {
       if (!this.holdings) { return [] }
@@ -140,10 +141,19 @@ export default {
     },
   },
   mounted() {
+    //fetchHedgeyVesting
+
+
   },
   methods: {
     c2c,
     getIcon,
+    scrollTo,
+    async hedgeyVested(address) {
+      const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: address })
+      console.log(reply)
+      return reply
+    },
     consistentAddress(items) {
       let address = ''
       let addressShort = ''
@@ -192,4 +202,21 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/wallet-ui';
+
+.link-wrapper {
+    padding: 5px 10px 5px 15px;
+  &.active {
+    box-shadow: 0 0 0 1px var(--secondary);
+    border-radius: 100px;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    .link {
+      &:hover {
+        text-decoration: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
 </style>
