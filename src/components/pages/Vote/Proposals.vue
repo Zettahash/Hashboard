@@ -3,6 +3,7 @@
     <div class="ui-ele">
       <h1>Proposals</h1>
       <p></p>
+      <LoadingEle :stop="proposals ? true : false" :long="true" />
       <div class="proposals-ui">
       <Proposal v-for="(proposal, index) of proposals" :key="index" :proposal="proposal"/>
     </div>
@@ -12,6 +13,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import Proposal from '@/components/modules/Proposal.vue'
+import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Proposals",
@@ -22,7 +24,7 @@ export default {
     })
   },
   components: {
-    Proposal,
+    Proposal,LoadingEle,
   },
   computed: {
     ...mapGetters({

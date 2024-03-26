@@ -1,56 +1,61 @@
 <template lang="html">
-  <div class="brick-wall">
-    <template v-if="payloadGrouped">
-      <div v-for="(value, key) of payloadGrouped" :key="key"
-        :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
-        @click="!dropdown[key] ? dropdown[key] = true : false; scrollTo($refs[key])" :ref="key">
-        <h2>
-          <span>{{ key.replace(/_/g, ' ') }}
-            <template v-if="app[key] || !dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
-                USD</span></template>
-            <template v-if="dropdown[key]">
-              <br><span class="sub click-to-copy" @click="c2c" :title="consistentAddress(value).address"
-                :data-copy="consistentAddress(value).address">address: {{ consistentAddress(value).addressShort }}
-              </span>
-            </template>
-          </span>
-          <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
-          <a @click.stop="dropdown[key] = !dropdown[key]">
-            <i class="i-maximize" v-if="!dropdown[key]"></i>
-            <i class="i-minimize" v-if="dropdown[key]"></i>
-          </a>
-        </h2>
-        <template v-if="dropdown[key]">
-          <div class="wallet-grid" v-if="!app[key]">
-            <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
-              :title="item.date">
-              <div class="head">
-                <img class="coin-icon"
-                  :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
-                <div class="head-text">
-                  <!-- <h3>{{ item.name }}</h3> -->
-                  <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{ item.badge
-                      }}</span></h3>
-                  <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
-                  <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
-                    {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
-                  <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
+  <div>
+    <LoadingEle :stop="payloadGrouped ? true : false" :long="true" />
+    <div class="brick-wall">
+      <template v-if="payloadGrouped">
+        <div v-for="(value, key) of payloadGrouped" :key="key"
+          :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
+          @click="!dropdown[key] ? dropdown[key] = true : false; scrollTo($refs[key])" :ref="key">
+          <h2>
+            <span>{{ key.replace(/_/g, ' ') }}
+              <template v-if="app[key] || !dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
+                  USD</span></template>
+              <template v-if="dropdown[key]">
+                <br><span class="sub click-to-copy" @click="c2c" :title="consistentAddress(value).address"
+                  :data-copy="consistentAddress(value).address">address: {{ consistentAddress(value).addressShort }}
+                </span>
+              </template>
+            </span>
+            <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
+            <a @click.stop="dropdown[key] = !dropdown[key]">
+              <i class="i-maximize" v-if="!dropdown[key]"></i>
+              <i class="i-minimize" v-if="dropdown[key]"></i>
+            </a>
+          </h2>
+          <template v-if="dropdown[key]">
+            <div class="wallet-grid" v-if="!app[key]">
+              <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
+                :title="item.date">
+                <div class="head">
+                  <img class="coin-icon"
+                    :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
+                  <div class="head-text">
+                    <!-- <h3>{{ item.name }}</h3> -->
+                    <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
+        item.badge
+      }}</span></h3>
+                    <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
+                    <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
+                      {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
+                    <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <HedgeyApp :provider="provider" :address="consistentAddress(value).address" :walletKey="key"
-            @set-application-open="app[key] = 'Hedgey.'; scrollTo($refs[key])"
-            @set-application-closed="app[key] = false" />
-        </template>
-      </div>
-    </template>
+            <HedgeyApp :provider="provider" :address="consistentAddress(value).address" :walletKey="key"
+              @set-application-open="app[key] = 'Hedgey.'; scrollTo($refs[key])"
+              @set-application-closed="app[key] = false" />
+          </template>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { getIcon, c2c, scrollTo } from '@/utils/general'
 import HedgeyApp from '@/components/modules/HedgeyApp'
+import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   name: 'WalletsUI',
   data() {
@@ -59,7 +64,7 @@ export default {
       app: {},
     }
   },
-  components: { HedgeyApp, },
+  components: { HedgeyApp, LoadingEle,},
   props: {
     provider: String,
   },

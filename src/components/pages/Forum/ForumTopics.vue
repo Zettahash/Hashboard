@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="forum-topics">
-    <LoadingEle short="short" v-if="!forumPostsCache"/>
+    <LoadingEle short="true" v-if="!forumPostsCache"/>
     <template v-if="forumPostsCache">
     <div v-for="(topic, index) of forumPostsCache" @click="$router.push({ path: `/consensus/topic/${topic.topic_id}` })"
       :key="index" class="topic">

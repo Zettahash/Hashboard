@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="forum-topics">
     <h2><template v-if="waiting"><a class="spinner"></a>&nbsp;&nbsp;</template>Comments</h2>
-    <LoadingEle short="short" v-if="!topicsReplies" />
+    <LoadingEle short="true" v-if="!topicsReplies" />
     <div v-for="(reply, index) of topicsReplies" :key="index" class="reply">
 
 

@@ -1,18 +1,28 @@
 <template lang="html">
-  <div class="parent-flex" v-if="!preset">
+  <div class="parent-flex" v-if="!stop">
     <template v-if="short">
       <div v-for="n in 3" class="loading short" :key="'' + n"></div>
     </template>
     <template v-else>
-      <div v-for="n in 3" class="loading small" :key="'small-' + n"></div>
-      <div v-for="n in 2" class="loading" :key="'' + n"></div>
+      <template v-if="long">
+        <div v-for="n in 4" class="loading" :key="'' + n"></div>
+      </template>
+      <template v-else>
+        <div v-for="n in 3" class="loading small" :key="'small-' + n"></div>
+        <div v-for="n in 2" class="loading" :key="'' + n"></div>
+      </template>
     </template>
   </div>
 </template>
 <script>
 export default {
   name: 'LoadingEle',
-  props: ['preset', 'short'],
+  props: {
+    stop: Boolean,
+    short: Boolean,
+    long: Boolean,
+
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -31,23 +41,23 @@ export default {
     // box-shadow: 0 0 0 0px var(--neutral-10);
     // transform: translateY(20px)scale(.9);
     border-radius: 15px;
-    background-color: var(--neutral-10);
+    background-color: var(--neutral-8);
     max-width: unset;
     min-width: unset;
     height: 100px;
     width: 100%;
-    min-height: 20vh;
+    min-height: 10vh;
     position: relative;
     overflow: hidden;
 
     &.short {
       height: 50px;
-      min-height:unset;
+      min-height: unset;
     }
 
     &:after {
       content: '';
-      background-image: linear-gradient(90deg, transparent, var(--neutral-7), transparent);
+      background-image: linear-gradient(90deg, transparent, var(--neutral-5), transparent);
       position: absolute;
       height: 100%;
       width: 200%;
