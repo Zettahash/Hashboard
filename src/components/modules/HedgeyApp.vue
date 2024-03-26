@@ -55,7 +55,7 @@ export default {
     },
     closeApp() {
       this.app[this.walletKey] = false
-      this.$emit('setApplicationClose')
+      this.$emit('setApplicationClosed')
     },
   }
 }
