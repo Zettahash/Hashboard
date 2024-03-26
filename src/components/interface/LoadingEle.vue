@@ -29,7 +29,8 @@ export default {
 @import '@/assets/scss/constants';
 
 .parent-flex {
-  width: 100%;
+  width: $ui-width;
+  max-width: 80vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

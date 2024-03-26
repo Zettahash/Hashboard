@@ -3,7 +3,7 @@
     <div class="ui-ele">
       <h1>Proposals</h1>
       <p></p>
-      <LoadingEle :stop="proposals ? true : false" :long="true" />
+      <LoadingEle :stop="(proposals && snapshot) ? true : false" :long="true" />
       <div class="proposals-ui">
       <Proposal v-for="(proposal, index) of proposals" :key="index" :proposal="proposal"/>
     </div>

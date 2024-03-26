@@ -1,7 +1,8 @@
 <template lang="html">
   <div>
-    <LoadingEle :stop="payloadGrouped ? true : false" :long="true" />
+  <LoadingEle :stop="(holdings && rates) ? true : false" :long="true" />
     <div class="brick-wall">
+      
       <template v-if="payloadGrouped">
         <div v-for="(value, key) of payloadGrouped" :key="key"
           :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
@@ -64,7 +65,7 @@ export default {
       app: {},
     }
   },
-  components: { HedgeyApp, LoadingEle,},
+  components: { HedgeyApp, LoadingEle, },
   props: {
     provider: String,
   },
