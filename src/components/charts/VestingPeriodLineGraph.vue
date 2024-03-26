@@ -1,8 +1,11 @@
 <template>
-  <div class="line-graph ui-ele">
-    <VestingPeriodChartStats :vested="vested" :now="now" />
-    <div class="graph-wrapper">
-      <LineGraph :data="chartData" :options="chartOptions" />
+  <div>
+    <VestingPeriodHeaderRecipient :vested="vested" />
+    <div class="line-graph ui-ele">
+      <VestingPeriodChartStats :vested="vested" :now="now" />
+      <div class="graph-wrapper">
+        <LineGraph :data="chartData" :options="chartOptions" />
+      </div>
     </div>
   </div>
 
@@ -10,6 +13,7 @@
 
 <script>
 import VestingPeriodChartStats from '@/components/charts/VestingPeriodChartStats'
+import VestingPeriodHeaderRecipient from '@/components/modules/VestingPeriodHeaderRecipient'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -43,6 +47,7 @@ export default {
   components: {
     LineGraph,
     VestingPeriodChartStats,
+    VestingPeriodHeaderRecipient,
   },
   data() {
     return {
@@ -181,12 +186,13 @@ export default {
   background: var(--neutral-5);
   border-radius: 8px;
   display: grid;
-  .graph-wrapper{
+
+  .graph-wrapper {
     width: 100%;
 
-  contain: strict;
-  max-height: 50vh;
-  height: 280px;
+    contain: strict;
+    max-height: 50vh;
+    height: 280px;
   }
 }
 

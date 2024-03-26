@@ -11,6 +11,7 @@
       <template v-if="vested.length > 0">
         <table class="vesting-table-ui">
           <thead>
+            <th>Recipient</th>
             <th>Token</th>
             <th>Granted tokens</th>
             <th>Vested</th>
@@ -20,6 +21,19 @@
             <!-- eslint-disable-next-line vue/no-v-for-template-key -->
             <template v-for="(item, index) of vested" :key="index">
               <tr>
+                <td colspan="1" data-header="Recipient">
+                  <div class="col" :set="to = item.actions[0].to">
+                    <span :title="to" class="main">{{ walletShortName(to) }}</span>
+                    <div class="actions sub col">
+                      <a class="click-to-copy" @click="c2c" :data-copy="to"><span>Copy address</span> <i
+                          class="icon-copy"></i>
+                      </a>
+                      <a :href="`https://etherscan.io/address/${to}`" target="_blank" rel="noreferrer">
+                        <span>View on explorer</span> <i class="icon-external-link"></i>
+                      </a>
+                    </div>
+                  </div>
+                </td>
                 <td colspan="1" data-header="Token">
                   <div class="icon-stack horizontal">
                     <img :src="require(`@/assets/img/tokens/${item.network.substring(0, 3).toLowerCase()}.png`)" alt="">
@@ -52,7 +66,8 @@
                 </td> -->
                 <td colspan="4" data-header="Available actions">
                   <div>
-                    <a @click.stop="details = index+1" class="link basic">Details <i class="icon-chevron-right"></i></a>
+                    <a @click.stop="details = index + 1" class="link basic">Details <i
+                        class="icon-chevron-right"></i></a>
                   </div>
                 </td>
               </tr>
@@ -62,7 +77,7 @@
       </template>
     </template>
     <template v-if="details">
-      <VestingTableDetails :vested="vested" :now="now" :index="details" @exit-vesting-details="details=false"/>
+      <VestingTableDetails :vested="vested" :now="now" :index="details" @exit-vesting-details="details=false" />
     </template>
 
   </div>
@@ -70,6 +85,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { getIcon, c2c } from '@/utils/general'
+import { walletShortName } from '@/utils/strings'
 import VestingTableDetails from '@/components/modules/VestingTableDetails'
 export default {
   name: "VestingTable",
@@ -98,7 +114,7 @@ export default {
     this.hedgeyVested()
   },
   methods: {
-    getIcon, c2c,
+    getIcon, c2c, walletShortName,
     async hedgeyVested() {
       const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: this.address })
       let data = reply.payload.result.data
@@ -126,14 +142,18 @@ export default {
 .col {
   display: flex;
   flex-direction: column;
+  .col{gap:0;}
 }
+.sub {
+    opacity: .5;
+    font-size: 12px;
+    font-weight: 200;
+  }
 
 .app-module {
-  margin-top:20px;
+  margin-top: 20px;
   padding: 20px;
   border-radius: 10px;
   background: var(--neutral-6);
 }
-
-
 </style>
