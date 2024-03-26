@@ -89,26 +89,27 @@ export default {
     async getHoldings() {
       let balances = []
       let curriencies = ['ETH', 'ZH', 'USDC', 'USDT']
-
-      for (const cur of curriencies) {
-        let balanceArray = await this.getBalance(cur)
-        let template = {
-          address: this.wallet,
-          addressShort: this.walletShortName(this.wallet),
-          badge: false,
-          balance: balanceArray.balance,
-          balanceFormatted: balanceArray.formatted,
-          balanceUSD: Number(balanceArray.formatted) * this.rates[cur].priceUsd,
-          balanceUSDRaw: Number(balanceArray.formatted) * this.rates[cur].priceUsd,
-          change: this.rates[cur]['changePercent24Hr'],
-          currency: cur,
-          displayCurrency: this.rates[cur]['symbol'],
-          group_id: "mainnet_balances",
-          name: `Hasher ${this.walletShortName(this.wallet)} wallet`,
-          timestamp: Date.now(),
+      try {
+        for (const cur of curriencies) {
+          let balanceArray = await this.getBalance(cur)
+          let template = {
+            address: this.wallet,
+            addressShort: this.walletShortName(this.wallet),
+            badge: false,
+            balance: balanceArray.balance,
+            balanceFormatted: balanceArray.formatted,
+            balanceUSD: Number(balanceArray.formatted) * this.rates[cur].priceUsd,
+            balanceUSDRaw: Number(balanceArray.formatted) * this.rates[cur].priceUsd,
+            change: this.rates[cur]['changePercent24Hr'],
+            currency: cur,
+            displayCurrency: this.rates[cur]['symbol'],
+            group_id: "mainnet_balances",
+            name: `Hasher ${this.walletShortName(this.wallet)} wallet`,
+            timestamp: Date.now(),
+          }
+          balances.push(template)
         }
-        balances.push(template)
-      }
+      } catch (e) { console.log("Holdings not initiated yet.", e) }
       this.holdings = balances
     },
   }
@@ -137,16 +138,17 @@ export default {
     &::before {
       content: '';
       background: var(--dark-crimson);
-      position:absolute;
-      height:100%;
-      width:100%;
-      top:0;
-      left:0;
-      z-index:-1;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
       animation: slide-disconnect 4000ms ease forwards 1;
+
       @keyframes slide-disconnect {
-        to{
-          transform:translateX(-100%);
+        to {
+          transform: translateX(-100%);
         }
       }
     }
@@ -197,4 +199,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>
