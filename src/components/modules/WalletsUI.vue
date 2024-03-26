@@ -1,56 +1,54 @@
 <template lang="html">
   <div class="brick-wall">
-    <div v-for="(value, key, index) of payloadGrouped" :key="index"
-      :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
-      @click="!dropdown[key] ? dropdown[key] = true : false; scrollTo($refs[key])" :ref="key">
-      <h2>
-        <span>{{ key.replace(/_/g, ' ') }}
-          <template v-if="app[key] || !dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
-              USD</span></template>
-          <template v-if="dropdown[key]"><br><span class="sub click-to-copy" @click="c2c"
-              :title="consistentAddress(value).address" :data-copy="consistentAddress(value).address">address: {{
-      consistentAddress(value).addressShort }}
-            </span></template>
-        </span>
-        <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
-        <a @click.stop="dropdown[key] = !dropdown[key]">
-          <i class="i-maximize" v-if="!dropdown[key]"></i>
-          <i class="i-minimize" v-if="dropdown[key]"></i>
-        </a>
-      </h2>
-      <template v-if="dropdown[key]">
-        <div class="wallet-grid" v-if="!app[key]">
-          <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
-            :title="item.date">
-            <div class="head">
-              <img class="coin-icon"
-                :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
-              <div class="head-text">
-                <!-- <h3>{{ item.name }}</h3> -->
-                <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{ item.badge
-                    }}</span></h3>
-                <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
-                <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
-                  {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
-                <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
+    <template v-if="payloadGrouped">
+      <div v-for="(value, key) of payloadGrouped" :key="key"
+        :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
+        @click="!dropdown[key] ? dropdown[key] = true : false; scrollTo($refs[key])" :ref="key">
+        <h2>
+          <span>{{ key.replace(/_/g, ' ') }}
+            <template v-if="app[key] || !dropdown[key]"><br><span class="sub">${{ groupBalance(value) }}
+                USD</span></template>
+            <template v-if="dropdown[key]">
+              <br><span class="sub click-to-copy" @click="c2c"
+                :title="consistentAddress(value).address" :data-copy="consistentAddress(value).address">address: {{ consistentAddress(value).addressShort }}
+              </span>
+            </template>
+          </span>
+          <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
+          <a @click.stop="dropdown[key] = !dropdown[key]">
+            <i class="i-maximize" v-if="!dropdown[key]"></i>
+            <i class="i-minimize" v-if="dropdown[key]"></i>
+          </a>
+        </h2>
+        <template v-if="dropdown[key]">
+          <div class="wallet-grid" v-if="!app[key]">
+            <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
+              :title="item.date">
+              <div class="head">
+                <img class="coin-icon"
+                  :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
+                <div class="head-text">
+                  <!-- <h3>{{ item.name }}</h3> -->
+                  <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{ item.badge
+                      }}</span></h3>
+                  <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
+                  <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
+                    {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
+                  <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="apps-flex">
-          <span :set="name = 'Hedgey.'" :class="`link-wrapper ${app[key] == name ? 'active' : ''}`"><a
-              @click="app[key] = name" :class="`link`">{{ name }} </a><span v-if="app[key] == name" class="close link"
-              @click.stop="app[key] = false"><i class="icon-times"></i></span></span>
-        </div>
-        <VestingTable v-if="app[key]" :address="consistentAddress(value).address" :walletName="key" />
-      </template>
-    </div>
+          <HedgeyApp :provider="provider" :address="consistentAddress(value).address" :walletKey="key" @set-application-open="app[key] = 'Hedgey.';scrollTo($refs[key])" @set-application-closed="app[key]=false"/>
+        </template>
+      </div>
+    </template>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { getIcon, c2c, scrollTo } from '@/utils/general'
-import VestingTable from '@/components/modules/VestingTable'
+import HedgeyApp from '@/components/modules/HedgeyApp'
 export default {
   name: 'WalletsUI',
   data() {
@@ -59,7 +57,7 @@ export default {
       app: {},
     }
   },
-  components: { VestingTable, },
+  components: { HedgeyApp, },
   props: {
     provider: String,
   },
@@ -72,7 +70,7 @@ export default {
       wallet: 'wallet',
     }),
     payload() {
-      if (!this.holdings) { return [] }
+      if (!this.holdings) { return false }
       let masterPayload = []
       for (const key of Object.keys(this.holdings)) {
         let instance = this.holdings[key]
@@ -129,7 +127,8 @@ export default {
       return masterPayload
     },
     payloadGrouped() {
-      if (!this.holdings) { return {} }
+      if (!this.holdings) { return false }
+      if (!this.payload) { return false }
       let arr = {}
       for (const item of this.payload) {
         if (!item.group_id) { continue }
@@ -149,11 +148,6 @@ export default {
     c2c,
     getIcon,
     scrollTo,
-    async hedgeyVested(address) {
-      const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: address })
-      console.log(reply)
-      return reply
-    },
     consistentAddress(items) {
       let address = ''
       let addressShort = ''
@@ -204,13 +198,15 @@ export default {
 @import '@/assets/scss/wallet-ui';
 
 .link-wrapper {
-    padding: 5px 10px 5px 15px;
+  padding: 5px 10px 5px 15px;
+
   &.active {
     box-shadow: 0 0 0 1px var(--secondary);
     border-radius: 100px;
     display: inline-flex;
     gap: 10px;
     align-items: center;
+
     .link {
       &:hover {
         text-decoration: none;

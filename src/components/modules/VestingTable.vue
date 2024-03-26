@@ -47,12 +47,12 @@
                 <td colspan="1" data-header="Vested">
                   <div class="col"><span>0 ZH</span> <span>$0.00</span></div>
                 </td>
-                <td colspan="1" data-header="Active plans">
+                <!-- <td colspan="1" data-header="Active plans">
                   <div><span>1</span></div>
-                </td>
+                </td> -->
                 <td colspan="4" data-header="Available actions">
                   <div>
-                    <a @click.stop="details = index+1" class="btn-link">Details <i class="icon-chevron-right"></i></a>
+                    <a @click.stop="details = index+1" class="link basic">Details <i class="icon-chevron-right"></i></a>
                   </div>
                 </td>
               </tr>
@@ -129,6 +129,7 @@ export default {
 }
 
 .app-module {
+  margin-top:20px;
   padding: 20px;
   border-radius: 10px;
   background: var(--neutral-6);

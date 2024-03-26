@@ -15,7 +15,7 @@
 
 
     <div class="ui-ele containers-ui">
-      <UserWalletsUI :holdings="holdings" />
+      <UserWalletsUI :holdings="holdings" :wallet="wallet" />
     </div>
   </div>
 </template>

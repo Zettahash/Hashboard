@@ -84,6 +84,13 @@ a {
   &:hover {
     box-shadow: 0 2px 0 0 var(--secondary);
   }
+  &.basic{
+    opacity: .6;
+    &:hover{
+      opacity: 1;
+      box-shadow: none;
+    }
+  }
 }
 .btn-link {
   color: var(--secondary);
