@@ -24,7 +24,7 @@
       <router-link :class="routeClass('vote')" @click="dropdownToggle('vote')" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
         <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-bulb"></i><span>Proposals</span></router-link></li>
-        <li><router-link :to="{ name: 'protocol-treasury' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-banknote"></i><span>Treasury</span></router-link></li>
+        <!-- <li><router-link :to="{ name: 'protocol-treasury' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-banknote"></i><span>Treasury</span></router-link></li> -->
         <li><router-link :to="{ name: 'protocol-about' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-info"></i><span>About</span></router-link></li>
       </ul>
       <a :class="routeClass('treasury')" @click="dropdownToggle('treasury')" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-library"></i><span>Treasury</span></a>
