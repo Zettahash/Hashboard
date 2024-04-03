@@ -1,11 +1,11 @@
 <template lang="html">
   <div>
-  <LoadingEle :stop="(holdings && rates) ? true : false" :long="true" />
+    <LoadingEle :stop="(holdings && rates) ? true : false" :long="true" />
     <div class="brick-wall">
-      
+
       <template v-if="payloadGrouped">
         <div v-for="(value, key) of payloadGrouped" :key="key"
-          :class="`wallet-group wide ${key} ${dropdown[key] ? 'open' : ''}`"
+          :class="`wallet-group tile ${key} ${dropdown[key] ? 'open' : ''}`"
           @click="!dropdown[key] ? dropdown[key] = true : false; scrollTo($refs[key])" :ref="key">
           <h2>
             <span>{{ key.replace(/_/g, ' ') }}
@@ -17,11 +17,13 @@
                 </span>
               </template>
             </span>
-            <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
-            <a @click.stop="dropdown[key] = !dropdown[key]">
-              <i class="i-maximize" v-if="!dropdown[key]"></i>
-              <i class="i-minimize" v-if="dropdown[key]"></i>
-            </a>
+            <div class="tile-controls">
+              <a @click.stop="openWalletInProviderView(value)"><i class="i-link-2"></i></a>
+              <a @click.stop="dropdown[key] = !dropdown[key]">
+                <i class="i-maximize-2" v-if="!dropdown[key]"></i>
+                <i class="i-minimize-2" v-if="dropdown[key]"></i>
+              </a>
+            </div>
           </h2>
           <template v-if="dropdown[key]">
             <div class="wallet-grid" v-if="!app[key]">
@@ -33,8 +35,8 @@
                   <div class="head-text">
                     <!-- <h3>{{ item.name }}</h3> -->
                     <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
-        item.badge
-      }}</span></h3>
+      item.badge
+    }}</span></h3>
                     <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
                     <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                       {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="flex-overview">
+  <div class="flex-overview demo">
     <div class="full-width-header">
     </div>
     <div class="page-inner">
@@ -10,7 +10,7 @@
 
         <img class="img faux-dash" :src="require('/src/assets/img/design/hashboard-89c2eb.webflow.io_reports.webp')">
       </div>
-      <div class="text-overlay">
+      <div class="text-overlay exempt">
         <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
         <h1>Welcome back, #Hasher</h1>
         <p>We're working on the Zettahash Mining & Energy displays.</p>
@@ -78,6 +78,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
+@import '@/assets/scss/ui';
 
 .modal-relative {
   margin: 40px auto;
@@ -167,36 +168,6 @@ p {
   background: var(--neutral-7);
 }
 
-.blur-container {
 
-  animation: toBlur 2s 1500ms ease forwards 1;
-}
 
-@keyframes toBlur {
-  100% {
-    filter: blur(10px);
-  }
-}
-
-@keyframes toAppear {
-  100% {
-    opacity: 1;
-  }
-}
-
-.text-overlay {
-  position: absolute;
-  top: 10%;
-  left: 0;
-  right: 0;
-  margin: auto;
-  background: rgba(0, 0, 0, 0.5);
-  width: max-content;
-  padding: 10px 30px 10px 30px;
-  border-radius: 20px;
-  opacity: 0;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  animation: toAppear 2s 1500ms ease forwards 1;
-}
 </style>

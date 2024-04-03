@@ -1,3 +1,5 @@
+@import "./constants";
+
 .brick-wall {
   display: flex;
   flex-wrap: wrap;
@@ -26,11 +28,24 @@
         // width: max-content;
       }
     }
+    &.tile {
+      width: calc($ui-width * 0.3 - 5px);
+      min-width: calc($x-small/2 - 5px);
+      max-width: 80vw;
+      margin-bottom: 0;
+      &.open {
+        width: 100%;
+      }
+    }
     &.open {
       background: var(--neutral-8);
       box-shadow: 0 0 0 1px var(--neutral-5);
       h2 {
         opacity: 1;
+        cursor: unset;
+        [class*="imize-2"] {
+          display: inherit;
+        }
       }
       &:hover {
         box-shadow: 0 0 0 1px var(--neutral-5);
@@ -59,17 +74,32 @@
         a {
           color: var(--primary);
         }
+        [class*="imize-2"] {
+          display: inherit;
+        }
       }
     }
 
     h2 {
+      cursor: pointer;
       text-transform: capitalize;
       margin-top: 0;
       margin-bottom: 0px;
-      display: grid;
-      grid-template: 1fr / 1fr auto auto;
+      display: flex;
       gap: 15px;
       opacity: 0.5;
+      justify-content: space-between;
+      &:first-child {
+        flex-shrink: 0;
+        flex-grow: 1;
+      }
+      &:last-child {
+        flex-shrink: 1;
+        flex-grow: 0;
+      }
+      [class*="imize-2"] {
+        display: none;
+      }
       .spinner {
       }
       a {
@@ -84,6 +114,14 @@
       .sub {
         font-weight: 200;
         font-size: 0.9rem;
+      }
+      .tile-controls {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap-reverse;
+        margin-bottom: auto;
+        justify-content: end;
+        margin-top: 0;
       }
     }
 
@@ -278,19 +316,21 @@
         box-shadow: -21px 0 0 -20px;
       }
       &:last-child {
-        border-radius:0 5px 5px 0;
+        border-radius: 0 5px 5px 0;
       }
     }
   }
 }
 
-.flex{
+.flex {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  &.wrap{flex-wrap: wrap;}
+  &.wrap {
+    flex-wrap: wrap;
+  }
 }
-.col{
+.col {
   display: flex;
   flex-direction: column;
   gap: 4px;

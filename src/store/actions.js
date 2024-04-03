@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = "http://localhost:62260"//process.env.VUE_APP_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
@@ -75,13 +75,13 @@ const actions = {
         .then(result => { return result.json() }).then(data => {
           if (data.payload) {
             try {
-              commit("setHoldingsBTC", data.payload.btc)
+              commit("setHoldingsBTC", data.payload.btc.response)
             } catch (e) { }
             try {
-              commit("setHoldingsETH", data.payload.eth)
+              commit("setHoldingsETH", data.payload.eth.response)
             } catch (e) { }
             try {
-              commit("setRates", data.payload.exr)
+              commit("setRates", data.payload.cached_exchange_rates)
             } catch (e) { }
             try {
               commit("setPhysicalAssets", data.payload.physical_assets)
@@ -111,7 +111,7 @@ const actions = {
         .then(result => { return result.json() }).then(data => {
           commit("setHoldingsBTC", data.payload.btc)
           commit("setHoldingsETH", data.payload.eth)
-          commit("setRates", data.payload.exr)
+          commit("setRates", data.payload.exr.cached_exchange_rates)
           success++
         })
     } catch (e) {

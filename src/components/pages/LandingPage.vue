@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="flex-overview">
+  <div class="flex-overview demo">
     <div class="full-width-header">
     </div>
     <div class="page-inner">
@@ -28,7 +28,7 @@
           :src="require('/src/assets/img/design/6590e06479ac1d8d587b3952_dashdark-x-reports-page-dashboard-webflow-template.png')">
         <img class="img overlap-upper"
           :src="require('/src/assets/img/design/6590e06479ac1d8d587b3954_dashdark-x-products-page-dashboard-webflow-template-p-500.png')">
-        <div class="text-overlay">
+        <div class="text-overlay exempt">
           <p>Get Ready for next-level transparency.</p>
           <p v-if="application.zhHolderBool"><router-link :to="{ name: 'mining' }" class="btn">Enter
               Hashboard</router-link></p>

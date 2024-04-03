@@ -570,3 +570,43 @@
     }
   }
 }
+
+.demo{
+  .ui-ele > *, iframe,
+  .blur-container,
+  .item{
+    animation: toBlur 2s 1500ms ease forwards 1;
+  }
+  
+  @keyframes toBlur {
+    100% {
+      filter: blur(10px);
+    }
+  }
+  @keyframes toAppear {
+    100% {
+      opacity: 1;
+    }
+  }
+  .icon {
+    height: 80px;
+    width: auto;
+    margin: 20px auto;
+    display: block;
+  }
+  .text-overlay {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.5);
+    width: max-content;
+    padding: 10px 30px 10px 30px;
+    border-radius: 20px;
+    opacity: 0;
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    animation: toAppear 2s 1500ms ease forwards 1;
+  }
+}
