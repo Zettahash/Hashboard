@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = "http://localhost:62260"//process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = process.env.VUE_APP_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
