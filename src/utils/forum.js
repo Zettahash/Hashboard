@@ -72,8 +72,8 @@ const loadForumCache = function (address) {
 const setProfile = async function (payload) {
   let wallet = this.$store.state.wallet
   let result = await fetch(`${process.env.VUE_APP_MIDDLEWARE_URL}/forum/set-profile`, {
-    method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-    body: encodeURI(JSON.stringify({ data: payload, address: wallet }))
+    method: 'post', headers: { 'Content-Type': 'application/json', },
+    body: JSON.stringify({ data: payload, address: wallet })
   })
   let newPayload = await result.json()
   this.$store.commit("setForum", newPayload.payload?.profile)

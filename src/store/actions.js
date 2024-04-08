@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = "https://zettahash-hashboard-middleware.vercel.app"//process.env.VUE_APP_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
@@ -160,7 +160,7 @@ const actions = {
   },
   getSnapshotUser({ commit, dispatch, getters, context, rootGetters }, payload) {
     try {
-      fetch(`${endpoint}/api/query-snapshot-user/query=address:${payload.address}`, { method: 'get' })
+      fetch(`${endpoint}/api/query-snapshot-user/?address:${payload.address}`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {
           payload.store.commit("setSnapshotUser", data.payload)
         })
@@ -171,8 +171,8 @@ const actions = {
   initProfile({ commit, dispatch, getters, context, rootGetters }, payload) {
     fetch(`${endpoint}/forum/init`, {
       // mode: "no-cors",
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ address: payload.address }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ address: payload.address })
     })
       .then(result => { return result.json() }).then(data => {
         payload.store.commit("setForum", data.payload?.profile)
@@ -183,8 +183,8 @@ const actions = {
   async submitPost({ commit, dispatch, getters, context, rootGetters }, payload) {
     let encodedPost = encodeStr(JSON.stringify(payload.post))
     let post = await fetch(`${endpoint}/forum/new-post`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ post: payload.post, address: payload.id }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ post: payload.post, address: payload.id })
     })
     return post.json()
   },
@@ -193,8 +193,8 @@ const actions = {
     let end = payload.end ? payload.end : 50
     let category = payload.category ? payload.category : false
     let posts = await fetch(`${endpoint}/forum/fetch-posts`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ limit: { start: start, end: end }, address: payload.id, category:category }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ limit: { start: start, end: end }, address: payload.id, category:category })
     })
     let postsPayload = await posts.json()
     if (postsPayload.payload.posts) {
@@ -204,14 +204,14 @@ const actions = {
   },
   async viewPost({ commit, dispatch, getters, context, rootGetters }, payload) {
     await fetch(`${endpoint}/forum/increment-view`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ id: payload.id, address: payload.address }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ id: payload.id, address: payload.address })
     })
   },
   async vote({ commit, dispatch, getters, context, rootGetters }, payload) {
     const request = await fetch(`${endpoint}/forum/vote`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ direction: payload.direction, topic_id: payload.topic_id, comment_id: payload.comment_id, address: payload.address }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ direction: payload.direction, topic_id: payload.topic_id, comment_id: payload.comment_id, address: payload.address })
     })
     let response = await request.json()
     if (response.payload) { return response }
@@ -220,15 +220,15 @@ const actions = {
   async submitReply({ commit, dispatch, getters, context, rootGetters }, payload) {
     let encodedPost = encodeStr(JSON.stringify(payload.post))
     let post = await fetch(`${endpoint}/forum/new-reply`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ post: payload.post, address: payload.id }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ post: payload.post, address: payload.id })
     })
     return post.json()
   },
   async fetchPostReplies({ commit, dispatch, getters, context, rootGetters }, payload) {
     let posts = await fetch(`${endpoint}/forum/fetch-post-replies`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ limit: { start: 0, end: 50 }, address: payload.id, topic_id: payload.topic_id }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ limit: { start: 0, end: 50 }, address: payload.id, topic_id: payload.topic_id })
     })
     let postsPayload = await posts.json()
     if (postsPayload.payload.replies) { return postsPayload.payload.replies }
@@ -236,8 +236,8 @@ const actions = {
   },
   async snapshotUnfollow({ commit, dispatch, getters, context, rootGetters }, payload) {
     let request = await fetch(`${endpoint}/snapshot/unfollow`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ address: payload.address }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ address: payload.address })
     })
     let response = await request.json()
     if (response.payload) { return response.payload }
@@ -245,8 +245,8 @@ const actions = {
   },
   async fetchHedgeyVesting({ commit, dispatch, getters, context, rootGetters }, payload) {
     let response = await fetch(`${endpoint}/vesting/hedgey`, {
-      method: 'post', headers: { 'Content-Type': 'application/x-www-form-urlencoded', },
-      body: encodeURI(JSON.stringify({ address: payload.id }))
+      method: 'post', headers: { 'Content-Type': 'application/json', },
+      body: JSON.stringify({ address: payload.id })
     })
     let responsePayload = await response.json()
     return responsePayload
