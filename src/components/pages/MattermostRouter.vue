@@ -1,16 +1,16 @@
 <template lang="html">
-  <!-- <div class="flex-overview">
-  <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/scatter.svg')" ></div>
-  <div class="modal centre">
-    <img class="icon" :src="require('/src/assets/img/zh-circle.svg')" >
-  <h1>We're on Reddit</h1>
-  <p>Join the conversation on the Zettahash subreddit.</p>
-  <p><a class="btn" href="https://www.reddit.com/r/Zettahash/" target="_blank">r/Zettahash <i class="i-arrow-right"></i></a></p>
-  
-  </div>
-  </div> -->
-  <div>
-    <div class="iframe"></div>
+  <div class="flex-overview">
+    <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/scatter.svg')"></div>
+    <div class="modal centre">
+      <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
+      <h1>Zettahash Consensus</h1>
+      <p v-if="error==false">Automatically redirecting you to our Zettahash Discord Server<br><br><i class="spinner"></i></p>
+      <p v-if="error!=false">
+      <span>{{ error }}</span>
+      <br><br><a class="btn" href="https://discord.gg/ftcDXDCx" target="_blank">Consensus <i
+            class="i-arrow-right"></i></a></p>
+
+    </div>
   </div>
 </template>
 <script>
@@ -21,19 +21,26 @@ export default {
   name: 'MattermostRouter',
   data() {
     return {
+      error: false,
     }
   },
-  components: {  },
+  components: {},
   mounted() {
     this.$store.commit('setDynamic', {
       item: 'routerLoaded',
       value: true
     })
-    const iframe = document.createElement('iframe')
-    iframe.onload = this.frameLoaded
-    iframe.src = 'https://discord.gg/ftcDXDCx';
-    iframe.classList.add("dom-iframe")
-    document.querySelector(".iframe").replaceWith(iframe)
+    let self = this
+    setTimeout(() => {
+      let newWin = window.open('https://discord.gg/ftcDXDCx', '_blank')
+
+      if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
+        //POPUP BLOCKED
+        self.error="Browser blocked popup. Use the button below instead."
+      } else {
+        newWin.focus()
+      }
+    }, 2000)
   },
   computed: {
     ...mapGetters({
@@ -53,27 +60,29 @@ export default {
 
 .modal {
   margin: auto;
-    height: max-content;
-    width: 500px;
-    max-width: 80vw;
-    padding: 30px;
-    border-radius: 15px;
-    background: var(--neutral-10);
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    &.centre{
-      text-align: center;
-    }
-    .icon{
-      height: 100px;
-      width: auto;
-    }
-  h1 {
+  height: max-content;
+  width: 500px;
+  max-width: 80vw;
+  padding: 30px;
+  border-radius: 15px;
+  background: var(--neutral-10);
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &.centre {
+    text-align: center;
   }
+
+  .icon {
+    height: 100px;
+    width: auto;
+  }
+
+  h1 {}
 
   p {
     margin-bottom: 0;
@@ -82,37 +91,40 @@ export default {
 
 
 .bg-overlay {
+  height: 100%;
+  min-height: $content;
+  aspect-ratio: 1/1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &::before {
+    content: '';
     height: 100%;
-    min-height: $content;
-    aspect-ratio: 1/1;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(var(--neutral-9) 30%, transparent);
+    display: block;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    &::before{
-      content: '';
-      height:100%;
-      width:100%;
-      top:0;
-      left:0;
-      background:radial-gradient(var(--neutral-9) 30%, transparent);
-      display: block;
+    z-index: 2;
+  }
+
+  img {
     position: absolute;
-      z-index:2;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    animation: slow-orbit 200s linear forwards infinite;
+  }
+
+  @keyframes slow-orbit {
+    to {
+      transform: rotate(360deg);
     }
-    img{
-      position: absolute;
-      top:0;
-      left:0;
-      height:100%;
-      width:100%;
-      z-index:1;
-      animation: slow-orbit 200s linear forwards infinite;
-    }
-    @keyframes slow-orbit {
-      to{
-        transform: rotate(360deg);
-      }
-    }
+  }
 }
 </style>
