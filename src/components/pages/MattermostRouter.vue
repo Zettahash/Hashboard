@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="flex-overview">
+  <!-- <div class="flex-overview">
   <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/scatter.svg')" ></div>
   <div class="modal centre">
     <img class="icon" :src="require('/src/assets/img/zh-circle.svg')" >
@@ -8,6 +8,9 @@
   <p><a class="btn" href="https://www.reddit.com/r/Zettahash/" target="_blank">r/Zettahash <i class="i-arrow-right"></i></a></p>
   
   </div>
+  </div> -->
+  <div>
+    <div class="iframe"></div>
   </div>
 </template>
 <script>
@@ -26,6 +29,11 @@ export default {
       item: 'routerLoaded',
       value: true
     })
+    const iframe = document.createElement('iframe')
+    iframe.onload = this.frameLoaded
+    iframe.src = 'https://discord.gg/ftcDXDCx';
+    iframe.classList.add("dom-iframe")
+    document.querySelector(".iframe").replaceWith(iframe)
   },
   computed: {
     ...mapGetters({

@@ -31,10 +31,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-  .dom-iframe{
-    height: 100%;
-    width: 100%;
-    border: 0;
-  }
-</style>

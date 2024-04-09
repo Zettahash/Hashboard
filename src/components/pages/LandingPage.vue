@@ -212,49 +212,7 @@ p {
   text-align: center;
 }
 
-.full-width-header {
-  width: 100%;
-  min-height: 500px;
-  position: absolute;
-  top: 0%;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  background-color: var(--neutral-8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
-  &::after {
-    content: '';
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-image: radial-gradient(var(--neutral-10) 20%, transparent 20%);
-    background-size: 20px 20px;
-    background-repeat: repeat;
-    display: block;
-    position: absolute;
-    z-index: 2;
-  }
-
-  &::before {
-    content: '';
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background: radial-gradient(ellipse at top left, var(--indigo) -100%, transparent 50%), radial-gradient(ellipse at bottom right, var(--crimson) -100%, transparent 50%);
-    display: block;
-    position: absolute;
-    z-index: 1;
-  }
-
-  >* {
-    z-index: 3;
-    position: relative;
-  }
-}
 .centred-connect-btn{
   width: max-content;
     margin: auto;

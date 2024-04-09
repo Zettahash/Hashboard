@@ -20,6 +20,9 @@
       <router-link :to="{ name: 'mining' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-activity"></i><span>Mining</span></router-link>
 
       <router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-forum"></i><span>Consensus</span></router-link>
+      <!-- <a href="https://discord.gg/ftcDXDCx" target="_blank" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-forum"></i><span>Consensus</span></a> -->
+
+      
 
       <router-link :class="routeClass('vote')" @click="dropdownToggle('vote')" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">

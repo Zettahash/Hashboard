@@ -610,3 +610,55 @@
     animation: toAppear 2s 1500ms ease forwards 1;
   }
 }
+
+.full-width-header {
+  width: 100%;
+  min-height: 500px;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: var(--neutral-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::after {
+    content: '';
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image: url(/src/assets/img/grid.webp);
+    // background-image: radial-gradient(var(--neutral-10) 20%, transparent 20%);
+    background-size: 800px 800px;
+    background-repeat: repeat;
+    display: block;
+    position: absolute;
+    z-index: 2;
+    opacity: .2;
+    filter: invert(1);
+  }
+
+  &::before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(ellipse at bottom left, var(--primary) -100%, transparent 50%), radial-gradient(ellipse at bottom right, var(--secondary-bg) -100%, transparent 50%);
+    display: block;
+    position: absolute;
+    z-index: 1;
+  }
+
+  >* {
+    z-index: 3;
+    position: relative;
+  }
+}
+.dom-iframe{
+  height: 100%;
+  width: 100%;
+  border: 0;
+}
