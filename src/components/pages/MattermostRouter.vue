@@ -38,6 +38,7 @@ export default {
         //POPUP BLOCKED
         self.error="Browser blocked popup. Use the button below instead."
       } else {
+        self.error="See you on Discord"
         newWin.focus()
       }
     }, 2000)
