@@ -60,40 +60,7 @@
   <template v-if="width>800">
     <WalletConnector />
   </template>
-    <!-- <div class="menu-container">
-      <a class="btn" @click="menu=!menu"><i class="icon-ellipsis-v"></i></a>
-      <div class="menu" v-if="menu">
-        <ul>
-          <li>
-            <a @click="toggleDemoValues()"><span>Demo Mode</span><i :class="'switch-indicator' + (application.uiDemoValues ? ' on' : ' off')"></i></a>
-          </li>
-
-          <li>
-            <a @click="$store.dispatch('fetchCombinedDataPayload')">
-            <span v-if="data.synchronisationStatus==='syncing'">Syncing</span>
-            <span v-if="String(data.synchronisationStatus)==='false'">Up to date<br>
-              <small>{{new Date(data.synchronisation)}}</small>
-            </span>
-            <span v-if="String(data.synchronisationStatus)==='error'">An Error has occurred</span>
-            <span v-if="String(data.synchronisationStatus)==='true'">Error</span>
-              <i v-if="data.synchronisationStatus==='syncing'" class="i-refresh-cw spinning"></i>
-              <i v-if="String(data.synchronisationStatus)==='error'" class="i-alert-circle"></i>
-              <i v-if="String(data.synchronisationStatus)==='false'" class="i-check"></i> 
-            </a>
-          </li>
-
-          <li>
-            <div class="social-grid">
-              <a href="#"><i class="fab fa-discord"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-              <a href="#"><i class="fab fa-telegram"></i></a>
-              <a href="#"><i class="fab fa-github"></i></a>
-            </div>
-
-          </li>
-        </ul>
-      </div>
-    </div> -->
+   
   </div>
 </div>
 </div>

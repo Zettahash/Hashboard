@@ -17,9 +17,8 @@ const actions = {
         value: value
       })
     }
-    // dispatch('fetchLincoin', { commit, dispatch, getters, context, rootGetters })
     dispatch('expressFetch', { commit })
-    dispatch('fetchCombinedDataPayload', { commit, dispatch, getters, context, rootGetters })
+    dispatch('expressFetch', { commit, dispatch, getters, context, rootGetters })
 
     commit("setDynamic", {
       item: 'name',
@@ -69,7 +68,8 @@ const actions = {
     }, 2000)
 
   },
-  expressFetch({ commit }) {
+  expressFetch({ commit, dispatch }) {
+    commit("setData", { item: 'synchronisationStatus', value: "syncing" })
     try {
       fetch(`${endpoint}/api/get-data-express`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {
@@ -85,7 +85,6 @@ const actions = {
             } catch (e) { }
             try {
               commit("setPhysicalAssets", data.payload.physical_assets)
-              // commit("setPayload", data.payload.lincoin)
             } catch (e) { }
           }
         })
@@ -96,55 +95,9 @@ const actions = {
         data: e,
       })
     }
-  },
-  async fetchCombinedDataPayload({ commit, dispatch, getters, context, rootGetters }) {
-    commit("setData", { item: 'synchronisationStatus', value: "syncing" })
-    let c = commit
-    let d = dispatch
-    let g = getters
-    let co = context
-    let rg = rootGetters
-    let errors = 0
-    let success = 0
-    try {
-      await fetch(`${endpoint}/api/combined-request-btc-eth-exr`, { method: 'get' })
-        .then(result => { return result.json() }).then(data => {
-          commit("setHoldingsBTC", data.payload.btc)
-          commit("setHoldingsETH", data.payload.eth)
-          commit("setRates", data.payload.exr.cached_exchange_rates)
-          success++
-        })
-    } catch (e) {
-      errors++
-    }
-
-    try {
-      await fetch(`${endpoint}/api/query-snapshot`, { method: 'get' })
-        .then(result => { return result.json() }).then(data => {
-          commit("setSnapshot", data.payload)
-          success++
-        })
-    } catch (e) {
-      success++
-    }
-
-    try {
-      dispatch('fetchPosts', { c, d, g, co, rg }, { id: g.wallet })
-
-    } catch (e) {
-      console.log(e)
-      success++
-    }
-
-    if (errors > 0) {
-      commit("setData", { item: 'synchronisationStatus', value: "error" })
-      console.log("Unable to fetch all balance data. Some balances may not reflect their true value.")
-    } else {
-      commit("setData", { item: 'synchronisation', value: Date.now() })
-      commit("setData", { item: 'assets', value: Date.now() })
-      commit("setData", { item: 'synchronisationStatus', value: false })
-    }
-
+    commit("setData", { item: 'synchronisation', value: Date.now() })
+    commit("setData", { item: 'assets', value: Date.now() })
+    commit("setData", { item: 'synchronisationStatus', value: false })
     let parentTimeout = false
     let secondaryTimeout = false
 
@@ -152,11 +105,9 @@ const actions = {
     clearTimeout(secondaryTimeout)
     parentTimeout = setTimeout(() => {
       secondaryTimeout = setTimeout(() => {
-        // dispatch('fetchLincoin', { c, d, g, co, rg })
-        dispatch('fetchCombinedDataPayload', { c, d, g, co, rg })
+        dispatch('expressFetch', { commit, dispatch })
       }, 900000)
     }, 2000)
-
   },
   getSnapshotUser({ commit, dispatch, getters, context, rootGetters }, payload) {
     try {
@@ -165,18 +116,15 @@ const actions = {
           payload.store.commit("setSnapshotUser", data.payload)
         })
     } catch (e) {
-      // console.log(e)
     }
   },
   initProfile({ commit, dispatch, getters, context, rootGetters }, payload) {
     fetch(`${endpoint}/forum/init`, {
-      // mode: "no-cors",
       method: 'post', headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ address: payload.address })
     })
       .then(result => { return result.json() }).then(data => {
         payload.store.commit("setForum", data.payload?.profile)
-        // payload.store.commit("setENS", { systemUseENS: data.payload?.profile?.ens })
         payload.store.dispatch("fetchPosts", { id: payload.address, store: payload.store })
       })
   },
@@ -194,7 +142,7 @@ const actions = {
     let category = payload.category ? payload.category : false
     let posts = await fetch(`${endpoint}/forum/fetch-posts`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
-      body: JSON.stringify({ limit: { start: start, end: end }, address: payload.id, category:category })
+      body: JSON.stringify({ limit: { start: start, end: end }, address: payload.id, category: category })
     })
     let postsPayload = await posts.json()
     if (postsPayload.payload.posts) {

@@ -43,7 +43,7 @@
       <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-user"></i><span>Profile #{{hasherName()}}</span></router-link>
       <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{walletShortName(wallet)}}</span></router-link>
       <a v-if="wallet && !application.zhHolderBool" @click="doDisconnect()" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-log-out"></i><span>Disconnect</span></a>
-      <a :class="`sync-status ${data.synchronisationStatus}`" @click="$store.dispatch('fetchCombinedDataPayload')" @mouseenter="labelify" @mouseleave="unlabelify">
+      <a :class="`sync-status ${data.synchronisationStatus}`" @click="$store.dispatch('expressFetch')" @mouseenter="labelify" @mouseleave="unlabelify">
       <i class="i-refresh-cw"></i>
       <i class="i-alert-circle"></i>
       <i class="i-check"></i>
