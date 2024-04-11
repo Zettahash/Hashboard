@@ -11,15 +11,13 @@
         </a>
       </h2>
       <div class="wallet-grid" v-if="dropdown.mainnet_balances">
-        <div v-for="(item, index) of holdings" :class="`block ui-ele shadow-outline ${key} ${item.currency}`" :key="index"
+        <div v-for="(item, index) of holdings" :class="`block ui-ele shadow-outline ${item.name} ${item.currency}`" :key="index"
           :title="item.date">
           <div class="head">
             <img class="coin-icon" :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
             <div class="head-text">
               <h3>{{ item.name }}</h3>
-              <a class="type"><span>{{ item.currency }}</span> <span v-if="item.badge"
-                  class="badge">{{ item.badge }}</span></a>
-              <p :title="item.address">{{ item.addressShort }}</p>
+              <a class="type" :title="item.address" ><span>{{ item.currency }} {{ item.addressShort }}</span></a>
               <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                 {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
               <div class="balance sub"><span class="">${{ item.balanceUSD >=1?Number(item.balanceUSD.toFixed(2)).toLocaleString():item.balanceUSD }} USD</span></div>
@@ -27,7 +25,7 @@
           </div>
         </div>
       </div>
-      <HedgeyApp v-if="dropdown.mainnet_balances" :provider="provider" :address="wallet" :walletKey="wallet" @set-application-open="app[key] = 'Hedgey.'" @set-application-closed="app[key]=false"/>
+      <HedgeyApp v-if="dropdown.mainnet_balances" :address="wallet" :walletKey="wallet" @set-application-open="app[key] = 'Hedgey.'" @set-application-closed="app[key]=false"/>
     </div>
     <div v-else class="wallet-group">
       <h2>

@@ -40,7 +40,7 @@
                     <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
                     <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                       {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
-                    <div class="balance"><span class="">${{ item.balanceUSD }} USD</span></div>
+                    <div class="balance sub"><span class="">${{ item.balanceUSD }} USD</span></div>
                   </div>
                 </div>
               </div>

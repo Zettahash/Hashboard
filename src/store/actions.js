@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = "https://zettahash-hashboard-middleware.vercel.app"//process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = "http://localhost:3000"//"https://zettahash-hashboard-middleware.vercel.app"//process.env.VUE_APP_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
@@ -95,15 +95,15 @@ const actions = {
         data: e,
       })
     }
-    commit("setData", { item: 'synchronisation', value: Date.now() })
-    commit("setData", { item: 'assets', value: Date.now() })
-    commit("setData", { item: 'synchronisationStatus', value: false })
     let parentTimeout = false
     let secondaryTimeout = false
 
     clearTimeout(parentTimeout)
     clearTimeout(secondaryTimeout)
     parentTimeout = setTimeout(() => {
+    commit("setData", { item: 'synchronisation', value: Date.now() })
+    commit("setData", { item: 'assets', value: Date.now() })
+    commit("setData", { item: 'synchronisationStatus', value: false })
       secondaryTimeout = setTimeout(() => {
         dispatch('expressFetch', { commit, dispatch })
       }, 900000)

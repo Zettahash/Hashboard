@@ -124,6 +124,9 @@
   flex-shrink: 0;
   gap: 10px;
   align-items: center;
+  &.spacious{
+    justify-content: space-between;
+  }
   @media (max-width: $small) {
     flex-wrap: wrap;
   }

@@ -15,13 +15,14 @@ const tokens = {
   },
 }
 
-const getBalance = async function(currency, address){
+const getBalanceInstance = async function(currency, address){
   address = address ? address : this.$store.state.wallet
   if (!currency) { return '0' }
   currency = currency.toLowerCase()
   const walletProvider = this.$store.state.application.walletConnectModal.getWalletProvider()
   const ethersProvider = new BrowserProvider(walletProvider)
 
+    console.log(currency, "exists")
   let balance = false
   if (tokens[currency]) {
     const contract = new Contract(tokens[currency].contract, genericABI, ethersProvider)
@@ -39,4 +40,4 @@ const doDisconnect = function () {
   this.$store.commit('setWallet', false)
   disconnect()
 }
-export { getBalance, doDisconnect }
+export { getBalanceInstance, doDisconnect }

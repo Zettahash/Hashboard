@@ -3,16 +3,16 @@
     <div class="ui-ele">
 
       <h1>Wallet Connected</h1>
-      <div class="head-organiser">
+    
+    </div>
+
+      <div class="head-organiser spacious">
         <div class="hasher-name-organiser">
           <img :src="profileImg()" class="wallet-logo" />
           <h2 :title="wallet">{{ walletShortName(wallet) }}</h2>
-        </div>
-      </div>
-    </div>
-    <div class="ui-ele align-bottom"><a :class="`btn disconnect ${disconnectButtonText}`"
+        </div><div class="ui-ele align-bottom"><a :class="`btn disconnect ${disconnectButtonText}`"
         @click="disconnectOrCancel()">{{ disconnectButtonText }} <i :class="disconnectButtonIcon"></i></a></div>
-
+      </div>
 
     <div class="ui-ele containers-ui">
       <UserWalletsUI :holdings="holdings" :wallet="wallet" />
@@ -23,7 +23,7 @@
 import { mapGetters } from 'vuex';
 import { profileImg, hasherName } from '@/utils/forum'
 import { walletShortName } from '@/utils/strings'
-import { getBalance, doDisconnect } from '@/utils/wallet'
+import { getBalanceInstance, doDisconnect } from '@/utils/wallet'
 import UserWalletsUI from '@/components/modules/UserWalletsUI.vue'
 
 export default {
@@ -63,7 +63,7 @@ export default {
     UserWalletsUI,
   },
   methods: {
-    profileImg, hasherName, walletShortName, getBalance, doDisconnect,
+    profileImg, hasherName, walletShortName, getBalanceInstance, doDisconnect,
     disconnectOrCancel() {
       if (this.disconnecting) {
         clearInterval(this.disconnectingCountdown)
@@ -91,7 +91,7 @@ export default {
       let curriencies = ['ETH', 'ZH', 'USDC', 'USDT']
       try {
         for (const cur of curriencies) {
-          let balanceArray = await this.getBalance(cur)
+          let balanceArray = await this.getBalanceInstance(cur)
           let template = {
             address: this.wallet,
             addressShort: this.walletShortName(this.wallet),
@@ -109,7 +109,7 @@ export default {
           }
           balances.push(template)
         }
-      } catch (e) { console.log("Holdings not initiated yet.", e) }
+      } catch (e) { console.log("Holdings not initiated yet.") }
       this.holdings = balances
     },
   }
