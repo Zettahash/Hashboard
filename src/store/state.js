@@ -48,6 +48,8 @@ let state = {
     avatar: false,
     systemUseENS: false,
   },
+  graphQL: { graphQL: false, graphQLDynamic: false },
+  snapshotSpaces:false,
   physical_assets: false,
 }
 export default state

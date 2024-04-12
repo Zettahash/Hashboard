@@ -1,40 +1,47 @@
 <template lang="html">
   <div class="flex-overview">
     <div class="ui-ele">
-      <h1>Vote</h1>
+      <h1>Voting Spaces</h1>
       <p>Zettahash governance using the Snapshot protocol.</p>
-      <div class="containers-ui">
-        <!-- <ProtocolVotingLocations /> -->
-        <div class="container compact">
-          <div class="head">
-            <router-link :to="{ name: 'protocol-about' }" class="space-id">
-              <div class="img-wrapper"><img radius="100"
-                  :src="`${space?.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
-              <span class="name">{{ space.name }}</span>
-              <span class="id">{{ space.id }}</span>
-            </router-link>
-            <span @click="followUnfollow(space.id)" :class="`state ${following ? 'following' : ''}`"
-              :data-text="following ? 'Joined' : 'Follow'"><i class="i-check" v-if="following"></i></span>
+      <LoadingEle :stop="(snapshot && snapshotUser) ? true : false" :long="true" />
 
-          </div>
+      <template v-if="snapshot && snapshotUser">
+        <div class="containers-ui">
+          <!-- <ProtocolVotingLocations /> -->
+          <div v-for="space of snapshot.data.spaces" :key="space.id">
+          <router-link :to="{ path: `/vote/${space.id}/details` }" class="container compact link">
+            <div class="head">
+              <a class="space-id">
+                <div class="img-wrapper"><img radius="100"
+                    :src="`${space?.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
+                <span class="name">{{ space.name }}</span>
+                <span class="id">{{ space.id }}</span>
+              </a>
+              <span @click="followUnfollow(space.id)" :class="`state ${isFollowing(space.id) ? 'following' : ''}`"
+                :data-text="isFollowing(space.id) ? 'Joined' : 'Follow'"><i class="i-check" v-if="isFollowing(space.id)"></i></span>
 
-          <div class="contents">
-            <!-- <a :href="`https://snapshot.org/#/${space.id}`" target="_blank" class="link-to-snapshot">
+            </div>
+
+            <div class="contents">
+              <!-- <a :href="`https://snapshot.org/#/${space.id}`" target="_blank" class="link-to-snapshot">
               <h2>{{ space.name }} on Snapshot <i class="i-external-link"></i></h2>
             </a> -->
-          </div>
+            </div>
+          </router-link></div>
         </div>
-      </div>
+      </template>
+
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import {Client} from '@snapshot-labs/snapshot.js';
+import { Client } from '@snapshot-labs/snapshot.js';
+import LoadingEle from '@/components/interface/LoadingEle.vue'
 
 // eslint-disable-next-line no-unused-vars
 import { BrowserProvider } from 'ethers'
-const client = new Client('https://hub.snapshot.org', { relayerURL:'https://hub.snapshot.org' })
+const client = new Client('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Vote',
@@ -46,32 +53,36 @@ export default {
       snapshotUser: 'snapshotUser',
       wallet: 'wallet',
     }),
-    space() {
-      return (this.snapshot && this.snapshot.space) ? this.snapshot.space.data.space : []
-    },
-    following() {
-      let follow = false
-      let wallet = this.wallet.toLowerCase()
-      if (this.snapshotUser) {
-        for (const item of this.snapshotUser.user.data.follows) {
-          let follower = item.follower.toLowerCase()
-          if (follower === wallet && item.space.id === this.space.id) {
-            follow = item
-            break
-          }
-        }
+    proposals() {
+      let arr = {}
+      for (const prop of this.snapshot.data.proposals) {
+        arr[prop.space.id]=prop
       }
-      return follow
+      return arr
     },
+  },
+  created() {
+    this.$store.dispatch('getSnapshotUser', { address: this.web3ModalAccountAddress, store: this.$store });
   },
   async mounted() {
     this.routeLoaded()
 
   },
   components: {
+    LoadingEle,
     // ProtocolVotingLocations,
   },
   methods: {
+    proposalsCount(id) {
+      let arr = []
+      for (const prop of this.snapshot.data.proposals) {
+        if(prop.space.id==id){arr.push(prop.space.id)}
+      }
+      return arr.length
+    },
+    isFollowing(id) {
+      return this.proposals[id]?true:false
+    },
     routeLoaded() {
       this.$store.commit('setDynamic', {
         item: 'routerLoaded',
@@ -85,7 +96,7 @@ export default {
       if (this.following) {
         try {
           receipt = await client.unfollow(ethersProvider, this.wallet, {
-            "from":this.wallet,
+            "from": this.wallet,
             "name": space
           });
         } catch (err) {
@@ -98,7 +109,7 @@ export default {
       } else {
         try {
           receipt = await client.follow(ethersProvider, this.wallet, {
-            "from":this.wallet,
+            "from": this.wallet,
             "name": space
           });
         } catch (err) {

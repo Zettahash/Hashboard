@@ -44,5 +44,11 @@ let getters = {
   forumTopics: state => {
     return state.application.forumTopics
   },
+  graphQL: state => {
+    return state.graphQL
+  },
+  snapshotSpaces: state => {
+    return state.snapshotSpaces
+  },
 }
 export default getters

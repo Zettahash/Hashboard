@@ -1,10 +1,10 @@
 /* eslint-disable */
 
-const endpoint = "https://zettahash-hashboard-middleware.vercel.app"//process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = "https://zettahash-hashboard-middleware.vercel.app"//"http://localhost:3000"//process.env.VUE_APP_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
-  init({ context, getters, dispatch, commit, rootGetters }) {
+  init({ context, getters, dispatch, commit }) {
 
 
     commit("setDynamic", {
@@ -18,7 +18,7 @@ const actions = {
       })
     }
     dispatch('expressFetch', { commit })
-    dispatch('expressFetch', { commit, dispatch, getters, context, rootGetters })
+    dispatch('expressFetch', { commit, dispatch, getters, context })
 
     commit("setDynamic", {
       item: 'name',
@@ -29,7 +29,7 @@ const actions = {
     dispatch('responsiveUI', { commit })
 
   },
-  fetchLincoin({ commit, dispatch, getters, context, rootGetters }) {
+  fetchLincoin({ commit, dispatch, getters, context }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
 
 
@@ -86,6 +86,11 @@ const actions = {
             try {
               commit("setPhysicalAssets", data.payload.physical_assets)
             } catch (e) { }
+            try {
+              commit("setGraphQL", data.payload.graphQL)
+              commit("setGraphQLDynamic", data.payload.graphQLDynamic)
+              commit("setSnapshotSpaces", data.payload.snapshotSpaces)
+            } catch (e) { }
           }
         })
     } catch (e) {
@@ -101,24 +106,68 @@ const actions = {
     clearTimeout(parentTimeout)
     clearTimeout(secondaryTimeout)
     parentTimeout = setTimeout(() => {
-    commit("setData", { item: 'synchronisation', value: Date.now() })
-    commit("setData", { item: 'assets', value: Date.now() })
-    commit("setData", { item: 'synchronisationStatus', value: false })
+      commit("setData", { item: 'synchronisation', value: Date.now() })
+      commit("setData", { item: 'assets', value: Date.now() })
+      commit("setData", { item: 'synchronisationStatus', value: false })
       secondaryTimeout = setTimeout(() => {
         dispatch('expressFetch', { commit, dispatch })
       }, 900000)
     }, 2000)
   },
-  getSnapshotUser({ commit, dispatch, getters, context, rootGetters }, payload) {
-    try {
-      fetch(`${endpoint}/api/query-snapshot-user/?address:${payload.address}`, { method: 'get' })
-        .then(result => { return result.json() }).then(data => {
-          payload.store.commit("setSnapshotUser", data.payload)
-        })
-    } catch (e) {
+  async getSnapshot({ commit, dispatch, getters }) {
+    let graphQL = getters.graphQL.graphQL
+    let snapshotSpaces = getters.snapshotSpaces
+
+    let payload = false
+    if (graphQL && snapshotSpaces) {
+      let query = graphQL//value.query//.replace(/\$space/g, space)
+      const result = await fetch(
+        'https://hub.snapshot.org/graphql',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            query: query,
+          })
+        }
+      )
+      payload = await result.json();
+    } else {
+      console.log("no graphQL")
+    }
+    commit("setSnapshot", payload)
+  },
+  async getSnapshotUser({ commit, dispatch, getters, context }, data) {
+    dispatch('getSnapshot', { commit, dispatch, getters })
+
+    let graphQLDynamic = getters.graphQL.graphQLDynamic
+    if (graphQLDynamic) {
+      let payload = {}
+      for (const [key, value] of Object.entries(graphQLDynamic)) {
+        let query = value.query.replace(/\$address/g, data.address)
+        const result = await fetch(
+          'https://hub.snapshot.org/graphql',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              query: query,
+            })
+          }
+        )
+        payload[key] = await result.json();
+      }
+      commit("setSnapshotUser", payload)
+
+    } else {
+      console.log("no graphQLDynamic")
     }
   },
-  initProfile({ commit, dispatch, getters, context, rootGetters }, payload) {
+  initProfile({ commit, dispatch, getters, context }, payload) {
     fetch(`${endpoint}/forum/init`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ address: payload.address })
@@ -128,7 +177,7 @@ const actions = {
         payload.store.dispatch("fetchPosts", { id: payload.address, store: payload.store })
       })
   },
-  async submitPost({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async submitPost({ commit, dispatch, getters, context }, payload) {
     let encodedPost = encodeStr(JSON.stringify(payload.post))
     let post = await fetch(`${endpoint}/forum/new-post`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
@@ -136,7 +185,7 @@ const actions = {
     })
     return post.json()
   },
-  async fetchPosts({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async fetchPosts({ commit, dispatch, getters, context }, payload) {
     let start = payload.start ? payload.start : 0
     let end = payload.end ? payload.end : 50
     let category = payload.category ? payload.category : false
@@ -150,13 +199,13 @@ const actions = {
       else if (commit) { commit('setForumPostsCache', postsPayload.payload) }
     }
   },
-  async viewPost({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async viewPost({ commit, dispatch, getters, context }, payload) {
     await fetch(`${endpoint}/forum/increment-view`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ id: payload.id, address: payload.address })
     })
   },
-  async vote({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async vote({ commit, dispatch, getters, context }, payload) {
     const request = await fetch(`${endpoint}/forum/vote`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ direction: payload.direction, topic_id: payload.topic_id, comment_id: payload.comment_id, address: payload.address })
@@ -165,7 +214,7 @@ const actions = {
     if (response.payload) { return response }
     else { return { error: 'Failed to submit vote.' } }
   },
-  async submitReply({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async submitReply({ commit, dispatch, getters, context }, payload) {
     let encodedPost = encodeStr(JSON.stringify(payload.post))
     let post = await fetch(`${endpoint}/forum/new-reply`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
@@ -173,7 +222,7 @@ const actions = {
     })
     return post.json()
   },
-  async fetchPostReplies({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async fetchPostReplies({ commit, dispatch, getters, context }, payload) {
     let posts = await fetch(`${endpoint}/forum/fetch-post-replies`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ limit: { start: 0, end: 50 }, address: payload.id, topic_id: payload.topic_id })
@@ -182,7 +231,7 @@ const actions = {
     if (postsPayload.payload.replies) { return postsPayload.payload.replies }
     else { return { error: 'Failed to fetch comments.' } }
   },
-  async snapshotUnfollow({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async snapshotUnfollow({ commit, dispatch, getters, context }, payload) {
     let request = await fetch(`${endpoint}/snapshot/unfollow`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ address: payload.address })
@@ -191,7 +240,7 @@ const actions = {
     if (response.payload) { return response.payload }
     else { return { error: 'Failed to fetch comments.' } }
   },
-  async fetchHedgeyVesting({ commit, dispatch, getters, context, rootGetters }, payload) {
+  async fetchHedgeyVesting({ commit, dispatch, getters, context }, payload) {
     let response = await fetch(`${endpoint}/vesting/hedgey`, {
       method: 'post', headers: { 'Content-Type': 'application/json', },
       body: JSON.stringify({ address: payload.id })

@@ -278,7 +278,7 @@ const routes = [
   },
 
   {
-    path: '/vote/protocol/about',
+    path: '/vote/:spaceId/details',
     name: 'protocol-about',
     component: AboutVoteProtocol,
     meta: {

@@ -2,7 +2,7 @@
   <div class="proposal">
     <div class="head">
       <router-link :to="{ name: 'protocol-about' }" class="space-id">
-        <div class="img-wrapper"><img radius="100" :src="`${snapshot.space.data.space.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
+        <div class="img-wrapper"><img radius="100" :src="`${space.avatar?space.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`):''}`" /></div>
         <span class="name">{{ proposal.space.name }}</span>
         <span class="id">{{ proposal.space.id }}</span>
       </router-link>
@@ -23,7 +23,7 @@
           <span class="name"><template v-if="proposal.state == 'closed'"><i class="i-check"
                 v-if="sc.leader"></i></template>
             {{ sc.name }}</span>
-          <span class="value">{{ sc.valueFormatted }} {{ snapshot.space.data.space.symbol }}</span>
+          <span class="value">{{ sc.valueFormatted }} {{ space.symbol }}</span>
           <span class="pc">{{ sc.percent }}%</span>
         </div>
       </div>
@@ -66,6 +66,16 @@ export default {
       data: 'data',
       snapshot: 'snapshot',
     }),
+    spaces() {
+      let arr = {}
+      for (const prop of this.snapshot.data.spaces) {
+        arr[prop.id] = prop
+      }
+      return arr
+    },
+    space() {
+      return this.spaces[this.$route.params.spaceId]
+    },
     score() {
       let arr = {}
       let total = 0

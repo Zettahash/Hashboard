@@ -70,5 +70,15 @@ let mutations = {
   setPhysicalAssets(state, payload) {
     state.physical_assets = payload
   },
+  setGraphQL(state, payload) {
+    state.graphQL.graphQL = payload
+  },
+  setGraphQLDynamic(state, payload) {
+    state.graphQL.graphQLDynamic = payload
+  },
+  setSnapshotSpaces(state, payload) {
+    state.snapshotSpaces = payload
+  },
 }
+
 export default mutations
