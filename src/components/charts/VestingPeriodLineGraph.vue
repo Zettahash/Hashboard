@@ -57,8 +57,8 @@ export default {
           {
             label: 'Vested',
             data: false,
-            backgroundColor: ['#173b8a'],
-            borderColor: '#061e50',
+            backgroundColor: ['#5265dd'],
+            borderColor: '#06124d',
             tension: 0,
             fontColor: '#fff',
             borderWidth: 3,

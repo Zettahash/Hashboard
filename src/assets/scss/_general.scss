@@ -55,8 +55,8 @@ a {
   gap: 10px;
   border-radius: 100px;
   &:hover {
-    background: var(--secondary-bg);
-    text-shadow: 0px 1px 5px var(--neutral-9), 4px -1px 5px var(--primary);
+    background: var(--celestial-blue);
+    // text-shadow: 0px 1px 5px var(--neutral-9), 4px -1px 5px var(--primary);
     // color: var(--primary);
   }
   &.left{
