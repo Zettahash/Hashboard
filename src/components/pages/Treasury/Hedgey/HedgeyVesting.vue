@@ -2,7 +2,7 @@
   <div class="flex-overview">
   <div class="ui-ele front">
   <h2><img :src="require('@/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png')"/>Hedgey Vesting</h2>
-  <p>Select any wallet to view directly on SAFE.</p>
+  <p></p>
   <div class="filter-ui" v-if="holdings[walletType]">
         <div class="dropdown-wrapper" :wrapper-open="dropdownWallets ? 'expanded' : 'collapsed'"
           @click.stop="dropdownWallets = true" data-label="Wallet">

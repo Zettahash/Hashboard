@@ -1,4 +1,4 @@
-.light{
+.light {
   --neutral-0: #0d0d0d;
   --neutral-1: #141414;
   --neutral-2: #1f1f1f;
@@ -38,26 +38,46 @@
   --neutral-1: #b8cefb;
   --neutral-0: #d8e4ff;
 
+  // --neutral-10: #00050e;
+  // --neutral-9: #00091c;
+  // --neutral-8: #1b2539;
+  // --neutral-7: #364055;
+  // --neutral-6: #515c72;
+  // --neutral-5: #6c778e;
+  // --neutral-4: #8793ab;
+  // --neutral-3: #a2aec7;
+  // --neutral-2: #bdc9e3;
+  // --neutral-1: #d8e4ff;
+  // --neutral-0: #ecf2ff;
+
+  --risd-blue: #005effff;
+  --brandeis-blue: #0073f7ff;
+  --bleu-de-france: #0087efff;
+  --celestial-blue: #009be7ff;
+  --process-cyan: #00afdfff;
+  --turquoise: #00d7cfff;
+  --aquamarine: #00ffbfff;
 
   --element-border: var(--neutral-5);
   // --primary: #66FF00;
   // --secondary: #46CB18;
   // --yellow: #FFFF00;
 
-  --bg:#000e2d;
+  --bg: #000e2d;
   --neutral-9: var(--bg);
 
+  // --bg:var(--neutral-9);
 
-  --primary-dark: #222c3d;
-  --primary: #005eff;
-  --secondary: #00ffbf;
+  --primary-dark: #001e52;
+  --primary: var(--risd-blue);
+  --secondary: var(--aquamarine);
   --secondary-bg: #00639c;
   --yellow: #ff337e;
   --amber: #f8ba00;
 
-  --blue-1: #0043FF;
-  --blue-2: #0017FF;
-  --blue-3: #1B02A4;
+  --blue-1: #0043ff;
+  --blue-2: #0017ff;
+  --blue-3: #1b02a4;
   --blue-4: #12294f;
 
   --black: #000;
@@ -98,16 +118,16 @@
   // --w3m-accent-color: var(--neutral-8)!important;
   // --w3m-background-color:var(--neutral-10)!important;
 
-  --w3m-color-fg-1:var(--text)!important;
-  --w3m-color-fg-2:var(--neutral-8)!important;
-  --w3m-color-fg-3:var(--neutral-7)!important;
+  --w3m-color-fg-1: var(--text) !important;
+  --w3m-color-fg-2: var(--neutral-8) !important;
+  --w3m-color-fg-3: var(--neutral-7) !important;
 
-  --w3m-color-bg-1:var(--neutral-6)!important;
-  --w3m-color-bg-2:var(--neutral-10)!important;
-  --w3m-color-bg-3:var(--neutral-8)!important;
+  --w3m-color-bg-1: var(--neutral-6) !important;
+  --w3m-color-bg-2: var(--neutral-10) !important;
+  --w3m-color-bg-3: var(--neutral-8) !important;
 
-  --wui-color-modal-bg: var(--neutral-8)!important;
-  --wui-cover: var(--neutral-10)!important;
+  --wui-color-modal-bg: var(--neutral-8) !important;
+  --wui-cover: var(--neutral-10) !important;
   // --w3m-color-overlay:var(--neutral-8)!important;
   // --w3m-accent-fill-color:var(--neutral-4)!important;
 }
