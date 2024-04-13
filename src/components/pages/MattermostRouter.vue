@@ -7,7 +7,7 @@
       <p v-if="error==false">Automatically redirecting you to our Zettahash Discord Server<br><br><i class="spinner"></i></p>
       <p v-if="error!=false">
       <span>{{ error }}</span>
-      <br><br><a class="btn" href="https://discord.gg/ftcDXDCx" target="_blank">Consensus <i
+      <br><br><a class="btn" href="https://discord.gg/zettahash" target="_blank">Consensus <i
             class="i-arrow-right"></i></a></p>
 
     </div>
@@ -32,7 +32,7 @@ export default {
     })
     let self = this
     setTimeout(() => {
-      let newWin = window.open('https://discord.gg/ftcDXDCx', '_blank')
+      let newWin = window.open('https://discord.gg/zettahash', '_blank')
 
       if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
         //POPUP BLOCKED
