@@ -94,6 +94,7 @@ export default {
       {
         hashboard: false,
         treasury: false,
+        beneficiary: false,
         vote: false,
         pool: false,
         consensus: false,
