@@ -17,7 +17,6 @@ const actions = {
         value: value
       })
     }
-    dispatch('expressFetch', { commit })
     dispatch('expressFetch', { commit, dispatch, getters, context })
 
     commit("setDynamic", {
@@ -68,7 +67,25 @@ const actions = {
     }, 2000)
 
   },
-  expressFetch({ commit, dispatch }) {
+  async geoLocation({ commit, dispatch, getters, context }) {
+    let geoBlocked = false
+    if (!localStorage.getItem("synchronisation")) {
+      localStorage.setItem("synchronisation", Date.now())
+    }
+    if (localStorage.getItem("geoBlocked")) {
+      geoBlocked = localStorage.getItem("geoBlocked")
+      commit("setData", { item: 'geoBlocked', value: JSON.parse(geoBlocked) })
+    }
+    let sync = localStorage.getItem("synchronisation")
+    if (!geoBlocked || (Date.now() - Number(sync) >= 720000)) {
+      //NEW CALL
+      const geo = await fetch(`${endpoint}/geolocation`, { method: 'POST', })
+      let payload = await geo.json();
+      localStorage.setItem("geoBlocked", JSON.stringify(payload.payload))
+      commit("setData", { item: 'geoBlocked', value: payload.payload })
+    }
+  },
+  expressFetch({ commit, dispatch, getters, context }) {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
     try {
       fetch(`${endpoint}/api/get-data-express`, { method: 'get' })
@@ -90,6 +107,7 @@ const actions = {
               commit("setGraphQL", data.payload.graphQL)
               commit("setGraphQLDynamic", data.payload.graphQLDynamic)
               commit("setSnapshotSpaces", data.payload.snapshotSpaces)
+              commit("setHedgeyGraphQL", data.payload.hedgeyGraphQL)
             } catch (e) { }
           }
         })
@@ -109,10 +127,43 @@ const actions = {
       commit("setData", { item: 'synchronisation', value: Date.now() })
       commit("setData", { item: 'assets', value: Date.now() })
       commit("setData", { item: 'synchronisationStatus', value: false })
+      dispatch('geoLocation', { commit, dispatch, getters, context })
+
       secondaryTimeout = setTimeout(() => {
-        dispatch('expressFetch', { commit, dispatch })
+        dispatch('expressFetch', { commit, dispatch, getters, context })
       }, 900000)
     }, 2000)
+  },
+  async queryHedgey({ commit, dispatch, getters }, address) {
+    let hedgeyGraphQL = getters.graphQL.hedgeyGraphQL
+
+    let payload = {}
+    if (hedgeyGraphQL && address) {
+      const login = await fetch(
+        'https://us-east-1.aws.realm.mongodb.com/api/client/v2.0/app/hedgeyotc-tuolf/auth/providers/anon-user/login',
+        {
+          method: 'POST',
+        })
+      payload.login = await login.json();
+      let query = hedgeyGraphQL.replace(/\$address/g, address.toLowerCase())
+      payload.query = query
+      const result = await fetch(
+        'https://us-east-1.aws.realm.mongodb.com/api/client/v2.0/app/hedgeyotc-tuolf/graphql',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${payload.login.access_token}`
+          },
+          body: query,
+        }
+      )
+      payload.result = await result.json();
+
+    } else {
+      console.log("no graphQL")
+    }
+    return payload
   },
   async getSnapshot({ commit, dispatch, getters }) {
     let graphQL = getters.graphQL.graphQL

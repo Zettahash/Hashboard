@@ -14,8 +14,10 @@ import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
 import Market from '@/components/pages/Market'
 import SafeTreasury from '@/components/pages/Treasury/Safe/Treasury'
 import SpecterTreasury from '@/components/pages/Treasury/Specter/Treasury'
-
+import DAOTreasury from '@/components/pages/Treasury/Treasury'
+import HedgeyVesting from '@/components/pages/Treasury/Hedgey/HedgeyVesting'
 import Assets from '@/components/pages/Assets'
+import BeneficiaryOnboard from '@/components/pages/BeneficiaryOnboard'
 
 import VoteProtocolTreasury from '@/components/pages/Vote/VoteProtocolTreasury'
 import Proposals from '@/components/pages/Vote/Proposals'
@@ -53,6 +55,25 @@ const routes = [
     meta: {
       title: '#Hashboard | ' + title,
       breadcrumbs: ['hashboard'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/beneficiary',
+    name: 'beneficiary',
+    component: BeneficiaryOnboard,
+    meta: {
+      title: 'Beneficiary | ' + title,
+      breadcrumbs: ['hashboard', 'beneficiary'],
       metaTags: [
         {
           name: 'description',
@@ -283,7 +304,7 @@ const routes = [
     component: AboutVoteProtocol,
     meta: {
       title: 'About | ' + title,
-      breadcrumbs: ['vote','protocol','about'],
+      breadcrumbs: ['vote','details'],
       metaTags: [
         {
           name: 'description',
@@ -296,7 +317,50 @@ const routes = [
       ]
     }
   },
-
+  {
+    path: '/treasury',
+    name: 'dao-treasury',
+    component: DAOTreasury,
+    meta: {
+      title: 'DAO Treasury | ' + title,
+      breadcrumbs: ['treasury'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
+  {
+    path: '/treasury/hedgey-vesting/',
+    name: 'hedgey-vesting',
+    component: HedgeyVesting,
+    children: [
+      {
+        path: ":walletActive",
+        component: HedgeyVesting,
+      },
+    ],
+    meta: {
+      title: 'Hedgey Vesting | ' + title,
+      breadcrumbs: ['treasury','hedgey-vesting'],
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Placeholder'
+        },
+        {
+          property: 'og:description',
+          content: 'Placeholder'
+        }
+      ]
+    }
+  },
   {
     path: '/vote/protocol/treasury',
     name: 'protocol-treasury',

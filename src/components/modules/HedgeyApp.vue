@@ -1,12 +1,12 @@
 <template lang="html">
   <div>
-      <div class="apps-flex">
+      <div class="apps-flex" v-if="!noControls">
         <span :set="name = 'Hedgey.'" :class="`link-wrapper ${app[walletKey] == name ? 'active' : ''}`"><a
             @click.stop="openApp(name)" :class="`link`">{{ name }} </a><span
             v-if="app[walletKey] == name" class="close link" @click.stop="closeApp()"><i
               class="icon-times"></i></span></span>
       </div>
-    <template v-if="app[walletKey]">
+    <template v-if="noControls || app[walletKey]">
       <VestingTable :address="address" :walletName="walletKey" />
     </template>
   </div>
@@ -28,6 +28,7 @@ export default {
     provider: String,
     address: String,
     walletKey: String,
+    noControls: Boolean,
   },
   computed: {
     ...mapGetters({
@@ -45,7 +46,8 @@ export default {
     getIcon,
     scrollTo,
     async hedgeyVested(address) {
-      const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: address })
+      // const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: address })
+      const reply = this.$store.dispatch('queryHedgey', address);
       console.log(reply)
       return reply
     },

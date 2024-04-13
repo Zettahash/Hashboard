@@ -76,6 +76,9 @@ let mutations = {
   setGraphQLDynamic(state, payload) {
     state.graphQL.graphQLDynamic = payload
   },
+  setHedgeyGraphQL(state, payload) {
+    state.graphQL.hedgeyGraphQL = payload
+  },
   setSnapshotSpaces(state, payload) {
     state.snapshotSpaces = payload
   },

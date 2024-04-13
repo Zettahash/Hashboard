@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: row;
   align-items: start;
-  @media (max-width: $small) {
+  @media (max-width: $medium) {
     flex-wrap: wrap;
 }
 }

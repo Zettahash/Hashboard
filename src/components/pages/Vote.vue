@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="flex-overview">
     <div class="ui-ele">
-      <h1>Voting Spaces</h1>
+      <h1><img :src="require('@/assets/img/providers/65da72d13d4f02927b3d58bf_snapshot.png')"/>Voting Spaces</h1>
       <p>Zettahash governance using the Snapshot protocol.</p>
       <LoadingEle :stop="(snapshot && snapshotUser) ? true : false" :long="true" />
 

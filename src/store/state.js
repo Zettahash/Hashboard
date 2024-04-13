@@ -48,7 +48,7 @@ let state = {
     avatar: false,
     systemUseENS: false,
   },
-  graphQL: { graphQL: false, graphQLDynamic: false },
+  graphQL: { graphQL: false, graphQLDynamic: false, hedgeyGraphQL:false, },
   snapshotSpaces:false,
   physical_assets: false,
 }

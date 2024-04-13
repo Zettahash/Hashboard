@@ -16,7 +16,7 @@
   background: radial-gradient(ellipse at right, var(--neutral-6), var(--neutral-9));
   .shortcuts {
     display: grid;
-    gap: 30px;
+    gap: 35px;
     justify-content: start;
     align-items: center;
     padding: 15px 0px 35px 0px;
@@ -104,6 +104,9 @@
 
       li {
         padding-bottom: 20px;
+        a{
+          margin-left:0;margin-right:0;
+        }
       }
     }
 
@@ -181,7 +184,7 @@
         max-width: var(--icon-size);
       }
 
-      i {
+      i,svg {
         font-size: var(--icon-size);
 
         svg {
@@ -207,14 +210,14 @@
 
   &.collapse-1 {
     width: 70px;
-    padding-top: 60px;
+    padding-top: 20px;
 
     @media (max-width: $sidebar-breakpoint) {
       padding-top: 60px;
       width: $sidebar;
     }
     @media (max-width: $x-small) {
-      padding-top: 10px;
+      padding-top: 20px;
     }
 
     .shortcuts {
@@ -343,18 +346,20 @@
     cursor: pointer;
     &:not(.syncing) {
     }
-
+    .b-icon,
     i {
       display: none;
     }
 
     &.false {
+      [class*="check"],
       i.i-check {
         display: block;
       }
     }
 
     &.error {
+      [class*="alert"],
       i.i-alert-triangle {
         display: block;
       }
@@ -362,6 +367,7 @@
 
     &.syncing {
       pointer-events: none;
+      [class*="refresh"],
       i.i-refresh-cw {
         display: block;
         transform-origin: center;

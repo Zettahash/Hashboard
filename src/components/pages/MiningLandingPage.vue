@@ -102,6 +102,10 @@ export default {
   margin: 20px auto;
   display: block;
 }
+h1{
+  justify-content: center;
+  align-items: center;
+}
 
 p {
   max-width: $ui-width / 2;

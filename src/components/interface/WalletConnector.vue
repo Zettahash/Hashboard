@@ -74,12 +74,10 @@ export default {
     window.globalSelf = this
   },
   watch: {
-    web3ModalAccountIsConnected(value) {
-      console.log("web3ModalAccountIsConnected:", value)
+    web3ModalAccountIsConnected() {
       this.updateAccount()
     },
-    web3ModalAccountAddress(value) {
-      console.log("web3ModalAccountAddress:", value)
+    web3ModalAccountAddress() {
       this.updateAccount()
     },
   },

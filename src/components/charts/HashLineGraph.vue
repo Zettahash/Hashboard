@@ -235,10 +235,5 @@ export default {
       }
     }
   }
-.button-flex-organiser {
-  display: flex;
-  gap: 10px;
-  margin-right: auto;
-  width: auto;
-}
+
 </style>

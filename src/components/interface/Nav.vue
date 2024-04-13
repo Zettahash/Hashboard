@@ -2,8 +2,10 @@
 <div class="nav">
 
   <a title="Toggle sidebar" :class="`sidebar-toggle collapse-${uiSidebarCollapse}`" @click.stop="toggleSidebarCollapse(!application.uiSidebarCollapse);menu=false;">
-    <i class="i-arrow-right-circle"></i>
-    <i class="i-chevron-left"></i>
+  <b-icon-arrow-bar-right class="arrow-right"/>
+  <b-icon-caret-left-square-fill class="arrow-left"/>
+    <!-- <i class="i-arrow-right-circle"></i> -->
+    <!-- <i class="i-chevron-left"></i> -->
   </a>
 <div class="nav-inner">
   <router-link :to="{ path: '/'}" class="app-title logo animated">

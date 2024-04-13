@@ -83,7 +83,9 @@ export default {
     width: auto;
   }
 
-  h1 {}
+  h1 {
+    justify-content: center;
+  }
 
   p {
     margin-bottom: 0;

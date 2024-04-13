@@ -197,6 +197,10 @@ export default {
   right: 0;
   bottom: 0;
 }
+h1{
+  justify-content: center;
+  align-items: center;
+}
 
 .icon {
   height: 80px;

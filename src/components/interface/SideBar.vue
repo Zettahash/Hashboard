@@ -17,38 +17,48 @@
       </ul> -->
 
 
-      <router-link :to="{ name: 'mining' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-activity"></i><span>Mining</span></router-link>
+      <router-link :to="{ name: 'mining' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-activity /><span>Mining</span></router-link>
 
-      <router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-forum"></i><span>Consensus</span></router-link>
+      <router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-chat-left-text-fill /><span>Consensus</span></router-link>
       <!-- <a href="https://discord.gg/ftcDXDCx" target="_blank" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-forum"></i><span>Consensus</span></a> -->
 
       
 
-      <router-link :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
+      <router-link :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-lightning-charge-fill /><span>Vote</span></router-link>
 
       <!-- <router-link :class="routeClass('vote')" @click="dropdownToggle('vote')" :to="{ name: 'vote' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-zap"></i><span>Vote</span></router-link>
       <ul v-if="dropdown.vote">
         <li><router-link :to="{ name: 'protocol-proposals' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-bulb"></i><span>Proposals</span></router-link></li>
         <li><router-link :to="{ name: 'protocol-about' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-info"></i><span>About</span></router-link></li>
       </ul> -->
-      <a :class="routeClass('treasury')" @click="dropdownToggle('treasury')" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-library"></i><span>Treasury</span></a>
-      <ul v-if="dropdown.treasury">
-        <li><router-link :to="{ name: 'safe' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/safe.png')" class="icon" /><span>SAFE</span></router-link></li>
-        <li><router-link :to="{ name: 'specter' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li>
+      <a :class="routeClass('treasury')" @click="dropdownToggle('treasury')" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-bank-2 /><span>Treasury</span></a>
+      <ul v-if="dropdown['treasury']">
+        <li><router-link @click="dropdownToggle('treasury')" :to="{ name: 'dao-treasury' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-wallet-fill /><span>Treasury Wallets</span></router-link></li>
+        <li><router-link :to="{ name: 'hedgey-vesting' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png')" class="icon" /><span>Hedgey Vesting</span></router-link></li>
+        <!-- <li><router-link :to="{ name: 'specter' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="require('@/assets/img/providers/specter.png')" class="icon" /><span>Specter</span></router-link></li> -->
       </ul>
-      <router-link :to="{ name: 'assets' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-hard-drive"></i><span>Assets</span></router-link>
-      <router-link :to="{ name: 'market' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-trending-up"></i><span>Market</span></router-link>
+
+      <a :class="routeClass('beneficiary')" @click="dropdownToggle('beneficiary')" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-safe-2-fill /><span>Beneficiary</span></a>
+      <ul v-if="dropdown['beneficiary']">
+        <li>
+          <router-link :to="{ name: 'beneficiary' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-cash-coin /><span>Buy ZH Token</span></router-link>
+        </li>
+      </ul>
+      
+      
+
+      <router-link :to="{ name: 'assets' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-nvme-fill /><span>Assets</span></router-link>
+      <router-link :to="{ name: 'market' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-currency-exchange /><span>Market</span></router-link>
     </div>
     <div class="shortcuts">
       <label>Management</label>
-      <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-user"></i><span>Profile #{{hasherName()}}</span></router-link>
+      <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-person-fill /><span>Profile #{{hasherName()}}</span></router-link>
       <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{walletShortName(wallet)}}</span></router-link>
-      <a v-if="wallet && !application.zhHolderBool" @click="doDisconnect()" @mouseenter="labelify" @mouseleave="unlabelify"><i class="i-log-out"></i><span>Disconnect</span></a>
+      <a v-if="wallet && !application.zhHolderBool" @click="doDisconnect()" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-box-arrow-right /><span>Disconnect</span></a>
       <a :class="`sync-status ${data.synchronisationStatus}`" @click="$store.dispatch('expressFetch')" @mouseenter="labelify" @mouseleave="unlabelify">
-      <i class="i-refresh-cw"></i>
-      <i class="i-alert-circle"></i>
-      <i class="i-check"></i>
-      <i class="i-alert-triangle"></i>
+      <b-icon-arrow-repeat class="b-icon refresh" />
+      <b-icon-check-circle-fill class="b-icon check" />
+      <b-icon-exclamation-triangle-fill class="b-icon alert" />
       <span v-if="!data.synchronisationStatus">Hashboard synced</span>
       <span v-if="data.synchronisationStatus=='syncing'">Syncing...</span>
       <span v-if="data.synchronisationStatus=='error'">Sync errors detected</span>
@@ -60,10 +70,10 @@
     </div>
     </template>
 
-    <div class="version shortcuts">
-      <a>{{version[0]}}-beta<span>{{version[1]}}</span></a>
-    </div>
-  </div>
+<div class="version shortcuts">
+  <a>{{version[0]}}-beta<span>{{version[1]}}</span></a>
+</div>
+</div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
@@ -95,7 +105,7 @@ export default {
       application: 'application',
       wallet: 'wallet',
       data: 'data',
-      
+
     }),
     uiSidebarCollapse() {
       let stage = 2
@@ -150,11 +160,10 @@ export default {
     dropdownToggle(item, depth = 0) {
       if (depth == 0) {
         for (const key of Object.keys(this.dropdown)) {
-          if(key != item)
-          { this.dropdown[key] = false }
+          if (key != item) { this.dropdown[key] = false }
         }
       }
-      this.dropdown[item]=!this.dropdown[item]
+      this.dropdown[item] = !this.dropdown[item]
     },
     getIcon,
     labelify(event) {
@@ -192,7 +201,8 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
 @import '@/assets/scss/sidebar';
-.wallet-icon{
+
+.wallet-icon {
   background: var(--neutral-10);
   border-radius: 100px;
 }

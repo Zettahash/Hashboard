@@ -81,7 +81,7 @@ export default {
   margin: auto;
   width: $x-small * .8;
   max-width: 70vw;
-  z-index: 99;
+  z-index: 9999;
   @media (max-width: $x-small) {
     right: 0;
   z-index: 499;
@@ -91,12 +91,12 @@ export default {
   }
 
   .notification {
-    color: var(--neutral-2);
+    color: var(--neutral-1);
     display: grid;
     grid-auto-flow: row;
     gap: 10px;
     padding: 20px 25px;
-    border-radius: 16px;
+    border-radius: 8px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 20px 50px 0px var(--neutral-10);
