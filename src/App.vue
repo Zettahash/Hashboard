@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <NavBar />
+    <!-- <NavBar /> -->
     <SideBar />
 
     <div :class="pageContentsClass" :data-zhHolder="application.zhHolderBool ? 'yes' : 'no'" @click="collapseSidebar()">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import NavBar from './components/interface/Nav.vue'
+// import NavBar from './components/interface/Nav.vue'
 import SideBar from './components/interface/SideBar.vue'
 import LandingPage from './components/pages/LandingPage.vue'
 import Notifications from './components/modules/Notifications.vue'
@@ -26,7 +26,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'App',
   components: {
-    NavBar,
+    // NavBar,
     SideBar,
     LandingPage,
     Notifications,

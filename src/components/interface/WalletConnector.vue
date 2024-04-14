@@ -1,14 +1,10 @@
-<template lang="">
-  <div>
-  <template v-if="!web3ModalAccountIsConnected">
-    <w3m-button balance="hide"/>
-  <!-- <div class="w3m-button" balance="show"></div> -->
-  <!-- <w3m-network-button disabled/> -->
-    <!-- <w3m-button></w3m-button> -->
-</template> 
+<template lang="html">
+    <a @click="modal.open()" v-if="!web3ModalAccountIsConnected">
+      <b-icon-stars />
+      <span>Connect Wallet</span>
+    </a>
 
-</div>
-</template> 
+</template>
 <script>
 import { mapGetters } from 'vuex';
 import { genericABI } from '@/components/data/genericABI'
@@ -39,6 +35,7 @@ const themeVariables = {
   '--w3m-font-family': "'Roboto', Arial, Helvetica, sans-serif",
   '--w3m-accent': '#0062ff',
   '--w3m-color-mix': '#3783ff',
+  '--w3m-z-index': '999',
 }
 const tokens = {
   1: {
@@ -61,12 +58,13 @@ export default {
       web3ModalAccountAddress: address,
       web3ModalAccountChainId: chainId,
       web3ModalAccountIsConnected: isConnected,
+      modal: web3Modal,
     }
   },
   computed: {
     ...mapGetters({
       application: 'application',
-      wallet:'wallet',
+      wallet: 'wallet',
     }),
   },
   mounted() {
@@ -142,7 +140,42 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+a {
+  cursor: pointer;
+  color: var(--neutral-6);
+  background: var(--secondary);
+  max-width: max-content;
+  margin: auto !important;
+  border-radius: 5px;
+  padding: 8px;
+  box-shadow: 0 3px 0 3px var(--secondary), 0 -3px 0 3px var(--secondary);
+
+  &:hover {
+    background: var(--secondary-bg);
+    color: var(--secondary);
+    box-shadow: 0 3px 0 3px var(--secondary-bg), 0 -3px 0 3px var(--secondary-bg);
+  }
+}
+
+a {
+  cursor: pointer;
+  color: var(--neutral-6);
+  background: var(--secondary);
+  // max-width:unset;
+  margin: 0 15px !important;
+  border-radius: 5px;
+  padding: 0px;
+  box-shadow: 0 3px 0 3px var(--secondary), 0 -3px 0 3px var(--secondary);
+
+  &:hover {
+    background: var(--secondary-bg);
+    color: var(--secondary);
+    box-shadow: 0 3px 0 3px var(--secondary-bg), 0 -3px 0 3px var(--secondary-bg);
+  }
+
+}
+
 .w3m-small {
   min-height: 45px !important;
 }

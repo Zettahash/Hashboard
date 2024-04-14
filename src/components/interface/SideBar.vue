@@ -17,6 +17,14 @@
       </ul> -->
 
 
+      <router-link :to="{ path: '/' }" class="app-title logo animated" @mouseenter="labelify" @mouseleave="unlabelify"><Zed /><span>Zettahash</span></router-link>
+<SidebarToggle />
+
+      <WalletConnector  @mouseenter="labelify" @mouseleave="unlabelify" />
+    </div>
+    <div class="shortcuts">
+      <label>Hashboard</label>
+
       <router-link :to="{ name: 'mining' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-activity /><span>Mining</span></router-link>
 
       <router-link :to="{ name: 'consensus' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-chat-left-text-fill /><span>Consensus</span></router-link>
@@ -55,6 +63,8 @@
       <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-person-fill /><span>Profile #{{hasherName()}}</span></router-link>
       <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{walletShortName(wallet)}}</span></router-link>
       <a v-if="wallet && !application.zhHolderBool" @click="doDisconnect()" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-box-arrow-right /><span>Disconnect</span></a>
+      <WalletConnector  @mouseenter="labelify" @mouseleave="unlabelify" />
+
       <a :class="`sync-status ${data.synchronisationStatus}`" @click="$store.dispatch('expressFetch')" @mouseenter="labelify" @mouseleave="unlabelify">
       <b-icon-arrow-repeat class="b-icon refresh" />
       <b-icon-check-circle-fill class="b-icon check" />
@@ -81,10 +91,14 @@ import { profileImg, hasherName } from '@/utils/forum'
 import { walletShortName } from '@/utils/strings'
 import { useDisconnect } from '@web3modal/ethers/vue'
 import { getIcon } from '@/utils/general'
+import Zed from '@/components/interface/Zed'
+import WalletConnector from './WalletConnector.vue'
+import SidebarToggle from '@/components/interface/SidebarToggle'
 const { disconnect } = useDisconnect()
 export default {
   name: "SideBar",
   components: {
+    Zed,WalletConnector,SidebarToggle,
   },
   data() {
     return {
@@ -199,7 +213,7 @@ export default {
   border-radius: 3px;
 }
 </style>
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/constants';
 @import '@/assets/scss/sidebar';
 
