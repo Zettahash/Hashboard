@@ -1,4 +1,4 @@
-<template lang="">
+<template lang="html">
   <div :class="`sidebar collapse-${uiSidebarCollapse}`" @scroll="unlabelify">
     <template v-if="uiSidebarCollapse !== 'false'">
     <div class="shortcuts">
@@ -17,7 +17,7 @@
       </ul> -->
 
 
-      <router-link :to="{ path: '/' }" class="app-title logo animated" @mouseenter="labelify" @mouseleave="unlabelify"><Zed /><span>Zettahash</span></router-link>
+      <Zed />
 <SidebarToggle />
 
       <WalletConnector  @mouseenter="labelify" @mouseleave="unlabelify" />
@@ -60,8 +60,8 @@
     </div>
     <div class="shortcuts">
       <label>Management</label>
-      <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-person-fill /><span>Profile #{{hasherName()}}</span></router-link>
-      <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{walletShortName(wallet)}}</span></router-link>
+      <router-link :to="{ name: 'profile' }" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-person-fill /><span>Profile #{{ hasherName() }}</span></router-link>
+      <router-link v-if="wallet" :to="{ name: 'wallet' }" @mouseenter="labelify" @mouseleave="unlabelify"><img :src="profileImg(wallet)" class="wallet-icon" /><span>Wallet - {{ walletShortName(wallet) }}</span></router-link>
       <a v-if="wallet && !application.zhHolderBool" @click="doDisconnect()" @mouseenter="labelify" @mouseleave="unlabelify"><b-icon-box-arrow-right /><span>Disconnect</span></a>
       <WalletConnector  @mouseenter="labelify" @mouseleave="unlabelify" />
 
@@ -70,8 +70,8 @@
       <b-icon-check-circle-fill class="b-icon check" />
       <b-icon-exclamation-triangle-fill class="b-icon alert" />
       <span v-if="!data.synchronisationStatus">Hashboard synced</span>
-      <span v-if="data.synchronisationStatus=='syncing'">Syncing...</span>
-      <span v-if="data.synchronisationStatus=='error'">Sync errors detected</span>
+      <span v-if="data.synchronisationStatus == 'syncing'">Syncing...</span>
+      <span v-if="data.synchronisationStatus == 'error'">Sync errors detected</span>
     </a>
     </div>
     <div class="shortcuts">
@@ -81,7 +81,7 @@
     </template>
 
 <div class="version shortcuts">
-  <a>{{version[0]}}-beta<span>{{version[1]}}</span></a>
+  <a>{{ version[0] }}-beta<span>{{ version[1] }}</span></a>
 </div>
 </div>
 </template>
@@ -89,7 +89,7 @@
 import { mapGetters } from 'vuex';
 import { profileImg, hasherName } from '@/utils/forum'
 import { walletShortName } from '@/utils/strings'
-import { useDisconnect } from '@web3modal/ethers/vue'
+import { useDisconnect } from '@web3modal/ethers5/vue'
 import { getIcon } from '@/utils/general'
 import Zed from '@/components/interface/Zed'
 import WalletConnector from './WalletConnector.vue'
@@ -98,7 +98,7 @@ const { disconnect } = useDisconnect()
 export default {
   name: "SideBar",
   components: {
-    Zed,WalletConnector,SidebarToggle,
+    Zed, WalletConnector, SidebarToggle,
   },
   data() {
     return {

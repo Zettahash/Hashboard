@@ -8,8 +8,9 @@
 <script>
 import { mapGetters } from 'vuex';
 import { genericABI } from '@/components/data/genericABI'
-import { createWeb3Modal, defaultConfig, useWeb3ModalAccount } from '@web3modal/ethers/vue'
-import { BrowserProvider, formatUnits, Contract } from 'ethers'
+import { createWeb3Modal, defaultConfig, useWeb3ModalAccount } from '@web3modal/ethers5/vue'
+// import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/vue'
+import { providers, Contract } from 'ethers'
 const alchemyKey = process.env.VUE_APP_ALCHEMY_API_KEY;
 // const ethersProvider = new AlchemyProvider('mainnet', alchemyKey)
 
@@ -93,10 +94,10 @@ export default {
     },
     async fetchBalance() {
       const walletProvider = this.application.walletConnectModal.getWalletProvider()
-      const ethersProvider = new BrowserProvider(walletProvider)
+      const ethersProvider = new providers.Web3Provider(walletProvider)
       const zhContract = new Contract(this.zettahash, genericABI, ethersProvider)
       const zhBalance = await zhContract.balanceOf(this.web3ModalAccountAddress)
-      const formatted = await formatUnits(zhBalance, 18)
+      const formatted = zhBalance / Math.pow(10, 18)//await formatUnits(zhBalance, 18)
       return { formatted: formatted }
     },
     async updateAccount() {

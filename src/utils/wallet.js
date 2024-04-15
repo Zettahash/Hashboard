@@ -1,6 +1,6 @@
 import { genericABI } from '@/components/data/genericABI'
-import { BrowserProvider, formatUnits, Contract } from 'ethers'
-import { useDisconnect } from '@web3modal/ethers/vue'
+import { providers, Contract } from 'ethers'
+import { useDisconnect } from '@web3modal/ethers5/vue'
 const { disconnect } = useDisconnect()
 
 const tokens = {
@@ -20,7 +20,7 @@ const getBalanceInstance = async function(currency, address){
   if (!currency) { return '0' }
   currency = currency.toLowerCase()
   const walletProvider = this.$store.state.application.walletConnectModal.getWalletProvider()
-  const ethersProvider = new BrowserProvider(walletProvider)
+  const ethersProvider = new providers.Web3Provider(walletProvider)
 
     console.log(currency, "exists")
   let balance = false
@@ -31,7 +31,7 @@ const getBalanceInstance = async function(currency, address){
   else if (currency === 'eth') {
     balance = await ethersProvider.getBalance(address)
   }
-  const formatted = formatUnits(balance, 18)
+  const formatted = balance/Math.pow(10, 18)
   const formattedStr = Number(formatted) > 1 ? Number(formatted).toFixed(6) : Number(formatted).toFixed(8)
   return { balance: formatted, formatted: formattedStr, raw: balance }
 }

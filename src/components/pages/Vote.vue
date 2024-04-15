@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="flex-overview">
     <div class="ui-ele">
-      <h1><img :src="require('@/assets/img/providers/65da72d13d4f02927b3d58bf_snapshot.png')"/>Voting Spaces</h1>
+      <h1><img :src="require('@/assets/img/providers/65da72d13d4f02927b3d58bf_snapshot.png')" />Voting Spaces</h1>
       <p>Zettahash governance using the Snapshot protocol.</p>
       <LoadingEle :stop="(snapshot && snapshotUser) ? true : false" :long="true" />
 
@@ -9,25 +9,28 @@
         <div class="containers-ui">
           <!-- <ProtocolVotingLocations /> -->
           <div v-for="space of snapshot.data.spaces" :key="space.id">
-          <router-link :to="{ path: `/vote/${space.id}/details` }" class="container compact link">
-            <div class="head">
-              <a class="space-id">
-                <div class="img-wrapper"><img radius="100"
-                    :src="`${space?.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
-                <span class="name">{{ space.name }}</span>
-                <span class="id">{{ space.id }}</span>
-              </a>
-              <span @click="followUnfollow(space.id)" :class="`state ${isFollowing(space.id) ? 'following' : ''}`"
-                :data-text="isFollowing(space.id) ? 'Joined' : 'Follow'"><i class="i-check" v-if="isFollowing(space.id)"></i></span>
+            <router-link :to="{ path: `/vote/${space.id}/details` }" class="container compact link">
+              <div class="head">
+                <a class="space-id">
+                  <div class="img-wrapper"><img radius="100"
+                      :src="`${space?.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`)}`" /></div>
+                  <span class="name">{{ space.name }}</span>
+                  <span class="id">{{ space.id }}</span>
+                </a>
+                <span @click.stop.prevent="followUnfollow(space.id)"
+                  :class="`state ${isFollowing(space.id) ? 'following' : ''}`"
+                  :data-text="isFollowing(space.id) ? 'Joined' : 'Follow'"><i class="i-check"
+                    v-if="isFollowing(space.id)"></i></span>
 
-            </div>
+              </div>
 
-            <div class="contents">
-              <!-- <a :href="`https://snapshot.org/#/${space.id}`" target="_blank" class="link-to-snapshot">
+              <div class="contents">
+                <!-- <a :href="`https://snapshot.org/#/${space.id}`" target="_blank" class="link-to-snapshot">
               <h2>{{ space.name }} on Snapshot <i class="i-external-link"></i></h2>
             </a> -->
-            </div>
-          </router-link></div>
+              </div>
+            </router-link>
+          </div>
         </div>
       </template>
 
@@ -36,12 +39,12 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { Client } from '@snapshot-labs/snapshot.js';
+import { Client712 } from '@snapshot-labs/snapshot.js';
 import LoadingEle from '@/components/interface/LoadingEle.vue'
-
 // eslint-disable-next-line no-unused-vars
-import { BrowserProvider } from 'ethers'
-const client = new Client('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
+import { providers } from 'ethers'
+const client = new Client712('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
+console.log(client)
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Vote',
@@ -56,7 +59,7 @@ export default {
     proposals() {
       let arr = {}
       for (const prop of this.snapshot.data.proposals) {
-        arr[prop.space.id]=prop
+        arr[prop.space.id] = prop
       }
       return arr
     },
@@ -76,12 +79,12 @@ export default {
     proposalsCount(id) {
       let arr = []
       for (const prop of this.snapshot.data.proposals) {
-        if(prop.space.id==id){arr.push(prop.space.id)}
+        if (prop.space.id == id) { arr.push(prop.space.id) }
       }
       return arr.length
     },
     isFollowing(id) {
-      return this.proposals[id]?true:false
+      return this.proposals[id] ? true : false
     },
     routeLoaded() {
       this.$store.commit('setDynamic', {
@@ -92,11 +95,14 @@ export default {
     async followUnfollow(space) {
       let receipt = false
       const walletProvider = this.application.walletConnectModal.getWalletProvider()
-      const ethersProvider = new BrowserProvider(walletProvider)
-      if (this.following) {
+      const provider = new providers.Web3Provider(walletProvider)
+      // await provider.send('eth_requestAccounts', []); 
+      const [account] = await provider.listAccounts()
+      console.log(account, space)
+      if (this.isFollowing) {
         try {
-          receipt = await client.unfollow(ethersProvider, this.wallet, {
-            "from": this.wallet,
+          receipt = await client.unfollow(provider, account, {
+            "from": account,
             "name": space
           });
         } catch (err) {
@@ -105,11 +111,13 @@ export default {
             className: 'error',
             data: err,
           })
+          console.warn(err)
         }
       } else {
         try {
-          receipt = await client.follow(ethersProvider, this.wallet, {
-            "from": this.wallet,
+          receipt = await client.follow(provider, account, {
+            // "from": this.wallet,
+            "from": account,
             "name": space
           });
         } catch (err) {
@@ -118,6 +126,7 @@ export default {
             className: 'error',
             data: err,
           })
+          console.warn(err)
         }
       }
       console.log(receipt)

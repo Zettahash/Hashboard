@@ -40,7 +40,7 @@
 import { mapGetters } from 'vuex';
 import { profileImg, hasherName, setProfile } from '@/utils/forum'
 // eslint-disable-next-line no-unused-vars
-import { BrowserProvider, formatUnits, Contract, EnsResolver } from 'ethers'
+import { providers } from 'ethers'
 
 
 export default {
@@ -65,7 +65,7 @@ export default {
   async mounted() {
     this.routeLoaded()
     const walletProvider = this.application.walletConnectModal.getWalletProvider()
-    const ethersProvider = new BrowserProvider(walletProvider)
+    const ethersProvider = new providers.Web3Provider(walletProvider)
     let ensName = await ethersProvider.lookupAddress(this.wallet)
     if (ensName) {
       this.$store.commit("setENS", { name: ensName })

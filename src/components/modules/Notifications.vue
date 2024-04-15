@@ -153,6 +153,7 @@ export default {
     }
 
     .data {
+      line-break: anywhere;
     }
 
     .title {

@@ -28,31 +28,7 @@
       box-shadow: unset;
     }
 
-    .logo {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      font-weight: 600;
-      transition: 200ms ease;
-      width: 140px;
 
-      @media (max-width: $small) {
-        margin-right: auto;
-        width: 20px;
-
-        span {
-          display: none;
-        }
-      }
-
-      span {
-        font-size: 20px;
-        font-family: $font-family;
-        font-weight: 400;
-      }
-
-
-    }
 
     .nav-links {
       display: grid;

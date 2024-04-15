@@ -1,10 +1,10 @@
 <template lang="html" class="hello">
     <a :class="`sidebar-toggle collapse-${uiSidebarCollapse}`" @click.stop="toggleSidebarCollapse(!application.uiSidebarCollapse)">
   <b-icon-arrow-bar-right class="arrow-right"/>
-  <b-icon-caret-left-square-fill class="arrow-left"/>
+  <b-icon-arrow-bar-left class="arrow-left"/>
     <!-- <i class="i-arrow-right-circle"></i> -->
     <!-- <i class="i-chevron-left"></i> -->
-    <span v-if="uiSidebarCollapse">Collapse</span>
+    <span v-if="uiSidebarCollapse">Collapse sidebar</span>
     <span v-else>Expand Sidebar</span>
   </a>
 </template>
