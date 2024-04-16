@@ -21,7 +21,7 @@
       </router-link>
       <h1>
         <i class="i-zap"></i>
-        {{ space ? `${space.name} Space` : "Details" }}
+        {{ space ? `${space.name} Space` : "Details" }}<SpaceFollowUnfollow :spaceId="space.id"/>
       </h1>
       <p></p>
       <div class="containers-ui flex" v-if="snapshot && space">
@@ -94,6 +94,7 @@
 import { mapGetters } from "vuex";
 import LoadingEle from "@/components/interface/LoadingEle.vue";
 import Proposal from "@/components/modules/Proposal.vue";
+import SpaceFollowUnfollow from "@/components/modules/SpaceFollowUnfollow"
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "AboutVoteProtocol",
@@ -109,6 +110,7 @@ export default {
   components: {
     LoadingEle,
     Proposal,
+    SpaceFollowUnfollow,
   },
   computed: {
     ...mapGetters({

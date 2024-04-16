@@ -4,10 +4,8 @@
       <h1><img :src="require('@/assets/img/providers/65da72d13d4f02927b3d58bf_snapshot.png')" />Voting Spaces</h1>
       <p>Zettahash governance using the Snapshot protocol.</p>
       <LoadingEle :stop="(snapshot && snapshotUser) ? true : false" :long="true" />
-
       <template v-if="snapshot && snapshotUser">
         <div class="containers-ui">
-          <!-- <ProtocolVotingLocations /> -->
           <div v-for="space of snapshot.data.spaces" :key="space.id">
             <router-link :to="{ path: `/vote/${space.id}/details` }" class="container compact link">
               <div class="head">
@@ -17,17 +15,9 @@
                   <span class="name">{{ space.name }}</span>
                   <span class="id">{{ space.id }}</span>
                 </a>
-                <span @click.stop.prevent="followUnfollow(space.id)"
-                  :class="`state ${isFollowing(space.id) ? 'following' : ''}`"
-                  :data-text="isFollowing(space.id) ? 'Joined' : 'Follow'"><i class="i-check"
-                    v-if="isFollowing(space.id)"></i></span>
-
+                    <SpaceFollowUnfollow :spaceId="space.id"/>
               </div>
-
               <div class="contents">
-                <!-- <a :href="`https://snapshot.org/#/${space.id}`" target="_blank" class="link-to-snapshot">
-              <h2>{{ space.name }} on Snapshot <i class="i-external-link"></i></h2>
-            </a> -->
               </div>
             </router-link>
           </div>
@@ -39,15 +29,16 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import snapshot from '@snapshot-labs/snapshot.js';
+import SpaceFollowUnfollow from "@/components/modules/SpaceFollowUnfollow"
 import LoadingEle from '@/components/interface/LoadingEle.vue'
-// eslint-disable-next-line no-unused-vars
-import { providers } from 'ethers'
-const client = new snapshot.Client712('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
-console.log(client)
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Vote',
+  data() {
+    return {
+      loading: {},
+    }
+  },
   computed: {
     ...mapGetters({
       application: 'application',
@@ -65,14 +56,14 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('getSnapshotUser', { address: this.web3ModalAccountAddress, store: this.$store });
+    this.$store.dispatch('getSnapshotUser', { address: this.wallet, store: this.$store });
   },
   async mounted() {
     this.routeLoaded()
 
   },
   components: {
-    LoadingEle,
+    LoadingEle,SpaceFollowUnfollow,
     // ProtocolVotingLocations,
   },
   methods: {
@@ -83,53 +74,11 @@ export default {
       }
       return arr.length
     },
-    isFollowing(id) {
-      return this.proposals[id] ? true : false
-    },
     routeLoaded() {
       this.$store.commit('setDynamic', {
         item: 'routerLoaded',
         value: true
       })
-    },
-    async followUnfollow(space) {
-      let receipt = false
-      const walletProvider = this.application.walletConnectModal.getWalletProvider()
-      const provider = new providers.Web3Provider(walletProvider)
-      // await provider.send('eth_requestAccounts', []); 
-      const [account] = await provider.listAccounts()
-      console.log(account, space)
-      if (this.isFollowing) {
-        try {
-          receipt = await client.unfollow(provider, account, {
-            "from": account,
-            "name": space
-          });
-        } catch (err) {
-          this.$store.commit("setNotification", {
-            title: "Something went wrong with unfollow",
-            className: 'error',
-            data: err,
-          })
-          console.warn(err)
-        }
-      } else {
-        try {
-          receipt = await client.follow(provider, account, {
-            // "from": this.wallet,
-            "from": account,
-            "name": space
-          });
-        } catch (err) {
-          this.$store.commit("setNotification", {
-            title: "Something went wrong with follow",
-            className: 'error',
-            data: err,
-          })
-          console.warn(err)
-        }
-      }
-      console.log(receipt)
     },
   }
 }
@@ -146,12 +95,17 @@ export default {
       width: 140px;
       justify-content: center;
       cursor: pointer;
-
+      &[data-text="Follow"]{
+        background: var(--neutral-6) !important;
+      }
+      &[data-text="Joined"]{
+        background: var(--neutral-10) !important;
+      }
       &::after {
         content: attr(data-text);
       }
 
-      i {
+      i,.tick {
         color: var(--moss);
         line-height: 1;
         margin-right: 5px;
@@ -162,12 +116,13 @@ export default {
       }
 
       &.following {
-        &:hover {
+        &:not(.loading)
+       { &:hover {
           box-shadow: 0 0 0 1px var(--crimson);
           background: transparent !important;
           color: var(--crimson);
 
-          i {
+          i,.tick {
             display: none;
           }
 
@@ -176,8 +131,15 @@ export default {
             color: var(--crimson);
           }
         }
-      }
+      }}
     }
+  }
+}
+.spinner{&::after {
+  border-left-color: var(--secondary);
+  border-top-color: var(--secondary);
+  border-right-color: var(--secondary);
+  border-bottom-color: transparent;
   }
 }
 </style>
