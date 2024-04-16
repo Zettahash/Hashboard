@@ -49,7 +49,7 @@
           </ul>
         </div>
       </div>
-      <h1><br><i class="i-bulb"></i> Proposals</h1>
+      <h1><br><i class="i-bulb"></i>{{ proposals.length>0?``:`No ` }} Proposals</h1>
       <div class="containers-ui" v-if="proposals">
         <Proposal v-for="(proposal, index) of proposals" :key="index" :proposal="proposal" />
       </div>

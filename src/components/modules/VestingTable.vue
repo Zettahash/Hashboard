@@ -28,8 +28,8 @@
                       <a class="click-to-copy" @click="c2c" :data-copy="to"><span>Copy address</span> <i
                           class="icon-copy"></i>
                       </a>
-                      <a :href="`https://etherscan.io/address/${to}`" target="_blank" rel="noreferrer">
-                        <span>View on explorer</span> <i class="icon-external-link"></i>
+                      <a :href="`https://app.hedgey.finance/investor-lockups/issuer/ethereum/${to}`" target="_blank" rel="noreferrer">
+                        <span>View on Hedgey</span> <i class="icon-external-link"></i>
                       </a>
                     </div>
                   </div>

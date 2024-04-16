@@ -39,11 +39,11 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { Client712 } from '@snapshot-labs/snapshot.js';
+import snapshot from '@snapshot-labs/snapshot.js';
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 // eslint-disable-next-line no-unused-vars
 import { providers } from 'ethers'
-const client = new Client712('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
+const client = new snapshot.Client712('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
 console.log(client)
 export default {
   // eslint-disable-next-line vue/multi-word-component-names

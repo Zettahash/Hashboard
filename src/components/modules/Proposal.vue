@@ -24,14 +24,14 @@
                 v-if="sc.leader"></i></template>
             {{ sc.name }}</span>
           <span class="value">{{ sc.valueFormatted }} {{ space.symbol }}</span>
-          <span class="pc">{{ sc.percent }}%</span>
+          <span class="pc"><b-icon-lock-fill v-if="isNaN(sc.percent)"/>{{ isNaN(sc.percent) ? '' : sc.percent }}%</span>
         </div>
       </div>
       <div class="elapsed-time">
         <span class="" v-if="proposal.start">Started
           <timeago :datetime="proposal.start * 1000" />
         </span>
-        <span class="" v-if="proposal.end">Ended
+        <span class="" v-if="proposal.end">End{{ proposal.end * 1000 > Date.now() ? `ing` : `ed`}}
           <timeago :datetime="proposal.end * 1000" />
         </span>
 
