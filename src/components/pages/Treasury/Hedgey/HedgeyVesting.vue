@@ -1,30 +1,28 @@
-<template lang="">
+<template lang="html">
   <div class="flex-overview">
-  <div class="ui-ele front">
-  <h2><img :src="require('@/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png')"/>Hedgey Vesting</h2>
-  <p></p>
-  <div class="filter-ui" v-if="holdings[walletType]">
+    <div class="ui-ele front">
+      <h2><img :src="require('@/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png')" />Hedgey Vesting</h2>
+      <p></p>
+      <div class="filter-ui" v-if="holdings[walletType]">
         <div class="dropdown-wrapper" :wrapper-open="dropdownWallets ? 'expanded' : 'collapsed'"
           @click.stop="dropdownWallets = true" data-label="Wallet">
           <b-icon-caret-down-fill v-if="!dropdownWallets" />
           <b-icon-caret-up-fill v-if="dropdownWallets" />
-
           <ul>
-              <li v-for="(value, key, index) of payloadGrouped" :key="index"
-                :dropdown-selected="!defaultWalletsActive ? (index == 0 ? 'true' : 'false') : (defaultWalletsActive == key ? 'true' : 'false')"
-               >
-                <router-link :to="{ path: `/treasury/hedgey-vesting/${key}`}">{{ key.replace(/_/g, ' ') }}</router-link>
-              </li>
-</ul>
-</div>
-</div>
-</div>
-<template v-if="defaultWalletsActive && walletType">
+            <li v-for="(value, key, index) of payloadGrouped" :key="index"
+              :dropdown-selected="!defaultWalletsActive ? (index == 0 ? 'true' : 'false') : (defaultWalletsActive == key ? 'true' : 'false')">
+              <router-link :to="{ path: `/treasury/hedgey-vesting/${key}` }" @click.stop="dropdownWallets=false">{{ key.replace(/_/g, ' ') }}</router-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <template v-if="defaultWalletsActive && walletType">
+      <WalletDisplayHedgey v-if="displayWalletDisplayHedgey" :wallet_type="walletType" :wallet_group_key="defaultWalletsActive" />
+    </template>
+  </div>
+</template>
 
-<WalletDisplayHedgey :wallet_type="walletType" :wallet_group_key="defaultWalletsActive" />
-</template>
-</div>
-</template>
 <script>
 
 import WalletDisplayHedgey from '@/components/modules/WalletDisplayHedgey.vue'
@@ -39,6 +37,7 @@ export default {
     return {
       dropdownWallets: false,
       walletType: 'eth',
+      displayWalletDisplayHedgey:false,
     }
   },
   computed: {
@@ -127,11 +126,20 @@ export default {
       return arr
     },
   },
+  watch: {
+    defaultWalletsActive() {
+      this.routeLoaded()
+      this.displayWalletDisplayHedgey = false
+    
+    setTimeout(()=>{this.displayWalletDisplayHedgey=true},100)
+    }
+  },
   mounted() {
     this.routeLoaded()
     document.body.addEventListener("click", () => {
       this.dropdownWallets = false
     })
+    this.displayWalletDisplayHedgey=true
   },
   methods: {
     routeLoaded() {

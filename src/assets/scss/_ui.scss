@@ -742,14 +742,14 @@
       gap: 10px;
       box-shadow: 0 0 50px -20px var(--black);
       [dropdown-selected="true"] {
-        background-color: var(--neutral-7);
+        background-color: var(--neutral-8);
         grid-row: 1/2;
       padding: 0 20px 0 0;
 
       }
     }
     [dropdown-selected="true"] {
-      background-color: var(--neutral-7);
+      background-color: var(--neutral-8);
     }
     [dropdown-selected="false"] {
     }
