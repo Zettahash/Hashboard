@@ -735,8 +735,10 @@
     [dropdown-selected="true"] {
       // pointer-events: none;
       padding: 0 20px 0 0;
+
       &:hover{
-        background-color: var(--neutral-5);
+        background-color: var(--neutral-4);
+        box-shadow: 8px 0 0 0 var(--neutral-4), -8px 0 0 0 var(--neutral-4);
 
       }
     }
@@ -752,9 +754,9 @@
       box-shadow: 0 0 50px -20px var(--black);
       padding-bottom: 8px;
       [dropdown-selected="true"] {
-        background-color: var(--neutral-6);
         grid-row: 1/2;
         padding: 0 20px 0 0;
+        background-color: var(--neutral-6);
         box-shadow: 8px 0 0 0 var(--neutral-6), -8px 0 0 0 var(--neutral-6);
       }
     }
@@ -799,8 +801,10 @@
     cursor: pointer;
     padding: 0px;
     border-radius: $radius3;
+    overflow: hidden;
     background-color: var(--neutral-5);
-    li,
+      transition: 200ms ease;
+      li,
     li a {
       padding: 0;
       width: calc(100% - 16px);
@@ -812,6 +816,7 @@
       align-items: center;
       text-transform: capitalize;
       font-size: 18px;
+      transition: 200ms ease;
     }
     li {
       &:hover {
