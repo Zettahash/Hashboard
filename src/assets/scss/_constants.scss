@@ -9,21 +9,27 @@ $x-small: 500px;
 
 $sidebar: 280px;
 
-$r:1.62;
+$r: 1.62;
 
 $font-large: 60px;
 $font-medium: $font-large / #{$r};
 $font-small: $font-medium / #{$r};
 $title-line-height: 1.1;
 
+$title: "Orbitron", mono;
+$font-family: "Orbitron", Arial, Helvetica, sans-serif;
+$sans-serif: "Roboto", Arial, Helvetica, sans-serif;
 
-$title: 'Orbitron', mono;
-$font-family: 'Orbitron', Arial, Helvetica, sans-serif;
-$sans-serif: 'Roboto', Arial, Helvetica, sans-serif;
-:root{
+$radius0: 10px;
+$radius1: 8px;
+$radius2: 6px;
+$radius3: 4px;
+$radius4: 2px;
+
+:root {
   --wui-font-weight-light: 400;
   --wui-font-weight-regular: 500;
   --wui-font-weight-medium: 500 !important;
   --wui-font-weight-bold: 700;
-  --wui-cover:rgba(4, 4, 4, 0.8) !important;
+  --wui-cover: rgba(4, 4, 4, 0.8) !important;
 }

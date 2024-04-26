@@ -102,11 +102,12 @@ export default {
 }
 </script>
 <style lang="scss">
+@import '@/assets/scss/constants';
 .proposal {
   display: grid;
   gap: 20px;
   padding: 30px;
-  border-radius: 15px;
+  border-radius: $radius1;
   box-shadow: 0 0 0 1px var(--neutral-5);
 
   .head {

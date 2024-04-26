@@ -99,13 +99,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 .modal-stationary {
   margin: 50px auto auto auto;
   height: auto;
   width: 500px;
   max-width: 80vw;
   padding: 30px;
-  border-radius: 15px;
+  border-radius: $radius1;
   background: var(--neutral-10);
 
   h1 {

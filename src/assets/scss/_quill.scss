@@ -2,7 +2,7 @@
 
 .editor-wrapper {
   box-shadow: 0 0 0 1px var(--neutral-6);
-  border-radius: 10px;
+  border-radius: $radius2;
   display: grid;
 
   .ql-container {
@@ -52,7 +52,7 @@
           .ql-picker-label {
             border: none;
             box-shadow: 0 0 0 1px var(--neutral-6);
-            border-radius: 5px;
+            border-radius: $radius3;
           }
         }
         .ql-picker-options {

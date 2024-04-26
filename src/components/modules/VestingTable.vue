@@ -134,6 +134,7 @@ export default {
 @import '@/assets/scss/wallet-ui';
 </style>
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 .spinner {
   margin-left: 10px;
   height: 1rem;
@@ -153,7 +154,7 @@ export default {
 .app-module {
   margin-top: 20px;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: $radius2;
   background: var(--neutral-6);
 }
 </style>

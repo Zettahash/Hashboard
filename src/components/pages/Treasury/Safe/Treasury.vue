@@ -41,11 +41,12 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 h2{display: flex;gap:15px;
   align-items: center;
 img{
   height:80px;
   max-width:80px;
-  border-radius: 5px;
+  border-radius: $radius3;
 }}
 </style>

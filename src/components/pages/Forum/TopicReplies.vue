@@ -103,7 +103,7 @@ export default {
   .reply {
     display: grid;
     gap: 15px;
-    border-radius: 15px;
+    border-radius: $radius1;
     transition: 200ms ease;
     box-shadow: 0 0 0 1px var(--neutral-6);
     align-items: center;

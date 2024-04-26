@@ -11,7 +11,7 @@
           <ul>
             <li v-for="(value, key, index) of payloadGrouped" :key="index"
               :dropdown-selected="!defaultWalletsActive ? (index == 0 ? 'true' : 'false') : (defaultWalletsActive == key ? 'true' : 'false')">
-              <router-link :to="{ path: `/treasury/hedgey-vesting/${key}` }" @click.stop="dropdownWallets=false">{{ key.replace(/_/g, ' ') }}</router-link>
+              <router-link :to="{ path: `/treasury/hedgey-vesting/${key}` }" @click.stop="defaultWalletsActive == key? (dropdownWallets = !dropdownWallets) :(defaultWalletsActive = key,dropdownWallets = false)">{{ key.replace(/_/g, ' ') }}</router-link>
             </li>
           </ul>
         </div>
@@ -157,6 +157,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 h2 {
   display: flex;
   gap: 15px;
@@ -165,7 +166,7 @@ h2 {
   img {
     height: 80px;
     max-width: 80px;
-    border-radius: 5px;
+    border-radius: $radius3;
   }
 }
 </style>

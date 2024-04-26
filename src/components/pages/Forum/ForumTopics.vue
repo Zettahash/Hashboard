@@ -76,7 +76,7 @@ export default {
   .topic {
     display: flex;
     gap: 15px;
-    border-radius: 15px;
+    border-radius: $radius1;
     transition: 200ms ease;
     padding: 20px;
     box-shadow: 0 0 0 1px var(--neutral-6);

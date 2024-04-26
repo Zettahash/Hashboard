@@ -232,7 +232,7 @@ export default {
   position: absolute;
   display: none;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: $radius2;
   box-sizing: border-box;
   font-size: 12px;
   background-color: var(--neutral-10);

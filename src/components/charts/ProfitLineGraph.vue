@@ -285,7 +285,7 @@ export default {
   position: absolute;
   display: none;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: $radius2;
   box-sizing: border-box;
   font-size: 12px;
   background-color: var(--neutral-10);
@@ -325,7 +325,7 @@ export default {
       display: block;
       height: 1rem;
       width: 1rem;
-      border-radius: 5px;
+      border-radius: $radius3;
     }
   }
 }

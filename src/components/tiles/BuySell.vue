@@ -114,12 +114,12 @@ export default {
   gap: 4px;
   padding: 6px;
   background: var(--neutral-7);
-  border-radius: 10px;
+  border-radius: $radius2;
 
   .buy,
   .sell {
     padding: 8px 16px;
-    border-radius: 6px;
+    border-radius: $radius3;;
     cursor: pointer;
     position: relative;
 
@@ -135,7 +135,7 @@ export default {
         background-color: var(--primary);
         z-index: 1;
         opacity: .4;
-        border-radius: 6px;
+        border-radius: $radius3;;
       }
 
       z-index:2;
@@ -163,7 +163,7 @@ export default {
     border: none;
     text-align: right;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: $radius2;
     font-size: 1.5rem;
     max-width: 200px;
 

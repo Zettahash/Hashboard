@@ -98,7 +98,7 @@
         left: 50%;
         transform: translate(-50%, calc(-50% - 15px));
         z-index: -2;
-        border-radius: 5px;
+        border-radius: $radius3;
       }
 
       li {
@@ -265,7 +265,7 @@
               transform: translate(-50%, calc(-50% - 2px));
               z-index: -1;
               opacity: 0.2;
-              border-radius: 5px 5px 0 0;
+              border-radius: $radius3 $radius3 0 0;;
               box-shadow: 0 11px 0 -10px var(--neutral-0);
             }
           }
@@ -290,7 +290,7 @@
       ul {
         @media (min-width: $sidebar-breakpoint) {
           &::after {
-            border-radius: 0 0 5px 5px;
+            border-radius: 0 0 $radius3 $radius3;;
           }
           &:first-of-type {
             &::after {
@@ -302,7 +302,7 @@
           }
           &:last-of-type {
             &::after {
-              border-radius: 0 0 5px 5px;
+              border-radius: 0 0 $radius3 $radius3;;
               box-shadow: 0 0 0 0;
             }
           }

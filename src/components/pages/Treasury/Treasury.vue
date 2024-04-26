@@ -5,8 +5,8 @@
       <p></p>
       <div class="filter-ui">
         <div class="button-flex-organiser" data-label="Network">
-          <div v-for="type of types" :key="type" :class="`btn ${walletType === type ? 'active' : ''}`"
-            @click.stop="walletType = type; walletActive = false">{{ type.toUpperCase() }}</div>
+          <div v-for="typeObj of types" :key="typeObj" :class="`btn ${walletType === typeObj ? 'active' : ''}`"
+            @click.stop="walletType = typeObj; walletActive = false">{{ typeObj.toUpperCase() }}</div>
         </div>
 
         <div class="dropdown-wrapper" :wrapper-open="dropdownWallets ? 'expanded' : 'collapsed'"
@@ -16,15 +16,17 @@
 
           <ul>
             <template v-if="holdings[walletType]">
-              <li v-for="(value, key, index) of payloadGrouped" :key="index"
+              <li v-for="(key, index) of Object.keys(payloadGrouped)" :key="index"
                 :dropdown-selected="!walletActive ? (index == 0 ? 'true' : 'false') : (walletActive == key ? 'true' : 'false')"
-                @click.stop="walletActive = key; dropdownWallets = false">
+                @click.stop="walletActive == key ? (dropdownWallets = !dropdownWallets) : (walletActive = key, dropdownWallets = false)">
                 {{ key.replace(/_/g, ' ') }}
               </li>
             </template>
           </ul>
         </div>
-        <router-link v-if="walletType=='eth'" class="uppercase link" :to="{ path: `/treasury/hedgey-vesting/${defaultWalletsActive}`}">Hedgey Vesting <b-icon-arrow-right /></router-link>
+        <router-link v-if="walletType == 'eth'" class="uppercase link"
+          :to="{ path: `/treasury/hedgey-vesting/${defaultWalletsActive}` }">Hedgey Vesting
+          <b-icon-arrow-right /></router-link>
 
       </div>
     </div>
@@ -156,15 +158,19 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 @import '@/assets/scss/constants';
 @import '@/assets/scss/ui';
 </style>
 
 <style lang="scss" scoped>
-.uppercase{
+@import '@/assets/scss/constants';
+
+.uppercase {
   text-transform: capitalize;
 }
+
 h2 {
   display: flex;
   gap: 15px;
@@ -173,7 +179,7 @@ h2 {
   img {
     height: 80px;
     max-width: 80px;
-    border-radius: 5px;
+    border-radius: $radius3;
   }
 }
 </style>

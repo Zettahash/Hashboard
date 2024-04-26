@@ -74,6 +74,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 .forum-category-shortcuts {
   display: flex;
   flex-direction: row;
@@ -106,7 +107,7 @@ export default {
 
   a {
     padding: 20px;
-    border-radius: 15px;
+    border-radius: $radius1;
     box-shadow: 0 0 0 1px var(--neutral-6);
     display: block;
     cursor: pointer;

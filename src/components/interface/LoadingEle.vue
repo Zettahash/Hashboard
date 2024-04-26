@@ -41,7 +41,7 @@ export default {
     align-content: start;
     // box-shadow: 0 0 0 0px var(--neutral-10);
     // transform: translateY(20px)scale(.9);
-    border-radius: 15px;
+    border-radius: $radius1;
     background-color: var(--neutral-8);
     max-width: unset;
     min-width: unset;

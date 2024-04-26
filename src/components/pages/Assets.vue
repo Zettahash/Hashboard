@@ -168,7 +168,7 @@ export default {
   flex-wrap:wrap;
   gap: 30px;
   padding: 20px;
-  border-radius: 15px;
+  border-radius: $radius1;
   box-shadow: 0 0 0 1px var(--neutral-6);
   align-items: center;
   width: 100%;
@@ -185,7 +185,7 @@ export default {
     max-height: 100px;
     grid-row: 1/4;
     grid-column: 1/2;
-    border-radius: 4px;
+    border-radius: $radius4;
   }
 }
 

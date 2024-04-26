@@ -57,9 +57,10 @@ export default {
 @import '@/assets/scss/ui';
 </style>
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 #dextools-widget {
   border: 0;
-  border-radius: 15px;
+  border-radius: $radius1;
   margin: auto;
 }
 </style>

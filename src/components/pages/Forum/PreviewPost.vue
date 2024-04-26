@@ -109,7 +109,7 @@ export default {
 
 .post {
   box-shadow: 0 0 0 1px var(--neutral-6);
-  border-radius: 15px;
+  border-radius: $radius1;
   max-height: 500px;
   overflow: auto;
   padding: 20px;
@@ -139,7 +139,7 @@ export default {
   max-width: 80vw;
   height: max-content;
   display: grid;
-  border-radius: 15px;
+  border-radius: $radius1;
   gap: 20px;
   padding: 20px;
   z-index: 2;
@@ -158,7 +158,7 @@ export default {
     width: 100%;
     background: var(--neutral-9);
     z-index: -1;
-    border-radius: 15px;
+    border-radius: $radius1;
     box-shadow: 0 0 0 1px var(--neutral-6);
   }
 

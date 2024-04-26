@@ -86,7 +86,7 @@ export default {
   width: 500px;
   max-width: 80vw;
   padding: 30px;
-  border-radius: 15px;
+  border-radius: $radius1;
   background: var(--neutral-10);
   position: relative;
   z-index: 2;

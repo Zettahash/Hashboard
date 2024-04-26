@@ -142,13 +142,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 a {
   cursor: pointer;
   color: var(--neutral-6);
   background: var(--secondary);
   max-width: max-content;
   margin: auto !important;
-  border-radius: 5px;
+  border-radius: $radius3;
   padding: 8px;
   box-shadow: 0 3px 0 3px var(--secondary), 0 -3px 0 3px var(--secondary);
 
@@ -165,7 +166,7 @@ a {
   background: var(--secondary);
   // max-width:unset;
   margin: 0 15px !important;
-  border-radius: 5px;
+  border-radius: $radius3;
   padding: 0px;
   box-shadow: 0 3px 0 3px var(--secondary), 0 -3px 0 3px var(--secondary);
 

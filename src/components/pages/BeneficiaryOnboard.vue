@@ -192,6 +192,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/constants';
 .uppercase {
   text-transform: capitalize;
 }
@@ -204,7 +205,7 @@ h2 {
   img {
     height: 80px;
     max-width: 80px;
-    border-radius: 5px;
+    border-radius: $radius3;
   }
 }
 p{

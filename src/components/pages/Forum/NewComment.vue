@@ -182,7 +182,7 @@ export default {
   max-width: 80vw;
   height: max-content;
   display: grid;
-  border-radius: 15px;
+  border-radius: $radius1;
   gap: 20px;
   padding: 20px;
   z-index: 2;
@@ -201,7 +201,7 @@ export default {
     width: 100%;
     background: var(--neutral-9);
     z-index: -1;
-    border-radius: 15px;
+    border-radius: $radius1;
     box-shadow: 0 0 0 1px var(--neutral-6);
   }
 
@@ -295,7 +295,7 @@ export default {
       padding: 10px 20px;
       color: var(--neutral-0);
       font-size: 1rem;
-      border-radius: 10px;
+      border-radius: $radius2;
       line-height: 1.5;
       font-family: $sans-serif;
 
@@ -327,7 +327,7 @@ export default {
     align-items: center;
     background: var(--neutral-9);
     box-shadow: 0 0 0 1px var(--neutral-5);
-    border-radius: 10px;
+    border-radius: $radius2;
     padding: 10px 10px;
     gap: 10px;
 

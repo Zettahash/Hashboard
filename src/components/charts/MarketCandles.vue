@@ -267,7 +267,7 @@ export default {
     // display: none;
     grid-row: 2/3;
     // padding: 10px;
-    border-radius: 10px;
+    border-radius: $radius2;
     box-sizing: border-box;
     // font-size: 12px;
     // background-color: var(--neutral-10);
