@@ -19,12 +19,13 @@ let state = {
     walletConnectModal: false,
     postBodyByteLimit: 950000,
     postTextBytesMin: 16,
-    postTextCharacterMin:10,
+    postTextCharacterMin: 10,
     postTitleCharacterLimit: 1000,
     postBodyCharacterLimit: 20000,
     forumTopics: {
-      quantities:false,
-      names:['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']},
+      quantities: false,
+      names: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
+    },
 
   },
   data: {},
@@ -43,13 +44,13 @@ let state = {
     paginationLimit: 50,
   },
   forumPostRepliesWatcherFlag: false,
-  ens:{
+  ens: {
     name: false,
     avatar: false,
     systemUseENS: false,
   },
-  graphQL: { graphQL: false, graphQLDynamic: false, hedgeyGraphQL:false, },
-  snapshotSpaces:false,
+  graphQL: { graphQL: false, graphQLDynamic: false, hedgeyGraphQL: false, },
+  snapshotSpaces: false,
   physical_assets: false,
 }
 export default state

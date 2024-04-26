@@ -1,8 +1,8 @@
 <template lang="html">
-    <a @click="modal.open()" v-if="!web3ModalAccountIsConnected">
-      <b-icon-stars />
-      <span>Connect Wallet</span>
-    </a>
+  <a @click="modal.open()" v-if="!web3ModalAccountIsConnected">
+    <b-icon-stars />
+    <span>Connect Wallet</span>
+  </a>
 
 </template>
 <script>
@@ -56,10 +56,10 @@ export default {
       checkConnectionInterval: false,
       network: false,
       buttonConnectUI: false,
-      web3ModalAccountAddress: address,
-      web3ModalAccountChainId: chainId,
-      web3ModalAccountIsConnected: isConnected,
-      modal: web3Modal,
+      web3ModalAccountAddress: address || false,
+      web3ModalAccountChainId: chainId || false,
+      web3ModalAccountIsConnected: isConnected || false,
+      modal: web3Modal || false,
     }
   },
   computed: {
@@ -96,7 +96,7 @@ export default {
       const walletProvider = this.application.walletConnectModal.getWalletProvider()
       const ethersProvider = new providers.Web3Provider(walletProvider)
       const zhContract = new Contract(this.zettahash, genericABI, ethersProvider)
-      const zhBalance = await zhContract.balanceOf(this.web3ModalAccountAddress)
+      const zhBalance = this.web3ModalAccountAddress ? await zhContract.balanceOf(this.web3ModalAccountAddress) : false
       const formatted = zhBalance / Math.pow(10, 18)//await formatUnits(zhBalance, 18)
       return { formatted: formatted }
     },

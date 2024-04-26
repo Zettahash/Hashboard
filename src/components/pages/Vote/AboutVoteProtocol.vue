@@ -27,14 +27,14 @@
       <div class="containers-ui flex" v-if="snapshot && space">
         <div class="container">
           <div class="head">
-            <router-link :to="{ name: 'protocol-about' }" class="space-id">
+            <a :to="{ name: 'protocol-about' }" class="space-id">
               <div class="img-wrapper">
                 <img radius="100"
                   :src="`${space.avatar ? space.avatar.replace(`ipfs://`, `https://snapshot.4everland.link/ipfs/`) : ''}`" />
               </div>
               <span class="name">{{ space.name }}</span>
               <span class="id">{{ space.id }}</span>
-            </router-link>
+            </a>
             <span class="state">{{ space.followersCount }} followers</span>
           </div>
           <div class="contents">

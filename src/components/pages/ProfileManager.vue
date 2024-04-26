@@ -59,7 +59,7 @@ export default {
     ensEnabled() {
       if (!this.forumProfile) { return false }
       if (String(this.forumProfile.data).indexOf('noens') >= 0) { return false }
-      return this.forumProfile.ens === this.ens.name
+      return this.forumProfile.ens === this.ens.name ? true : false
     },
   },
   async mounted() {
