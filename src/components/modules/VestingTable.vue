@@ -28,7 +28,7 @@
                       <a class="click-to-copy" @click="c2c" :data-copy="to"><span>Copy address</span> <i
                           class="icon-copy"></i>
                       </a>
-                      <a :href="`https://app.hedgey.finance/investor-lockups/issuer/ethereum/${to}`" target="_blank" rel="noreferrer">
+                      <a :href="`https://app.safe.global/apps/open?safe=eth:${to}&appUrl=https%3A%2F%2Fapp.hedgey.finance%2Fvesting`" target="_blank" rel="noreferrer">
                         <span>View on Hedgey</span> <i class="icon-external-link"></i>
                       </a>
                     </div>
