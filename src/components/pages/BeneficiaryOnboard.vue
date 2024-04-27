@@ -128,7 +128,7 @@
       </div>
     </template>
 
-    <template v-if="invoiceURL">
+    <template v-if="(invoiceURL && !data.geoBlocked.forbidden)">
       <div class="ui-ele front wide">
         <p>
 
@@ -149,6 +149,15 @@
             </div>
           </div>
         </div>
+      </div>
+    </template>
+
+    <template v-if="(invoiceURL && data.geoBlocked.forbidden)">
+      <div class="ui-ele front wide">
+        <p> 
+          We're not able to complete this process.
+          <br>Reason: User is in a restricted geographical location.
+        </p>
       </div>
     </template>
   </div>

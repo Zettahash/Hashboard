@@ -6,8 +6,9 @@
     <div :class="pageContentsClass" :data-zhHolder="application.zhHolderBool ? 'yes' : 'no'" @click="collapseSidebar()">
 
       <Notifications />
-      <template v-if="application.zhHolderBool">
-        <router-view></router-view></template>
+      <template v-if="application.zhHolderBool || (routeIsAllowedWithoutHoldingZH && wallet)">
+        <router-view></router-view>
+      </template>
       <template v-else>
         <LandingPage />
       </template>
@@ -34,6 +35,7 @@ export default {
   computed: {
     ...mapGetters({
       application: 'application',
+      wallet: 'wallet',
     }),
     routerLoaded() {
       return this.application.routerLoaded
@@ -50,6 +52,10 @@ export default {
     },
     dark() {
       return this.application.uiThemeDark
+    },
+    routeIsAllowedWithoutHoldingZH() {
+      const allowedUnauthenticatedRoutes = ['beneficiary']
+      return allowedUnauthenticatedRoutes.indexOf(this.$route.name) >= 0 ? true : false
     },
   },
   watch: {
@@ -75,7 +81,7 @@ export default {
     umami.setAttribute('src', 'https://eu.umami.is/script.js')
     umami.setAttribute('data-website-id', '2e3126f1-0704-4e97-ab66-393d6bb08f06')
     document.head.appendChild(umami)
-      
+
     // this.$store.commit("setNotification", {
     //   title: `Hashboard BETA`,
     //   data: `We're getting the Hashboard ready to launch 🚀`,
