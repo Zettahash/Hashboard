@@ -82,12 +82,13 @@ export default {
   width: $x-small * .8;
   max-width: 70vw;
   z-index: 9999;
+
   @media (max-width: $x-small) {
     right: 0;
-  z-index: 499;
-  max-width: 90vw;
-  width: 90vw;
-  left: 0;
+    z-index: 499;
+    max-width: 90vw;
+    width: 90vw;
+    left: 0;
   }
 
   .notification {
@@ -154,6 +155,7 @@ export default {
 
     .data {
       line-break: anywhere;
+      mix-blend-mode: screen;
     }
 
     .title {
@@ -161,6 +163,7 @@ export default {
       grid-template-columns: 1fr auto;
       font-size: 1.3rem;
       font-weight: bold;
+      mix-blend-mode: screen;
 
       &::after {
         content: "\ea11";
