@@ -22,3 +22,33 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+# Development Journal
+
+### This is the beginning of documenting changes and current features of the Hashboard (Organisation of this document WILL change).
+
+## Hashboard Ethos
+Hashboard must facilitate investors' and shareholders' transparent access to Zettahash operational data and finances within the limits of Zettahash DAO policy.
+
+## Features
+### Data Views
+- ~~Linecoin mining available data graphs and information tiles~~
+- ~~Ocean mining embedded dashboard~~
+- ~~Dextools Markets graph & link to exchange ZH on dextools.io~~
+- ETH, ZH, USDT, BTC (core wallet) balances
+- Hedgey vesting (for core wallets)
+- User wallet balances, disconnect, view ens
+- Snapshot spaces, proposals
+
+### Communication
+- ~~Reddit-style forum~~
+- Link to discord server
+
+### Interaction
+- Purchase ZH (Beneficiary)
+
+### Implementation TODO
+- Cast vote on proposals directly from hashboard
+- View connected wallet vesting details
+- create dashboard of real gauges and graphs (for demo purposes)
