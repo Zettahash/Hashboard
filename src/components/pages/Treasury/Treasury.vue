@@ -18,7 +18,7 @@
             <template v-if="holdings[walletType]">
               <li v-for="(key, index) of Object.keys(payloadGrouped)" :key="index"
                 :dropdown-selected="!walletActive ? (index == 0 ? 'true' : 'false') : (walletActive == key ? 'true' : 'false')"
-                @click.stop="walletActive == key ? (dropdownWallets = !dropdownWallets) : (walletActive = key, dropdownWallets = false)">
+                @click.stop="defaultWalletsActive == key ? (dropdownWallets = !dropdownWallets) : (walletActive = key, dropdownWallets = false)">
                 {{ key.replace(/_/g, ' ') }}
               </li>
             </template>

@@ -11,7 +11,7 @@
           <ul>
             <li v-for="(value, key, index) of payloadGrouped" :key="index"
               :dropdown-selected="!defaultWalletsActive ? (index == 0 ? 'true' : 'false') : (defaultWalletsActive == key ? 'true' : 'false')">
-              <router-link :to="{ path: `/treasury/hedgey-vesting/${key}` }" @click.stop="defaultWalletsActive == key? (dropdownWallets = !dropdownWallets) :(defaultWalletsActive = key,dropdownWallets = false)">{{ key.replace(/_/g, ' ') }}</router-link>
+              <router-link :to="{ path: `/treasury/hedgey-vesting/${key}` }" @click.stop="defaultWalletsActive == key? (dropdownWallets = !dropdownWallets) :(defaultWalletsActiveData = key,dropdownWallets = false)">{{ key.replace(/_/g, ' ') }}</router-link>
             </li>
           </ul>
         </div>
@@ -37,7 +37,8 @@ export default {
     return {
       dropdownWallets: false,
       walletType: 'eth',
-      displayWalletDisplayHedgey:false,
+      displayWalletDisplayHedgey: false,
+      defaultWalletsActiveData: false,
     }
   },
   computed: {

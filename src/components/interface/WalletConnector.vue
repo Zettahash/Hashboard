@@ -1,5 +1,5 @@
 <template lang="html">
-  <a @click="modal.open()" v-if="!web3ModalAccountIsConnected">
+  <a @click="modal.open()" class="connect-wallet" v-if="!web3ModalAccountIsConnected">
     <b-icon-stars />
     <span>Connect Wallet</span>
   </a>

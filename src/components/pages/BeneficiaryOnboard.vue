@@ -4,52 +4,75 @@
       <h1>Buy ZH Token</h1>
       <p></p>
 
+      <InlineInformation v-if="geoEligibility" :payload="geoEligibility" />
+
       <template v-if="!stage2">
         <div class="filter-ui">
           <div class="button-flex-organiser" data-label="Purchasing options">
             <div :set="type = 'crypto'" :class="`btn uppercase ${purchaseType === type ? 'active' : ''}`">
-              <b-icon-currency-bitcoin />Buy with {{ type }}
+              <b-icon-currency-bitcoin /><span class="text-vertical"><span>Buy with {{ type }}</span></span>
             </div>
 
             <div :set="type = 'CEX'" :class="`btn disabled uppercase ${purchaseType === type ? 'active' : ''}`">
-              <b-icon-currency-exchange />On {{ type }} <small>(Coming soon)</small>
+              <b-icon-currency-exchange /><span class="text-vertical"><span>On {{ type }}</span> <small>Coming
+                  soon</small></span>
             </div>
 
             <div :set="type = 'card'" :class="`btn disabled uppercase ${purchaseType === type ? 'active' : ''}`">
-              <b-icon-credit-card />With {{ type }} <small>(Coming soon)</small>
+              <b-icon-credit-card /><span class="text-vertical"><span>With {{ type }}</span> <small>Coming
+                  soon</small></span>
             </div>
           </div>
 
-          <div class="dropdown-wrapper" :wrapper-open="dropdownInvestmentOptions ? 'expanded' : 'collapsed'"
-            @click.stop="dropdownInvestmentOptions = true" data-label="Investment Round">
-            <b-icon-caret-down-fill v-if="!dropdownInvestmentOptions" />
-            <b-icon-caret-up-fill v-if="dropdownInvestmentOptions" />
-            <ul>
-              <template v-if="rounds">
-                <li v-for="(item, index) of rounds" :key="index"
-                  :dropdown-selected="selectedRound == item.name ? 'true' : 'false'"
-                  @click.stop="selectedRound == item.name ? (dropdownInvestmentOptions = !dropdownInvestmentOptions) : (selectedRound = item.name, dropdownInvestmentOptions = false)">
-                  {{ item.name }} (Bonus: {{ item.bonus }})
-                </li>
-              </template>
-            </ul>
+          <div class="button-flex-organiser" data-label="Investment round">
+            <div v-for="(item, index) of rounds" :key="index"
+              :class="`btn uppercase ${selectedRound === item.name ? 'active' : ''}`"
+              @click.stop="selectedRound = item.name">
+              <i class="counter" :data-numb="index + 1"></i>
+              <span class="text-vertical">
+                <span>{{ item.name }}</span>
+                <small>Bonus: {{ item.bonus }}<br><br>
+                  <span v-if="item.status == 'closed'">(preview)</span>
+                  <span v-else>Open</span>
+                </small>
+              </span>
+            </div>
           </div>
+
         </div>
       </template>
     </div>
     <template v-if="holdings[walletType] && !stage2">
 
       <!-- <WalletDisplay :wallet_type="walletType" :wallet_group_key="defaultWalletsActive" /> -->
+      <div class="ui-ele">
+        <div class="brick-wall">
+          <div class="balances-group tile open">
+            <h3>Tokens Sold in {{activeRound.name}}</h3>
+            <div class="horizontal-fill-status-bar" :style="`--pc: ${(soldThisRound/activeRound.threshold)*100}%;`">
+              <span class="name"></span>
+              <span class="value">{{soldThisRound.toLocaleString()}} ZH</span>
+              <span class="pc">{{ ((soldThisRound/activeRound.threshold)*100).toFixed(2) }} %</span>
+            </div>
+            <h4>USD ${{Number((soldThisRound * rates.ZH.priceUsd).toFixed(2)).toLocaleString() }}</h4>
+          </div>
+        </div>
+      </div>
 
       <div class="ui-ele">
         <div class="brick-wall">
           <div class="balances-group tile open">
             <h2>
-              <span>Private Investment {{ activeRound.name }} <span class="">(Bonus: {{ activeRound.bonus
-                  }})</span></span>
-              <span class="sub" v-for="(value, key, index) in activeRound" :key="index"><i class="counter"
-                  :data-numb="index + 1"></i><b>{{ casify(key) }}</b>: {{ value }}</span>
+              <span>Receive a {{ activeRound.bonus }} bonus when you invest in {{ activeRound.name }}</span>
+
+
+              <!-- <span class="sub" v-for="(value, key, index) in activeRound" :key="index"><i class="counter"
+                  :data-numb="index + 1"></i><b>{{ casify(key) }}</b>: {{ value }}</span> -->
             </h2>
+            <div class="v-flex">
+            <p><b-icon-clock-history /> <b>Lockup</b>: {{ activeRound.lockup }}</p>
+            <p><b-icon-currency-dollar /> <b>Token price</b>: {{ activeRound.tokenPrice }}</p>
+            <p><b-icon-arrow-return-right /> <b>Transferable</b>: {{ activeRound.transferable }}</p></div>
           </div>
         </div>
       </div>
@@ -58,6 +81,13 @@
         <div class="brick-wall">
           <div class="balances-group tile open">
             <h2><span>Policy</span></h2>
+            <div class="inline">
+              <div class="checkbox-container">
+                <input type="checkbox" checked disabled />
+                <img :src="require('/src/assets/img/checkbox.svg')" />
+              </div>
+              <p>I understand that I am Purchasing ZH in {{ openRound.name }}.</p>
+            </div>
             <div class="inline">
               <div class="checkbox-container">
                 <input type="checkbox" v-model="policyAccepted" />
@@ -136,8 +166,7 @@
 
         <div class="form new-post ui-ele">
           <div class="head-organiser">
-            <a @click="invoiceURL = false" class="btn-link neutral subtle"><i
-                class="i-arrow-left"></i>
+            <a @click="invoiceURL = false" class="btn-link neutral subtle"><i class="i-arrow-left"></i>
               Cancel</a>
             <h2>Invoice</h2>
           </div>
@@ -152,9 +181,9 @@
       </div>
     </template>
 
-    <template v-if="(invoiceURL && data.geoBlocked.forbidden)">
+    <template v-if="!data.geoBlocked || (invoiceURL && data.geoBlocked.forbidden)">
       <div class="ui-ele front wide">
-        <p> 
+        <p>
           We're not able to complete this process.
           <br>Reason: User is in a restricted geographical location.
         </p>
@@ -164,16 +193,17 @@
 </template>
 <script>
 
-// import WalletDisplay from '@/components/modules/WalletDisplay.vue'
+import InlineInformation from '@/components/modules/InlineInformation.vue'
 import { mapGetters } from 'vuex';
 
 export default {
   components: {
-    // WalletDisplay,
+    InlineInformation,
   },
   name: 'BeneficiaryOnboard',
   data() {
     return {
+      beneficiariesTotal: 113500000,
       dropdownInvestmentOptions: false,
       walletType: 'eth',
       walletActive: false,
@@ -183,46 +213,55 @@ export default {
       userEmail: '',
       investmentValueUSD: 1000,
       selectedRound: 'Round 1',
-      invoiceURL:false,
+      invoiceURL: false,
+      geoEligibility: false,
       rounds: [
         {
           name: 'Round 1',
+          status: 'open',
           bonus: '40%',
           allocation: '$1,500,000.00',
           transferable: '5%',
-          lockup: '5% @ transferable - Distributed quarterly for 2 years',
+          lockup: '95% distributed quarterly for 2 years',
           tokensSold: '21,000,000.00',
-          pricePerToken: '$0.07143',
+          threshold: 21000000,
+          tokenPrice: '$0.10',
           percentOfAllocation: '18.50%',
         },
         {
           name: 'Round 2',
+          status: 'closed',
           bonus: '25%',
           allocation: '$2,000,000.00',
           transferable: '10%',
-          lockup: '10% @ transferable - Distributed quarterly for 2 years',
+          lockup: '90% distributed quarterly for 2 years',
           tokensSold: '25,000,000.00',
-          pricePerToken: '$0.08000',
+          threshold: 46000000,
+          tokenPrice: '$0.10',
           percentOfAllocation: '22.03%',
         },
         {
           name: 'Round 3',
+          status: 'closed',
           bonus: '10%',
           allocation: '$2,500,000.00',
           transferable: '15%',
-          lockup: '15% @ transferable - Distributed quarterly for 1 year',
+          lockup: '85% distributed quarterly for 1 year',
           tokensSold: '27,500,000.00',
-          pricePerToken: '$0.09091',
+          threshold: 73500000,
+          tokenPrice: '$0.10',
           percentOfAllocation: '24.23%',
         },
         {
           name: 'Round 4',
+          status: 'closed',
           bonus: '0%',
           allocation: '$4,000,000.00',
           transferable: '25%',
-          lockup: '25% @ transferable  Distributed 50% 3 months 50% 3 months',
+          lockup: '50% at month 3 : 50% at month 6',
           tokensSold: '40,000,000.00',
-          pricePerToken: '$0.10000',
+          threshold: 113500000,
+          tokenPrice: '$0.10000',
           percentOfAllocation: '35.24%',
         }
       ],
@@ -240,6 +279,35 @@ export default {
       let temp = false
       for (const round of this.rounds) {
         if (round.name == this.selectedRound) { temp = round }
+      }
+      return temp
+    },
+    lastRoundThreshold() {
+      let temp = 0
+      for (let i = 0; i < this.rounds.length; i++) {
+        if (this.rounds[i].name == this.selectedRound) { temp = i > 0 ? this.rounds[i - 1].threshold : 0 }
+      }
+      return temp
+    },
+    totalSold() { return this.beneficiariesTotal - this.holdings.eth.beneficiary_zettahash_eth_zh.balance },
+    soldThisRound() {
+      let val = 0
+      if (this.totalSold >= this.lastRoundThreshold) {
+        if (this.totalSold < this.activeRound.threshold) {
+          val = this.totalSold - this.lastRoundThreshold
+        } else {
+          val = this.activeRound.threshold
+        }
+      } else {
+        val = 0
+      }
+
+      return val
+    },
+    openRound() {
+      let temp = false
+      for (const round of this.rounds) {
+        if (round.status == 'open') { temp = round; break; }
       }
       return temp
     },
@@ -264,17 +332,28 @@ export default {
     document.body.addEventListener("click", () => {
       this.dropdownInvestmentOptions = false
     })
-    if (this.data.geoBlocked.forbidden) {
+    try {
+      if (this.data.geoBlocked.forbidden) {
+        this.geoEligibility = {
+          title: `We are not able to provide this service in ${this.data.geoBlocked.country_name}.`,
+          className: 'error',
+          data: `IP:${this.data.geoBlocked.ip} - 
+          ${this.data.geoBlocked.region_name}, ${this.data.geoBlocked.country_code}`,
+        }
+
+      } else {
+        this.geoEligibility = {
+          title: `Your geographic location is supported.`,
+          className: 'good',
+          data: `IP:${this.data.geoBlocked.ip} - 
+          ${this.data.geoBlocked.region_name}, ${this.data.geoBlocked.country_code}`,
+        }
+      }
+    } catch (e) {
       this.$store.commit("setNotification", {
-        title: `Your geographic location, ${this.data.geoBlocked.region_name}, ${this.data.geoBlocked.country_code}, is not currently supported.`,
+        title: `We could not verify your location.`,
         className: 'error',
-        data: this.data.geoBlocked.ip,
-      })
-    } else {
-      this.$store.commit("setNotification", {
-        title: `Your geographic location, ${this.data.geoBlocked.region_name}, ${this.data.geoBlocked.country_code}, is supported`,
-        className: 'good',
-        data: this.data.geoBlocked.ip,
+        data: e,
       })
     }
   },
@@ -313,7 +392,7 @@ export default {
           originatingIP: this.data.geoBlocked.ip,
           geoCountry: this.data.geoBlocked.region_name + ', ' + this.data.geoBlocked.country_code,
           buyerConfirmedNotUSOrCanadaCitizen: this.policyAccepted,
-          roundOption: this.activeRound.name + ' Bonus:' + this.activeRound.bonus
+          roundOption: this.openRound.name + ' Bonus:' + this.openRound.bonus
         }
       }
       fetch(btcpayServerUrl + apiEndpoint, {
@@ -339,7 +418,25 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
-.buyZH-frame{
+h3,h4{
+  margin: 0;;
+}
+.tile {
+  p {
+    margin-bottom: 0;
+    margin-top: 0;
+    line-height: 1;
+    opacity: .5;
+
+    svg {
+      transform: translateY(15%);
+      height: 1.2rem;
+      width: 1.2rem;
+    }
+  }
+}
+
+.buyZH-frame {
   width: 400px;
   max-width: 80vw;
   height: 850px;
@@ -349,6 +446,7 @@ export default {
   mix-blend-mode: screen;
   overflow: auto;
 }
+
 .uppercase {
   text-transform: capitalize;
 }
@@ -369,21 +467,7 @@ p {
   margin-top: 0;
 }
 
-.counter::before {
-  content: attr(data-numb);
-  font-style: normal;
-  padding: 3px;
-  aspect-ratio: 1/1;
-  display: inline-block;
-  margin-right: 8px;
-  background: var(--neutral-4);
-  border-radius: 3px;
-  width: 1rem;
-  text-align: center;
-  font-size: 13px;
-  font-weight: 900;
-  color: var(--neutral-0);
-}
+
 
 .btn {
   display: inline-flex;
