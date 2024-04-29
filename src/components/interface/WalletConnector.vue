@@ -33,7 +33,7 @@ const chains = [mainnet]
 const ethersConfig = defaultConfig({ metadata })
 const themeMode = 'dark'
 const themeVariables = {
-  '--w3m-font-family': "'Roboto', Arial, Helvetica, sans-serif",
+  '--w3m-font-family': "'Manrope', Arial, Helvetica, sans-serif",
   '--w3m-accent': '#0062ff',
   '--w3m-color-mix': '#3783ff',
   '--w3m-z-index': '999',
