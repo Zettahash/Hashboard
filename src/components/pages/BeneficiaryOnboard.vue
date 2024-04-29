@@ -53,10 +53,15 @@
               <div class="horizontal-fill-status-bar"
                 :style="`--pc: ${(soldThisRound / activeRound.threshold) * 100}%;`">
                 <span class="name"></span>
-                <span class="value">{{ soldThisRound.toLocaleString() }} ZH</span>
+                <span class="value">{{ soldThisRound.toLocaleString() }} ZH
+                  <template v-if="soldThisRound>0">
+                    <br>
+                    <small>{{ Number(((soldThisRound * rates.ZH.priceUsd) * rates.USDT.priceUsd ).toFixed(2)).toLocaleString() }} USDT</small>
+                  </template>
+                </span>
                 <span class="pc">{{ ((soldThisRound / activeRound.threshold) * 100).toFixed(2) }} %</span>
               </div>
-              <h4>USD ${{ Number((soldThisRound * rates.ZH.priceUsd).toFixed(2)).toLocaleString() }}</h4>
+              
             </div>
           </div>
         </div>
@@ -65,7 +70,7 @@
           <div class="brick-wall">
             <div class="balances-group tile open">
               <h2>
-                <span>Receive a {{ activeRound.bonus }} bonus when you invest in {{ activeRound.name }}</span>
+                <span>{{ activeRound.bonus==="0%" ? `Invest without a bonus in ${activeRound.name}` : `Receive ${activeRound.bonus} bonus when you invest in ${activeRound.name}` }}</span>
 
               </h2>
               <div class="v-flex">
