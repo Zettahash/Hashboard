@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="flex-overview">
-    <LoadingEle :stop="(data.geoBlocked) ? true : false" :long="true" />
-    <template v-if="data.geoBlocked">
+    <LoadingEle :stop="(data.geoBlocked && data.geoBlocked.forbidden == false) ? true : false" :long="true" />
+    <template v-if="data.geoBlocked && data.geoBlocked.forbidden == false">
       <div class="ui-ele front">
         <h1>Buy ZH Token</h1>
         <p></p>
@@ -46,12 +46,12 @@
       </div>
       <template v-if="holdings[walletType] && !stage2">
 
-        <!-- <WalletDisplay :wallet_type="walletType" :wallet_group_key="defaultWalletsActive" /> -->
         <div class="ui-ele">
           <div class="brick-wall">
             <div class="balances-group tile open">
               <h3>Tokens Sold in {{ activeRound.name }}</h3>
-              <div class="horizontal-fill-status-bar" :style="`--pc: ${(soldThisRound / activeRound.threshold) * 100}%;`">
+              <div class="horizontal-fill-status-bar"
+                :style="`--pc: ${(soldThisRound / activeRound.threshold) * 100}%;`">
                 <span class="name"></span>
                 <span class="value">{{ soldThisRound.toLocaleString() }} ZH</span>
                 <span class="pc">{{ ((soldThisRound / activeRound.threshold) * 100).toFixed(2) }} %</span>
@@ -67,9 +67,6 @@
               <h2>
                 <span>Receive a {{ activeRound.bonus }} bonus when you invest in {{ activeRound.name }}</span>
 
-
-                <!-- <span class="sub" v-for="(value, key, index) in activeRound" :key="index"><i class="counter"
-                  :data-numb="index + 1"></i><b>{{ casify(key) }}</b>: {{ value }}</span> -->
               </h2>
               <div class="v-flex">
                 <p><b-icon-clock-history /> <b>Lockup</b>: {{ activeRound.lockup }}</p>
@@ -333,38 +330,44 @@ export default {
     validInvestmentValue() {
       return (this.investmentValueUSD && this.investmentValueUSD >= 1000)
     },
+    geoBlocked() {
+      return this.data.geoBlocked
+    },
   },
   mounted() {
     this.routeLoaded()
     document.body.addEventListener("click", () => {
       this.dropdownInvestmentOptions = false
     })
-    try {
-      if (this.data.geoBlocked.forbidden) {
+    this.notifyGeo()
+  },
+  watch: {
+    geoBlocked() {
+    this.notifyGeo()
+      
+    },
+  },
+  methods: {
+    notifyGeo() {
+      if(this.geoBlocked) {
+      if (this.geoBlocked.forbidden) {
         this.geoEligibility = {
-          title: `We are not able to provide this service in ${this.data.geoBlocked.country_name}.`,
+          title: `We are not able to provide this service in ${this.geoBlocked.country_name}.`,
           className: 'error',
-          data: `IP:${this.data.geoBlocked.ip} - 
-          ${this.data.geoBlocked.region_name}, ${this.data.geoBlocked.country_code}`,
+          data: `IP:${this.geoBlocked.ip} - 
+          ${this.geoBlocked.region_name}, ${this.geoBlocked.country_code}`,
         }
 
       } else {
         this.geoEligibility = {
           title: `Your geographic location is supported.`,
           className: 'good',
-          data: `IP:${this.data.geoBlocked.ip} - 
-          ${this.data.geoBlocked.region_name}, ${this.data.geoBlocked.country_code}`,
+          data: `IP:${this.geoBlocked.ip} - 
+          ${this.geoBlocked.region_name}, ${this.geoBlocked.country_code}`,
         }
       }
-    } catch (e) {
-      this.$store.commit("setNotification", {
-        title: `We could not verify your location.`,
-        className: 'error',
-        data: e,
-      })
     }
-  },
-  methods: {
+    },
     casify(str) {
       str.replace(/([A-Z])/g, ' $1')
         // uppercase the first character
@@ -396,8 +399,8 @@ export default {
         metadata: {
           buyerEmail: this.userEmail,
           etherAccount: this.wallet,
-          originatingIP: this.data.geoBlocked.ip,
-          geoCountry: this.data.geoBlocked.region_name + ', ' + this.data.geoBlocked.country_code,
+          originatingIP: this.geoBlocked.ip,
+          geoCountry: this.geoBlocked.region_name + ', ' + this.geoBlocked.country_code,
           buyerConfirmedNotUSOrCanadaCitizen: this.policyAccepted,
           roundOption: this.openRound.name + ' Bonus:' + this.openRound.bonus
         }
