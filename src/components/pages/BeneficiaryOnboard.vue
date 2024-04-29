@@ -81,7 +81,7 @@
         <div class="brick-wall">
           <div class="balances-group tile open">
             <h2><span>Policy</span></h2>
-            <div class="inline">
+            <div class="inline" v-if="activeRound.name!==openRound.name">
               <div class="checkbox-container">
                 <input type="checkbox" checked disabled />
                 <img :src="require('/src/assets/img/checkbox.svg')" />
