@@ -8,47 +8,6 @@
       <h1>Welcome to #Hashboard</h1>
       <p>ZH Token-holders get access to the #Hashboard and can participate in the DAO Governance.</p>
 
-      <template v-if="wallet">
-      <div class="container">
-      <div class="section">
-        <h2>Dive right in to these #Hashboard features:</h2>
-        <div class="flex-shortcuts">
-        <router-link :to="{ name: 'protocol-proposals' }" class="btn"><i class="i-bulb"></i> View Proposals</router-link>
-        <router-link :to="{ name: 'safe' }" class="btn"><i class="i-library"></i> Check ETH & ERC-20 Wallet balances</router-link>
-        <router-link :to="{ name: 'specter' }" class="btn"><i class="i-library"></i> Check BTC Wallet balances</router-link>
-        <router-link :to="{ name: 'market' }" class="btn"><i class="i-trending-up"></i> ZH Markets</router-link>
-        <a href="https://teams.zettahash.org/signup_user_complete/?id=sy8det39ypgyxcjye9oxodk36a&md=link&sbr=fa" target="_blank" class="btn"><i class="i-forum"></i> Consensus</a>
-        </div>
-      </div>
-      </div>
-      </template>
-
-      <div class="container">
-        <img class="img overlap-lower"
-          :src="require('/src/assets/img/design/6590e06479ac1d8d587b3952_dashdark-x-reports-page-dashboard-webflow-template.png')">
-        <img class="img overlap-upper"
-          :src="require('/src/assets/img/design/6590e06479ac1d8d587b3954_dashdark-x-products-page-dashboard-webflow-template-p-500.png')">
-        <div class="text-overlay exempt">
-          <p>Get Ready for next-level transparency.</p>
-          <p v-if="application.zhHolderBool"><router-link :to="{ name: 'mining' }" class="btn">Enter
-              Hashboard</router-link></p>
-          <template v-else>
-            <template v-if="message === 'needAcc'">
-              <p>Connect your wallet to get started.</p>
-              <p class="centred-connect-btn">
-                <WalletConnector />
-              </p>
-              <p>
-                <template v-if="wallet">
-                  <a class="btn-link error" @click="reset()">Reset wallet connection</a>
-                </template>
-              </p>
-
-            </template>
-          </template>
-        </div>
-      </div>
-
       <div class="modal-relative centre" v-if="!application.zhHolderBool">
         <template v-if="message === 'needZH'">
           <h1>
@@ -83,6 +42,45 @@
           </p>
 
         </template>
+      </div>
+      <template v-if="wallet">
+      <div class="container">
+      <div class="section">
+        <h2>Dive right in to these #Hashboard features:</h2>
+        <div class="flex-shortcuts">
+        <router-link :to="{ name: 'protocol-proposals' }" class="btn"><i class="i-bulb"></i> View Proposals</router-link>
+        <router-link :to="{ name: 'safe' }" class="btn"><i class="i-library"></i> Check ETH & ERC-20 Wallet balances</router-link>
+        <router-link :to="{ name: 'specter' }" class="btn"><i class="i-library"></i> Check BTC Wallet balances</router-link>
+        <router-link :to="{ name: 'market' }" class="btn"><i class="i-trending-up"></i> ZH Markets</router-link>
+        <a href="https://teams.zettahash.org/signup_user_complete/?id=sy8det39ypgyxcjye9oxodk36a&md=link&sbr=fa" target="_blank" class="btn"><i class="i-forum"></i> Consensus</a>
+        </div>
+      </div>
+      </div>
+      </template>
+      <div class="container">
+        <img class="img overlap-lower"
+          :src="require('/src/assets/img/design/6590e06479ac1d8d587b3952_dashdark-x-reports-page-dashboard-webflow-template.png')">
+        <img class="img overlap-upper"
+          :src="require('/src/assets/img/design/6590e06479ac1d8d587b3954_dashdark-x-products-page-dashboard-webflow-template-p-500.png')">
+        <div class="text-overlay exempt">
+          <p>Get Ready for next-level transparency.</p>
+          <p v-if="application.zhHolderBool"><router-link :to="{ name: 'mining' }" class="btn">Enter
+              Hashboard</router-link></p>
+          <template v-else>
+            <template v-if="message === 'needAcc'">
+              <p>Connect your wallet to get started.</p>
+              <p class="centred-connect-btn">
+                <WalletConnector />
+              </p>
+              <p>
+                <template v-if="wallet">
+                  <a class="btn-link error" @click="reset()">Reset wallet connection</a>
+                </template>
+              </p>
+
+            </template>
+          </template>
+        </div>
       </div>
     </div>
   </div>
