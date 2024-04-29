@@ -1,197 +1,203 @@
 <template lang="html">
   <div class="flex-overview">
-    <div class="ui-ele front">
-      <h1>Buy ZH Token</h1>
-      <p></p>
+    <LoadingEle :stop="(data.geoBlocked) ? true : false" :long="true" />
+    <template v-if="data.geoBlocked">
+      <div class="ui-ele front">
+        <h1>Buy ZH Token</h1>
+        <p></p>
 
-      <InlineInformation v-if="geoEligibility" :payload="geoEligibility" />
+        <InlineInformation v-if="geoEligibility" :payload="geoEligibility" />
 
-      <template v-if="!stage2">
-        <div class="filter-ui">
-          <div class="button-flex-organiser" data-label="Purchasing options">
-            <div :set="type = 'crypto'" :class="`btn uppercase ${purchaseType === type ? 'active' : ''}`">
-              <b-icon-currency-bitcoin /><span class="text-vertical"><span>Buy with {{ type }}</span></span>
+        <template v-if="!stage2">
+          <div class="filter-ui">
+            <div class="button-flex-organiser" data-label="Purchasing options">
+              <div :set="type = 'crypto'" :class="`btn uppercase ${purchaseType === type ? 'active' : ''}`">
+                <b-icon-currency-bitcoin /><span class="text-vertical"><span>Buy with {{ type }}</span></span>
+              </div>
+
+              <div :set="type = 'CEX'" :class="`btn disabled uppercase ${purchaseType === type ? 'active' : ''}`">
+                <b-icon-currency-exchange /><span class="text-vertical"><span>On {{ type }}</span> <small>Coming
+                    soon</small></span>
+              </div>
+
+              <div :set="type = 'card'" :class="`btn disabled uppercase ${purchaseType === type ? 'active' : ''}`">
+                <b-icon-credit-card /><span class="text-vertical"><span>With {{ type }}</span> <small>Coming
+                    soon</small></span>
+              </div>
             </div>
 
-            <div :set="type = 'CEX'" :class="`btn disabled uppercase ${purchaseType === type ? 'active' : ''}`">
-              <b-icon-currency-exchange /><span class="text-vertical"><span>On {{ type }}</span> <small>Coming
-                  soon</small></span>
+            <div class="button-flex-organiser" data-label="Investment round">
+              <div v-for="(item, index) of rounds" :key="index"
+                :class="`btn uppercase ${selectedRound === item.name ? 'active' : ''}`"
+                @click.stop="selectedRound = item.name">
+                <i class="counter" :data-numb="index + 1"></i>
+                <span class="text-vertical">
+                  <span>{{ item.name }}</span>
+                  <small>Bonus: {{ item.bonus }}<br><br>
+                    <span v-if="item.status == 'closed'">(preview)</span>
+                    <span v-else>Open</span>
+                  </small>
+                </span>
+              </div>
             </div>
 
-            <div :set="type = 'card'" :class="`btn disabled uppercase ${purchaseType === type ? 'active' : ''}`">
-              <b-icon-credit-card /><span class="text-vertical"><span>With {{ type }}</span> <small>Coming
-                  soon</small></span>
+          </div>
+        </template>
+      </div>
+      <template v-if="holdings[walletType] && !stage2">
+
+        <!-- <WalletDisplay :wallet_type="walletType" :wallet_group_key="defaultWalletsActive" /> -->
+        <div class="ui-ele">
+          <div class="brick-wall">
+            <div class="balances-group tile open">
+              <h3>Tokens Sold in {{ activeRound.name }}</h3>
+              <div class="horizontal-fill-status-bar" :style="`--pc: ${(soldThisRound / activeRound.threshold) * 100}%;`">
+                <span class="name"></span>
+                <span class="value">{{ soldThisRound.toLocaleString() }} ZH</span>
+                <span class="pc">{{ ((soldThisRound / activeRound.threshold) * 100).toFixed(2) }} %</span>
+              </div>
+              <h4>USD ${{ Number((soldThisRound * rates.ZH.priceUsd).toFixed(2)).toLocaleString() }}</h4>
             </div>
           </div>
+        </div>
 
-          <div class="button-flex-organiser" data-label="Investment round">
-            <div v-for="(item, index) of rounds" :key="index"
-              :class="`btn uppercase ${selectedRound === item.name ? 'active' : ''}`"
-              @click.stop="selectedRound = item.name">
-              <i class="counter" :data-numb="index + 1"></i>
-              <span class="text-vertical">
-                <span>{{ item.name }}</span>
-                <small>Bonus: {{ item.bonus }}<br><br>
-                  <span v-if="item.status == 'closed'">(preview)</span>
-                  <span v-else>Open</span>
-                </small>
-              </span>
+        <div class="ui-ele">
+          <div class="brick-wall">
+            <div class="balances-group tile open">
+              <h2>
+                <span>Receive a {{ activeRound.bonus }} bonus when you invest in {{ activeRound.name }}</span>
+
+
+                <!-- <span class="sub" v-for="(value, key, index) in activeRound" :key="index"><i class="counter"
+                  :data-numb="index + 1"></i><b>{{ casify(key) }}</b>: {{ value }}</span> -->
+              </h2>
+              <div class="v-flex">
+                <p><b-icon-clock-history /> <b>Lockup</b>: {{ activeRound.lockup }}</p>
+                <p><b-icon-currency-dollar /> <b>Token price</b>: {{ activeRound.tokenPrice }}</p>
+                <p><b-icon-arrow-return-right /> <b>Transferable</b>: {{ activeRound.transferable }}</p>
+              </div>
             </div>
           </div>
+        </div>
 
+        <div class="ui-ele">
+          <div class="brick-wall">
+            <div class="balances-group tile open">
+              <h2><span>Policy</span></h2>
+              <div class="inline" v-if="activeRound.name !== openRound.name">
+                <div class="checkbox-container">
+                  <input type="checkbox" checked disabled />
+                  <img :src="require('/src/assets/img/checkbox.svg')" />
+                </div>
+                <p>I understand that I am Purchasing ZH in {{ openRound.name }}.</p>
+              </div>
+              <div class="inline">
+                <div class="checkbox-container">
+                  <input type="checkbox" v-model="policyAccepted" />
+                  <img v-if="!policyAccepted" :src="require('/src/assets/img/open-checkbox.svg')" />
+                  <img v-if="policyAccepted" :src="require('/src/assets/img/checkbox.svg')" />
+                </div>
+                <p>I agree that I am not a citizen of United States or Canada.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ui-ele">
+
+          <a :class="`btn ${!policyAccepted ? 'disabled' : ''}`"
+            @click="stage2 = true">Continue<b-icon-arrow-right /></a>
+        </div>
+
+      </template>
+
+      <template v-if="stage2 && !invoiceURL">
+        <div class="ui-ele front wide">
+          <p>
+
+          </p>
+
+          <div class="form new-post ui-ele">
+            <div class="head-organiser">
+              <a @click="stage2 = false; policyAccepted = false" class="btn-link neutral subtle"><i
+                  class="i-arrow-left"></i>
+                Back</a>
+              <h2>Account & Contact</h2>
+            </div>
+
+            <div :class="`form-section`">
+              <label>Selected Round</label>
+              <div class="editor-wrapper">
+                <input :value="`${activeRound.name} (Bonus: ${activeRound.bonus})`" disabled>
+              </div>
+            </div>
+
+            <div :class="`form-section`">
+              <label>ETHEREUM Address<br>(To receive ZH)</label>
+              <div class="editor-wrapper">
+                <input :value="wallet" disabled>
+              </div>
+            </div>
+
+            <div :class="`form-section`">
+              <label>Investment Value</label>
+              <div class="editor-wrapper">
+                <input v-model="investmentValueUSD" placeholder="1000">
+              </div>
+            </div>
+
+            <div :class="`form-section`">
+              <label>Email<br>(Not used for marketing)</label>
+              <div class="editor-wrapper">
+                <input v-model="userEmail" placeholder="email@example.com">
+              </div>
+            </div>
+
+            <div class="form-section">
+              <a :class="`btn ${!validEmail || !validInvestmentValue ? 'disabled' : ''}`"
+                @click="generateInvoice">Generate
+                Invoice<b-icon-arrow-right /></a>
+            </div>
+          </div>
         </div>
       </template>
-    </div>
-    <template v-if="holdings[walletType] && !stage2">
 
-      <!-- <WalletDisplay :wallet_type="walletType" :wallet_group_key="defaultWalletsActive" /> -->
-      <div class="ui-ele">
-        <div class="brick-wall">
-          <div class="balances-group tile open">
-            <h3>Tokens Sold in {{activeRound.name}}</h3>
-            <div class="horizontal-fill-status-bar" :style="`--pc: ${(soldThisRound/activeRound.threshold)*100}%;`">
-              <span class="name"></span>
-              <span class="value">{{soldThisRound.toLocaleString()}} ZH</span>
-              <span class="pc">{{ ((soldThisRound/activeRound.threshold)*100).toFixed(2) }} %</span>
+      <template v-if="(invoiceURL && !data.geoBlocked.forbidden)">
+        <div class="ui-ele front wide">
+          <p>
+
+          </p>
+
+          <div class="form new-post ui-ele">
+            <div class="head-organiser">
+              <a @click="invoiceURL = false" class="btn-link neutral subtle"><i class="i-arrow-left"></i>
+                Cancel</a>
+              <h2>Invoice</h2>
             </div>
-            <h4>USD ${{Number((soldThisRound * rates.ZH.priceUsd).toFixed(2)).toLocaleString() }}</h4>
-          </div>
-        </div>
-      </div>
 
-      <div class="ui-ele">
-        <div class="brick-wall">
-          <div class="balances-group tile open">
-            <h2>
-              <span>Receive a {{ activeRound.bonus }} bonus when you invest in {{ activeRound.name }}</span>
-
-
-              <!-- <span class="sub" v-for="(value, key, index) in activeRound" :key="index"><i class="counter"
-                  :data-numb="index + 1"></i><b>{{ casify(key) }}</b>: {{ value }}</span> -->
-            </h2>
-            <div class="v-flex">
-            <p><b-icon-clock-history /> <b>Lockup</b>: {{ activeRound.lockup }}</p>
-            <p><b-icon-currency-dollar /> <b>Token price</b>: {{ activeRound.tokenPrice }}</p>
-            <p><b-icon-arrow-return-right /> <b>Transferable</b>: {{ activeRound.transferable }}</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ui-ele">
-        <div class="brick-wall">
-          <div class="balances-group tile open">
-            <h2><span>Policy</span></h2>
-            <div class="inline" v-if="activeRound.name!==openRound.name">
-              <div class="checkbox-container">
-                <input type="checkbox" checked disabled />
-                <img :src="require('/src/assets/img/checkbox.svg')" />
+            <div :class="`form-section`">
+              <label>Recipient address: {{ wallet }}</label>
+              <div class="editor-wrapper">
+                <iframe :src="invoiceURL" class="buyZH-frame"></iframe>
               </div>
-              <p>I understand that I am Purchasing ZH in {{ openRound.name }}.</p>
-            </div>
-            <div class="inline">
-              <div class="checkbox-container">
-                <input type="checkbox" v-model="policyAccepted" />
-                <img v-if="!policyAccepted" :src="require('/src/assets/img/open-checkbox.svg')" />
-                <img v-if="policyAccepted" :src="require('/src/assets/img/checkbox.svg')" />
-              </div>
-              <p>I agree that I am not a citizen of United States or Canada.</p>
             </div>
           </div>
         </div>
-      </div>
+      </template>
 
-      <div class="ui-ele">
-
-        <a :class="`btn ${!policyAccepted ? 'disabled' : ''}`" @click="stage2 = true">Continue<b-icon-arrow-right /></a>
-      </div>
-
-    </template>
-
-    <template v-if="stage2 && !invoiceURL">
-      <div class="ui-ele front wide">
-        <p>
-
-        </p>
-
-        <div class="form new-post ui-ele">
-          <div class="head-organiser">
-            <a @click="stage2 = false; policyAccepted = false" class="btn-link neutral subtle"><i
-                class="i-arrow-left"></i>
-              Back</a>
-            <h2>Account & Contact</h2>
-          </div>
-
-          <div :class="`form-section`">
-            <label>Selected Round</label>
-            <div class="editor-wrapper">
-              <input :value="`${activeRound.name} (Bonus: ${activeRound.bonus})`" disabled>
-            </div>
-          </div>
-
-          <div :class="`form-section`">
-            <label>ETHEREUM Address<br>(To receive ZH)</label>
-            <div class="editor-wrapper">
-              <input :value="wallet" disabled>
-            </div>
-          </div>
-
-          <div :class="`form-section`">
-            <label>Investment Value</label>
-            <div class="editor-wrapper">
-              <input v-model="investmentValueUSD" placeholder="1000">
-            </div>
-          </div>
-
-          <div :class="`form-section`">
-            <label>Email<br>(Not used for marketing)</label>
-            <div class="editor-wrapper">
-              <input v-model="userEmail" placeholder="email@example.com">
-            </div>
-          </div>
-
-          <div class="form-section">
-            <a :class="`btn ${!validEmail || !validInvestmentValue ? 'disabled' : ''}`"
-              @click="generateInvoice">Generate
-              Invoice<b-icon-arrow-right /></a>
-          </div>
+      <template v-if="!data.geoBlocked || (invoiceURL && data.geoBlocked.forbidden)">
+        <div class="ui-ele front wide">
+          <p>
+            We're not able to complete this process.
+            <br>Reason: User is in a restricted geographical location.
+          </p>
         </div>
-      </div>
-    </template>
-
-    <template v-if="(invoiceURL && !data.geoBlocked.forbidden)">
-      <div class="ui-ele front wide">
-        <p>
-
-        </p>
-
-        <div class="form new-post ui-ele">
-          <div class="head-organiser">
-            <a @click="invoiceURL = false" class="btn-link neutral subtle"><i class="i-arrow-left"></i>
-              Cancel</a>
-            <h2>Invoice</h2>
-          </div>
-
-          <div :class="`form-section`">
-            <label>Recipient address: {{ wallet }}</label>
-            <div class="editor-wrapper">
-              <iframe :src="invoiceURL" class="buyZH-frame"></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-
-    <template v-if="!data.geoBlocked || (invoiceURL && data.geoBlocked.forbidden)">
-      <div class="ui-ele front wide">
-        <p>
-          We're not able to complete this process.
-          <br>Reason: User is in a restricted geographical location.
-        </p>
-      </div>
+      </template>
     </template>
   </div>
 </template>
 <script>
+import LoadingEle from '@/components/interface/LoadingEle.vue'
 
 import InlineInformation from '@/components/modules/InlineInformation.vue'
 import { mapGetters } from 'vuex';
@@ -199,6 +205,7 @@ import { mapGetters } from 'vuex';
 export default {
   components: {
     InlineInformation,
+    LoadingEle,
   },
   name: 'BeneficiaryOnboard',
   data() {
@@ -418,9 +425,13 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/scss/constants';
-h3,h4{
-  margin: 0;;
+
+h3,
+h4 {
+  margin: 0;
+  ;
 }
+
 .tile {
   p {
     margin-bottom: 0;
