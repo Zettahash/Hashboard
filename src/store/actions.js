@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = "https://zettahash-hashboard-middleware.vercel.app"//"http://localhost:3000"//process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = "http://localhost:3000"//"https://zettahash-hashboard-middleware.vercel.app"//process.env.VUE_APP_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {

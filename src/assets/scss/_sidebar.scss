@@ -324,22 +324,13 @@
         width: calc((100% + 12px) - 2rem) !important;
       }
     }
-    .dropdown-open {
-      @media (min-width: $sidebar-breakpoint) {
-        // background: var(--neutral-9);
-        // &::after {
-        //   content: "";
-        //   position: absolute;
-        //   height: 100%;
-        //   width: 25%;
-        //   bottom: 0;
-        //   right: 0;
-        //   transform: translate(25%, 50%);
-        //   opacity: 1;
-        //   z-index: -1;
-        //   border-radius: 0 8px 0 0;
-        //   box-shadow: 1px -1px 0 0;
-        // }
+    .connect-wallet{
+      background-color: transparent;
+      box-shadow: none;
+      color: var(--secondary);
+      opacity: .5;
+      &:hover{
+        opacity: 1;
       }
     }
   }
