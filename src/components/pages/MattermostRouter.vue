@@ -1,13 +1,13 @@
 <template lang="html">
   <div class="flex-overview">
-    <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/scatter.svg')"></div>
+    <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/spiral.webp')"></div>
     <div class="modal centre">
       <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
       <h1>Zettahash Consensus</h1>
-      <p v-if="error==false">Automatically redirecting you to our Zettahash Discord Server<br><br><i class="spinner"></i></p>
+      <p v-if="error==false">Automatically redirecting you to our Zettahash Telegram Group<br><br><i class="spinner"></i></p>
       <p v-if="error!=false">
       <span>{{ error }}</span>
-      <br><br><a class="btn" href="https://discord.gg/zettahash" target="_blank">Consensus <i
+      <br><br><a class="btn" href="https://t.me/+_cUvJBA5G6E1ZTY8" target="_blank">Consensus <i
             class="i-arrow-right"></i></a></p>
 
     </div>
@@ -32,13 +32,13 @@ export default {
     })
     let self = this
     setTimeout(() => {
-      let newWin = window.open('https://discord.gg/zettahash', '_blank')
+      let newWin = window.open('https://t.me/+_cUvJBA5G6E1ZTY8', '_blank')
 
       if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
         //POPUP BLOCKED
         self.error="Browser blocked popup. Use the button below instead."
       } else {
-        self.error="See you on Discord"
+        self.error="See you on Telegram"
         newWin.focus()
       }
     }, 2000)
@@ -62,11 +62,13 @@ export default {
 .modal {
   margin: auto;
   height: max-content;
-  width: 500px;
+  width: 600px;
   max-width: 80vw;
   padding: 30px;
   border-radius: $radius1;
-  background: var(--neutral-10);
+  // background: var(--neutral-10);
+  background: transparent;
+  backdrop-filter: blur(20px);
   position: absolute;
   z-index: 2;
   top: 0;
@@ -108,7 +110,7 @@ export default {
     width: 100%;
     top: 0;
     left: 0;
-    background: radial-gradient(var(--neutral-9) 30%, transparent);
+    // background: radial-gradient(var(--neutral-9) 30%, transparent);
     display: block;
     position: absolute;
     z-index: 2;
@@ -118,10 +120,14 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    bottom: 0;
+    margin: auto;
+    height: auto;
     width: 100%;
     z-index: 1;
-    animation: slow-orbit 200s linear forwards infinite;
+    transform: rotate(15deg);
+    // opacity: .1;
+    // animation: slow-orbit 200s linear forwards infinite;
   }
 
   @keyframes slow-orbit {

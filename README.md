@@ -52,3 +52,8 @@ Hashboard must facilitate investors' and shareholders' transparent access to Zet
 - Cast vote on proposals directly from hashboard
 - View connected wallet vesting details
 - create dashboard of real gauges and graphs (for demo purposes)
+
+## Dispersed Log
+This log attempts to chronicle significant changes across all components of the ZH technical framework.
+
+- CDN - update Zettahash Dao Token symbol name for add-to-metamask function

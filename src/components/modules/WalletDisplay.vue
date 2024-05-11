@@ -96,6 +96,10 @@ export default {
               balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
               type = "ERC-20"
               break;
+            case 'zhd':
+              balance = balance > 1 ? balance.toFixed(6) : balance.toFixed(8)
+              type = "ERC-20"
+              break;
             default:
           }
           for (const [key, val] of Object.entries(value)) { obj[key] = val }

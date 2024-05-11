@@ -444,7 +444,7 @@ h4 {
   p {
     margin-bottom: 0;
     margin-top: 0;
-    line-height: 1;
+    line-height: 1.5;
     opacity: .5;
 
     svg {

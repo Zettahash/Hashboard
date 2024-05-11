@@ -88,7 +88,7 @@ export default {
     },
     async getHoldings() {
       let balances = []
-      let curriencies = ['ETH', 'ZH', 'USDC', 'USDT']
+      let curriencies = ['ETH', 'ZH', 'ZHD', 'USDC', 'USDT']
       try {
         for (const cur of curriencies) {
           let balanceArray = await this.getBalanceInstance(cur)
