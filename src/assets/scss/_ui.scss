@@ -72,13 +72,11 @@
       font-size: 24px;
       font-weight: 800;
       color: var(--secondary);
-      // line-break: anywhere;
     }
     .sub {
       opacity: 0.5;
     }
     .title {
-      // text-transform: uppercase;
       font-size: calc(24px / 1.62);
     }
     &.small {
@@ -130,9 +128,6 @@
       text-align: center;
       min-width: 240px;
       margin-bottom: auto;
-      // @media (max-width: $content) {
-      //   width: calc(25% - 20px);
-      // }
       @media (max-width: $medium) {
         width: 100%;
       }
@@ -237,7 +232,6 @@
       padding: 20px;
       border-radius: 30px;
       background-color: var(--neutral-10);
-      // text-align: center;
 
       .head {
         display: grid;
@@ -253,12 +247,10 @@
     }
     &.asset-complicated {
       text-align: left;
-      // justify-items: start;
       margin-bottom: auto;
       align-content: start;
       gap: 30px;
       @media (min-width: $large) {
-        // width: calc(20% - 20px);
       }
       @media (min-width: $x-large) {
         max-width: 380px;
@@ -487,7 +479,6 @@
         width: calc(100% + 4px);
         z-index: -1;
         background: var(--neutral-6);
-        // border-radius: $radius4;
       }
     }
   }
@@ -509,7 +500,6 @@
   }
   .container {
     position: relative;
-    // padding: 20px;
     box-shadow: unset;
     .img {
       border-radius: $radius0;
@@ -645,7 +635,6 @@
     top: 0;
     left: 0;
     background-image: url(/src/assets/img/grid.webp);
-    // background-image: radial-gradient(var(--neutral-10) 20%, transparent 20%);
     background-size: 800px 800px;
     background-repeat: repeat;
     display: block;
@@ -735,7 +724,6 @@
   }
   &[wrapper-open="collapsed"] {
     [dropdown-selected="true"] {
-      // pointer-events: none;
       padding: 0 20px 0 0;
 
       &:hover {
@@ -766,7 +754,6 @@
       }
     }
     [dropdown-selected="true"] {
-      // background-color: var(--neutral-8);
       margin-bottom: $radius3;
       position: relative;
       &::after {
@@ -792,7 +779,6 @@
         z-index: 1;
         right: -8px;
         border-radius: $radius3;
-        // background: linear-gradient(transparent 10px,var(--neutral-5)  10px);
       }
     }
     [dropdown-selected="false"] {
@@ -976,7 +962,6 @@
     text-align: right;
   }
   .value{
-    // color: var(--neutral-10);
     line-height: 1;
     font-weight: 600;
     small{

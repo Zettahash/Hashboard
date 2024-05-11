@@ -16,11 +16,9 @@
               <img class="coin-icon"
                 :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
               <div class="head-text">
-                <!-- <h3>{{ item.name }}</h3> -->
                 <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
                   item.badge
                 }}</span></h3>
-                <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
                 <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                   {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
                 <div class="balance sub"><span class="">${{ item.balanceUSD }} USD</span></div>
@@ -35,7 +33,6 @@
 <script>
 import { mapGetters } from 'vuex';
 import { getIcon, c2c, scrollTo } from '@/utils/general'
-// import HedgeyApp from '@/components/modules/HedgeyApp'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   name: 'WalletDisplay',
@@ -59,14 +56,10 @@ export default {
       wallet: 'wallet',
     }),
     walletBalances() {
-      // if (this.holdings[this.wallet_type][this.wallet_group_key]) { return [this.holdings[this.wallet_type][this.wallet_group_key]] }
       let masterPayload = []
       for (const key of Object.keys(this.holdings[this.wallet_type])) {
         let value = this.holdings[this.wallet_type][key]
         if (value.group_id == this.wallet_group_key) {
-          // for (const key of Object.keys(instance)) {
-          //   let value = instance[key]
-          // console.log(key, value)
           let obj = {}
           let balance = Number(value.balance)
           let type = false
@@ -116,7 +109,6 @@ export default {
             obj.change = Number(this.rates[obj.displayCurrency].changePercent24Hr).toFixed(2)
           }
           masterPayload.push(obj)
-          // }
         }
       }
       return masterPayload
@@ -140,7 +132,6 @@ export default {
     },
   },
   mounted() {
-    //fetchHedgeyVesting
 
 
   },

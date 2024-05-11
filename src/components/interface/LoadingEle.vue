@@ -39,8 +39,6 @@ export default {
 
   .loading {
     align-content: start;
-    // box-shadow: 0 0 0 0px var(--neutral-10);
-    // transform: translateY(20px)scale(.9);
     border-radius: $radius1;
     background-color: var(--neutral-8);
     max-width: unset;
@@ -107,13 +105,6 @@ export default {
     }
 
     @keyframes loading {
-      // 0% {
-      //   opacity: .5
-      // }
-
-      // 100% {
-      //   opacity: 1
-      // }
       @for $i from 0 through 100 {
         #{$i * 1%} {
           transform: translateX(#{$i * 1%});

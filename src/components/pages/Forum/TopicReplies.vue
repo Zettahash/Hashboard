@@ -25,10 +25,6 @@
       <div class="stats-organiser">
 
         <ForumVoteUI :reply="reply" />
-
-        <!--  <div class="view-count"><i class="i-eye"></i> {{ Number(reply.view_count) }}</div>
-        <div class="replies-count"><i class="i-message-square"></i> {{ Number(reply.reply_count) }}</div>
-         -->
       </div>
 
       
@@ -166,8 +162,6 @@ export default {
   margin-left: 15px;
   margin-right: 15px;
   padding-bottom: 15px;
-  // justify-content: end;
-  // text-align: right;
 
   .date {
     width: 100%;
@@ -180,7 +174,6 @@ export default {
   align-items: center;
   padding: 10px 15px 10px 15px;
   box-shadow: 0 1px 0 0 var(--neutral-6);
-  // border-radius: 100px;
   grid-template-columns: auto 1fr;
 
   h2 {

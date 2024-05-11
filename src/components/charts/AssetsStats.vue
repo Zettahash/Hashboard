@@ -80,7 +80,6 @@ export default {
         animation: {
           duration: 0
         },
-        // responsive: true,
         backgroundColor: this.colour,
 
         maintainAspectRatio: false

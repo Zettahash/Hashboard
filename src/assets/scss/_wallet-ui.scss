@@ -24,9 +24,6 @@
     &.wide {
       min-width: unset;
       width: 100%;
-      .block {
-        // width: max-content;
-      }
     }
     &.tile {
       width: calc($ui-width * 0.3 - 5px);
@@ -134,10 +131,7 @@
       padding: 20px 30px 20px 20px;
       border-radius: 8px;
       overflow: hidden;
-      // background: var(--neutral-8);
       margin-top: 10px;
-      // box-shadow:0 0 0 1px var(--colour);
-      // box-shadow: inset 4px 0 0 0 var(--colour);
       background-color: var(--neutral-6);
 
       position: relative;
@@ -149,15 +143,11 @@
         position: absolute;
         height: 100%;
         width: 100%;
-      // border-radius: 0 10px 10px 0;
-      // border-radius: $radius2;
-        // background: radial-gradient(ellipse at top left, var(--neutral-7) -10%, transparent 120%);
         top: 0;
         left: 0;
         z-index: -1;
         transition: 200ms ease;
         box-shadow: inset 3px 0 0 0 var(--colour);
-        // background: var(--neutral-8);
       }
       .head {
         display: flex;
@@ -237,7 +227,6 @@
     transition: 200ms ease;
     width: $ui-width - 40px;
     max-width: calc(80vw - 40px);
-    // width: 100%;
 
     .wallet-grid {
       display: flex;
@@ -282,10 +271,7 @@
       padding: 20px 30px 20px 20px;
       border-radius: 8px;
       overflow: hidden;
-      // background: var(--neutral-8);
       margin-top: 10px;
-      // box-shadow:0 0 0 1px var(--colour);
-      // box-shadow: inset 4px 0 0 0 var(--colour);
       background-color: var(--neutral-6);
 
       position: relative;
@@ -297,15 +283,11 @@
         position: absolute;
         height: 100%;
         width: 100%;
-      // border-radius: 0 10px 10px 0;
-      // border-radius: $radius2;
-        // background: radial-gradient(ellipse at top left, var(--neutral-7) -10%, transparent 120%);
         top: 0;
         left: 0;
         z-index: -1;
         transition: 200ms ease;
         box-shadow: inset 3px 0 0 0 var(--colour);
-        // background: var(--neutral-8);
       }
       .head {
         display: flex;

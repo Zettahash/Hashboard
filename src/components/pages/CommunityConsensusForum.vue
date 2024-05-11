@@ -1,6 +1,5 @@
 <template lang="">
   <div class="flex-overview forum-ui">
-    <!-- <ForumFilters /> -->
     <div class="head-organiser">
     <h1>Welcome,</h1>
     <div class="hasher-name-organiser">
@@ -96,8 +95,6 @@ export default {
         default:
       }
       this.$store.dispatch("setForumPostsCache", { posts: tmp })
-      //   setForumPostsCache(state, payload) {
-      // state.forumPostsCache = payload.posts
     },
     loadForumCache() {
       let start = this.forumPosts.page * this.forumPosts.paginationLimit

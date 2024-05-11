@@ -11,7 +11,6 @@
 
       <p>Your profile is your Ethereum wallet.</p>
       <div class="containers-ui">
-        <!-- <ProtocolVotingLocations /> -->
         <div class="container compact" v-if="ens.name">
           <div class="head">
             ENS
@@ -77,7 +76,6 @@ export default {
     }
   },
   components: {
-    // ProtocolVotingLocations,
   },
   methods: {
     setProfile,

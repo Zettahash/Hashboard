@@ -9,10 +9,8 @@
 import { mapGetters } from 'vuex';
 import { genericABI } from '@/components/data/genericABI'
 import { createWeb3Modal, defaultConfig, useWeb3ModalAccount } from '@web3modal/ethers5/vue'
-// import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/vue'
 import { providers, Contract } from 'ethers'
 const alchemyKey = process.env.VUE_APP_ALCHEMY_API_KEY;
-// const ethersProvider = new AlchemyProvider('mainnet', alchemyKey)
 
 const projectId = process.env.VUE_APP_WALLET_CONNECT_PROJECT_ID;
 const metadata = {
@@ -164,7 +162,6 @@ a {
   cursor: pointer;
   color: var(--neutral-6);
   background: var(--secondary);
-  // max-width:unset;
   margin: 0 15px !important;
   border-radius: $radius3;
   padding: 0px;

@@ -91,30 +91,22 @@ export default {
     },
   },
   mounted() {
-    // this.hedgeyVested()
   },
   methods: {
     getIcon, c2c,
-    // async hedgeyVested() {
-    //   const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: this.address })
-    //   console.log(reply)
-    //   let data = reply.payload.result.data
-    //   this.vested = data.NFTGallery ? (data.NFTGallery.nfts ? data.NFTGallery.nfts : []) : []
-    // },
     decimalisePrice(totalAmount, decimals, ticker) {
       decimals = decimals ? decimals : (this.asset.decimals ? this.asset.decimals : 1)
       ticker = ticker ? ticker : (this.asset.ticker ? this.asset.ticker : "")
       let price = (Number(totalAmount) / (Math.pow(10, decimals))) *
         this.rates[ticker].priceUsd
 
-      // return price >= 1 ? price.toFixed(2) : price
       return price >= 1 ? Number(price.toFixed(2)).toLocaleString() : price
     },
     transcribeValue(totalAmount, decimals) {
       decimals = decimals ? decimals : (this.asset.decimals ? this.asset.decimals : 1)
       let price = (Number(totalAmount) / (Math.pow(10, decimals )))
 
-      return Number(price).toLocaleString()// >= 1?price.toFixed(2): price
+      return Number(price).toLocaleString()
     },
     dMY(ts) {
       let date = new Date(ts * 1000)

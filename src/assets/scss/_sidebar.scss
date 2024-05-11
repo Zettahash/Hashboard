@@ -1,7 +1,6 @@
 
 
 .sidebar {
-  // height: 100vh;
   padding-top: 20px;
   position: sticky;
   top: 0;
@@ -157,7 +156,6 @@
               -moz-osx-font-smoothing: grayscale;
               content: "\ea26";
               position: absolute;
-              // color: var(--neutral-0);
               z-index: 2;
               right: -15px;
               top: 2px;
@@ -294,10 +292,8 @@
           }
           &:first-of-type {
             &::after {
-              // border-radius: 0 0 0 0;
               height: calc(100% + 20px);
               transform: translate(-50%, calc(-50% - 12px));
-              // box-shadow: 0 11px 0 -10px var(--neutral-0);
             }
           }
           &:last-of-type {

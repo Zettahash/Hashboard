@@ -6,7 +6,6 @@
     </div>
     <div :class="`form-section ${postBodyNotice}`" :error="postBodyDataDifference">
       <label>Comment</label>
-      <!-- <textarea v-model="postBody" /> -->
       <div class="editor-wrapper">
         <quill-editor :options="editorOption" :disabled="false" @change="postBody=$event.html; postBodyText=$event.text"></quill-editor>
       </div>

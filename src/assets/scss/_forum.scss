@@ -84,7 +84,6 @@
     display: grid;
     gap: 20px;
     .tags {
-      // box-shadow: 0 0 0 1px var(--neutral-5);
     }
 
     &.topic-view {
@@ -100,7 +99,6 @@
       padding: 30px;
       border-radius: $radius1;
       box-shadow: 0 0 0 1px var(--neutral-6);
-      // width: calc(100% - 60px);
       @media (max-width: $x-small) {
         padding: 0px;
         background: transparent;

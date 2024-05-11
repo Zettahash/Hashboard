@@ -27,8 +27,6 @@ const getIcon = function (img, folder) {
 }
 
 const c2c = function (event) {
-  // for (const c2c of document.querySelectorAll(".click-to-copy")) {
-  //   c2c.addEventListener("click", (event) => {
   let self = event.target
       let text = self.hasAttribute('data-copy') ? self.getAttribute('data-copy') : self.innerHTML
       let temp = document.createElement('input')
@@ -41,8 +39,6 @@ const c2c = function (event) {
       document.execCommand("copy")
       document.querySelector('.temp-input').remove()
       setTimeout(() => { self.innerHTML = `${originalText}` }, 2500)
-  //   })
-  // }
 }
 
 const scrollTo = function(ele) {

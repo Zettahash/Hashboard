@@ -68,9 +68,6 @@ export default {
     instanceWallets() {
       return this.holdings[this.walletType]
     },
-    // holdingsGrouped() {
-
-    // },
     payload() {
       if (!this.holdings) { return false }
       let masterPayload = []
@@ -78,7 +75,6 @@ export default {
         let instances = this.instanceWallets
         // eslint-disable-next-line no-unused-vars
         for (const [key, value] of Object.entries(instances)) {
-          // console.log(key)
           let obj = {}
           let balance = Number(value.balance)
           let type = false

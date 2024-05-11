@@ -67,7 +67,7 @@ export default {
         ts.setFullYear(ts.getFullYear() - 1)
         ts = new Date(ts).getTime()
         for (let i = 0; i < (180 * 24); i++) {
-          let time = ts + (i * (3600000))//Math.floor(( ts + (i * (3600000)))/1000)//.toISOString().split('T')[0]
+          let time = ts + (i * (3600000))
 
           let open = Number(Number(8.37 + (1 / (Math.floor(Math.random() * 100)))).toFixed(4))
           let high = Number(Number(open + (1 / (Math.floor(Math.random() * 100)))).toFixed(4))
@@ -252,7 +252,6 @@ export default {
 
 <style lang="scss" scoped>
 .line-graph {
-  // width: 100%;
   flex-grow: 1;
   padding: 30px;
   background: var(--neutral-9);
@@ -261,16 +260,10 @@ export default {
   gap: 10px;
 
   .tooltip {
-    // width: 120px;
     height: max-content;
-    // position: absolute;
-    // display: none;
     grid-row: 2/3;
-    // padding: 10px;
     border-radius: $radius2;
     box-sizing: border-box;
-    // font-size: 12px;
-    // background-color: var(--neutral-10);
     text-align: left;
     z-index: 1000;
     top: 12px;

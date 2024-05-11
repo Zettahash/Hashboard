@@ -171,7 +171,6 @@ export default {
         d = `${months[d.getMonth()]} ${d.getFullYear()}`
         dates.push(d)
       }
-      // labels.sort((a, b) => { return a > b ? 1 : -1 })
       return { labels: dates, values: values }
     },
   },

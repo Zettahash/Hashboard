@@ -61,9 +61,6 @@
                 <td colspan="1" data-header="Vested">
                   <div class="col"><span>0 ZH</span> <span>$0.00</span></div>
                 </td>
-                <!-- <td colspan="1" data-header="Active plans">
-                  <div><span>1</span></div>
-                </td> -->
                 <td colspan="4" data-header="Available actions">
                   <div>
                     <a @click.stop="details = index + 1" class="link basic">Details <i
@@ -122,7 +119,6 @@ export default {
       this.now = reply.timestamp
     },
     decimalisePrice(totalAmount, decimals, ticker) {
-      // return ticker
       let price = (Number(totalAmount) / (Math.pow(10, decimals))) * this.rates[ticker].priceUsd
       return price >= 1 ? Number(price.toFixed(2)).toLocaleString() : price
     },

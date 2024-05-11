@@ -13,7 +13,6 @@ this.$store.commit('setNotification', {
     <div v-for="(notification, index) of notificationsActive" @click="close(notification.index)" :z="notification.index" :key="index" :class="notification.className + ' notification'" :style="stackStyle(notification.index, index)">
       <span class="title">{{notification.title}}</span>
       <span class="data">{{notification.data}}</span>
-      <!-- <span class="time">{{notification.time}}</span> -->
     </div>
 </div>
 </template>

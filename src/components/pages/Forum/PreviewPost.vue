@@ -15,7 +15,6 @@
         <h2>Hasher #{{ hasherName() }}</h2>
         <small>on {{ new Date() }}</small>
       </div>
-      <!-- <vue-markdown class="post-formatted" :source="markdownPreprocess()" /> -->
       <div class="post-formatted">
       <h1>{{payload.postTitle}}</h1>
       <div v-html="payload.postBody"></div>
@@ -36,7 +35,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-// import VueMarkdown from 'vue-markdown-render'
 import { profileImg, hasherName} from '@/utils/forum'
 export default {
   name: 'PreviewPost',
@@ -48,7 +46,6 @@ export default {
   },
   props: ['payload',],
   components: {
-    // VueMarkdown,
   },
   watch: {
     cancelStage(value) {

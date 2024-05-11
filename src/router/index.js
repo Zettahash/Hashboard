@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-// import Overview from '@/components/pages/Overview'
 import LincoinAccountant from '@/components/pages/Farms/Lincoin/Accountant'
 import LincoinManager from '@/components/pages/Farms/Lincoin/Manager'
 import OceanManager from '@/components/pages/Farms/Ocean/Manager'
@@ -110,15 +109,6 @@ const routes = [
     name: 'lincoin-manager',
     component: LincoinManager,
     children: [
-      // {
-      //   path: "/mining",
-      //   name: "lincoin-manager",
-      //   component: LincoinManager,
-      //   meta: {
-      //     title: 'Lincoin Manager | ' + title,
-      //     breadcrumbs: ['hashboard', 'lincoin', 'manager'],
-      //   }
-      // },
       {
         path: "/mining/lincoin",
         name: "lincoin-manager",

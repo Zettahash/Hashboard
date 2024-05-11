@@ -49,7 +49,6 @@ export default {
 
   img {
     height: 50px;
-    // opacity: .5;
   }
 }
 

@@ -46,7 +46,6 @@ export default {
     getIcon,
     scrollTo,
     async hedgeyVested(address) {
-      // const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: address })
       const reply = this.$store.dispatch('queryHedgey', address);
       console.log(reply)
       return reply

@@ -192,14 +192,12 @@ export default {
 .details {
   flex-shrink: 0;
   flex-grow:1;
-  // margin-bottom: auto;
   thead {
     td {
       font-weight: 800;
       font-size: 12px;
       text-transform: uppercase;
       color: var(--neutral-3);
-      // padding: 5px 5px 0 5px;
     }
   }
 

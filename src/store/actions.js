@@ -37,7 +37,6 @@ const actions = {
       fetch(`${endpoint}/api/get-data`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {
           commit("setPayload", data.payload)
-          // layerTwoWorkers(item.name, data, commit)
           commit("setData", { item: 'synchronisation', value: Date.now() })
           commit("setData", { item: 'synchronisationStatus', value: false })
         })
@@ -326,7 +325,6 @@ const actions = {
       },
       body: JSON.stringify({ data: url })
     })
-    // commit('setDynamic', { item: 'applicationLoaded', value: true })
 
     return { data: await query }
 

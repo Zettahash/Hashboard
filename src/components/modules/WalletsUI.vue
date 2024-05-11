@@ -33,11 +33,9 @@
                   <img class="coin-icon"
                     :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
                   <div class="head-text">
-                    <!-- <h3>{{ item.name }}</h3> -->
                     <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
       item.badge
     }}</span></h3>
-                    <!-- <p :title="item.address">{{ item.addressShort }}</p> -->
                     <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                       {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
                     <div class="balance sub"><span class="">${{ item.balanceUSD }} USD</span></div>
@@ -154,7 +152,6 @@ export default {
     },
   },
   mounted() {
-    //fetchHedgeyVesting
 
 
   },

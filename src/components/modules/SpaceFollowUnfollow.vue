@@ -76,7 +76,6 @@ export default {
       } else {
         try {
           receipt = await client.follow(provider, account, {
-            // "from": this.wallet,
             from: account,
             space: space,
           });

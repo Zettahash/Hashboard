@@ -1,6 +1,3 @@
-// import { createApp } from 'vue'
-// const app = createApp({})
-
 let mutations = {
   setDynamic(state, payload) {
     switch (true) {

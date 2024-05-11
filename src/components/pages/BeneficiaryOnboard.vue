@@ -419,7 +419,6 @@ export default {
         .then(data => {
           let invoiceID = `https://btcpay.zettahash.org/i/${data.id}`
           this.invoiceURL = invoiceID
-          //https://btcpay.zettahash.org/i/LEgKahj3RFmjuG2ZCSWY6y
         })
 
     }

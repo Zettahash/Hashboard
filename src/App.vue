@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <NavBar /> -->
     <SideBar />
 
     <div :class="pageContentsClass" :data-zhHolder="application.zhHolderBool ? 'yes' : 'no'" @click="collapseSidebar()">
@@ -17,7 +16,6 @@
 </template>
 
 <script>
-// import NavBar from './components/interface/Nav.vue'
 import SideBar from './components/interface/SideBar.vue'
 import LandingPage from './components/pages/LandingPage.vue'
 import Notifications from './components/modules/Notifications.vue'
@@ -27,7 +25,6 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'App',
   components: {
-    // NavBar,
     SideBar,
     LandingPage,
     Notifications,
@@ -81,11 +78,6 @@ export default {
     umami.setAttribute('src', 'https://eu.umami.is/script.js')
     umami.setAttribute('data-website-id', '2e3126f1-0704-4e97-ab66-393d6bb08f06')
     document.head.appendChild(umami)
-
-    // this.$store.commit("setNotification", {
-    //   title: `Hashboard BETA`,
-    //   data: `We're getting the Hashboard ready to launch 🚀`,
-    // })
   }
 }
 </script>
@@ -94,41 +86,4 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/styles.scss";
-
-// REMOVE ALL STYLES AFTER THIS LINE WHEN REMOVING COMING SOON BANNER
-.page-contents {
-  grid-template-rows: 1fr;
-  transition: 200ms ease;
-
-  &.blur {
-    filter: blur(50px);
-    -webkit-filter: blur(50px);
-  }
-}
-
-.coming-soon {
-  padding: 20px;
-  display: block;
-  position: relative;
-  text-align: center;
-  height: max-content;
-
-  &::before {
-    content: "🚀 Hashboard Launching Soon 🚀";
-    font-size: 24px;
-  }
-
-  &::after {
-    background: linear-gradient(60deg, var(--primary), var(--yellow));
-    position: absolute;
-    display: block;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    content: '';
-    z-index: -1;
-    opacity: .1;
-  }
-}
 </style>

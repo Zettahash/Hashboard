@@ -29,7 +29,6 @@ export default {
   grid-template-rows: 1fr auto;
   align-items: center;
   box-shadow: 0 0 0 1px;
-  // gap: 10px;
   padding: 15px 0 15px 15px;
   border-radius: $radius3;
   margin-top: 20px;

@@ -41,7 +41,6 @@ export default {
         datasets: [
           {
             label: 'SHA256 Hash-rate (PH/s)',
-            // color: '#0062ff',
             data: [1000, 1000, 790, 800, 890, 900, 900]
           }
         ]
@@ -70,9 +69,5 @@ export default {
   display: grid;
   contain: strict;
   height: 500px;
-  // canvas{
-  //   height:100%;
-  //   width:100%;
-  // }
 }
 </style>

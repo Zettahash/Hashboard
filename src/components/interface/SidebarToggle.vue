@@ -2,8 +2,6 @@
     <a :class="`sidebar-toggle collapse-${uiSidebarCollapse}`" @click.stop="toggleSidebarCollapse(!application.uiSidebarCollapse)">
   <b-icon-chevron-double-right class="arrow-right"/>
   <b-icon-chevron-double-left class="arrow-left"/>
-    <!-- <i class="i-arrow-right-circle"></i> -->
-    <!-- <i class="i-chevron-left"></i> -->
     <span v-if="uiSidebarCollapse">Collapse sidebar</span>
     <span v-else>Expand Sidebar</span>
   </a>
@@ -88,7 +86,6 @@ export default {
         background-color: var(--neutral-9);
         padding: 2px;
       }}
-    // transform: translate(calc($sidebar - 50%), 20px);
     @media (max-width: $x-small) {
       transform: unset;
     }
@@ -106,11 +103,8 @@ export default {
     }
   }
   &.collapse-1 {
-    // transform: translate(calc(54px + 50%), 20px);
-    // font-size: 24px;
     @media (max-width: $x-small) {
       transform: unset;
-    // font-size: 30px;
     }
   [class*="arrow-left"],
   .i-chevron-left {

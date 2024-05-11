@@ -12,7 +12,6 @@
     </div>
     <div :class="`form-section ${postBodyNotice}`" :error="postBodyDataDifference">
       <label>Body</label>
-      <!-- <textarea ref="textArea" v-model="postBody" @input="textAreaInput++" :style="`height:${height}`"/> -->
       <div class="editor-wrapper">
         <quill-editor :options="editorOption" :disabled="false"
           @change="postBody = $event.html; postBodyText = $event.text"></quill-editor>
@@ -333,7 +332,6 @@ export default {
 
     &.active {
       background: var(--neutral-9);
-      // box-shadow: 0 0 0 0;
 
     }
 

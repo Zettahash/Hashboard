@@ -66,7 +66,6 @@ export default {
   max-width: 80vw;
   padding: 30px;
   border-radius: $radius1;
-  // background: var(--neutral-10);
   background: transparent;
   backdrop-filter: blur(20px);
   position: absolute;
@@ -110,7 +109,6 @@ export default {
     width: 100%;
     top: 0;
     left: 0;
-    // background: radial-gradient(var(--neutral-9) 30%, transparent);
     display: block;
     position: absolute;
     z-index: 2;
@@ -126,8 +124,6 @@ export default {
     width: 100%;
     z-index: 1;
     transform: rotate(15deg);
-    // opacity: .1;
-    // animation: slow-orbit 200s linear forwards infinite;
   }
 
   @keyframes slow-orbit {

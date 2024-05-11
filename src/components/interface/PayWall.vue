@@ -12,7 +12,6 @@
       <p><a class="btn-link error" @click="doDisconnect()">Disconnect {{ walletShortName(wallet) }} <i
             class="i-log-out"></i></a></p>
     </template>
-    <!-- <WalletConnector /> -->
 
     <template v-if="message === 'waiting'">
       <h1>

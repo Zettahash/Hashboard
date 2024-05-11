@@ -45,14 +45,10 @@ export default {
       return "0.00"
     },
     walletBalances() {
-      // if (this.holdings[this.wallet_type][this.wallet_group_key]) { return [this.holdings[this.wallet_type][this.wallet_group_key]] }
       let masterPayload = []
       for (const key of Object.keys(this.holdings[this.wallet_type])) {
         let value = this.holdings[this.wallet_type][key]
         if (value.group_id == this.wallet_group_key) {
-          // for (const key of Object.keys(instance)) {
-          //   let value = instance[key]
-          // console.log(key, value)
           let obj = {}
           let balance = Number(value.balance)
           let type = false
@@ -98,7 +94,6 @@ export default {
             obj.change = Number(this.rates[obj.displayCurrency].changePercent24Hr).toFixed(2)
           }
           masterPayload.push(obj)
-          // }
         }
       }
       return masterPayload
@@ -122,7 +117,6 @@ export default {
     },
   },
   mounted() {
-    //fetchHedgeyVesting
 
 
   },

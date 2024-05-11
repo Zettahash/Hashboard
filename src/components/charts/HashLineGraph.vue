@@ -50,7 +50,7 @@ export default {
       if (this.payload.hashrateChart) {
         for (const item of this.payload.hashrateChart.value) {
           tmp.push({
-            time: item.timestamp, //.split("T")[0],
+            time: item.timestamp, 
             value: (item.hashrate * 1000000000000)
           })
         }
@@ -198,7 +198,6 @@ export default {
 
 <style lang="scss" scoped>
 .line-graph {
-  // width: 100%;
   flex-grow: 1;
   padding: 30px;
   background: var(--neutral-9);

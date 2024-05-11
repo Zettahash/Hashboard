@@ -81,9 +81,5 @@ export default {
   display: grid;
   contain: strict;
   height: 500px;
-  // canvas{
-  //   height:100%;
-  //   width:100%;
-  // }
 }
 </style>

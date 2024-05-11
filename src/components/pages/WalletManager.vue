@@ -59,7 +59,6 @@ export default {
     },
   },
   components: {
-    // ProtocolVotingLocations,
     UserWalletsUI,
   },
   methods: {
