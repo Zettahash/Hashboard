@@ -1,5 +1,3 @@
-
-
 .sidebar {
   padding-top: 20px;
   position: sticky;
@@ -102,8 +100,9 @@
 
       li {
         padding-bottom: 25px;
-        a{
-          margin-left:0;margin-right:0;
+        a {
+          margin-left: 0;
+          margin-right: 0;
         }
       }
     }
@@ -126,7 +125,7 @@
         img {
           box-shadow: 0 0 0 4px var(--secondary);
           border-radius: 2px;
-          &.wallet-icon{
+          &.wallet-icon {
             border-radius: 100px;
           }
         }
@@ -137,7 +136,7 @@
             }
           }
         }
-        &:hover{
+        &:hover {
           color: var(--secondary) !important;
         }
       }
@@ -185,7 +184,8 @@
         max-width: var(--icon-size);
       }
 
-      i,svg {
+      i,
+      svg {
         font-size: var(--icon-size);
 
         svg {
@@ -209,6 +209,26 @@
     box-shadow: 1px 0 0 0 var(--element-border);
   }
 
+  &.collapse-false {
+    .sidebar-toggle {
+        position: fixed;
+        left: 5px;
+        bottom: 5px;
+        margin: 0;
+        padding: 15px;
+        background: var(--brandeis-blue);
+        color: var(--neutral-9) !important;
+        border-radius: 100px;
+        width: max-content;
+        &:hover {
+          color: var(--neutral-9);
+        }
+        span {
+          display: none;
+        }
+      }
+    }
+
   &.collapse-1 {
     width: 70px;
     padding-top: 20px;
@@ -219,6 +239,23 @@
     }
     @media (max-width: $x-small) {
       padding-top: 20px;
+      .sidebar-toggle {
+        @media (max-width: $x-small) {
+          position: fixed;
+          right: 5px;
+          bottom: 5px;
+          margin: 0;
+          padding: 15px;
+          background: var(--brandeis-blue);
+          color: var(--neutral-9) !important;
+          border-radius: 100px;
+          width: max-content;
+          &:hover{
+            color: var(--neutral-9);
+          }
+          span{display: none;}
+      }
+      }
     }
 
     .shortcuts {
@@ -263,7 +300,7 @@
               transform: translate(-50%, calc(-50% - 2px));
               z-index: -1;
               opacity: 0.2;
-              border-radius: $radius3 $radius3 0 0;;
+              border-radius: $radius3 $radius3 0 0;
               box-shadow: 0 11px 0 -10px var(--neutral-0);
             }
           }
@@ -279,7 +316,8 @@
           }
         }
 
-        span, .shortcut-label {
+        span,
+        .shortcut-label {
           @media (min-width: $sidebar-breakpoint) {
             display: none;
           }
@@ -288,7 +326,7 @@
       ul {
         @media (min-width: $sidebar-breakpoint) {
           &::after {
-            border-radius: 0 0 $radius3 $radius3;;
+            border-radius: 0 0 $radius3 $radius3;
           }
           &:first-of-type {
             &::after {
@@ -298,7 +336,7 @@
           }
           &:last-of-type {
             &::after {
-              border-radius: 0 0 $radius3 $radius3;;
+              border-radius: 0 0 $radius3 $radius3;
               box-shadow: 0 0 0 0;
             }
           }
@@ -320,12 +358,12 @@
         width: calc((100% + 12px) - 2rem) !important;
       }
     }
-    .connect-wallet{
+    .connect-wallet {
       background-color: transparent;
       box-shadow: none;
       color: var(--secondary);
-      opacity: .5;
-      &:hover{
+      opacity: 0.5;
+      &:hover {
         opacity: 1;
       }
     }
@@ -387,10 +425,8 @@
       font-family: $font-family;
       font-weight: 400;
     }
-
-
   }
-  .connect-wallet{
+  .connect-wallet {
     padding-left: 5px;
     padding-right: 5px;
     margin-left: 15px;
