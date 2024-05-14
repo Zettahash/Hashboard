@@ -1,35 +1,44 @@
 <template lang="html">
-  <div class="flex-overview demo">
-    <div class="full-width-header">
+  <div class="flex-overview">
+    <InlineInformation :payload="inlineInformationPayload" />
+    <WelcomeBanner />
+    <div class="filter-ui">
+      <DropdownUi dropdownTitle="Mining Sites" :dropdownOptions="sitesDropdown" :activeKey="sitesDropdown[0]" />
     </div>
-    <div class="page-inner">
-      <div class="blur-container">
-        <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
-
-        <h1>Welcome back, #Hasher</h1>
-
-        <img class="img faux-dash" :src="require('/src/assets/img/design/hashboard-89c2eb.webflow.io_reports.webp')">
-      </div>
-      <div class="text-overlay exempt">
-        <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
-        <h1>Welcome back, #Hasher</h1>
-        <p>We're working on the Zettahash Mining & Energy displays.</p>
-        <p>Visit <router-link :to="{ name: 'consensus' }" class="link">Consensus</router-link> for updates.</p>
-      </div>
-    </div>
+    <MiningDemoGauges />
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { walletShortName } from '@/utils/strings.js'
 import { doDisconnect } from '@/utils/wallet'
-
+import WelcomeBanner from '@/components/modules/WelcomeBanner.vue'
+import MiningDemoGauges from '@/components/pages/Farms/MiningDemoGauges.vue'
+import InlineInformation from '@/components/modules/InlineInformation.vue'
+import DropdownUi from '@/components/modules/DropdownUi.vue'
 export default {
   name: 'MiningLandingPage',
   data() {
     return {
       timeout: false,
       timeoutFunction: false,
+      inlineInformationPayload: {
+        title: `Demo Mining Overview.`,
+        className: 'neutral',
+        data: `We're still working on this section. In the meantime, here's a demo version of our Hashboard Mining Overview.`,
+      },
+      sitesDropdown: [
+        'All Farms', 'Camcy Icora',
+        'Iros',
+        'Laosnia Damyan',
+        'Landle Mapantu',
+        'Custa Sternsounited',
+        'Niare',
+        'Guaynka Puarbru',
+        'Western Nianewmau',
+        'North Biama',
+        'Galla',
+      ],
     }
   },
   computed: {
@@ -50,6 +59,7 @@ export default {
     },
   },
   components: {
+    MiningDemoGauges, WelcomeBanner, InlineInformation, DropdownUi,
   },
   methods: {
     walletShortName, doDisconnect,
@@ -80,6 +90,16 @@ export default {
 @import '@/assets/scss/constants';
 @import '@/assets/scss/ui';
 
+.flex-overview {
+  min-height: 100vh;
+  background: var(--neutral-10);
+  align-content: baseline;
+
+  >div:last-of-type {
+    margin-bottom: auto;
+  }
+}
+
 .modal-relative {
   margin: 40px auto;
   height: max-content;
@@ -102,7 +122,8 @@ export default {
   margin: 20px auto;
   display: block;
 }
-h1{
+
+h1 {
   justify-content: center;
   align-items: center;
 }
@@ -127,7 +148,4 @@ p {
 .page-inner {
   background: var(--neutral-7);
 }
-
-
-
 </style>

@@ -57,3 +57,4 @@ Hashboard must facilitate investors' and shareholders' transparent access to Zet
 This log attempts to chronicle significant changes across all components of the ZH technical framework.
 
 - CDN - update Zettahash Dao Token symbol name for add-to-metamask function
+- Hashboard components built after April 2024 should use Composition API

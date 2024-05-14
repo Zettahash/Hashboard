@@ -5,6 +5,7 @@ import router from './router'
 import timeago from 'vue-timeago3'
 import { BootstrapIconsPlugin } from "bootstrap-icons-vue";
 
+
 const app = createApp({
   render: () => h(App),
 })

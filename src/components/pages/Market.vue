@@ -1,28 +1,33 @@
 <template lang="html">
-  <div class="flex-overview demo">
+  <div class="flex-overview">
+    <InlineInformation :payload="{
+        title: `Demo Market Overview.`,
+        className: 'neutral',
+        data: `We're still working on this section. In the meantime, here's a demo of our Markets Overview.`,
+      }" />
+
       <div class="ui-ele">
         <h1 class="title">Markets</h1>
         <p>Here you can find data on ZH trading prices as well as links to exchanges listing ZH.</p>
       </div>
+        <ZHTVChart :width="width" :height="height" />
+<UniSwap />
 
-      <iframe id="dextools-widget" title="DEXTools Trading Chart" :width="width" :height="height"
-        src="https://www.dextools.io/widget-chart/en/ether/pe-light/0x501a9614b47040b84033147adae98a0b097e8981?theme=dark&chartType=2&chartResolution=30&drawingToolbars=false"></iframe>
-      <PlacesToBuyZH />
-    <div class="text-overlay exempt">
-      <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
-      <p>We're working on this section.</p>
-      <p>Visit <router-link :to="{ name: 'consensus' }" class="link">Consensus</router-link> for updates.</p>
-    </div>
   </div>
 </template>
 <script>
-import PlacesToBuyZH from './../tiles/PlacesToBuyZH.vue'
 import { mapGetters } from 'vuex';
+import InlineInformation from '@/components/modules/InlineInformation.vue'
+import ZHTVChart from '../charts/ZHTVChart.vue';
+import UniSwap from '../modules/UniSwap.vue';
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'Market',
   components: {
-    PlacesToBuyZH,
+    InlineInformation,
+    ZHTVChart,
+    UniSwap,
   },
   mounted() {
     this.routeLoaded()
@@ -63,4 +68,6 @@ export default {
   border-radius: $radius1;
   margin: auto;
 }
+.title{margin-bottom:5px !important; }
+spacer{min-height: 100vh;}
 </style>

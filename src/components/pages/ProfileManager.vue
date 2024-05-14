@@ -22,7 +22,7 @@
             </p>
             <div class="break"></div>
           </div>
-          <div class="head"><span>Use <b>{{ ens.name }}</b> instead of #{{ hasherName() }}, as your display name.<br><small class="notice"><i class="i-alert-triangle"></i> Your Consensus profile will still display "{{ hasherName() }}" while we work on this feature.</small></span>
+          <div class="head"><span>Use <b>{{ ens.name }}</b> instead of #{{ hasherName() }}, as your display name.<br><small class="notice"><i class="i-alert-triangle"></i> Some layouts will continue to display "#Hasher {{ hasherName() }}".</small></span>
             <a @click="toggleUseENS()"><i :class="`switch-indicator ${(ensEnabled ? 'on' : 'off')}`"></i></a>
           </div>
         </div>

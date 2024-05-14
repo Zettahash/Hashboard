@@ -3,8 +3,17 @@ module.exports = defineConfig({
   devServer: {
     https: false,
   },
-  transpileDependencies: true
-
+  transpileDependencies: true,
+  configureWebpack: {
+    resolve: {
+      fallback: {
+        "fs":false,
+        "http": require.resolve("stream-http"),
+        "https": require.resolve("https-browserify"),
+        "path": require.resolve("path-browserify")
+      }
+    }
+  }
 })
 
 // eslint-disable-next-line no-unused-vars

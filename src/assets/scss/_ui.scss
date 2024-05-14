@@ -358,7 +358,9 @@
     }
   }
 }
-
+.neutral{
+  color: var(--primary);
+}
 .good {
   color: var(--light-moss);
   &.plus {
