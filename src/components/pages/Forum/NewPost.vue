@@ -39,12 +39,12 @@
 </script>
 <script>
 import { mapGetters } from 'vuex';
-import { quillEditor } from 'vue3-quill'
+// import { quillEditor } from 'vue3-quill'
 
 export default {
   name: 'NewPost',
   components: {
-    quillEditor,
+    // quillEditor,
   },
   data() {
     return {
@@ -170,10 +170,10 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "@/assets/scss/_quill.scss";
+@import "/src/assets/scss/_quill.scss";
 </style>
 <style lang="scss" scoped>
-@import "@/assets/scss/_constants.scss";
+@import "/src/assets/scss/_constants.scss";
 
 .btn-link {
   width: max-content;

@@ -12,7 +12,7 @@
       :title="item.model"
       @click.stop="expandedRow.indexOf(index) > -1 ? (expandedRow.splice(index, 1)) : (expandedRow.push(index))">
       <div class="product">
-        <img :src="require(`@/assets/img/devices/${item.image_url}`)">
+        <img :src="`src/assets/img/devices/${item.image_url}`">
         <div class="info">
           <h2>{{ item.manufacturer }}</h2>
           <h3>{{ item.series }}</h3>
@@ -33,7 +33,7 @@
         <tbody>
           <tr>
             <td class="always-shown">
-              <div> <img :src="require(`@/assets/img/flags/${item.location_country_code.toLowerCase()}.svg`)"> {{
+              <div> <img :src="`src/assets/img/flags/${item.location_country_code.toLowerCase()}.svg`"> {{
                 item.location }}</div>
             </td>
             <td>
@@ -60,7 +60,7 @@
 <script>
 
 import { mapGetters } from 'vuex';
-import { getIcon } from '@/utils/general'
+import { getIcon } from '@/utils/general.js'
 import InlineInformation from '@/components/modules/InlineInformation.vue'
 
 
@@ -167,8 +167,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
-@import '@/assets/scss/ui';
+@import 'src/assets/scss/constants';
+@import 'src/assets/scss/ui';
 
 .item {
   display: flex;

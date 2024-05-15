@@ -26,7 +26,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 
 .parent-flex {
   width: $ui-width;

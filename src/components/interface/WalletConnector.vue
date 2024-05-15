@@ -10,14 +10,14 @@ import { mapGetters } from 'vuex';
 import { genericABI } from '@/components/data/genericABI'
 import { createWeb3Modal, defaultConfig, useWeb3ModalAccount } from '@web3modal/ethers5/vue'
 import { providers, Contract } from 'ethers'
-const alchemyKey = process.env.VUE_APP_ALCHEMY_API_KEY;
+const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY;
 
-const projectId = process.env.VUE_APP_WALLET_CONNECT_PROJECT_ID;
+const projectId = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID;
 const metadata = {
   name: 'Zettahash Hashboard',
   description: 'Zettahash Hashboard',
   url: 'https://hashboard.zettahash.org',
-  icons: [require('@/assets/img/tokens/zh.png')]
+  icons: ['/src/assets/img/tokens/zh.png']
 }
 
 const mainnet = {
@@ -140,7 +140,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 a {
   cursor: pointer;
   color: var(--neutral-6);

@@ -11,7 +11,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { walletShortName } from '@/utils/strings.js'
-import { doDisconnect } from '@/utils/wallet'
+import { doDisconnect } from '@/utils/wallet.js'
 import WelcomeBanner from '@/components/modules/WelcomeBanner.vue'
 import MiningDemoGauges from '@/components/pages/Farms/MiningDemoGauges.vue'
 import InlineInformation from '@/components/modules/InlineInformation.vue'
@@ -87,8 +87,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
-@import '@/assets/scss/ui';
+@import 'src/assets/scss/constants';
+@import 'src/assets/scss/ui';
 
 .flex-overview {
   min-height: 100vh;
@@ -129,7 +129,7 @@ h1 {
 }
 
 p {
-  max-width: $ui-width / 2;
+  max-width: calc($ui-width / 2);
   margin: 20px auto;
   display: block;
   text-align: center;

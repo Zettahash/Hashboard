@@ -14,9 +14,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { Client712 } from '@snapshot-labs/snapshot.js';
+import  snapshot  from '@snapshot-labs/snapshot.js';
 import { providers } from 'ethers'
-const client = new Client712('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
+const client = new snapshot.Client712('https://hub.snapshot.org', { relayerURL: 'https://hub.snapshot.org' })
 export default {
   name: "SpaceFollowUnfollow",
   data() {

@@ -70,7 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/_constants.scss";
+@import "/src/assets/scss/_constants.scss";
 
 .notifications {
   position: fixed;

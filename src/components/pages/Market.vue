@@ -58,11 +58,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
-@import '@/assets/scss/ui';
+@import 'src/assets/scss/constants';
+@import 'src/assets/scss/ui';
 </style>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 #dextools-widget {
   border: 0;
   border-radius: $radius1;

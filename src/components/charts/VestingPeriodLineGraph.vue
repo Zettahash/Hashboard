@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import VestingPeriodChartStats from '@/components/charts/VestingPeriodChartStats'
-import VestingPeriodHeaderRecipient from '@/components/modules/VestingPeriodHeaderRecipient'
+import VestingPeriodChartStats from '@/components/charts/VestingPeriodChartStats.vue'
+import VestingPeriodHeaderRecipient from '@/components/modules/VestingPeriodHeaderRecipient.vue'
 import {
   Chart as ChartJS,
   CategoryScale,

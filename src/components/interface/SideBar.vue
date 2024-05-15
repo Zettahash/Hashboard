@@ -62,10 +62,7 @@
               @mouseenter="labelify"
               @mouseleave="unlabelify"
             >
-              <img
-                :src="
-                  require('@/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png')
-                "
+              <img src="/src/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png"
                 class="icon"
               />
               <span>Hedgey Vesting</span>
@@ -180,13 +177,13 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { profileImg, hasherName } from "@/utils/forum";
-import { walletShortName } from "@/utils/strings";
+import { profileImg, hasherName } from "@/utils/forum.js";
+import { walletShortName } from "@/utils/strings.js";
 import { useDisconnect } from "@web3modal/ethers5/vue";
-import { getIcon } from "@/utils/general";
-import Zed from "@/components/interface/Zed";
+import { getIcon } from "@/utils/general.js";
+import Zed from "@/components/interface/Zed.vue";
 import WalletConnector from "./WalletConnector.vue";
-import SidebarToggle from "@/components/interface/SidebarToggle";
+import SidebarToggle from "@/components/interface/SidebarToggle.vue";
 const { disconnect } = useDisconnect();
 export default {
   name: "SideBar",
@@ -324,8 +321,8 @@ export default {
 }
 </style>
 <style lang="scss">
-@import "@/assets/scss/constants";
-@import "@/assets/scss/sidebar";
+@import "/src/assets/scss/constants";
+@import "/src/assets/scss/sidebar";
 
 .wallet-icon {
   background: var(--neutral-10);

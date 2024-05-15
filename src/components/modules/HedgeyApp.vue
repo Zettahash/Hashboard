@@ -13,8 +13,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon, c2c, scrollTo } from '@/utils/general'
-import VestingTable from '@/components/modules/VestingTable'
+import { getIcon, c2c, scrollTo } from '@/utils/general.js'
+import VestingTable from '@/components/modules/VestingTable.vue'
 export default {
   name: 'HedgeyApp',
   data() {
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/wallet-ui';
+@import 'src/assets/scss/wallet-ui';
 
 .link-wrapper {
   padding: 5px 10px 5px 15px;

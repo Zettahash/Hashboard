@@ -1,7 +1,7 @@
 <template lang="">
   <div class="flex-overview">
   <div>
-  <h2><img :src="require('@/assets/img/providers/safe.png')"/>SAFE</h2>
+  <h2><img :src="'/src/assets/img/providers/safe.png'"/>SAFE</h2>
   <p>Select any wallet to view directly on SAFE.</p>
   </div>
     <WalletsUI provider="SAFE" />
@@ -36,12 +36,12 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '@/assets/scss/constants';
-@import '@/assets/scss/ui';
+@import 'src/assets/scss/constants';
+@import 'src/assets/scss/ui';
 </style>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 h2{display: flex;gap:15px;
   align-items: center;
 img{

@@ -4,25 +4,25 @@ const getIcon = function (img, folder) {
     return img
   } else if (Array.isArray(img)) { folder = img[1]; img = img[0]; }
   let imgName = img.toLowerCase().replace(/-/g, '')
-  folder = folder ? folder : '@/assets/img/tokens/'
+  folder = folder ? folder : '/src/assets/img/tokens/'
   try {
-    return require(`${folder}${imgName}`)
+    return `${folder}${imgName}`
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${imgName}.jpg`)
+    return `${folder}${imgName}.jpg`
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${imgName}.jpeg`)
+    return `${folder}${imgName}.jpeg`
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${imgName}.png`)
+    return `${folder}${imgName}.png`
   } catch (e) { console.log(e) }
   try {
-    return require(`${folder}${imgName}.svg`)
+    return `${folder}${imgName}.svg`
   } catch (e) { console.log(e) }
   try {
     let imgNameAlpha = imgName.replace(/-/g, '')
-    return require(`${folder}${imgNameAlpha}.png`)
+    return `${folder}${imgNameAlpha}.png`
   } catch (e) { console.log(e) }
 }
 

@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="flex-overview">
-    <div class="bg-overlay"> <img class="bg" :src="require('/src/assets/img/spiral.webp')"></div>
+    <div class="bg-overlay"> <img class="bg" :src="'/src/assets/img/spiral.webp'"></div>
     <div class="modal centre">
-      <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
+      <img class="icon" :src="'/src/assets/img/zh-circle.svg'">
       <h1>Zettahash Consensus</h1>
       <p v-if="error==false">Automatically redirecting you to our Zettahash Telegram Group<br><br><i class="spinner"></i></p>
       <p v-if="error!=false">
@@ -57,7 +57,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 
 .modal {
   margin: auto;

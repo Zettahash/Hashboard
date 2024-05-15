@@ -3,7 +3,7 @@
     <div class="full-width-header">
     </div>
     <div class="page-inner">
-      <img class="icon" :src="require('/src/assets/img/zh-circle.svg')">
+      <img class="icon" src="/src/assets/img/zh-circle.svg">
 
       <h1>Welcome to #Hashboard</h1>
       <p>ZH Token-holders get access to the #Hashboard and can participate in the DAO Governance.</p>
@@ -59,9 +59,9 @@
       </template>
       <div class="container">
         <img class="img overlap-lower"
-          :src="require('/src/assets/img/design/6590e06479ac1d8d587b3952_dashdark-x-reports-page-dashboard-webflow-template.png')">
+          src="/src/assets/img/design/6590e06479ac1d8d587b3952_dashdark-x-reports-page-dashboard-webflow-template.png">
         <img class="img overlap-upper"
-          :src="require('/src/assets/img/design/6590e06479ac1d8d587b3954_dashdark-x-products-page-dashboard-webflow-template-p-500.png')">
+          src="/src/assets/img/design/6590e06479ac1d8d587b3954_dashdark-x-products-page-dashboard-webflow-template-p-500.png">
         <div class="text-overlay exempt">
           <p>Get Ready for next-level transparency.</p>
           <p v-if="application.zhHolderBool"><router-link :to="{ name: 'mining' }" class="btn">Enter
@@ -145,7 +145,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 
 .section{
   box-shadow: 0 0 0 1px var(--neutral-4);
@@ -208,7 +208,7 @@ h1{
 }
 
 p {
-  max-width: $ui-width / 2;
+  max-width: calc($ui-width / 2);
   margin: 20px auto;
   display: block;
   text-align: center;

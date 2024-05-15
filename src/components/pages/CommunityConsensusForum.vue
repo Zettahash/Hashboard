@@ -28,7 +28,7 @@ import NewPost from '@/components/pages/Forum/NewPost.vue';
 import PreviewPost from '@/components/pages/Forum/PreviewPost.vue';
 import ForumTopics from '@/components/pages/Forum/ForumTopics.vue';
 import ForumTopicsShortcuts from '@/components/pages/Forum/ForumTopicsShortcuts.vue';
-import { profileImg, hasherName } from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum.js'
 
 export default {
   name: 'CommunityConsensusForum',

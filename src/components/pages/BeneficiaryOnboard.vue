@@ -89,15 +89,15 @@
               <div class="inline" v-if="activeRound.name !== openRound.name">
                 <div class="checkbox-container">
                   <input type="checkbox" checked disabled />
-                  <img :src="require('/src/assets/img/checkbox.svg')" />
+                  <img :src="'/src/assets/img/checkbox.svg'" />
                 </div>
                 <p>I understand that I am Purchasing ZH in {{ openRound.name }}.</p>
               </div>
               <div class="inline">
                 <div class="checkbox-container">
                   <input type="checkbox" v-model="policyAccepted" />
-                  <img v-if="!policyAccepted" :src="require('/src/assets/img/open-checkbox.svg')" />
-                  <img v-if="policyAccepted" :src="require('/src/assets/img/checkbox.svg')" />
+                  <img v-if="!policyAccepted" :src="'/src/assets/img/open-checkbox.svg'" />
+                  <img v-if="policyAccepted" :src="'/src/assets/img/checkbox.svg'" />
                 </div>
                 <p>I agree that I am not a citizen of United States or Canada.</p>
               </div>
@@ -426,12 +426,12 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '@/assets/scss/constants';
-@import '@/assets/scss/ui';
+@import 'src/assets/scss/constants';
+@import 'src/assets/scss/ui';
 </style>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 
 h3,
 h4 {

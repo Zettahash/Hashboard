@@ -42,7 +42,7 @@
 import { mapGetters } from 'vuex';
 import WalletConnector from './WalletConnector.vue'
 import { walletShortName } from '@/utils/strings.js'
-import { doDisconnect } from '@/utils/wallet'
+import { doDisconnect } from '@/utils/wallet.js'
 
 export default {
   name: 'PayWall',
@@ -98,7 +98,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 .modal-stationary {
   margin: 50px auto auto auto;
   height: auto;

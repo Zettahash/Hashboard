@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { walletShortName } from '@/utils/strings'
+import { walletShortName } from '@/utils/strings.js'
 export default {
   name: 'VestingPeriodHeaderRecipient',
   props: {

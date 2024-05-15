@@ -94,7 +94,7 @@
 import { mapGetters } from "vuex";
 import LoadingEle from "@/components/interface/LoadingEle.vue";
 import Proposal from "@/components/modules/Proposal.vue";
-import SpaceFollowUnfollow from "@/components/modules/SpaceFollowUnfollow"
+import SpaceFollowUnfollow from "@/components/modules/SpaceFollowUnfollow.vue"
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "AboutVoteProtocol",
@@ -183,6 +183,6 @@ export default {
 }
 </style>
 <style lang="scss">
-@import "@/assets/scss/_constants.scss";
-@import "@/assets/scss/_vote-ui.scss";
+@import "/src/assets/scss/_constants.scss";
+@import "/src/assets/scss/_vote-ui.scss";
 </style>

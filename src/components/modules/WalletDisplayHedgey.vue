@@ -16,8 +16,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon, c2c, scrollTo } from '@/utils/general'
-import VestingTable from '@/components/modules/VestingTable'
+import { getIcon, c2c, scrollTo } from '@/utils/general.js'
+import VestingTable from '@/components/modules/VestingTable.vue'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   name: 'WalletDisplayHedgey',
@@ -154,7 +154,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/wallet-ui';
+@import 'src/assets/scss/wallet-ui';
 
 .cap {
   text-transform: uppercase;

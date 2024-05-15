@@ -6,8 +6,8 @@
   </div>
   <table>
   <tr><td>Price</td><td>Size ({{payload.exchange.unit}})</td><td>Sum ({{payload.exchange.unit}})</td></tr>
-  <template v-for="object, index of payload.orders">
-    <tr :key="index" :class="object.price >= 0.0837 ? 'good-hover':'bad-hover'">
+  <template>
+    <tr v-for="object, index of payload.orders" :key="index" :class="object.price >= 0.0837 ? 'good-hover':'bad-hover'">
       <td :class="object.price >= 0.0837 ? 'good':'bad'">{{object.price}}</td>
       <td>{{object.size}}</td>
       <td>{{object.sum}}</td>

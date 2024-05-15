@@ -5,7 +5,7 @@ import PercentSemiCircle from '@/components/charts/PercentSemiCircle.vue'
 const props = defineProps(['tileName', 'tileUnit', 'tileValueRelative', 'tileValue', 'chartData'])
 
 function autoIcon(str) {
-  return require(`@/assets/img/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`)
+  return `src/assets/img/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`
 }
 const chartData = Array.isArray(props.chartData)?props.chartData:(props.chartData.indexOf('[')==0 && props.chartData.indexOf(']')==props.chartData.length-1?JSON.parse(props.chartData):[])
 </script>
@@ -32,7 +32,7 @@ const chartData = Array.isArray(props.chartData)?props.chartData:(props.chartDat
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 
 .tile {
   display: flex;

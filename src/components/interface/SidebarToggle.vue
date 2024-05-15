@@ -50,7 +50,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  @import '@/assets/scss/constants';
+  @import 'src/assets/scss/constants';
   .sidebar-toggle {
   color: var(--neutral-2);
   transition: 200ms ease;

@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import { getIcon } from '@/utils/general'
+import { getIcon } from '@/utils/general.js'
 import { mapGetters } from 'vuex';
 export default {
   name: 'ProtocolVotingLocations',
@@ -42,8 +42,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
-@import '@/assets/scss/ui';
+@import 'src/assets/scss/constants';
+@import 'src/assets/scss/ui';
 .product-icon {
   grid-row: 1/3;
 

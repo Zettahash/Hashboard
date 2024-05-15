@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
-@import '@/assets/scss/nav';
+@import 'src/assets/scss/constants';
+@import 'src/assets/scss/nav';
 
 </style>

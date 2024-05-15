@@ -59,6 +59,6 @@ export default {
 }
 </style>
 <style lang="scss">
-@import '@/assets/scss/_constants.scss';
-@import '@/assets/scss/_vote-ui.scss';
+@import 'src/assets/scss/_constants.scss';
+@import 'src/assets/scss/_vote-ui.scss';
 </style>

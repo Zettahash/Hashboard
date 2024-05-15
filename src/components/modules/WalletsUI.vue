@@ -31,7 +31,7 @@
                 :title="item.date">
                 <div class="head">
                   <img class="coin-icon"
-                    :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
+                    :src="`src/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
                   <div class="head-text">
                     <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
       item.badge
@@ -43,9 +43,7 @@
                 </div>
               </div>
             </div>
-            <HedgeyApp :provider="provider" :address="consistentAddress(value).address" :walletKey="key"
-              @set-application-open="app[key] = 'Hedgey.'; scrollTo($refs[key])"
-              @set-application-closed="app[key] = false" />
+            <HedgeyApp :provider="provider" :address="consistentAddress(value).address" :walletKey="key" @set-application-open="(app[key] = 'Hedgey.', scrollTo($refs[key]))"  @set-application-closed="app[key] = false" />
           </template>
         </div>
       </template>
@@ -54,8 +52,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon, c2c, scrollTo } from '@/utils/general'
-import HedgeyApp from '@/components/modules/HedgeyApp'
+import { getIcon, c2c, scrollTo } from '@/utils/general.js'
+import HedgeyApp from '@/components/modules/HedgeyApp.vue'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   name: 'WalletsUI',
@@ -206,7 +204,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/wallet-ui';
+@import 'src/assets/scss/wallet-ui';
 
 .link-wrapper {
   padding: 5px 10px 5px 15px;

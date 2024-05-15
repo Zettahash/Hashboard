@@ -22,7 +22,7 @@ export default {
   }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 .inline-information {
   display: grid;
   grid-template-columns: 1fr auto;

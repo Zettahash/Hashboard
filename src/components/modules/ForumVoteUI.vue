@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import { voteTopic } from '@/utils/forum'
+import { voteTopic } from '@/utils/forum.js'
 
 export default {
   name: 'ForumVoteUI',

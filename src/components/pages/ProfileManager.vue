@@ -41,7 +41,7 @@
 <script setup>
 import { computed, onMounted, reactive, watch } from 'vue';
 import { useStore } from 'vuex';
-import { profileImg, hasherName, setProfile } from '@/utils/forum';
+import { profileImg, hasherName, setProfile } from '@/utils/forum.js';
 import { providers } from 'ethers';
 
 const store = useStore();

@@ -150,7 +150,7 @@ a {
     &.not-loaded {
       &:not([data-zhHolder="no"]) {
         &::after {
-          content: url(/src/assets/img/spinner.svg);
+          content: url(src/assets/img/spinner.svg);
           height: 100px;
           width: 100px;
           position: absolute;

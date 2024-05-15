@@ -47,7 +47,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { profileImg, hasherName } from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum.js'
 import NewComment from './NewComment.vue'
 import TopicReplies from './TopicReplies.vue'
 import { ref } from "vue";
@@ -109,8 +109,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "@/assets/scss/_constants.scss";
-@import "@/assets/scss/_forum.scss";
+@import "/src/assets/scss/_constants.scss";
+@import "/src/assets/scss/_forum.scss";
 
 .stats-organiser {
   display: flex;

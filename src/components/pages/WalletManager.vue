@@ -21,9 +21,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { profileImg, hasherName } from '@/utils/forum'
-import { walletShortName } from '@/utils/strings'
-import { getBalanceInstance, doDisconnect } from '@/utils/wallet'
+import { profileImg, hasherName } from '@/utils/forum.js'
+import { walletShortName } from '@/utils/strings.js'
+import { getBalanceInstance, doDisconnect } from '@/utils/wallet.js'
 import UserWalletsUI from '@/components/modules/UserWalletsUI.vue'
 
 export default {

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="flex-overview">
     <div class="ui-ele">
-      <h1><img :src="require('@/assets/img/providers/65da72d13d4f02927b3d58bf_snapshot.png')" />Voting Spaces</h1>
+      <h1><img :src="'/src/assets/img/providers/65da72d13d4f02927b3d58bf_snapshot.png'" />Voting Spaces</h1>
       <p>Zettahash governance using the Snapshot protocol.</p>
       <LoadingEle :stop="(snapshot && snapshotUser) ? true : false" :long="true" />
       <template v-if="snapshot && snapshotUser">
@@ -29,7 +29,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import SpaceFollowUnfollow from "@/components/modules/SpaceFollowUnfollow"
+import SpaceFollowUnfollow from "@/components/modules/SpaceFollowUnfollow.vue"
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -56,6 +56,7 @@ export default {
     },
   },
   created() {
+    console.log("loaded: snapshotUser")
     this.$store.dispatch('getSnapshotUser', { address: this.wallet, store: this.$store });
   },
   async mounted() {

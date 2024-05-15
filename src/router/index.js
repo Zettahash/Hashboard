@@ -1,32 +1,32 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
-import LincoinAccountant from '@/components/pages/Farms/Lincoin/Accountant'
-import LincoinManager from '@/components/pages/Farms/Lincoin/Manager'
-import OceanManager from '@/components/pages/Farms/Ocean/Manager'
-import PrivateSale from '@/components/pages/PrivateSale'
-import MattermostRouter from '@/components/pages/MattermostRouter'
-import MiningLandingPage from '@/components/pages/MiningLandingPage'
-import LandingPage from '@/components/pages/LandingPage'
-import Vote from '@/components/pages/Vote'
-import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings'
-import Market from '@/components/pages/Market'
-import SafeTreasury from '@/components/pages/Treasury/Safe/Treasury'
-import SpecterTreasury from '@/components/pages/Treasury/Specter/Treasury'
-import DAOTreasury from '@/components/pages/Treasury/Treasury'
-import HedgeyVesting from '@/components/pages/Treasury/Hedgey/HedgeyVesting'
-import Assets from '@/components/pages/Assets'
-import BeneficiaryOnboard from '@/components/pages/BeneficiaryOnboard'
+import LincoinAccountant from '@/components/pages/Farms/Lincoin/Accountant.vue'
+import LincoinManager from '@/components/pages/Farms/Lincoin/Manager.vue'
+import OceanManager from '@/components/pages/Farms/Ocean/Manager.vue'
+import PrivateSale from '@/components/pages/PrivateSale.vue'
+import MattermostRouter from '@/components/pages/MattermostRouter.vue'
+import MiningLandingPage from '@/components/pages/MiningLandingPage.vue'
+import LandingPage from '@/components/pages/LandingPage.vue'
+import Vote from '@/components/pages/Vote.vue'
+import LedgerWalletsHoldings from '@/components/pages/LedgerWalletsHoldings.vue'
+import Market from '@/components/pages/Market.vue'
+import SafeTreasury from '@/components/pages/Treasury/Safe/Treasury.vue'
+import SpecterTreasury from '@/components/pages/Treasury/Specter/Treasury.vue'
+import DAOTreasury from '@/components/pages/Treasury/Treasury.vue'
+import HedgeyVesting from '@/components/pages/Treasury/Hedgey/HedgeyVesting.vue'
+import Assets from '@/components/pages/Assets.vue'
+import BeneficiaryOnboard from '@/components/pages/BeneficiaryOnboard.vue'
 
-import VoteProtocolTreasury from '@/components/pages/Vote/VoteProtocolTreasury'
-import Proposals from '@/components/pages/Vote/Proposals'
-import AboutVoteProtocol from '@/components/pages/Vote/AboutVoteProtocol'
+import VoteProtocolTreasury from '@/components/pages/Vote/VoteProtocolTreasury.vue'
+import Proposals from '@/components/pages/Vote/Proposals.vue'
+import AboutVoteProtocol from '@/components/pages/Vote/AboutVoteProtocol.vue'
 
 
-import ViewTopic from '@/components/pages/Forum/ViewTopic'
-import NewPostWrapper from '@/components/pages/Forum/NewPostWrapper'
-import ProfileManager from '@/components/pages/ProfileManager'
-import WalletManager from '@/components/pages/WalletManager'
+import ViewTopic from '@/components/pages/Forum/ViewTopic.vue'
+import NewPostWrapper from '@/components/pages/Forum/NewPostWrapper.vue'
+import ProfileManager from '@/components/pages/ProfileManager.vue'
+import WalletManager from '@/components/pages/WalletManager.vue'
 
 // -Private Sale: will be important so that they can purchase the ZH token. We use the BTCPay that we have hosted on Voltage.
 
@@ -43,7 +43,7 @@ import WalletManager from '@/components/pages/WalletManager'
 // -Assets should show historical revenue and profits. This can actually be combined with the Live Hashrate page.
 const app = createApp({})
 
-const title = process.env.VUE_APP_APPLICATION_NAME
+const title = import.meta.env.VITE_APPLICATION_NAME
 
 const routes = [
   
@@ -509,7 +509,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: import.meta.env.BASE_URL,
   routes
 })
 app.use(router)

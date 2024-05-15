@@ -102,7 +102,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 .proposal {
   display: grid;
   gap: 20px;

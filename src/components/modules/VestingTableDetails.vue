@@ -56,8 +56,8 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon, c2c } from '@/utils/general'
-import VestingPeriodLineGraph from '@/components/charts/VestingPeriodLineGraph'
+import { getIcon, c2c } from '@/utils/general.js'
+import VestingPeriodLineGraph from '@/components/charts/VestingPeriodLineGraph.vue'
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
 export default {
   name: "VestingTableDetails",
@@ -116,7 +116,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '@/assets/scss/wallet-ui';
+@import 'src/assets/scss/wallet-ui';
 </style>
 <style lang="scss" scoped>
 .spinner {

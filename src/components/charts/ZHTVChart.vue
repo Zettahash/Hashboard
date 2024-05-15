@@ -1,6 +1,5 @@
 <script setup>
-import VueTradingView from 'vue-trading-view/src/vue-trading-view'
-import {defineProps} from 'vue'
+import VueTradingView from 'vue-trading-view'
 const props = defineProps(['width', 'height'])
 const opts = {
       symbol: 'UNISWAP3ETH:ZHDUSDT',

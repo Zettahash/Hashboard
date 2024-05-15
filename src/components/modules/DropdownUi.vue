@@ -20,7 +20,7 @@
 </div>
 </template>
 <script setup>
-import { reactive, defineProps, defineEmits } from 'vue'
+import { reactive } from 'vue'
 const props = defineProps(['dropdownOptions', 'activeKey', 'dropdownTitle'])
 const emit = defineEmits(['setActive'])
 

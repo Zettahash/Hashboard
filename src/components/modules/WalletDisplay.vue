@@ -14,7 +14,7 @@
           <div v-for="(item, key) of walletBalances" :class="`block ui-ele ${key} ${item.currency}`" :key="key">
             <div class="head">
               <img class="coin-icon"
-                :src="require(`@/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`)">
+                :src="`src/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
               <div class="head-text">
                 <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
                   item.badge
@@ -32,7 +32,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon, c2c, scrollTo } from '@/utils/general'
+import { getIcon, c2c, scrollTo } from '@/utils/general.js'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 export default {
   name: 'WalletDisplay',
@@ -169,7 +169,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '@/assets/scss/wallet-ui';
+@import 'src/assets/scss/wallet-ui';
 
 .cap {
   text-transform: uppercase;

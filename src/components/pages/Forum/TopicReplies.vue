@@ -37,7 +37,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { profileImg, hasherName } from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum.js'
 import LoadingEle from '@/components/interface/LoadingEle.vue'
 import ForumVoteUI from '@/components/modules/ForumVoteUI.vue'
 export default {
@@ -82,12 +82,12 @@ export default {
 }
 </script>
 <style lang="scss">
-@import "@/assets/scss/_constants.scss";
-@import "@/assets/scss/_forum.scss";
+@import "/src/assets/scss/_constants.scss";
+@import "/src/assets/scss/_forum.scss";
 </style>
 <style lang="scss" scoped>
-@import "@/assets/scss/_constants.scss";
-@import "@/assets/scss/_forum.scss";
+@import "/src/assets/scss/_constants.scss";
+@import "/src/assets/scss/_forum.scss";
 
 .forum-topics {
   width: 100%;

@@ -9,14 +9,14 @@
   </div>
 </template>
 <script setup>
-import { profileImg, hasherName } from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum.js'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 const store = useStore()
 const forumProfile = computed(() => store.state.forumProfile)
 const ens = computed(() => store.state.ens)
 const ensEnabled = computed(() => {
-  if (!forumProfile) { return false }
+  if (!forumProfile.value) { return false }
   if (String(forumProfile.value.data).indexOf('noens') >= 0) { return false }
   return forumProfile.value.ens === ens.value.name ? true : false
 })

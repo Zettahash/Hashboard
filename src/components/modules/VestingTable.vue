@@ -36,9 +36,9 @@
                 </td>
                 <td colspan="1" data-header="Token">
                   <div class="icon-stack horizontal">
-                    <img :src="require(`@/assets/img/tokens/${item.network.substring(0, 3).toLowerCase()}.png`)" alt="">
+                    <img :src="`src/assets/img/tokens/${item.network.substring(0, 3).toLowerCase()}.png`" alt="">
                     <img
-                      :src="require(`@/assets/img/tokens/${item.dealPurchase[0].assetCurrency.ticker.substring(0, 3).toLowerCase()}.png`)"
+                      :src="`src/assets/img/tokens/${item.dealPurchase[0].assetCurrency.ticker.substring(0, 3).toLowerCase()}.png`"
                       alt="">
                   </div>
                   <div class="col">
@@ -81,9 +81,9 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { getIcon, c2c } from '@/utils/general'
-import { walletShortName } from '@/utils/strings'
-import VestingTableDetails from '@/components/modules/VestingTableDetails'
+import { getIcon, c2c } from '@/utils/general.js'
+import { walletShortName } from '@/utils/strings.js'
+import VestingTableDetails from '@/components/modules/VestingTableDetails.vue'
 export default {
   name: "VestingTable",
   data() {
@@ -127,10 +127,10 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '@/assets/scss/wallet-ui';
+@import 'src/assets/scss/wallet-ui';
 </style>
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 .spinner {
   margin-left: 10px;
   height: 1rem;

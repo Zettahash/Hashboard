@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = "http://localhost:3000"//"https://zettahash-hashboard-middleware.vercel.app"//process.env.VUE_APP_MIDDLEWARE_URL
+const endpoint = "http://localhost:3000"//"https://zettahash-hashboard-middleware.vercel.app"//import.meta.env.VITE_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
@@ -9,7 +9,7 @@ const actions = {
 
     commit("setDynamic", {
       item: 'version',
-      value: process.env.VUE_APP_GIT_HASH
+      value: import.meta.env.VITE_GIT_HASH
     })
     for (const [key, value] of Object.entries(localStorage)) {
       commit("setDynamic", {
@@ -21,7 +21,7 @@ const actions = {
 
     commit("setDynamic", {
       item: 'name',
-      value: process.env.VUE_APP_APPLICATION_NAME
+      value: import.meta.env.VITE_APPLICATION_NAME
     })
 
     commit('setDynamic', { item: 'applicationLoaded', value: true })
@@ -92,22 +92,22 @@ const actions = {
           if (data.payload) {
             try {
               commit("setHoldingsBTC", data.payload.btc.response)
-            } catch (e) { }
+            } catch(e){ console.log("Missing data:" + e) }
             try {
               commit("setHoldingsETH", data.payload.eth.response)
-            } catch (e) { }
+            } catch(e){ console.log("Missing data:" + e) }
             try {
               commit("setRates", data.payload.cached_exchange_rates)
-            } catch (e) { }
+            } catch(e){ console.log("Missing data:" + e) }
             try {
               commit("setPhysicalAssets", data.payload.physical_assets)
-            } catch (e) { }
+            } catch(e){ console.log("Missing data:" + e) }
             try {
               commit("setGraphQL", data.payload.graphQL)
               commit("setGraphQLDynamic", data.payload.graphQLDynamic)
               commit("setSnapshotSpaces", data.payload.snapshotSpaces)
               commit("setHedgeyGraphQL", data.payload.hedgeyGraphQL)
-            } catch (e) { }
+            } catch(e){ console.log("Missing data:" + e) }
           }
         })
     } catch (e) {
@@ -160,7 +160,7 @@ const actions = {
       payload.result = await result.json();
 
     } else {
-      console.log("no graphQL")
+      console.log("Missing Hedgey data: no graphQL")
     }
     return payload
   },
@@ -185,7 +185,7 @@ const actions = {
       )
       payload = await result.json();
     } else {
-      console.log("no graphQL")
+      console.log("Missing snapshot data: " + (!graphQL?'no graphQL ':' ') + ( !snapshotSpaces?'no snapshotSpaces':''))
     }
     commit("setSnapshot", payload)
   },
@@ -211,10 +211,11 @@ const actions = {
         )
         payload[key] = await result.json();
       }
+      console.log("snapshotUser", payload)
       commit("setSnapshotUser", payload)
 
     } else {
-      console.log("no graphQLDynamic")
+      console.log("Missing snapshot data: no graphQLDynamic")
     }
   },
   initProfile({ commit, dispatch, getters, context }, payload) {

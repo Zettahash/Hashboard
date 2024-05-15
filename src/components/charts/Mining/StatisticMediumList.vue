@@ -4,7 +4,7 @@ import DropdownUi from '@/components/modules/DropdownUi.vue'
 const props = defineProps(['tileName', 'tileUnit', 'tileValueRelative', 'tileValue', 'filterOptions'])
 
 function autoIcon(str) {
-  return require(`@/assets/img/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`)
+  return `src/assets/img/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`
 }
 </script>
 
@@ -69,7 +69,7 @@ function autoIcon(str) {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/scss/constants';
+@import 'src/assets/scss/constants';
 
 .tile {
   display: flex;
