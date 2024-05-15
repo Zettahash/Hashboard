@@ -5,7 +5,9 @@
         <h1>Hi,</h1>
         <div class="hasher-name-organiser">
           <img :src="profileImg()" class="wallet-logo" />
-          <h2>Hasher #{{ hasherName() }}</h2>
+          <h2>
+            <template v-if="ensEnabled && ens.name">{{ ens.name }}</template>
+            <template v-else>Hasher #{{ hasherName() }}</template></h2>
         </div>
       </div>
 
@@ -22,8 +24,8 @@
             </p>
             <div class="break"></div>
           </div>
-          <div class="head"><span>Use <b>{{ ens.name }}</b> instead of #{{ hasherName() }}, as your display name.<br><small class="notice"><i class="i-alert-triangle"></i> Some layouts will continue to display "#Hasher {{ hasherName() }}".</small></span>
-            <a @click="toggleUseENS()"><i :class="`switch-indicator ${(ensEnabled ? 'on' : 'off')}`"></i></a>
+          <div class="head"><span>Use <b>{{ ens.name }}</b> instead of #{{ hasherName() }}, as your display name.<br><small class="notice"><i class="i-alert-triangle"></i> Some layouts will continue to display "Hasher #{{ hasherName() }}".</small></span>
+            <a @click="toggleUseENS()"><i :class="`switch-indicator ${(ensEnabled ? 'on' : 'off')} ${state.ensSwitchWorking?'working':''}`"></i></a>
           </div>
         </div>
         <div class="container compact" v-else>
@@ -35,63 +37,61 @@
     </div>
   </div>
 </template>
-<script>
-import { mapGetters } from 'vuex';
-import { profileImg, hasherName, setProfile } from '@/utils/forum'
-// eslint-disable-next-line no-unused-vars
-import { providers } from 'ethers'
 
+<script setup>
+import { computed, onMounted, reactive, watch } from 'vue';
+import { useStore } from 'vuex';
+import { profileImg, hasherName, setProfile } from '@/utils/forum';
+import { providers } from 'ethers';
 
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'ProfileManager',
-  computed: {
-    ...mapGetters({
-      application: 'application',
-      data: 'data',
-      snapshot: 'snapshot',
-      snapshotUser: 'snapshotUser',
-      wallet: 'wallet',
-      forumProfile: 'forumProfile',
-      ens: 'ens',
-    }),
-    ensEnabled() {
-      if (!this.forumProfile) { return false }
-      if (String(this.forumProfile.data).indexOf('noens') >= 0) { return false }
-      return this.forumProfile.ens === this.ens.name ? true : false
-    },
-  },
-  async mounted() {
-    this.routeLoaded()
-    const walletProvider = this.application.walletConnectModal.getWalletProvider()
-    const ethersProvider = new providers.Web3Provider(walletProvider)
-    let ensName = await ethersProvider.lookupAddress(this.wallet)
-    if (ensName) {
-      this.$store.commit("setENS", { name: ensName })
+const store = useStore();
 
-      const resolver = await ethersProvider.getResolver(ensName)
-      const avatar = await resolver.getAvatar()
-      const avatarMetaData = await resolver.getText(avatar)
-      console.log(`Avatar Metadata: ${avatarMetaData}`)
-    }
-  },
-  components: {
-  },
-  methods: {
-    setProfile,
-    toggleUseENS() {
-      let ens = this.ensEnabled ? 'noens' : 'ens'
-      this.setProfile(ens)
-    },
-    routeLoaded() {
-      this.$store.commit('setDynamic', {
-        item: 'routerLoaded',
-        value: true
-      })
-    }, profileImg, hasherName,
+const application = computed(() => store.getters.application);
+const wallet = computed(() => store.getters.wallet);
+const forumProfile = computed(() => store.getters.forumProfile);
+const ens = computed(() => store.getters.ens);
+
+const ensEnabled = computed(() => {
+  if (!forumProfile.value) return false;
+  if (String(forumProfile.value.data).indexOf('noens') >= 0) return false;
+  return forumProfile.value.ens === ens.value.name ? true : false;
+});
+
+onMounted(async () => {
+  routeLoaded();
+  const walletProvider = application.value.walletConnectModal.getWalletProvider();
+  const ethersProvider = new providers.Web3Provider(walletProvider);
+  let ensName = await ethersProvider.lookupAddress(wallet.value);
+  if (ensName) {
+    store.commit("setENS", { name: ensName });
+
+    const resolver = await ethersProvider.getResolver(ensName);
+    const avatar = await resolver.getAvatar();
+    const avatarMetaData = await resolver.getText(avatar);
+    console.log(`Avatar Metadata: ${avatarMetaData}`);
   }
-}
+});
+
+const state = reactive({
+  ensSwitchWorking:false,
+})
+watch(ensEnabled, () => {
+  state.ensSwitchWorking = false
+    });
+const toggleUseENS = () => {
+  state.ensSwitchWorking = true
+  let ensValue = ensEnabled.value ? 'noens' : 'ens';
+  setProfile(ensValue);
+};
+
+const routeLoaded = () => {
+  store.commit('setDynamic', {
+    item: 'routerLoaded',
+    value: true
+  });
+};
 </script>
+
 <style lang="scss" scoped>
 .container {
   display: grid;

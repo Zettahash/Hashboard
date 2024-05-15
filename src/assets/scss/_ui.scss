@@ -358,7 +358,7 @@
     }
   }
 }
-.neutral{
+.neutral {
   color: var(--primary);
 }
 .good {
@@ -389,7 +389,29 @@
   box-shadow: 0 0 0 2px;
   padding: 3px;
   margin: auto 10px;
-
+  position: relative;
+  &.working {
+    cursor: not-allowed;
+    &::after {
+      content: "";
+      height: 10px;
+      aspect-ratio: 1/1;
+      border-style: solid;
+      border-width: 2px;
+      border-color: var(--neutral-1);
+      border-top-color: transparent;
+      border-left-color: transparent;
+      display: block;
+      border-radius: 100px;
+      transition: 200ms ease;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      left: 5px;
+      animation: spin2 1000ms 0ms linear forwards infinite;
+    }
+  }
   &::before {
     content: "";
     height: 100%;
@@ -406,6 +428,14 @@
     &::before {
       transform: translateX(calc(100% + 6px));
       background: var(--light-moss);
+    }
+    &.working {
+      &::after {
+        border-bottom-color: var(--neutral-10);
+        border-right-color: var(--neutral-10);
+        right: 5px;
+        left: auto;
+      }
     }
   }
 }
@@ -868,15 +898,15 @@
       height: 1.5rem;
       width: 1.5rem;
     }
-    .counter{
-      &::before{
-  content: attr(data-numb);
-  font-style: normal;
-  font-size: 1.5rem;
-  font-weight: 900;
-  aspect-ratio: 1/1;
-  margin-right: 8px;
-  border-radius: 100px;
+    .counter {
+      &::before {
+        content: attr(data-numb);
+        font-style: normal;
+        font-size: 1.5rem;
+        font-weight: 900;
+        aspect-ratio: 1/1;
+        margin-right: 8px;
+        border-radius: 100px;
         display: flex;
         height: 2rem;
         width: 2rem;
@@ -886,7 +916,6 @@
         color: var(--bg);
         mix-blend-mode: color-dodge;
       }
-
     }
     .text-vertical {
       display: flex;
@@ -894,8 +923,8 @@
       gap: 4px;
       small {
         font-size: calc($font-small / ($r * 1.2));
-        span{
-          opacity: .5;
+        span {
+          opacity: 0.5;
         }
       }
     }
@@ -963,19 +992,19 @@
   .pc {
     text-align: right;
   }
-  .value{
+  .value {
     line-height: 1;
     font-weight: 600;
-    small{
-      opacity: .5;
-      font-size: .75rem;
-    font-weight: 400;
-    margin-top: 5px;
-    display: inline-block;
-  }
+    small {
+      opacity: 0.5;
+      font-size: 0.75rem;
+      font-weight: 400;
+      margin-top: 5px;
+      display: inline-block;
+    }
   }
 }
-.v-flex{
+.v-flex {
   display: flex;
   flex-direction: column;
   gap: 5px;

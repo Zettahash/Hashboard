@@ -1,6 +1,7 @@
 import { minidenticon } from 'minidenticons'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
+import rawStore from '../store'
 
 
 const profileImg = function (wallet) {
@@ -35,7 +36,7 @@ const hasherName = function (wallet, profile) {
 }
 
 const voteTopic = async function (property, direction) {
-  const store = useStore()
+  const store = rawStore
   const walletStore = computed(() => store.state.wallet)
   const forumPostsCache = computed(() => store.state.forumPostsCache)
   let topic_id = Array.isArray(property) ? property[0] : property
@@ -59,13 +60,13 @@ const voteTopic = async function (property, direction) {
       }
       temp.push(tempItem)
     }
-    store.commit('setForumPostsCache', { posts: temp })
+    rawStore.commit('setForumPostsCache', { posts: temp })
   }
 
 
-  let result = await store.dispatch('vote', { topic_id: topic_id, comment_id: comment_id, direction: direction, address: walletStore.value });
+  let result = await rawStore.dispatch('vote', { topic_id: topic_id, comment_id: comment_id, direction: direction, address: walletStore.value });
   if (result.payload.error) {
-    store.commit("setNotification", {
+    rawStore.commit("setNotification", {
       title: "Something went wrong with your vote",
       className: 'error',
       data: result.payload.error,
@@ -76,22 +77,20 @@ const voteTopic = async function (property, direction) {
 }
 
 const loadForumCache = function (address) {
-  const store = useStore()
-  const forumPosts = computed(() => store.state.forumPosts)
+  const forumPosts = computed(() => rawStore.state.forumPosts)
   let start = forumPosts.value.page * forumPosts.value.paginationLimit
   let end = start + forumPosts.value.paginationLimit
-  store.dispatch("fetchPosts", { id: address, store: store, start: start, end: end })
+  rawStore.dispatch("fetchPosts", { id: address, store: rawStore, start: start, end: end })
 }
 
 const setProfile = async function (payload) {
-  const store = useStore()
-  const walletStore = computed(() => store.state.wallet)
+  const walletStore = computed(() => rawStore.state.wallet)
   let result = await fetch(`https://zettahash-hashboard-middleware.vercel.app/forum/set-profile`, {
     method: 'post', headers: { 'Content-Type': 'application/json', },
     body: JSON.stringify({ data: payload, address: walletStore.value })
   })
   let newPayload = await result.json()
-  store.commit("setForum", newPayload.payload?.profile)
+  rawStore.commit("setForum", newPayload.payload?.profile)
 }
 
 export { profileImg, hasherName, voteTopic, loadForumCache, setProfile }
