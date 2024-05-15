@@ -1,5 +1,7 @@
 # zettahash-hashboard
 
+We use Vite frontend tooling.
+
 ## Project setup
 ```
 npm install
@@ -7,7 +9,7 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run dev
 ```
 
 ### Compiles and minifies for production
@@ -43,7 +45,8 @@ Hashboard must facilitate investors' and shareholders' transparent access to Zet
 
 ### Communication
 - ~~Reddit-style forum~~
-- Link to discord server
+- ~~Link to discord server~~
+- Link to telegram group
 
 ### Interaction
 - Purchase ZH (Beneficiary)
@@ -58,3 +61,4 @@ This log attempts to chronicle significant changes across all components of the 
 
 - CDN - update Zettahash Dao Token symbol name for add-to-metamask function
 - Hashboard components built after April 2024 should use Composition API
+- Frontend tooling upgraded to vite
