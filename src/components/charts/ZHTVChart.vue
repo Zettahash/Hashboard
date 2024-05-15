@@ -48,3 +48,25 @@ const opts = {
 <template>
   <VueTradingView :options="opts" :style="`width:${props.width}px;height:${props.height}px;max-height:500px;`"/>
 </template>
+
+<style lang="scss" scoped>
+#vue-trading-view{
+  border-radius: 15px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--neutral-5);
+    position: relative;
+    mix-blend-mode: screen;
+    &::before{
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top:0;
+      left:0;
+      pointer-events: none;
+      z-index: 1;
+    box-shadow: inset 0 0 0 1px var(--neutral-5);
+  border-radius: 15px;
+    }
+}
+</style>
