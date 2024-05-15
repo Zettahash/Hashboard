@@ -4,17 +4,15 @@
       <br>
       <img :src="profileImg()" class="wallet-logo" />
       <template v-if="ensEnabled && ens.name">{{ ens.name }}</template>
-      <template v-else>{{ walletShortName(wallet) }}</template>
+      <template v-else>Hasher #{{ hasherName() }}</template>
       </h1>
   </div>
 </template>
 <script setup>
-import { walletShortName } from '@/utils/strings'
-import { profileImg } from '@/utils/forum'
+import { profileImg, hasherName } from '@/utils/forum'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 const store = useStore()
-const wallet = computed(() => store.state.wallet)
 const forumProfile = computed(() => store.state.forumProfile)
 const ens = computed(() => store.state.ens)
 const ensEnabled = computed(() => {
