@@ -40,7 +40,7 @@ const opts = {
     }
 </script>
 <template>
-  <TechnicalAnalysis :options="opts" class="tv-chart" :style="`max-width:${props.width}px;height:${props.height}px;max-height:500px;`"/>
+  <TechnicalAnalysis :options="opts" class="tv-chart"/>
 </template>
 
 <style lang="scss" scoped>
@@ -50,7 +50,10 @@ const opts = {
     box-shadow: inset 0 0 0 1px var(--neutral-5);
     position: relative;
     mix-blend-mode: screen;
-    width: 300px;
+    flex-flow: 1;
+    flex-shrink: 0;
+    width: calc(50% - 20px);
+    min-height: 400px;
     &::before{
       content: '';
       position: absolute;

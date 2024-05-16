@@ -27,10 +27,25 @@ const rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`
 
 <style lang="scss">
 .uniswap{
-[class*="WidgetWrapper"],[class*="Modal"],[class*="Popover"],[class*="ErrorView"]{
-  background-color: var(--neutral-6) ;
+  width: calc(50% - 20px);
+  background: var(--neutral-8);
   border-radius: 15px !important;
   box-shadow: inset 0 0 0 1px var(--neutral-5);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  [class*="WidgetWrapper"]{
+  background-color: transparent ;
+
+  }
+[class*="WidgetWrapper"],[class*="Modal"],[class*="Popover"],[class*="ErrorView"]{
+  border-radius: 15px !important;
+  background-color: var(--neutral-8) ;
+  border-radius: 0px !important;
+  box-shadow: 0 !important;
+  border:0 !important;
+  width: 100%;
+  padding: 20px 40px;
 }
 [class*="Input"]{
   background-color: var(--neutral-5) ;
@@ -46,7 +61,7 @@ const rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`
   background-color: var(--neutral-3) ;
 }
 *,input{
-  color: var(--neutral-1);
+  color: var(--neutral-1) !important;
 }
 .button {
   display: flex;
@@ -57,7 +72,10 @@ const rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`
     border-radius: 8px;
     min-height: 20px;
   color: var(--neutral-1);
-    padding: 10px;
+    padding: 5px;
+}
+.button-small{
+    height: 1.1rem;
 }
 }
 </style>
