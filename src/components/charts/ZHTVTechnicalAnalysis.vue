@@ -1,5 +1,6 @@
 <script setup>
 import { TechnicalAnalysis} from 'vue-tradingview-widgets';
+// eslint-disable-next-line no-unused-vars
 const props = defineProps(['width', 'height'])
 const opts = {
       symbol: 'UNISWAP3ETH:ZHDUSDT',
@@ -63,7 +64,6 @@ const opts = {
       left:0;
       pointer-events: none;
       z-index: 1;
-    // box-shadow: inset 0 0 0 1px var(--neutral-4);
   border-radius: 15px;
   background: var(--neutral-5);
     mix-blend-mode: overlay;
