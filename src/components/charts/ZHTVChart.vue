@@ -40,7 +40,7 @@ const opts = {
     }
 </script>
 <template>
-  <Chart :options="opts" class="tv-chart" :style="`width:${props.width}px;height:${props.height}px;max-height:500px;`"/>
+  <Chart :options="opts" class="tv-chart ui-ele" :style="`width:${props.width}px;height:${props.height}px;max-height:500px;`"/>
 </template>
 
 <style lang="scss" scoped>

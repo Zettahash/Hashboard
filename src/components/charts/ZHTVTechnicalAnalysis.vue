@@ -40,7 +40,7 @@ const opts = {
     }
 </script>
 <template>
-  <TechnicalAnalysis :options="opts" class="tv-chart"/>
+  <TechnicalAnalysis :options="opts" class="tv-chart ui-ele"/>
 </template>
 
 <style lang="scss" scoped>

@@ -18,7 +18,7 @@ const rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`
 </script>
 
 <template>
-  <div className="Uniswap" class="uniswap">
+  <div className="Uniswap" class="uniswap ui-ele">
     <UniswapWidget defaultInputTokenAddress="NATIVE" defaultInputAmount="1"
       defaultOutputTokenAddress="0xb630D7388e3466Af4952B6E5D8Db63D828140e5d" :provider="provider" :tokenList="tokenList"
       locale="en-GB" :jsonRpcEndpoint="rpcUrl"></UniswapWidget>
