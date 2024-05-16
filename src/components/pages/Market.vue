@@ -1,18 +1,18 @@
 <template lang="html">
   <div class="flex-overview">
     <InlineInformation :payload="{
-        title: `Demo Market Overview.`,
-        className: 'neutral',
-        data: `We're still working on this section. In the meantime, here's a demo of our Markets Overview.`,
-      }" />
+      title: `Demo Market Overview.`,
+      className: 'neutral',
+      data: `We're still working on this section. In the meantime, here's a demo of our Markets Overview.`,
+    }" />
 
-      <div class="ui-ele">
-        <h1 class="title">Markets</h1>
-        <p>Here you can find data on ZH trading prices as well as links to exchanges listing ZH.</p>
-      </div>
-        <ZHTVChart :width="width" :height="height" />
-<ZHTVTechnicalAnalysis :width="width" :height="height" />
-<UniSwap v-if="application.walletConnectModal" />
+    <div class="ui-ele">
+      <h1 class="title">Markets</h1>
+      <p>Here you can find data on ZH trading prices as well as links to exchanges listing ZH.</p>
+    </div>
+    <ZHTVChart :width="width" :height="height" />
+    <ZHTVTechnicalAnalysis :width="width" :height="height" />
+    <UniSwap v-if="application.walletConnectModal" />
 
   </div>
 </template>
@@ -66,15 +66,20 @@ export default {
 </style>
 <style lang="scss" scoped>
 @import 'src/assets/scss/constants';
+
 #dextools-widget {
   border: 0;
   border-radius: $radius1;
   margin: auto;
 }
-.title{margin-bottom:5px !important; }
-spacer{min-height: 100vh;}
-.flex-overview{
-  padding-bottom: 200px;
-  margin-bottom: 200px;
+
+.title {
+  margin-bottom: 5px !important;
 }
+
+spacer {
+  min-height: 100vh;
+}
+
+.flex-overview {}
 </style>

@@ -6,7 +6,7 @@ const opts = {
   theme: 'dark',
   "chartOnly": false,
   "width": "100%",
-  "height": "100%",
+  // "height": "100%",
   "locale": "en",
   "colorTheme": "dark",
   "autosize": true,
