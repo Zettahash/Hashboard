@@ -47,12 +47,12 @@ const opts = {
 #vue-trading-view, .tv-chart{
   border-radius: 15px;
     overflow: hidden;
-    box-shadow: inset 0 0 0 1px var(--neutral-5);
+    box-shadow: 0 0 0 1px var(--neutral-6);
     position: relative;
     mix-blend-mode: screen;
     flex-flow: 1;
     flex-shrink: 0;
-    width: calc(50% - 20px);
+    width: calc(50% - 10px);
     min-height: 400px;
     &::before{
       content: '';
@@ -63,8 +63,10 @@ const opts = {
       left:0;
       pointer-events: none;
       z-index: 1;
-    box-shadow: inset 0 0 0 1px var(--neutral-5);
+    // box-shadow: inset 0 0 0 1px var(--neutral-4);
   border-radius: 15px;
+  background: var(--neutral-5);
+    mix-blend-mode: overlay;
     }
 }
 </style>

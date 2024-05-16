@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="flex-overview">
     <div class="ui-ele front">
-      <h1><img :src="'/src/assets/img/zh-circle.svg'" />Zettahash DAO Treasury</h1>
+      <h1><img src="/src/assets/img/zh-circle.svg" />Zettahash DAO Treasury</h1>
       <p></p>
       <div class="filter-ui">
         <div class="button-flex-organiser" data-label="Network">

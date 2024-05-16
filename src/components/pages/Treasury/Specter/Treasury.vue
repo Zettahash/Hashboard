@@ -1,7 +1,7 @@
 <template lang="">
   <div class="flex-overview">
   <div>
-  <h2><img :src="'/src/assets/img/providers/specter.png'"/>Specter Solutions</h2>
+  <h2><img src="/src/assets/img/providers/specter.png"/>Specter Solutions</h2>
   <p>Select any wallet to view directly on block explorer.</p>
   </div>
     <WalletsUI provider="Specter" />

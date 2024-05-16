@@ -26,56 +26,153 @@ const rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`
 </template>
 
 <style lang="scss">
-.uniswap{
-  width: calc(50% - 20px);
+.uniswap {
+  width: calc(50% - 10px);
   background: var(--neutral-8);
   border-radius: 15px !important;
-  box-shadow: inset 0 0 0 1px var(--neutral-5);
+  box-shadow: 0 0 0 1px var(--neutral-5);
   display: flex;
   justify-content: center;
   overflow: hidden;
-  [class*="WidgetWrapper"]{
-  background-color: transparent ;
 
+  [class*="WidgetWrapper"] {
+    background-color: transparent;
   }
-[class*="WidgetWrapper"],[class*="Modal"],[class*="Popover"],[class*="ErrorView"]{
-  border-radius: 15px !important;
-  background-color: var(--neutral-8) ;
-  border-radius: 0px !important;
-  box-shadow: 0 !important;
-  border:0 !important;
-  width: 100%;
-  padding: 20px 40px;
-}
-[class*="Input"]{
-  background-color: var(--neutral-5) ;
-}
-[class*="TokenButton"], [class*="Underlayer"]{
-  background-color: var(--neutral-4) !important;
-}
-[class*="BaseButton"],[class*="button-small"]{
-  background-color: transparent;
-  border: none;
-}
-[class*="button-large"]{
-  background-color: var(--neutral-3) ;
-}
-*,input{
-  color: var(--neutral-1) !important;
-}
-.button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  background-color: var(--neutral-4);
+
+  [class*="WidgetWrapper"],
+  [class*="Modal"],
+  // [class*="Popover"],
+  [class*="ErrorView"] {
+    border-radius: 15px !important;
+    background-color: var(--neutral-8);
+    border-radius: 0px !important;
+    box-shadow: 0 !important;
+    border: 0 !important;
+    width: 100%;
+    padding: 20px 40px;
+  }
+
+  [class*="PopoverContainer"] {
+    background-color: var(--neutral-9);
+  }
+
+  [class*="Row"] {gap:5px;}
+  [class*="HeaderRow"] {
+
+    height: 56px;
+    margin: auto;
+    align-items: center;
+  }
+
+  [class*="TokenOptions"] {
+    background-color: transparent;
+  }
+
+  [class*="Input"] {
+    background-color: var(--neutral-5);
+
+    &:hover {
+      background-color: var(--neutral-5) !important;
+    }
+  }
+
+  [class*="AccountButton"] {
+    pointer-events: none;
+  }
+
+  [class*="TokenInputColumn"] {
+    [class*="BaseButton"],[class*="TokenButtonRow"] {
+      border-radius: 4px;
+      // background-color: var(--neutral-6) !important;
+
+      &:hover {
+        background-color: var(--neutral-4) !important;
+      }
+    }
+
+    [class*="TextWrapper"] {
+      background-color: transparent;
+      height: max-content;
+
+    }
+  }
+
+  [class*="Column"] {
+    [class*="TokenButton"] {
+      border-radius: 0;
+      background-color: var(--neutral-6) !important;
+
+      &:hover {
+        background-color: var(--neutral-5) !important;
+      }
+    }
+
+    [class*="TextWrapper"] {
+      background-color: transparent;
+      height: max-content;
+
+    }
+  }
+
+  [class*="Row"] {
+    align-items: center;
+  }
+
+  [class*="ReverseButton"] {
+    border-radius: 100px;
+    display: flex;
+    ;
+    align-items: center;
+  }
+
+  [class*="Toolbar"],
+  [class*="InputColumn"] {
     border-radius: 8px;
-    min-height: 20px;
-  color: var(--neutral-1);
+
+    &:hover {
+      &::before {
+        border-color: var(--neutral-3);
+      }
+    }
+  }
+
+  [class*="TokenButton"],
+  [class*="Underlayer"] {
+    background-color: var(--neutral-4);
+  }
+
+  [class*="BaseButton"],
+  [class*="button-small"] {
+    background-color: transparent;
+    border: none;
+    padding: 3px 20px;
+    border-radius: 6px;
+    height: max-content;
+  }
+
+  [class*="button-large"] {
+    background-color: var(--neutral-3);
+  }
+
+  *,
+  input {
+    color: var(--neutral-1) !important;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: var(--neutral-4);
+    border-radius: 8px;
+    // min-height: 20px;
+    color: var(--neutral-1);
     padding: 5px;
-}
-.button-small{
+  }
+
+  .button-small {
     height: 1.1rem;
-}
+  }
 }
 </style>

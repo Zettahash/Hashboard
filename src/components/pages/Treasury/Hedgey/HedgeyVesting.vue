@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="flex-overview">
     <div class="ui-ele front">
-      <h2><img :src="'/src/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png'" />Hedgey Vesting</h2>
+      <h2><img src="/src/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png" />Hedgey Vesting</h2>
       <p></p>
       <div class="filter-ui" v-if="holdings[walletType]">
         <div class="dropdown-wrapper" :wrapper-open="dropdownWallets ? 'expanded' : 'collapsed'"
