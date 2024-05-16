@@ -11,7 +11,8 @@
         <p>Here you can find data on ZH trading prices as well as links to exchanges listing ZH.</p>
       </div>
         <ZHTVChart :width="width" :height="height" />
-<UniSwap />
+<ZHTVTechnicalAnalysis :width="width" :height="height" />
+<UniSwap v-if="application.walletConnectModal" />
 
   </div>
 </template>
@@ -19,6 +20,7 @@
 import { mapGetters } from 'vuex';
 import InlineInformation from '@/components/modules/InlineInformation.vue'
 import ZHTVChart from '../charts/ZHTVChart.vue';
+import ZHTVTechnicalAnalysis from '../charts/ZHTVTechnicalAnalysis.vue'
 import UniSwap from '../modules/UniSwap.vue';
 
 export default {
@@ -28,6 +30,7 @@ export default {
     InlineInformation,
     ZHTVChart,
     UniSwap,
+    ZHTVTechnicalAnalysis,
   },
   mounted() {
     this.routeLoaded()
@@ -70,4 +73,8 @@ export default {
 }
 .title{margin-bottom:5px !important; }
 spacer{min-height: 100vh;}
+.flex-overview{
+  padding-bottom: 200px;
+  margin-bottom: 200px;
+}
 </style>

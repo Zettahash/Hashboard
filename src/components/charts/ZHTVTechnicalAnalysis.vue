@@ -1,5 +1,5 @@
 <script setup>
-import { Chart} from 'vue-tradingview-widgets';
+import { TechnicalAnalysis} from 'vue-tradingview-widgets';
 const props = defineProps(['width', 'height'])
 const opts = {
       symbol: 'UNISWAP3ETH:ZHDUSDT',
@@ -40,7 +40,7 @@ const opts = {
     }
 </script>
 <template>
-  <Chart :options="opts" class="tv-chart" :style="`width:${props.width}px;height:${props.height}px;max-height:500px;`"/>
+  <TechnicalAnalysis :options="opts" class="tv-chart" :style="`max-width:${props.width}px;height:${props.height}px;max-height:500px;`"/>
 </template>
 
 <style lang="scss" scoped>
@@ -50,6 +50,7 @@ const opts = {
     box-shadow: inset 0 0 0 1px var(--neutral-5);
     position: relative;
     mix-blend-mode: screen;
+    width: 300px;
     &::before{
       content: '';
       position: absolute;
