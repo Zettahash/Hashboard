@@ -15,6 +15,10 @@ const UniswapWidget = applyReactInVue(SwapWidget)
 const tokenList = 'https://zettahash-hashboard-middleware.vercel.app/api/get-uniswap'
 const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY
 const rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`
+
+window.Browser = {
+    T: () => {}
+}
 </script>
 
 <template>
