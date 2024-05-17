@@ -12,7 +12,7 @@
       :title="item.model"
       @click.stop="expandedRow.indexOf(index) > -1 ? (expandedRow.splice(index, 1)) : (expandedRow.push(index))">
       <div class="product">
-        <img :src="`src/assets/img/devices/${item.image_url}`">
+        <img :src="item.image_url_include">
         <div class="info">
           <h2>{{ item.manufacturer }}</h2>
           <h3>{{ item.series }}</h3>
@@ -33,7 +33,7 @@
         <tbody>
           <tr>
             <td class="always-shown">
-              <div> <img :src="`src/assets/img/flags/${item.location_country_code.toLowerCase()}.svg`"> {{
+              <div> <img :src="item.flag_url_include"> {{
                 item.location }}</div>
             </td>
             <td>
@@ -140,6 +140,7 @@ export default {
     }),
     physicalAssets() {
       let assets = Array.isArray(this.physical_assets) ? this.physical_assets : []
+      const tmp = []
       let tmpAssets = [
         { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "10", "serial": "N9TT-9G0A-B7FQ-RANC", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "Alaska", "location_country_code": "US", "purchase_price": "$0.00", "image_url": "miner.webp", "data": null, "timestamp": null, "class": "demo-item" },
         { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "100", "serial": "QK6A-JI6S-7ETR-0A6C", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "Reykjavik", "location_country_code": "IS", "purchase_price": "$0.00", "image_url": "miner.webp", "data": null, "timestamp": null, "class": "demo-item" },
@@ -149,7 +150,15 @@ export default {
         { "manufacturer": "Bitmain", "series": "Antminer", "model": "S21K Pro", "quantity": "15", "serial": "6ETI-UIL2-9WAX-XHYO", "hashrate": "200TH/s", "power": "3500w", "efficiency": "23J/T", "location": "Beijing", "location_country_code": "CN", "purchase_price": "$0.00", "image_url": "miner.webp", "data": null, "timestamp": null, "class": "demo-item" },
       ]
       if (tmpAssets.length > 0) { for (const a of tmpAssets) { assets.push(a) } }
-      return assets
+      for (const a of assets) {
+        let ccLc = a.location_country_code.toLowerCase()
+        const deviceImg = new URL('/static/devices/' + a.image_url, import.meta.url).href
+        const flagImg = new URL('/static/flags/' + ccLc + '.svg', import.meta.url).href
+        a.image_url_include = deviceImg
+        a.flag_url_include = flagImg
+        tmp.push(a)
+      }
+      return tmp
     },
   },
   mounted() {
