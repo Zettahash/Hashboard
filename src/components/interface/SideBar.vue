@@ -111,14 +111,6 @@
       <div class="shortcuts">
         <label>Management</label>
         <router-link
-          :to="{ name: 'profile' }"
-          @mouseenter="labelify"
-          @mouseleave="unlabelify"
-        >
-          <b-icon-person-fill />
-          <span>Profile #{{ hasherName() }}</span>
-        </router-link>
-        <router-link
           v-if="wallet"
           :to="{ name: 'wallet' }"
           @mouseenter="labelify"

@@ -1,21 +1,24 @@
 <template lang="html">
   <div class="flex-overview">
+
+    <ProfileModule />
+
     <div class="ui-ele">
 
-      <h1>Wallet Connected</h1>
-    
-    </div>
+      <h2>Manage connected Wallet</h2>
 
       <div class="head-organiser spacious">
         <div class="hasher-name-organiser">
           <img :src="profileImg()" class="wallet-logo" />
           <h2 :title="wallet">{{ walletShortName(wallet) }}</h2>
-        </div><div class="ui-ele align-bottom"><a :class="`btn disconnect ${disconnectButtonText}`"
-        @click="disconnectOrCancel()">{{ disconnectButtonText }} <i :class="disconnectButtonIcon"></i></a></div>
+        </div>
+        <div class="ui-ele align-bottom"><a :class="`btn disconnect ${disconnectButtonText}`"
+            @click="disconnectOrCancel()">{{ disconnectButtonText }} <i :class="disconnectButtonIcon"></i></a></div>
       </div>
 
-    <div class="ui-ele containers-ui">
-      <UserWalletsUI :holdings="holdings" :wallet="wallet" />
+      <div class="ui-ele containers-ui">
+        <UserWalletsUI v-if="holdings && wallet" :holdings="holdings" :wallet="wallet" />
+      </div>
     </div>
   </div>
 </template>
@@ -25,6 +28,7 @@ import { profileImg, hasherName } from '@/utils/forum.js'
 import { walletShortName } from '@/utils/strings.js'
 import { getBalanceInstance, doDisconnect } from '@/utils/wallet.js'
 import UserWalletsUI from '@/components/modules/UserWalletsUI.vue'
+import ProfileModule from '../modules/ProfileModule.vue';
 
 export default {
   data() {
@@ -57,9 +61,12 @@ export default {
     wallet() {
       this.getHoldings()
     },
+    // holdings() {
+    //   this.getHoldings()
+    // },
   },
   components: {
-    UserWalletsUI,
+    UserWalletsUI,ProfileModule,
   },
   methods: {
     profileImg, hasherName, walletShortName, getBalanceInstance, doDisconnect,
@@ -114,7 +121,11 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
+.hasher-name-organiser{
+margin-bottom: 20px;
+}
 .disconnect {
   color: var(--crimson);
   background: transparent;
