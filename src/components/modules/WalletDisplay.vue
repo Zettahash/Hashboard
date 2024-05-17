@@ -14,7 +14,7 @@
           <div v-for="(item, key) of walletBalances" :class="`block ui-ele ${key} ${item.currency}`" :key="key">
             <div class="head">
               <img class="coin-icon"
-                :src="`src/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
+                :src="`/static/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
               <div class="head-text">
                 <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
                   item.badge

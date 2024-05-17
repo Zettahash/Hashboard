@@ -14,7 +14,7 @@
         <div v-for="(item, index) of holdings" :class="`block ui-ele shadow-outline ${item.name} ${item.currency}`" :key="index"
           :title="item.date">
           <div class="head">
-            <img class="coin-icon" :src="`src/assets/img/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
+            <img class="coin-icon" :src="`/static/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
             <div class="head-text">
               <h3>{{ item.name }}</h3>
               <a class="type" :title="item.address" ><span>{{ item.currency }} {{ item.addressShort }}</span></a>

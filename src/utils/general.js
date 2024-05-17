@@ -48,4 +48,8 @@ const scrollTo = function(ele) {
   }
 }
 
-export { getIcon, c2c, scrollTo }
+const imgSrc = function(src){
+  return new URL(src, import.meta.url).href
+}
+
+export { getIcon, c2c, scrollTo, imgSrc }

@@ -36,9 +36,9 @@
                 </td>
                 <td colspan="1" data-header="Token">
                   <div class="icon-stack horizontal">
-                    <img :src="`src/assets/img/tokens/${item.network.substring(0, 3).toLowerCase()}.png`" alt="">
+                    <img :src="`/static/tokens/${item.network.substring(0, 3).toLowerCase()}.png`" alt="">
                     <img
-                      :src="`src/assets/img/tokens/${item.dealPurchase[0].assetCurrency.ticker.substring(0, 3).toLowerCase()}.png`"
+                      :src="`/static/tokens/${item.dealPurchase[0].assetCurrency.ticker.substring(0, 3).toLowerCase()}.png`"
                       alt="">
                   </div>
                   <div class="col">
