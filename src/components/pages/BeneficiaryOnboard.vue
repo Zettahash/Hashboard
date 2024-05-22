@@ -3,7 +3,7 @@
     <LoadingEle :stop="(data.geoBlocked && data.geoBlocked.forbidden == false) ? true : false" :long="true" />
     <template v-if="data.geoBlocked && data.geoBlocked.forbidden == false">
       <div class="ui-ele front">
-        <h1>Buy ZH Token</h1>
+        <h1>Buy ZHD Token</h1>
         <p></p>
 
         <InlineInformation v-if="geoEligibility" :payload="geoEligibility" />
@@ -53,7 +53,7 @@
               <div class="horizontal-fill-status-bar"
                 :style="`--pc: ${(soldThisRound / activeRound.threshold) * 100}%;`">
                 <span class="name"></span>
-                <span class="value">{{ soldThisRound.toLocaleString() }} ZH
+                <span class="value">{{ soldThisRound.toLocaleString() }} ZHD
                   <template v-if="soldThisRound>0">
                     <br>
                     <small>{{ Number(((soldThisRound * rates.ZH.priceUsd) * rates.USDT.priceUsd ).toFixed(2)).toLocaleString() }} USDT</small>

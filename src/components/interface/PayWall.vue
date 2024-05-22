@@ -5,8 +5,8 @@
       <h1>
         <i class="i-alert-circle"></i> Notice
       </h1>
-      <p>Only Holders of the ZH token may participate on this platform.<br>
-        Check back soon for details on acquiring ZH, or email <a href="mailto:zetta@zettahash.org"
+      <p>Only Holders of the ZH or ZHD token may participate on this platform.<br>
+        Email <a href="mailto:zetta@zettahash.org"
           class="link">zetta@zettahash.org</a> for more information.</p>
       <p>You can disconnect this wallet, {{ walletShortName(wallet) }}, and try another account.</p>
       <p><a class="btn-link error" @click="doDisconnect()">Disconnect {{ walletShortName(wallet) }} <i

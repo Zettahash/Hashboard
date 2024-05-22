@@ -7,6 +7,9 @@ import rawStore from '../store'
 const { disconnect } = useDisconnect()
 
 const tokens = {
+  zhd: {
+    contract: '0xb630D7388e3466Af4952B6E5D8Db63D828140e5d',
+  },
   zh: {
     contract: '0x2C0e15190aCB858Bf74447928Cbd8Fb9709dCB19',
   },

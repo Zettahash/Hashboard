@@ -59,7 +59,7 @@
                   </div>
                 </td>
                 <td colspan="1" data-header="Vested">
-                  <div class="col"><span>0 ZH</span> <span>$0.00</span></div>
+                  <div class="col"><span>0 ZHD</span> <span>$0.00</span></div>
                 </td>
                 <td colspan="4" data-header="Available actions">
                   <div>

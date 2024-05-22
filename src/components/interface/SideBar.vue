@@ -69,27 +69,7 @@
             </router-link>
           </li>
         </ul>
-        <a
-          :class="routeClass('beneficiary')"
-          @click="dropdownToggle('beneficiary')"
-          @mouseenter="labelify"
-          @mouseleave="unlabelify"
-        >
-          <b-icon-safe-2-fill />
-          <span>Beneficiary</span>
-        </a>
-        <ul v-if="dropdown['beneficiary']">
-          <li>
-            <router-link
-              :to="{ name: 'beneficiary' }"
-              @mouseenter="labelify"
-              @mouseleave="unlabelify"
-            >
-              <b-icon-cash-coin />
-              <span>Buy ZH Token</span>
-            </router-link>
-          </li>
-        </ul>
+
 
         <router-link
           :to="{ name: 'assets' }"

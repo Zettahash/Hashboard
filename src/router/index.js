@@ -16,7 +16,6 @@ import SpecterTreasury from '@/components/pages/Treasury/Specter/Treasury.vue'
 import DAOTreasury from '@/components/pages/Treasury/Treasury.vue'
 import HedgeyVesting from '@/components/pages/Treasury/Hedgey/HedgeyVesting.vue'
 import Assets from '@/components/pages/Assets.vue'
-import BeneficiaryOnboard from '@/components/pages/BeneficiaryOnboard.vue'
 
 import VoteProtocolTreasury from '@/components/pages/Vote/VoteProtocolTreasury.vue'
 import Proposals from '@/components/pages/Vote/Proposals.vue'
@@ -28,19 +27,7 @@ import NewPostWrapper from '@/components/pages/Forum/NewPostWrapper.vue'
 import ProfileManager from '@/components/pages/ProfileManager.vue'
 import WalletManager from '@/components/pages/WalletManager.vue'
 
-// -Private Sale: will be important so that they can purchase the ZH token. We use the BTCPay that we have hosted on Voltage.
 
-// -Community Consensus Forum: Will need to have this developed. Standard forum with poll voting header. Community will have login profile, etc.
-
-// -Live Hashrate: Will look like a vote pool interface where we can pull in API info from existing vote pool providers
-
-// -Ledger - Wallets and Holdings: We can pull real time api from Etherscan.io / blockchain.com to show real time BTC, ETH, USDT holdings. We also want to be able to upload redacted bank statements.
-
-// -Market: This is to show realtime ZH exchange trading. We are not creating an exchange though. Just pull data from coinmarketcap or another exchange.
-
-// -Treasury: Will be the different site locations. Like a world map.
-
-// -Assets should show historical revenue and profits. This can actually be combined with the Live Hashrate page.
 const app = createApp({})
 
 const title = import.meta.env.VITE_APPLICATION_NAME
@@ -54,25 +41,6 @@ const routes = [
     meta: {
       title: '#Hashboard | ' + title,
       breadcrumbs: ['hashboard'],
-      metaTags: [
-        {
-          name: 'description',
-          content: 'Placeholder'
-        },
-        {
-          property: 'og:description',
-          content: 'Placeholder'
-        }
-      ]
-    }
-  },
-  {
-    path: '/beneficiary',
-    name: 'beneficiary',
-    component: BeneficiaryOnboard,
-    meta: {
-      title: 'Beneficiary | ' + title,
-      breadcrumbs: ['hashboard', 'beneficiary'],
       metaTags: [
         {
           name: 'description',

@@ -6,15 +6,15 @@
       <img class="icon" src="/src/assets/img/zh-circle.svg">
 
       <h1>Welcome to #Hashboard</h1>
-      <p>ZH Token-holders get access to the #Hashboard and can participate in the DAO Governance.</p>
+      <p>ZH/ZHD Token-holders get access to the #Hashboard and can participate in the DAO Governance.</p>
 
       <div class="modal-relative centre" v-if="!application.zhHolderBool">
         <template v-if="message === 'needZH'">
           <h1>
             <i class="i-alert-circle"></i> Notice
           </h1>
-          <p>Only Holders of the ZH token may participate on this platform.<br>
-            Check back soon for details on acquiring ZH, or email <a href="mailto:zetta@zettahash.org"
+          <p>Only Holders of the ZH/ZHD token may participate on this platform.<br>
+            Email <a href="mailto:zetta@zettahash.org"
               class="link">zetta@zettahash.org</a> for more information.</p>
           <p>You can disconnect this wallet, {{ walletShortName(wallet) }}, and try another account.</p>
           <p><a class="btn-link error" @click="doDisconnect()">Disconnect {{ walletShortName(wallet) }} <i
@@ -51,7 +51,7 @@
         <router-link :to="{ name: 'protocol-proposals' }" class="btn"><i class="i-bulb"></i> View Proposals</router-link>
         <router-link :to="{ name: 'safe' }" class="btn"><i class="i-library"></i> Check ETH & ERC-20 Wallet balances</router-link>
         <router-link :to="{ name: 'specter' }" class="btn"><i class="i-library"></i> Check BTC Wallet balances</router-link>
-        <router-link :to="{ name: 'market' }" class="btn"><i class="i-trending-up"></i> ZH Markets</router-link>
+        <router-link :to="{ name: 'market' }" class="btn"><i class="i-trending-up"></i> ZHD Markets</router-link>
         <a href="https://teams.zettahash.org/signup_user_complete/?id=sy8det39ypgyxcjye9oxodk36a&md=link&sbr=fa" target="_blank" class="btn"><i class="i-forum"></i> Consensus</a>
         </div>
       </div>

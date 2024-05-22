@@ -5,7 +5,7 @@
       <div class="balances-group tile open">
         <h2>
           <span>{{ String(wallet_group_key).replace(/_/g, ' ') }} Vesting Plans on Hedgey</span>
-          <span class="sub">ZH-Token Holdings: ${{ zhBalance }} USD</span>
+          <span class="sub">ZHD-Token Holdings: ${{ zhBalance }} USD</span>
           <span class="sub click-to-copy" @click="c2c" :title="address.address" :data-copy="address.address"><span
               class="cap">{{ wallet_type }} </span> address: {{ address.addressShort }}</span>
         </h2>
@@ -41,7 +41,7 @@ export default {
       wallet: 'wallet',
     }),
     zhBalance() {
-      for (const bal of this.walletBalances) { if (bal.currency == "ZH") { return bal.balanceUSD } }
+      for (const bal of this.walletBalances) { if (bal.currency == "ZHD") { return bal.balanceUSD } }
       return "0.00"
     },
     walletBalances() {

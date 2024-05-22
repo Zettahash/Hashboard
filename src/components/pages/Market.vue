@@ -8,10 +8,9 @@
 
     <div class="ui-ele">
       <h1 class="title">Markets</h1>
-      <p>Here you can find data on ZH trading prices as well as links to exchanges listing ZH.</p>
+      <p>Market details for ZHD. Token swap provided by the Uniswap protocol.</p>
     </div>
     <ZHTVChart :width="width" :height="height" />
-    <ZHTVTechnicalAnalysis :width="width" :height="height" />
     <UniSwap v-if="application.walletConnectModal" />
 
   </div>
@@ -20,7 +19,6 @@
 import { mapGetters } from 'vuex';
 import InlineInformation from '@/components/modules/InlineInformation.vue'
 import ZHTVChart from '../charts/ZHTVChart.vue';
-import ZHTVTechnicalAnalysis from '../charts/ZHTVTechnicalAnalysis.vue'
 import UniSwap from '../modules/UniSwap.vue';
 
 export default {
@@ -30,7 +28,6 @@ export default {
     InlineInformation,
     ZHTVChart,
     UniSwap,
-    ZHTVTechnicalAnalysis,
   },
   mounted() {
     this.routeLoaded()
