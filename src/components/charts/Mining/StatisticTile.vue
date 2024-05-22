@@ -5,7 +5,7 @@ import { reactive } from 'vue'
 const props = defineProps(['tileName', 'tileUnit', 'tileValueRelative', 'tileValue'])
 
 function autoIcon(str){
-  return `src/assets/img/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`
+  return `/static/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`
 }
 const state = reactive({
   tileOpen: false,

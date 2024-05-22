@@ -4,7 +4,7 @@ import DropdownUi from '@/components/modules/DropdownUi.vue'
 const props = defineProps(['tileName', 'tileUnit', 'tileValueRelative', 'tileValue', 'filterOptions'])
 
 function autoIcon(str) {
-  return `src/assets/img/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`
+  return `/static/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`
 }
 </script>
 
