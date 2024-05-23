@@ -135,7 +135,7 @@ const actions = {
   },
   async queryHedgey({ commit, dispatch, getters }, address) {
     let hedgeyGraphQL = getters.graphQL.hedgeyGraphQL
-
+    address = address.id?address.id:address
     let payload = {}
     if (hedgeyGraphQL && address) {
       const login = await fetch(
@@ -145,7 +145,6 @@ const actions = {
         })
       payload.login = await login.json();
       let query = hedgeyGraphQL.replace(/\$address/g, address.toLowerCase())
-      payload.query = query
       const result = await fetch(
         'https://us-east-1.aws.realm.mongodb.com/api/client/v2.0/app/hedgeyotc-tuolf/graphql',
         {
@@ -162,7 +161,7 @@ const actions = {
     } else {
       console.log("Missing Hedgey data: no graphQL")
     }
-    return payload
+    return { payload: payload }
   },
   async getSnapshot({ commit, dispatch, getters }) {
     let graphQL = getters.graphQL.graphQL
@@ -211,7 +210,6 @@ const actions = {
         )
         payload[key] = await result.json();
       }
-      console.log("snapshotUser", payload)
       commit("setSnapshotUser", payload)
 
     } else {

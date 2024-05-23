@@ -113,7 +113,8 @@ export default {
   methods: {
     getIcon, c2c, walletShortName,
     async hedgeyVested() {
-      const reply = await this.$store.dispatch("fetchHedgeyVesting", { id: this.address })
+      const reply = await this.$store.dispatch("queryHedgey", { id: this.address })
+      console.log("reply", reply)
       let data = reply.payload.result.data
       this.vested = data.NFTGallery ? (data.NFTGallery.nfts ? data.NFTGallery.nfts : []) : []
       this.now = reply.timestamp
