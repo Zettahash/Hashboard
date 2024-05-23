@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="app-module">
     <template v-if="!vested">
-      <span>Fetching Vesting Plans... <a class="spinner"></a></span>
+      <span>Fetching data... <a class="spinner"></a></span>
     </template>
     <template v-if="vested.length === 0">
       <span>No Vesting Plans found for {{ walletName.replace(/_/g, ' ') }} wallet.</span>
@@ -96,6 +96,7 @@ export default {
   props: {
     address: String,
     walletName: String,
+    graphQLKey: String,
   },
   components: { VestingTableDetails, },
   computed: {
@@ -113,8 +114,8 @@ export default {
   methods: {
     getIcon, c2c, walletShortName,
     async hedgeyVested() {
-      const reply = await this.$store.dispatch("queryHedgey", { id: this.address })
-      console.log("reply", reply)
+      const reply = await this.$store.dispatch("queryHedgeyVestingNFTs", { id: this.address, graphQLKey:this.graphQLKey })
+      console.log("reply VestingTable", reply)
       let data = reply.payload.result.data
       this.vested = data.NFTGallery ? (data.NFTGallery.nfts ? data.NFTGallery.nfts : []) : []
       this.now = reply.timestamp

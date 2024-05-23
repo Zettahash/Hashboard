@@ -4,12 +4,12 @@
     <div class="brick-wall" v-if="wallet_group_key && wallet_type && holdings">
       <div class="balances-group tile open">
         <h2>
-          <span>{{ String(wallet_group_key).replace(/_/g, ' ') }} Vesting Plans on Hedgey</span>
+          <span>{{ String(wallet_group_key).replace(/_/g, ' ') }} Investor Lockups on Hedgey</span>
           <span class="sub">ZHD-Token Holdings: ${{ zhBalance }} USD</span>
           <span class="sub click-to-copy" @click="c2c" :title="address.address" :data-copy="address.address"><span
               class="cap">{{ wallet_type }} </span> address: {{ address.addressShort }}</span>
         </h2>
-        <VestingTable :address="address.address" :walletName="wallet_group_key" />
+        <VestingTable :address="address.address" :walletName="wallet_group_key" graphQLKey="InvestorLockup" />
       </div>
     </div>
   </div>

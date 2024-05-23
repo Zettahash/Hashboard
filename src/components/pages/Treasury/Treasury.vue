@@ -25,7 +25,7 @@
           </ul>
         </div>
         <router-link v-if="walletType == 'eth'" class="uppercase link"
-          :to="{ path: `/treasury/hedgey-vesting/${defaultWalletsActive}` }">Hedgey Vesting
+          :to="{ path: `/treasury/hedgey-vesting/${defaultWalletsActive}` }">Hedgey 
           <b-icon-arrow-right /></router-link>
 
       </div>

@@ -133,8 +133,38 @@ const actions = {
       }, 900000)
     }, 2000)
   },
-  async queryHedgey({ commit, dispatch, getters }, address) {
-    let hedgeyGraphQL = getters.graphQL.hedgeyGraphQL
+  async queryHedgeyVestingNFTs({ commit, dispatch, getters }, data) {
+    let hedgeyGraphQL = data.graphQLKey?getters.graphQL.hedgeyGraphQL[data.graphQLKey]:getters.graphQL.hedgeyGraphQL.VestingNFTs
+    const address = data.id?data.id:data
+    let payload = {}
+    if (hedgeyGraphQL && address) {
+      const login = await fetch(
+        'https://us-east-1.aws.realm.mongodb.com/api/client/v2.0/app/hedgeyotc-tuolf/auth/providers/anon-user/login',
+        {
+          method: 'POST',
+        })
+      payload.login = await login.json();
+      let query = hedgeyGraphQL.replace(/\$address/g, address.toLowerCase())
+      const result = await fetch(
+        'https://us-east-1.aws.realm.mongodb.com/api/client/v2.0/app/hedgeyotc-tuolf/graphql',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${payload.login.access_token}`
+          },
+          body: query,
+        }
+      )
+      payload.result = await result.json();
+
+    } else {
+      console.log("Missing Hedgey data: no graphQL")
+    }
+    return { payload: payload }
+  },
+  async queryHedgeyVestingNFTsUser({ commit, dispatch, getters }, address) {
+    let hedgeyGraphQL = getters.graphQL.hedgeyGraphQL.VestingNFTs2
     address = address.id?address.id:address
     let payload = {}
     if (hedgeyGraphQL && address) {

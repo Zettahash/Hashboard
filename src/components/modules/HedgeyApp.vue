@@ -7,7 +7,7 @@
               class="icon-times"></i></span></span>
       </div>
     <template v-if="noControls || app[walletKey]">
-      <VestingTable :address="address" :walletName="walletKey" />
+      <VestingTable :address="address" :walletName="walletKey" graphQLKey="VestingNFTs2" />
     </template>
   </div>
 </template>
@@ -45,11 +45,6 @@ export default {
     c2c,
     getIcon,
     scrollTo,
-    async hedgeyVested(address) {
-      const reply = this.$store.dispatch('queryHedgey', address);
-      console.log(reply)
-      return reply
-    },
     openApp(name) {
       this.app[this.walletKey] = name
       this.$emit('setApplicationOpen')
