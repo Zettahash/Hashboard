@@ -251,6 +251,7 @@
         font-weight: 200;
         font-size: 0.9rem;
         opacity:.6;
+
       }
       .tile-controls {
         display: flex;
@@ -305,6 +306,12 @@
           .sub {
             font-weight: 900;
             font-size: 0.8rem;
+            &.extra{
+              font-weight: 600;
+              font-size: 0.75rem;
+              opacity:.3;
+      
+              }
           }
           h3,
           p {

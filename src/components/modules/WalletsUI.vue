@@ -30,12 +30,11 @@
               <div v-for="(item, index) of value" :class="`block ui-ele ${key} ${item.currency}`" :key="index"
                 :title="item.date">
                 <div class="head">
-                  <img class="coin-icon"
-                    :src="`/static/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
+                  <img class="coin-icon" :src="`/static/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
                   <div class="head-text">
                     <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
-      item.badge
-    }}</span></h3>
+                        item.badge
+                        }}</span></h3>
                     <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                       {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
                     <div class="balance sub"><span class="">${{ item.balanceUSD }} USD</span></div>
@@ -43,7 +42,9 @@
                 </div>
               </div>
             </div>
-            <HedgeyApp :provider="provider" :address="consistentAddress(value).address" :walletKey="key" @set-application-open="(app[key] = 'Hedgey.', scrollTo($refs[key]))"  @set-application-closed="app[key] = false" />
+            <HedgeyApp :provider="provider" :address="consistentAddress(value).address" :walletKey="key"
+              @set-application-open="(app[key] = 'Hedgey.', scrollTo($refs[key]))"
+              @set-application-closed="app[key] = false" />
           </template>
         </div>
       </template>

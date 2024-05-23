@@ -5,23 +5,28 @@
       <div class="balances-group tile open">
         <h2>
           <span>{{ String(wallet_group_key).replace(/_/g, ' ') }} <span class="cap">{{ wallet_type }} </span>
-          Holdings</span>
+            Holdings</span>
           <span class="sub">Total Value: ${{ groupBalance }} USD</span>
-          <span class="sub click-to-copy" @click="c2c" :title="address.address" :data-copy="address.address"><span
-              class="cap">{{ wallet_type }} </span> address: {{ address.addressShort }}</span>
+          <span class="sub click-to-copy" @click="c2c" :title="address.address" :data-copy="address.address">
+            <span class="cap">{{ wallet_type }} </span> address: {{ address.addressShort }} <b-icon-clipboard />
+          </span>
+          <a class="sub link" :href="`https://etherscan.io/address/${address.address}`" target="_blank"
+            :title="address.address">
+            <span>View on Etherscan </span><b-icon-arrow-up-right-square />
+          </a>
         </h2>
         <div class="wallet-grid">
           <div v-for="(item, key) of walletBalances" :class="`block ui-ele ${key} ${item.currency}`" :key="key">
             <div class="head">
-              <img class="coin-icon"
-                :src="`/static/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
+              <img class="coin-icon" :src="`/static/tokens/${item.currency.replace(/-/g, '').toLowerCase()}.png`">
               <div class="head-text">
                 <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
                   item.badge
-                }}</span></h3>
+                    }}</span></h3>
                 <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                   {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
                 <div class="balance sub"><span class="">${{ item.balanceUSD }} USD</span></div>
+                <div class="balance sub extra"><span class="">{{ Number(rates[item.displayCurrency].priceUsd).toFixed(4) }} USD/{{ item.displayCurrency }}</span></div>
               </div>
             </div>
           </div>

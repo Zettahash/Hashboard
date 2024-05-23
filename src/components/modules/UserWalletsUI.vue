@@ -21,6 +21,8 @@
               <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
                 {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
               <div class="balance sub"><span class="">${{ item.balanceUSD >=1?Number(item.balanceUSD.toFixed(2)).toLocaleString():item.balanceUSD }} USD</span></div>
+              <div class="balance sub extra"><span class="">{{ Number(rates[item.displayCurrency ? item.displayCurrency : item.currency].priceUsd).toFixed(4) }} USD/{{ item.displayCurrency }}</span></div>
+
             </div>
           </div>
         </div>
