@@ -91,6 +91,7 @@ export default {
       vested: false,
       details: false,
       now: false,
+      token: '0xb630d7388e3466af4952b6e5d8db63d828140e5d',
     }
   },
   props: {
@@ -114,7 +115,7 @@ export default {
   methods: {
     getIcon, c2c, walletShortName,
     async hedgeyVested() {
-      const reply = await this.$store.dispatch("queryHedgeyVestingNFTs", { id: this.address, graphQLKey:this.graphQLKey })
+      const reply = await this.$store.dispatch("queryHedgeyVestingNFTs", { id: this.address, graphQLKey:this.graphQLKey, token:this.token })
       console.log("reply VestingTable", reply)
       let data = reply.payload.result.data
       this.vested = data.NFTGallery ? (data.NFTGallery.nfts ? data.NFTGallery.nfts : []) : []

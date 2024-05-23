@@ -141,7 +141,7 @@
 
     <div class="version shortcuts">
       <a>
-        {{ version[0]? version[0]:'v0.1.88' }}-beta
+        {{ version[0]? version[0]:'v0.1.88-hotfix' }}-beta
         <span>{{ version[1] }}</span>
       </a>
     </div>
