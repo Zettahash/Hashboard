@@ -2,12 +2,13 @@
 // import { reactive } from 'vue'
 import PercentSemiCircle from '@/components/charts/PercentSemiCircle.vue'
 // eslint-disable-next-line no-undef
-const props = defineProps(['tileName', 'tileUnit', 'tileValueRelative', 'tileValue', 'chartData'])
+const props = defineProps(['tileName', 'tileUnit', 'tileValueRelative', 'tileValue', 'chartData', 'chartLegend'])
 
 function autoIcon(str) {
   return `/static/icons/${str.toLowerCase().replace(/ /g, "-")}.svg`
 }
-const chartData = Array.isArray(props.chartData)?props.chartData:(props.chartData.indexOf('[')==0 && props.chartData.indexOf(']')==props.chartData.length-1?JSON.parse(props.chartData):[])
+const chartData = Array.isArray(props.chartData)?props.chartData:props.chartData.split(',')
+const chartLegend = Array.isArray(props.chartLegend)?props.chartLegend:props.chartLegend.split(',')
 </script>
 
 <template>
@@ -17,9 +18,8 @@ const chartData = Array.isArray(props.chartData)?props.chartData:(props.chartDat
       <div class="icon"><img :src="autoIcon(props.tileName)"></div>
       <h3>{{ props.tileName }}</h3>
     </div>
-
     <div class="tile-body">
-      <PercentSemiCircle :chartValues="chartData" chartTitle="2,345" :chartUnit="tileUnit" />
+      <PercentSemiCircle :chartValues="chartData" :chartTitle="props.tileValue" :chartUnit="tileUnit" :chartLegend="chartLegend" />
       <div :class="`tile-value-wrapper ${props.tileValueRelative}`">
         <h2 class="animated-counter">{{ props.tileValue }}</h2>
         <div :class="`tile-value-units ${props.tileValueRelative}`">{{ tileUnit }}

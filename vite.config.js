@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url'
 import vue from '@vitejs/plugin-vue' // vue 3
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import path from 'path'
+import git from 'git-rev-sync'
  // https://vitejs.dev/config/
  export default defineConfig({
    plugins: [
@@ -31,3 +32,5 @@ import path from 'path'
 
   },
  });
+
+process.env.VITE_GIT_HASH = git.tag()
