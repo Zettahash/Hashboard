@@ -26,7 +26,7 @@ let state = {
       quantities: false,
       names: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     },
-
+    systemCurrencies: false,
   },
   data: {},
   payload: false,

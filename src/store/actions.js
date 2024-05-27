@@ -98,6 +98,7 @@ const actions = {
             } catch(e){ console.log("Missing data:" + e) }
             try {
               commit("setRates", data.payload.cached_exchange_rates)
+              commit("setDynamic", { item: 'systemCurrencies', value: data.payload.systemCurrencies })
             } catch(e){ console.log("Missing data:" + e) }
             try {
               commit("setPhysicalAssets", data.payload.physical_assets)
@@ -134,9 +135,9 @@ const actions = {
     }, 2000)
   },
   async queryHedgeyVestingNFTs({ commit, dispatch, getters }, data) {
-    let hedgeyGraphQL = data.graphQLKey?getters.graphQL.hedgeyGraphQL[data.graphQLKey]:getters.graphQL.hedgeyGraphQL.VestingNFTs
+    let hedgeyGraphQL = data.graphQLKey?getters.graphQL.hedgeyGraphQL[data.graphQLKey]:getters.graphQL.hedgeyGraphQL.VestingPlans
     const address = data.id ? data.id : data
-    const token = data.token?data.token:''
+    const token = data.token ? data.token : ''
     let payload = {}
     if (hedgeyGraphQL && address) {
       const login = await fetch(
@@ -145,7 +146,8 @@ const actions = {
           method: 'POST',
         })
       payload.login = await login.json();
-      let query = hedgeyGraphQL.replace(/\$address/g, address.toLowerCase()).replace(/\$token/g, token)
+      let query = hedgeyGraphQL.replace(/\$address/g, address.toLowerCase()).replace(/\$token/g, token.toLowerCase())
+      payload.query = query
       const result = await fetch(
         'https://us-east-1.aws.realm.mongodb.com/api/client/v2.0/app/hedgeyotc-tuolf/graphql',
         {
@@ -170,7 +172,7 @@ const actions = {
 
     let payload = false
     if (graphQL && snapshotSpaces) {
-      let query = graphQL//value.query//.replace(/\$space/g, space)
+      let query = graphQL
       const result = await fetch(
         'https://hub.snapshot.org/graphql',
         {
