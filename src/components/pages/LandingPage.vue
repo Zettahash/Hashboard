@@ -14,8 +14,7 @@
             <i class="i-alert-circle"></i> Notice
           </h1>
           <p>Only Holders of the ZH/ZHD token may participate on this platform.<br>
-            Email <a href="mailto:zetta@zettahash.org"
-              class="link">zetta@zettahash.org</a> for more information.</p>
+            Email <a href="mailto:zetta@zettahash.org" class="link">zetta@zettahash.org</a> for more information.</p>
           <p>You can disconnect this wallet, {{ walletShortName(wallet) }}, and try another account.</p>
           <p><a class="btn-link error" @click="doDisconnect()">Disconnect {{ walletShortName(wallet) }} <i
                 class="i-log-out"></i></a></p>
@@ -43,43 +42,60 @@
 
         </template>
       </div>
-      <template v-if="wallet">
       <div class="container">
-      <div class="section">
-        <h2>Dive right in to these #Hashboard features:</h2>
-        <div class="flex-shortcuts">
-        <router-link :to="{ name: 'protocol-proposals' }" class="btn"><i class="i-bulb"></i> View Proposals</router-link>
-        <router-link :to="{ name: 'safe' }" class="btn"><i class="i-library"></i> Check ETH & ERC-20 Wallet balances</router-link>
-        <router-link :to="{ name: 'specter' }" class="btn"><i class="i-library"></i> Check BTC Wallet balances</router-link>
-        <router-link :to="{ name: 'market' }" class="btn"><i class="i-trending-up"></i> ZHD Markets</router-link>
-        <a href="https://teams.zettahash.org/signup_user_complete/?id=sy8det39ypgyxcjye9oxodk36a&md=link&sbr=fa" target="_blank" class="btn"><i class="i-forum"></i> Consensus</a>
-        </div>
-      </div>
-      </div>
-      </template>
-      <div class="container">
-        <img class="img overlap-lower"
-          src="/src/assets/img/design/6590e06479ac1d8d587b3952_dashdark-x-reports-page-dashboard-webflow-template.png">
-        <img class="img overlap-upper"
-          src="/src/assets/img/design/6590e06479ac1d8d587b3954_dashdark-x-products-page-dashboard-webflow-template-p-500.png">
-        <div class="text-overlay exempt">
-          <p>Get Ready for next-level transparency.</p>
-          <p v-if="application.zhHolderBool"><router-link :to="{ name: 'mining' }" class="btn">Enter
-              Hashboard</router-link></p>
-          <template v-else>
-            <template v-if="message === 'needAcc'">
-              <p>Connect your wallet to get started.</p>
-              <p class="centred-connect-btn">
-                <WalletConnector />
-              </p>
-              <p>
-                <template v-if="wallet">
-                  <a class="btn-link error" @click="reset()">Reset wallet connection</a>
-                </template>
-              </p>
+        <div class="section">
+          <h2>Here's what you can do on #Hashboard:</h2>
+          <div class="flex-shortcuts">
+            <router-link :to="{ name: 'mining' }" class="tile">
+              <img src="/static/img/image.webp">
+              <div class="text-container">
+                <div class="icon"><b-icon-activity /></div>
+                <h3>View Mining Stats</h3>
+                <p>Get detailed metrics on hash rates, energy consumption, and profitability of Zettahash operations.
+                </p>
+                  <p v-if="!wallet">Connect your wallet to get started.</p>
 
-            </template>
-          </template>
+              </div>
+            </router-link>
+
+            <router-link :to="{ name: 'dao-treasury' }" class="tile">
+              <img src="/static/img/2image.webp">
+              <div class="text-container">
+                <div class="icon"> <b-icon-bank-2 />
+                </div>
+                <h3>Check ETH & ERC-20 Wallet balances</h3>
+                <p>Get a clear view of balances and addresses to ensuring accountability and financial management
+                  within the Zettahash ecosystem.
+                </p>
+                  <p v-if="!wallet">Connect your wallet to get started.</p>
+                </div>
+            </router-link>
+
+            <router-link :to="{ name: 'market' }" class="tile">
+              <img src="/static/img/3image.webp">
+              <div class="text-container">
+                <div class="icon"> <b-icon-currency-exchange />
+                </div>
+                <h3>Explore Market Data and Exchange ZHD</h3>
+                <p>Explore market trends, and price movements of ZHD and make informed investment decisions.
+                </p>
+                  <p v-if="!wallet">Connect your wallet to get started.</p>
+                </div>
+            </router-link>
+
+            <router-link :to="{ name: 'vote' }" class="tile">
+              <img src="/static/img/1image.webp">
+              <div class="text-container">
+                <div class="icon"> <b-icon-lightning-charge-fill />
+                </div>
+                <h3>Explore Proposals from Snapshot</h3>
+                <p>Stay informed about governance decisions and actively participate in the decision-making process by
+                  reviewing and voting on key initiatives.
+                </p>
+                  <p v-if="!wallet">Connect your wallet to get started.</p>
+                </div>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -147,7 +163,7 @@ export default {
 <style lang="scss" scoped>
 @import 'src/assets/scss/constants';
 
-.section{
+.section {
   box-shadow: 0 0 0 1px var(--neutral-4);
   border-radius: $radius1;
   display: flex;
@@ -156,13 +172,14 @@ export default {
   min-height: max-content;
   padding: 20px;
   gap: 10px;
-  h2{
-    margin-top:0;
+
+  h2 {
+    margin-top: 0;
     text-align: center;
   }
 }
 
-.flex-shortcuts{
+.flex-shortcuts {
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -172,14 +189,71 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  a{
-    &:nth-of-type(1){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-cerulean));}}
-    &:nth-of-type(2){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--lime));}}
-    &:nth-of-type(3){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-amber));}}
-    &:nth-of-type(4){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--crimson));}}
-    &:nth-of-type(5){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--violet));}}
+
+  a {
+    display: grid;
+    grid-template: 1fr / 1fr 3fr;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: var(--neutral-6);
+    background-image: radial-gradient(ellipse at top right, var(--neutral-4), transparent), radial-gradient(ellipse at bottom left, var(--neutral-6), transparent);
+    align-content: center;
+    gap: 20px;
+    transition: 200ms ease;
+    ;
+
+    &:hover {
+      background: var(--brandeis-blue);
+
+    }
+
+    img {
+      mix-blend-mode: luminosity;
+      width: 200px;
+      border-radius: 4px;
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      justify-content: start;
+      align-items: flex-start;
+
+      h3,
+      p {
+        text-align: left;
+        margin: 0;
+        ;
+      }
+      h3 {
+        font-size: 24px;
+      }
+
+      .icon {
+        height: auto;
+        width: auto;
+        margin: 0 auto 0 0;
+
+        svg {
+          height: 50px;
+          width: 50px;
+          ;
+        }
+      }
+    }
   }
+
+  // a{
+  //   &:nth-of-type(1){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-cerulean));}}
+  //   &:nth-of-type(2){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--lime));}}
+  //   &:nth-of-type(3){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-amber));}}
+  //   &:nth-of-type(4){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--crimson));}}
+  //   &:nth-of-type(5){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--violet));}}
+  // }
 }
+
 .modal-relative {
   margin: 40px auto;
   height: max-content;
@@ -195,7 +269,8 @@ export default {
   right: 0;
   bottom: 0;
 }
-h1{
+
+h1 {
   justify-content: center;
   align-items: center;
 }
@@ -215,8 +290,8 @@ p {
 }
 
 
-.centred-connect-btn{
+.centred-connect-btn {
   width: max-content;
-    margin: auto;
+  margin: auto;
 }
 </style>
