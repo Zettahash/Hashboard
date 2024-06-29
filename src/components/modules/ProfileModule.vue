@@ -33,6 +33,19 @@
           </div>
         </div>
       </div>
+
+
+      <div class="containers-ui">
+        <div class="container compact">
+          <div class="head">
+            Disclaimer
+          </div>
+          <div class="head"><span>Disclaimer <b>{{ application.disclaimerAgreed?'Accepted':' NOT ACCEPTED' }}</b><br><small class="notice"><i class="i-alert-triangle"></i> You have {{ application.disclaimerAgreed?'':'not' }} accepted the application disclaimer on this device.</small></span>
+            <a @click="toggleDisclaimerAccepted()"><i :class="`switch-indicator ${(application.disclaimerAgreed ? 'on' : 'off')}`"></i></a>
+          </div>
+        </div>
+      </div>
+
     </div>
 </template>
 
@@ -81,6 +94,13 @@ const toggleUseENS = () => {
   let ensValue = ensEnabled.value ? 'noens' : 'ens';
   setProfile(ensValue);
 };
+
+const toggleDisclaimerAccepted = () => {
+  store.commit('setDynamic', {
+    item: 'disclaimerAgreed',
+    value: !application.value.disclaimerAgreed
+  });
+}
 
 const routeLoaded = () => {
   store.commit('setDynamic', {
