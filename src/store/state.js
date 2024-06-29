@@ -27,6 +27,7 @@ let state = {
       names: ['General', 'Organization', 'Governance', 'Mining', 'Economics', 'Proposals']
     },
     systemCurrencies: false,
+    disclaimerAgreed: false,
   },
   data: {},
   payload: false,

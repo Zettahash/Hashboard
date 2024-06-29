@@ -4,6 +4,7 @@ let mutations = {
       case (payload.item === "web3"):
       case (payload.item === "ethereum"):
       case (payload.item === "test"):
+      case (payload.item === "disclaimerAgreed"):
       case (payload.item.indexOf('ui') === 0):
         localStorage.setItem(payload.item, payload.value)
         break;

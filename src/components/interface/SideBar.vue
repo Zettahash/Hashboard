@@ -8,7 +8,6 @@
       </div>
       <div class="shortcuts">
         <label>Hashboard</label>
-
         <router-link
           :to="{ name: 'mining' }"
           @mouseenter="labelify"
@@ -17,7 +16,6 @@
           <b-icon-activity />
           <span>Mining</span>
         </router-link>
-
         <router-link
           :to="{ name: 'consensus' }"
           @mouseenter="labelify"
@@ -44,7 +42,7 @@
           <b-icon-bank-2 />
           <span>Treasury</span>
         </a>
-        <ul v-if="dropdown['treasury']">
+        <ul v-if="dropdown.treasury">
           <li>
             <router-link
               @click="dropdownToggle('treasury')"
@@ -62,15 +60,11 @@
               @mouseenter="labelify"
               @mouseleave="unlabelify"
             >
-              <img src="/src/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png"
-                class="icon"
-              />
+              <img src="/src/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png" class="icon" />
               <span>Hedgey App</span>
             </router-link>
           </li>
         </ul>
-
-
         <router-link
           :to="{ name: 'assets' }"
           @mouseenter="labelify"
@@ -101,7 +95,7 @@
         </router-link>
         <a
           v-if="wallet && !application.zhHolderBool"
-          @click="doDisconnect()"
+          @click="doDisconnect"
           @mouseenter="labelify"
           @mouseleave="unlabelify"
         >
@@ -109,10 +103,9 @@
           <span>Disconnect</span>
         </a>
         <WalletConnector @mouseenter="labelify" @mouseleave="unlabelify" />
-
         <a
           :class="`sync-status ${data.synchronisationStatus}`"
-          @click="$store.dispatch('expressFetch')"
+          @click="store.dispatch('expressFetch')"
           @mouseenter="labelify"
           @mouseleave="unlabelify"
         >
@@ -138,7 +131,6 @@
         </a>
       </div>
     </template>
-
     <div class="version shortcuts">
       <a>
         {{ version[0] }}-beta
@@ -147,139 +139,122 @@
     </div>
   </div>
 </template>
-<script>
-import { mapGetters } from "vuex";
-import { profileImg, hasherName } from "@/utils/forum.js";
-import { walletShortName } from "@/utils/strings.js";
-import { useDisconnect } from "@web3modal/ethers5/vue";
-import { getIcon } from "@/utils/general.js";
-import Zed from "@/components/interface/Zed.vue";
-import WalletConnector from "./WalletConnector.vue";
-import SidebarToggle from "@/components/interface/SidebarToggle.vue";
+
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue';
+import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+import { useDisconnect } from '@web3modal/ethers5/vue';
+import Zed from '@/components/interface/Zed.vue';
+import WalletConnector from './WalletConnector.vue';
+import SidebarToggle from '@/components/interface/SidebarToggle.vue';
+import { profileImg, hasherName } from '@/utils/forum.js';
+import { walletShortName } from '@/utils/strings.js';
+import { getIcon } from '@/utils/general.js';
+
+const store = useStore();
+const route = useRoute();
 const { disconnect } = useDisconnect();
-export default {
-  name: "SideBar",
-  components: {
-    Zed,
-    WalletConnector,
-    SidebarToggle,
-  },
-  data() {
-    return {
-      checkConnectionInterval: false,
-      network: false,
-      dropdown: {
-        hashboard: false,
-        treasury: false,
-        beneficiary: false,
-        pool: false,
-        consensus: false,
-      },
-    };
-  },
-  computed: {
-    ...mapGetters({
-      application: "application",
-      wallet: "wallet",
-      data: "data",
-    }),
-    uiSidebarCollapse() {
-      let stage = 2;
-      if (window.innerWidth < 700) {
-        stage--;
-      }
-      if (this.application.uiSidebarCollapse) {
-        stage--;
-      }
-      return stage == 0 ? false : stage;
-    },
-    version() {
-      if (this.application.version) {
-        let arr = [];
-        arr.push(String(this.application.version).split("-")[0]);
-        arr.push(String(this.application.version).split(arr[0])[1]);
-        return arr;
-      }
-      return [];
-    },
-  },
-  mounted() {
-    this.init();
-    window.addEventListener("scroll", this.unlabelify);
-  },
-  watch: {
-    $route() {
-      if (window.innerWidth < 700) {
-        this.$store.commit("setDynamic", {
-          item: "uiSidebarCollapse",
-          value: true,
-        });
-      }
-    },
-  },
-  methods: {
-    profileImg,
-    hasherName,
-    walletShortName,
-    disconnect,
-    doDisconnect() {
-      this.$store.commit("setWallet", false);
-      disconnect();
-    },
-    async init() {},
-    routeClass(parent, depth = 0) {
-      let caret = Object.keys(this.dropdown).indexOf(parent) > -1?`caret` :''
-      let className = `${caret} shortcut `;
-      if (this.$route.meta.breadcrumbs) {
-        let breadcrumbs = this.$route.meta.breadcrumbs;
-        if (breadcrumbs.indexOf(parent) == depth) {
-          className += "active ";
-          if (Object.keys(this.dropdown).indexOf(parent) > -1) {
-            this.dropdown[parent] = true;
-          }
-        }
-      }
-      if (this.dropdown[parent]) {
-        className += "dropdown-open";
-      }
-      return className;
-    },
-    dropdownToggle(item, depth = 0) {
-      if (depth == 0) {
-        for (const key of Object.keys(this.dropdown)) {
-          if (key != item) {
-            this.dropdown[key] = false;
-          }
-        }
-      }
-      this.dropdown[item] = !this.dropdown[item];
-    },
-    getIcon,
-    labelify(event) {
-      let label = event.target.querySelector("span").innerHTML;
-      this.unlabelify();
-      if (document.querySelector(".sidebar").classList.contains("collapse-1")) {
-        let temp = document.createElement("div");
-        temp.classList.add("temp-label-sidebar");
-        temp.setAttribute(
-          "style",
-          `transform:translate(${event.clientX}px, ${event.clientY}px)`
-        );
-        temp.innerHTML = label;
-        document.body.append(temp);
-      }
-    },
-    unlabelify() {
-      if (document.querySelector(".temp-label-sidebar")) {
-        document.querySelector(".temp-label-sidebar").remove();
-      }
-    },
-    activeFarm(pool) {
-      return pool === this.application.activeFarm;
-    },
-  },
+
+const dropdown = ref({
+  hashboard: false,
+  treasury: false,
+  beneficiary: false,
+  pool: false,
+  consensus: false,
+});
+
+const uiSidebarCollapse = computed(() => {
+  let stage = 2;
+  if (window.innerWidth < 700) {
+    stage--;
+  }
+  if (store.getters.application.uiSidebarCollapse) {
+    stage--;
+  }
+  return stage == 0 ? false : stage;
+});
+
+const version = computed(() => {
+  if (store.getters.application.version) {
+    let arr = [];
+    arr.push(String(store.getters.application.version).split('-')[0]);
+    arr.push(String(store.getters.application.version).split(arr[0])[1]);
+    return arr;
+  }
+  return [];
+});
+
+const application = computed(() => store.getters.application);
+const wallet = computed(() => store.getters.wallet);
+const data = computed(() => store.getters.data);
+
+const doDisconnect = () => {
+  store.commit('setWallet', false);
+  disconnect();
 };
+
+const routeClass = (parent, depth = 0) => {
+  let caret = Object.keys(dropdown.value).indexOf(parent) > -1 ? 'caret' : '';
+  let className = `${caret} shortcut `;
+  if (route.meta.breadcrumbs) {
+    let breadcrumbs = route.meta.breadcrumbs;
+    if (breadcrumbs.indexOf(parent) == depth) {
+      className += 'active ';
+      if (Object.keys(dropdown.value).indexOf(parent) > -1) {
+        dropdown.value[parent] = true;
+      }
+    }
+  }
+  if (dropdown.value[parent]) {
+    className += 'dropdown-open';
+  }
+  return className;
+};
+
+const dropdownToggle = (item, depth = 0) => {
+  if (depth == 0) {
+    for (const key of Object.keys(dropdown.value)) {
+      if (key != item) {
+        dropdown.value[key] = false;
+      }
+    }
+  }
+  dropdown.value[item] = !dropdown.value[item];
+};
+
+const labelify = (event) => {
+  let label = event.target.querySelector('span').innerHTML;
+  unlabelify();
+  if (document.querySelector('.sidebar').classList.contains('collapse-1')) {
+    let temp = document.createElement('div');
+    temp.classList.add('temp-label-sidebar');
+    temp.setAttribute('style', `transform:translate(${event.clientX}px, ${event.clientY}px)`);
+    temp.innerHTML = label;
+    document.body.append(temp);
+  }
+};
+
+const unlabelify = () => {
+  if (document.querySelector('.temp-label-sidebar')) {
+    document.querySelector('.temp-label-sidebar').remove();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', unlabelify);
+});
+
+watch(() => route.name, () => {
+  if (window.innerWidth < 700) {
+    store.commit('setDynamic', {
+      item: 'uiSidebarCollapse',
+      value: true,
+    });
+  }
+});
 </script>
+
 <style lang="scss">
 .temp-label-sidebar {
   position: absolute;
@@ -291,10 +266,9 @@ export default {
   padding: 2px 5px;
   border-radius: 3px;
 }
-</style>
-<style lang="scss">
-@import "/src/assets/scss/constants";
-@import "/src/assets/scss/sidebar";
+
+@import '/src/assets/scss/constants';
+@import '/src/assets/scss/sidebar';
 
 .wallet-icon {
   background: var(--neutral-10);

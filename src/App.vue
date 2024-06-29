@@ -11,6 +11,7 @@
         <LandingPage />
       </template>
     </div>
+    <Disclaimer v-if="!application.disclaimerAgreed" />
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import { useRoute } from 'vue-router';
 import SideBar from './components/interface/SideBar.vue';
 import LandingPage from './components/pages/LandingPage.vue';
 import Notifications from './components/modules/Notifications.vue';
+import Disclaimer from './components/modules/Disclaimer.vue';
 
 // Setup Vuex store
 const store = useStore();
