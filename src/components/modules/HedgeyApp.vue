@@ -7,7 +7,7 @@
               class="icon-times"></i></span></span>
       </div>
     <template v-if="noControls || app[walletKey]">
-      <VestingTable :address="address" :walletName="walletKey" graphQLKey="VestingNFTs2" />
+      <VestingTable :address="address" :walletName="walletKey" graphQLKey="VestingPlans" tokenContract="zhd" />
     </template>
   </div>
 </template>

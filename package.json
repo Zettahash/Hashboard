@@ -31,7 +31,7 @@
     "detect-browser": "^5.2.0",
     "ethers": "5.7.0",
     "fast-average-color": "^9.3.0",
-    "git-describe": "^4.1.1",
+    "git-rev-sync": "^3.0.2",
     "graphql-tag": "^2.12.6",
     "js-sha256": "^0.10.1",
     "jsonexport": "^3.2.0",

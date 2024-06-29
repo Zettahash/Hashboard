@@ -305,7 +305,7 @@ const routes = [
       },
     ],
     meta: {
-      title: 'Hedgey Vesting | ' + title,
+      title: 'Hedgey App | ' + title,
       breadcrumbs: ['treasury','hedgey-vesting'],
       metaTags: [
         {

@@ -65,7 +65,7 @@
               <img src="/src/assets/img/providers/65ec83064e64d3fad5f53b5d_h..png"
                 class="icon"
               />
-              <span>Hedgey Vesting</span>
+              <span>Hedgey App</span>
             </router-link>
           </li>
         </ul>
@@ -141,7 +141,7 @@
 
     <div class="version shortcuts">
       <a>
-        {{ version[0]? version[0]:'v0.1.88-hotfix' }}-beta
+        {{ version[0] }}-beta
         <span>{{ version[1] }}</span>
       </a>
     </div>

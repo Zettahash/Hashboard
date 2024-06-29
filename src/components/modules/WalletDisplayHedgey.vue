@@ -4,12 +4,12 @@
     <div class="brick-wall" v-if="wallet_group_key && wallet_type && holdings">
       <div class="balances-group tile open">
         <h2>
-          <span>{{ String(wallet_group_key).replace(/_/g, ' ') }} Investor Lockups on Hedgey</span>
-          <span class="sub">ZHD-Token Holdings: ${{ zhBalance }} USD</span>
+          <span>{{ String(wallet_group_key).replace(/_/g, ' ') }} {{casify(contractType)}} on Hedgey</span>
+          <span class="sub">{{systemCurrencies[tokenContract].name}} Token Holdings: <b>${{ tokenBalance }} USD</b></span>
           <span class="sub click-to-copy" @click="c2c" :title="address.address" :data-copy="address.address"><span
               class="cap">{{ wallet_type }} </span> address: {{ address.addressShort }}</span>
         </h2>
-        <VestingTable :address="address.address" :walletName="wallet_group_key" graphQLKey="InvestorLockup" />
+        <VestingTable :address="address.address" :walletName="wallet_group_key" :graphQLKey="contractType" :tokenContract="tokenContract" />
       </div>
     </div>
   </div>
@@ -27,10 +27,12 @@ export default {
       app: {},
     }
   },
-  components: { LoadingEle,VestingTable, },
+  components: { LoadingEle, VestingTable, },
   props: {
     wallet_type: String,
     wallet_group_key: String,
+    contractType: String,
+    tokenContract: String,
   },
   computed: {
     ...mapGetters({
@@ -39,9 +41,11 @@ export default {
       holdings: 'holdings',
       rates: 'rates',
       wallet: 'wallet',
+      systemCurrencies: 'systemCurrencies',
     }),
-    zhBalance() {
-      for (const bal of this.walletBalances) { if (bal.currency == "ZHD") { return bal.balanceUSD } }
+    tokenBalance() {
+      const currentToken = this.systemCurrencies[this.tokenContract].name
+      for (const bal of this.walletBalances) { if (bal.currency == currentToken) { return bal.balanceUSD } }
       return "0.00"
     },
     walletBalances() {
@@ -124,6 +128,11 @@ export default {
     c2c,
     getIcon,
     scrollTo,
+    casify(key) {
+      key = key.replace(/([A-Z])/g, " $1")
+      key = key.indexOf(" ") == 0 ? key.substring(1) : key
+      return key
+    },
     openWalletInProviderView(items) {
       let address = false
       for (const item of items) {
