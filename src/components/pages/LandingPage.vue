@@ -1,7 +1,6 @@
 <template lang="html">
   <div class="flex-overview demo">
-    <div class="full-width-header">
-    </div>
+    <div class="full-width-header"></div>
     <div class="page-inner">
       <img class="icon" src="/src/assets/img/zh-circle.svg">
 
@@ -10,38 +9,30 @@
 
       <div class="modal-relative centre" v-if="!application.zhHolderBool">
         <template v-if="message === 'needZH'">
-          <h1>
-            <i class="i-alert-circle"></i> Notice
-          </h1>
+          <h1><i class="i-alert-circle"></i> Notice</h1>
           <p>Only Holders of the ZH/ZHD token may participate on this platform.<br>
             Email <a href="mailto:zetta@zettahash.org" class="link">zetta@zettahash.org</a> for more information.</p>
           <p>You can disconnect this wallet, {{ walletShortName(wallet) }}, and try another account.</p>
-          <p><a class="btn-link error" @click="doDisconnect()">Disconnect {{ walletShortName(wallet) }} <i
-                class="i-log-out"></i></a></p>
+          <p><a class="btn-link error" @click="doDisconnect">Disconnect {{ walletShortName(wallet) }} <i class="i-log-out"></i></a></p>
         </template>
         <template v-if="message === 'waiting'">
-          <h1>
-            <a class="spinner"></a> Connecting...
-          </h1>
+          <h1><a class="spinner"></a> Connecting...</h1>
           <p>Checking for wallet connection...</p>
-
         </template>
         <template v-if="message === 'needAcc'">
-          <h1>
-            <i class="i-alert-circle"></i> Welcome
-          </h1>
+          <h1><i class="i-alert-circle"></i> Welcome</h1>
           <p>Connect your wallet to get started.</p>
           <p class="centred-connect-btn">
             <WalletConnector />
           </p>
           <p>
             <template v-if="wallet">
-              <a class="btn-link error" @click="reset()">Reset wallet connection</a>
+              <a class="btn-link error" @click="reset">Reset wallet connection</a>
             </template>
           </p>
-
         </template>
       </div>
+
       <div class="container">
         <div class="section">
           <h2>Here's what you can do on #Hashboard:</h2>
@@ -51,49 +42,39 @@
               <div class="text-container">
                 <div class="icon"><b-icon-activity /></div>
                 <h3>View Mining Stats</h3>
-                <p>Get detailed metrics on hash rates, energy consumption, and profitability of Zettahash operations.
-                </p>
-                  <p v-if="!wallet">Connect your wallet to get started.</p>
-
+                <p>Get detailed metrics on hash rates, energy consumption, and profitability of Zettahash operations.</p>
+                <p v-if="!wallet">Connect your wallet to get started.</p>
               </div>
             </router-link>
 
             <router-link :to="{ name: 'dao-treasury' }" class="tile">
               <img src="/static/img/2image.webp">
               <div class="text-container">
-                <div class="icon"> <b-icon-bank-2 />
-                </div>
+                <div class="icon"><b-icon-bank-2 /></div>
                 <h3>Check ETH & ERC-20 Wallet balances</h3>
-                <p>Get a clear view of balances and addresses to ensuring accountability and financial management
-                  within the Zettahash ecosystem.
-                </p>
-                  <p v-if="!wallet">Connect your wallet to get started.</p>
-                </div>
+                <p>Get a clear view of balances and addresses to ensuring accountability and financial management within the Zettahash ecosystem.</p>
+                <p v-if="!wallet">Connect your wallet to get started.</p>
+              </div>
             </router-link>
 
             <router-link :to="{ name: 'market' }" class="tile">
               <img src="/static/img/3image.webp">
               <div class="text-container">
-                <div class="icon"> <b-icon-currency-exchange />
-                </div>
+                <div class="icon"><b-icon-currency-exchange /></div>
                 <h3>Explore Market Data and Exchange ZHD</h3>
-                <p>Explore market trends, and price movements of ZHD and make informed investment decisions.
-                </p>
-                  <p v-if="!wallet">Connect your wallet to get started.</p>
-                </div>
+                <p>Explore market trends, and price movements of ZHD and make informed investment decisions.</p>
+                <p v-if="!wallet">Connect your wallet to get started.</p>
+              </div>
             </router-link>
 
             <router-link :to="{ name: 'vote' }" class="tile">
               <img src="/static/img/1image.webp">
               <div class="text-container">
-                <div class="icon"> <b-icon-lightning-charge-fill />
-                </div>
+                <div class="icon"><b-icon-lightning-charge-fill /></div>
                 <h3>Explore Proposals from Snapshot</h3>
-                <p>Stay informed about governance decisions and actively participate in the decision-making process by
-                  reviewing and voting on key initiatives.
-                </p>
-                  <p v-if="!wallet">Connect your wallet to get started.</p>
-                </div>
+                <p>Stay informed about governance decisions and actively participate in the decision-making process by reviewing and voting on key initiatives.</p>
+                <p v-if="!wallet">Connect your wallet to get started.</p>
+              </div>
             </router-link>
           </div>
         </div>
@@ -101,65 +82,59 @@
     </div>
   </div>
 </template>
-<script>
-import { mapGetters } from 'vuex';
-import WalletConnector from '@/components/interface/WalletConnector.vue'
-import { walletShortName } from '@/utils/strings.js'
-import { doDisconnect } from '@/utils/wallet'
 
-export default {
-  name: 'LandingPage',
-  data() {
-    return {
-      timeout: false,
-      timeoutFunction: false,
+<script setup>
+import { ref, computed, watch, onMounted } from 'vue';
+import { useStore } from 'vuex';
+import WalletConnector from '@/components/interface/WalletConnector.vue';
+import { walletShortName } from '@/utils/strings.js';
+import { doDisconnect } from '@/utils/wallet';
+const { proxy } = getCurrentInstance();
+
+// Setup Vuex store
+const store = useStore();
+
+// Reactive data
+const timeout = ref(false);
+const timeoutFunction = ref(false);
+
+// Getters from Vuex store
+const application = computed(() => store.getters.application);
+const wallet = computed(() => store.getters.wallet);
+
+// Computed properties
+const message = computed(() => {
+  if (!timeout.value) return 'waiting';
+  if (!application.value.walletConnected) return 'needAcc';
+  if (!application.value.zhHolderBool) return 'needZH';
+  return '?';
+});
+
+// Methods
+const reset = () => {
+  doDisconnect();
+};
+
+watch(() => application.value.zhHolderBool, (value) => {
+  if (value === true) {
+    clearTimeout(timeoutFunction.value);
+    timeoutFunction.value = false;
+  }
+});
+
+onMounted(() => {
+  window.payWallThis = { application, timeout, timeoutFunction };
+  timeoutFunction.value = setTimeout(() => {
+    if (!application.value.zhHolderBool) {
+      timeout.value = true;
+      window.payWallThis = { application, timeout, timeoutFunction };
+      proxy.$toast('ZH holder status check timed out!', { type: 'error' });
+
     }
-  },
-  computed: {
-    ...mapGetters({
-      application: 'application',
-      wallet: 'wallet',
-
-    }),
-    message() {
-
-      if (!this.timeout) { return 'waiting' }
-      if (!this.application.walletConnected) { return 'needAcc' }
-      if (!this.application.zhHolderBool) { return 'needZH' }
-      return '?'
-    },
-    zhHolderBool() {
-      return this.application.zhHolderBool
-    },
-  },
-  components: {
-    WalletConnector,
-  },
-  methods: {
-    walletShortName, doDisconnect,
-    reset() {
-      this.doDisconnect()
-    },
-  },
-  watch: {
-    zhHolderBool(value) {
-      if (value == true) {
-        clearTimeout(this.timeoutFunction)
-        this.timeoutFunction = false
-      }
-    }
-  },
-  mounted() {
-    window.payWallThis = this
-    this.timeoutFunction = setTimeout(() => {
-      if (!window.payWallThis.application.zhHolderBool) {
-        window.payWallThis.timeout = true
-        window.payWallThis = this
-      }
-    }, 8000)
-  },
-}
+  }, 8000);
+});
 </script>
+
 <style lang="scss" scoped>
 @import 'src/assets/scss/constants';
 
@@ -200,11 +175,9 @@ export default {
     align-content: center;
     gap: 20px;
     transition: 200ms ease;
-    ;
 
     &:hover {
       background: var(--brandeis-blue);
-
     }
 
     img {
@@ -225,7 +198,6 @@ export default {
       p {
         text-align: left;
         margin: 0;
-        ;
       }
       h3 {
         font-size: 24px;
@@ -239,19 +211,10 @@ export default {
         svg {
           height: 50px;
           width: 50px;
-          ;
         }
       }
     }
   }
-
-  // a{
-  //   &:nth-of-type(1){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-cerulean));}}
-  //   &:nth-of-type(2){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--lime));}}
-  //   &:nth-of-type(3){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--light-amber));}}
-  //   &:nth-of-type(4){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--crimson));}}
-  //   &:nth-of-type(5){&:not(:hover){background:linear-gradient(60deg, var(--blue-1), var(--violet));}}
-  // }
 }
 
 .modal-relative {
@@ -289,9 +252,11 @@ p {
   text-align: center;
 }
 
-
 .centred-connect-btn {
   width: max-content;
-  margin: auto;
+  margin: 20px auto;
+  a{
+    // margin: 20px auto;
+    padding: 5px 25px;}
 }
 </style>
