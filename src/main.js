@@ -5,7 +5,7 @@ import store from './store'
 import timeago from 'vue-timeago3'
 import { BootstrapIconsPlugin } from 'bootstrap-icons-vue'
 import 'vue3-toastify/dist/index.css'; // Import the toastify CSS
-import { toast } from 'vue3-toastify'; // Import the toast function
+import { toast } from 'vue3-toastify';
 
 const app = createApp(App)
 
@@ -19,7 +19,6 @@ app.mount('#app')
 
 store.dispatch('init').catch(error => {
   console.error('Error during store initialization:', error)
-})
+});
 
-// Add toast to the global properties so it can be accessed anywhere
-app.config.globalProperties.$toast = toast
+app.config.globalProperties.$toast = toast;

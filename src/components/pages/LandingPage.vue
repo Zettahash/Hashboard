@@ -84,7 +84,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, getCurrentInstance } from 'vue';
 import { useStore } from 'vuex';
 import WalletConnector from '@/components/interface/WalletConnector.vue';
 import { walletShortName } from '@/utils/strings.js';
@@ -122,13 +122,22 @@ watch(() => application.value.zhHolderBool, (value) => {
   }
 });
 
+watch(() => message.value, (value) => {
+  switch (value) {
+    case 'needAcc':
+  proxy.$toast("Connect your wallet to get started with Hashboard", {theme: 'dark', autoClose: false, type: 'error'});
+  break;
+      default:
+  }
+});
+
 onMounted(() => {
   window.payWallThis = { application, timeout, timeoutFunction };
   timeoutFunction.value = setTimeout(() => {
     if (!application.value.zhHolderBool) {
       timeout.value = true;
       window.payWallThis = { application, timeout, timeoutFunction };
-      proxy.$toast('ZH holder status check timed out!', { type: 'error' });
+      proxy.$toast("You'll need to hold ZHD or ZH to access Hashboard", {theme: 'dark', autoClose: false, type: 'error'});
 
     }
   }, 8000);
