@@ -1,4 +1,7 @@
-# zettahash-hashboard
+# Zettahash #Hashboard Frontend
+
+![badge](https://img.shields.io/badge/Current_Deployment_Environment-Couudflare-orange)
+
 
 We use Vite frontend tooling.
 
