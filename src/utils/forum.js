@@ -85,7 +85,7 @@ const loadForumCache = function (address) {
 
 const setProfile = async function (payload) {
   const walletStore = computed(() => rawStore.state.wallet)
-  let result = await fetch(`https://zettahash-hashboard-middleware.vercel.app/forum/set-profile`, {
+  let result = await fetch(`${import.meta.env.VITE_MIDDLEWARE_URL}/forum/set-profile`, {
     method: 'post', headers: { 'Content-Type': 'application/json', },
     body: JSON.stringify({ data: payload, address: walletStore.value })
   })

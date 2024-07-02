@@ -12,7 +12,7 @@ const walletProvider = application.value.walletConnectModal.getWalletProvider()
 const provider = new providers.Web3Provider(walletProvider)
 
 const UniswapWidget = applyReactInVue(SwapWidget)
-const tokenList = 'https://zettahash-hashboard-middleware.vercel.app/api/get-uniswap'
+const tokenList = import.meta.env.VITE_MIDDLEWARE_URL + '/api/get-uniswap'
 const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY
 const rpcUrl = `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}`
 

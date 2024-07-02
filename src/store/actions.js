@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const endpoint = "https://zettahash-hashboard-middleware.vercel.app"
+const endpoint = import.meta.env.VITE_MIDDLEWARE_URL
 import { encodeStr } from '@/utils/strings.js'
 
 const actions = {
@@ -32,7 +32,7 @@ const actions = {
     commit("setData", { item: 'synchronisationStatus', value: "syncing" })
 
 
-    let endpoint = "https://zettahash_hashboard_middleware.zetta-735.workers.dev"
+    let endpoint = import.meta.env.VITE_MIDDLEWARE_URL
     try {
       fetch(`${endpoint}/api/get-data`, { method: 'get' })
         .then(result => { return result.json() }).then(data => {

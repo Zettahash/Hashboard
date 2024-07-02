@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="ui-ele">
     <LoadingEle :stop="(holdings && rates) ? true : false" :long="true" />
-    <div class="brick-wall" v-if="wallet_group_key && wallet_type && holdings">
+    <div class="brick-wall" v-if="wallet_group_key && wallet_type && holdings && rates">
       <div class="balances-group tile open">
         <h2>
           <span>{{ String(wallet_group_key).replace(/_/g, ' ') }} <span class="cap">{{ wallet_type }} </span>
@@ -23,10 +23,20 @@
                 <h3 class="type"><span>{{ item.currency }}</span> <span v-if="item.badge" class="badge">{{
                   item.badge
                     }}</span></h3>
-                <div class="balance"><span class="truncate">{{ item.balanceFormatted }}</span>
-                  {{ item.displayCurrency ? item.displayCurrency : item.currency }}</div>
-                <div class="balance sub"><span class="">${{ item.balanceUSD }} USD</span></div>
-                <div class="balance sub extra"><span class="">{{ Number(rates[item.displayCurrency].priceUsd).toFixed(4) }} USD/{{ item.displayCurrency }}</span></div>
+                <div class="balance" :set="currency = item.displayCurrency ? item.displayCurrency : item.currency"><span
+                    class="truncate">{{ item.balanceFormatted }}</span>
+                  {{ currency }}</div>
+                <template v-if="rates[currency]">
+                  <template v-if="rates[currency].message">
+                    <div class="balance sub">{{rates[currency].message}}</div>
+                  </template>
+                  <template v-else>
+                    <div class="balance sub"><span class="">${{ item.balanceUSD }} USD</span></div>
+                    <div class="balance sub extra"><span class="">{{ Number(rates[currency].priceUsd).toFixed(4) }}
+                        USD/{{
+                          currency }}</span></div>
+                  </template>
+                </template>
               </div>
             </div>
           </div>
