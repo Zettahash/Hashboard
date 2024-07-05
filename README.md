@@ -1,7 +1,9 @@
 # Zettahash Hashboard Frontend
 
 [Hashboard Application](https://hashboard.zettahash.org/)
+
 [Preview Builds](https://hashboard-preview.zettahash.org/)
+
 
 ![Deployment Badge](https://img.shields.io/badge/Current_Deployment_Environment-Cloudflare-orange)
 
