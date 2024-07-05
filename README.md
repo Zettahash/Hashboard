@@ -1,5 +1,8 @@
 # Zettahash Hashboard Frontend
 
+[Hashboard Application](https://hashboard.zettahash.org/)
+[Preview Builds](https://hashboard-preview.zettahash.org/)
+
 ![Deployment Badge](https://img.shields.io/badge/Current_Deployment_Environment-Cloudflare-orange)
 
 The Zettahash Hashboard Frontend is a crucial component of the Zettahash DAO, designed to ensure transparency and accessibility of project information for users. This frontend provides comprehensive data on financials, computational power, hashrate, profitability, market trends, tokenholder statistics, governance proposals powered by Snapshot, and communication channels.
