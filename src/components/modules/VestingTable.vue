@@ -34,7 +34,8 @@ const hedgeyVested = async () => {
 
 const decimalisePrice = (totalAmount, decimals, ticker) => {
   let price = (Number(totalAmount) / (Math.pow(10, decimals))) * rates.value[ticker].priceUsd;
-  return price >= 1 ? Number(price.toFixed(2)).toLocaleString() : price;
+  const returnValue = price >= 1 ? Number(price.toFixed(2)).toLocaleString() : price;
+  return isNaN(returnValue)?'0.00':returnValue
 };
 
 watch(() => props.walletName, hedgeyVested);
