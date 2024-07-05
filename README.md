@@ -77,8 +77,8 @@ Specify the backend server in your `.env` file. You can choose between a local s
 Example `.env` file:
 
 ```dotenv
-# Set to 'local' for local backend server or 'main' for the main full server
-VITE_BACKEND_SERVER=local
+# Set to 'locallost' for local backend server or 'https://zettahash_hashboard_middleware.zetta-735.workers.dev' for the main full server
+VITE_MIDDLEWARE_URL=http://localhost:3000
 ```
 
 ## Development Journal
