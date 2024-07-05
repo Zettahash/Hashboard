@@ -15,6 +15,7 @@ let state = {
     zhHolderBool: false,
     zhBalance: false,
     walletConnected: false,
+    walletSignatureVerified: false,
     activeFarm: 'lincoin',
     walletConnectModal: false,
     postBodyByteLimit: 950000,
