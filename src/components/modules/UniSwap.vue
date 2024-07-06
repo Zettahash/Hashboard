@@ -116,6 +116,8 @@ window.Browser = {
       height: max-content;
 
     }
+  &[class*="StyledWrapper"]{background-color: var(--neutral-6);}
+
   }
 
   [class*="Row"] {
@@ -178,5 +180,6 @@ window.Browser = {
   .button-small {
     height: 1.1rem;
   }
+
 }
 </style>
